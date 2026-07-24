@@ -498,6 +498,21 @@ fi
 
 ensure_hindsight_client_docker_dependency
 
+# ── AI Marketing Engine local patch: pre-initialize Hermes Agent state.db ──────
+# A background subsystem (tools/async_delegation.py) creates state.db with only
+# its own table at boot, so until the agent runs its first conversation the WebUI
+# logs "state.db ... has no 'source' column" and skips CLI/agent session listing.
+# Create the agent's FULL schema (idempotent) for the default home and every
+# synced profile home so listing works from first boot. Uses the same
+# hermes_state module the agent uses, so schema/version never drift. Non-fatal.
+echo ""; echo "== Pre-initializing Hermes Agent state.db schema (AI Marketing Engine)"
+if [ -f /app/scripts/init_agent_state_db.py ]; then
+  python /app/scripts/init_agent_state_db.py \
+    || echo "!! state.db pre-init skipped — WebUI still starts (self-heals on first conversation)"
+else
+  echo "!! /app/scripts/init_agent_state_db.py not found — skipping state.db pre-init"
+fi
+
 echo ""; echo "== Running hermes-webui"
 cd /app; python server.py || error_exit "hermes-webui failed or exited with an error"
 
