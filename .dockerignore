@@ -1,0 +1,9 @@
+node_modules
+data
+hermes-webui
+.git
+*.png
+!web/assets/*.png
+Hermes-Profiles.md
+bin
+.env

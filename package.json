@@ -1,0 +1,15 @@
+{
+  "name": "ai-marketing-engine",
+  "version": "1.0.0",
+  "description": "AI Marketing Engine — admin layer (organization knowledge + profile contracts) for the Hermes WebUI front end",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "generate:profiles": "node hermes/scripts/generate-profiles.js",
+    "sync:webui-profiles": "node hermes/scripts/sync-hermes-webui-profiles.js"
+  },
+  "dependencies": {},
+  "engines": {
+    "node": ">=20"
+  }
+}

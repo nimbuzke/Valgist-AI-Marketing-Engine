@@ -1,0 +1,71 @@
+# ---------------------------------------------------------------------------
+# .gitignore for the AI Marketing Engine (Community) open-source release
+# ---------------------------------------------------------------------------
+
+# === Secrets & credentials (NEVER commit) =================================
+.env
+.env.*
+!.env.example
+!.env.docker.example
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa*
+*.credentials
+secrets.*
+credentials.json
+service-account*.json
+
+# === Runtime home / application state ======================================
+# data/ is a live runtime home directory: databases, sessions, memories,
+# logs, caches, auth locks, and a synced copy of the agent. It is machine
+# state + personal data, not source. Do NOT publish it.
+/data/
+
+# === Node / JS =============================================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+.npm/
+
+# === Python (from vendored tooling) =======================================
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.direnv/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+
+# === Databases & local stores =============================================
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+*.lock
+
+# === Logs & temp ===========================================================
+*.log
+logs/
+tmp/
+*.tmp
+*.cache
+
+# === OS / editor cruft =====================================================
+.DS_Store
+Thumbs.db
+Desktop.ini
+.vscode/
+.idea/
+*.swp
+*~
+
+# === Build output ==========================================================
+dist/
+build/
+*.tsbuildinfo
