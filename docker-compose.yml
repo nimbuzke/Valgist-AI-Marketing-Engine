@@ -45,4 +45,15 @@ services:
     volumes:
       - ./data/hermes-home:/home/hermeswebui/.hermes
       - ./knowledge:/workspace
+      # ── Organization brain: read-only in chat (hard, kernel-enforced) ───────
+      # These three folders are the curated org brain. Every WebUI profile can
+      # READ them, but NONE can write them from chat — the nested :ro bind mounts
+      # override the writable ./knowledge:/workspace mount for just these subtrees.
+      # Brain edits happen through the Admin Dashboard (:8321), which mounts
+      # ./knowledge read-write (see hermes-admin above). Specialists whose normal
+      # outputs would land here draft to 07-agent-outputs/ and hand off to the
+      # Marketing Director, who promotes approved drafts via the dashboard.
+      - ./knowledge/01-brand:/workspace/01-brand:ro
+      - ./knowledge/02-market-research:/workspace/02-market-research:ro
+      - ./knowledge/06-playbooks:/workspace/06-playbooks:ro
     restart: unless-stopped

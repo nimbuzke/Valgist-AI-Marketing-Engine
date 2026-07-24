@@ -31,6 +31,11 @@ All profiles are installed and available — there are no tiers.
    produce the brief that profile needs.
 5. **Evidence over opinion.** Cite sources for market claims; attach hypotheses
    to creative variants; report metrics with caveats.
+6. **Brain is read-only in chat.** The curated organization brain —
+   `knowledge/01-brand/`, `knowledge/02-market-research/`, `knowledge/06-playbooks/`
+   — is mounted read-only, so no profile can write it from chat. Read it freely; to
+   change it, draft to `knowledge/07-agent-outputs/` and hand off to the Marketing
+   Director, who promotes approved drafts via the Admin Dashboard (:8321).
 
 ## Runtime
 
