@@ -1,6 +1,6 @@
 # Valgist — AI Marketing Engine
 
-**A complete AI marketing department you run yourself.** Spin up 31 specialist
+**A complete Marketing AI Engine you run yourself.** Spin up 31 specialist
 marketing agents — from SEO and paid social to lifecycle email, CRO, and brand
 strategy — that share one brand-aware knowledge base and work the way a real
 marketing team does. Self-hosted, model-agnostic, and open source.
@@ -62,12 +62,12 @@ cloud. You own the data, the model choice, and the outputs.
 
 All 31 agents are installed — no tiers, no upsells.
 
-| Funnel stage | Specialists |
-| --- | --- |
+| Funnel stage               | Specialists                                                                                                                                                                                                                                                               |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Acquisition** (14) | Market Researcher · SEO Engine · Content Writer · Social (Organic) · Paid Search · Paid Social · PR & Communications · Influencer Manager · Affiliate & Partnerships · Podcast & Audio · Event & Webinar · ABM Engine · Video Marketer · Localization Engine |
-| **Conversion** (6) | Copywriter · Landing Page Builder · CRO Optimizer · Lead Gen & CRM · Product Marketer · E-commerce Marketer |
-| **Retention** (5) | Email Lifecycle · Marketing Automation · Reputation Manager · Community Manager · SMS Messaging |
-| **Operations** (6) | Brand Strategist · Marketing Director · Analytics Engine · Compliance Guard · Creative Designer · Budget Planner |
+| **Conversion** (6)   | Copywriter · Landing Page Builder · CRO Optimizer · Lead Gen & CRM · Product Marketer · E-commerce Marketer                                                                                                                                                          |
+| **Retention** (5)    | Email Lifecycle · Marketing Automation · Reputation Manager · Community Manager · SMS Messaging                                                                                                                                                                       |
+| **Operations** (6)   | Brand Strategist · Marketing Director · Analytics Engine · Compliance Guard · Creative Designer · Budget Planner                                                                                                                                                     |
 
 Each agent is defined in `hermes/profiles/*.profile.md` — persona, playbooks,
 skills, tools, integrations, the context it loads, the folders it owns, and its
@@ -85,7 +85,6 @@ You'll need [Docker Desktop](https://www.docker.com/products/docker-desktop/).
    ```
 
    Everything else in that file is optional.
-
 2. **Start the stack.**
 
    ```bash
@@ -94,14 +93,12 @@ You'll need [Docker Desktop](https://www.docker.com/products/docker-desktop/).
 
    (On Windows, `bin/valgist.cmd` gives you `Valgist Dashboard` / `Valgist Stop`
    as terminal commands that do this for you.)
-
 3. **Open the two apps:**
 
-   | App | URL | Who it's for |
-   | --- | --- | --- |
-   | **Valgist WebUI** | <http://localhost:8787/> | Everyone — chat with any of the 31 specialists and give them work |
-   | **Valgist Admin** | <http://localhost:8321/> | You — knowledge, work orders, reviews, and engine configuration |
-
+   | App                     | URL                                             | Who it's for                                                       |
+   | ----------------------- | ----------------------------------------------- | ------------------------------------------------------------------ |
+   | **Valgist WebUI** | [http://localhost:8787/](http://localhost:8787/) | Everyone — chat with any of the 31 specialists and give them work |
+   | **Valgist Admin** | [http://localhost:8321/](http://localhost:8321/) | You — knowledge, work orders, reviews, and engine configuration   |
 4. **Fill in `knowledge/00-org/ORG.md`** (Admin → **Knowledge** tab). Ten
    minutes, once — it holds your claims policy, approval thresholds and risk
    posture, and it outranks every other instruction in the engine. It is the
@@ -139,17 +136,17 @@ enters the brain.
 
 ### The admin seat (Admin, :8321)
 
-| Tab | What you do there |
-| --- | --- |
-| **🌍 World** | The live map (cover image above). Team markers show documents, open and blocked orders; click one for its roster and stats. |
-| **📊 Overview** | Stat tiles, 14-day activity, outputs per profile, and the quality scorecard. |
-| **🗂️ Work** | Open work orders (auto-routed by phrase or hand-assigned) and drive their status. This is how you assign work that survives sessions. |
-| **✅ Reviews** | Accept / revise / reject agent outputs, with a cause. Feeds the scorecard and the weekly retro. |
-| **🕘 Activity** | Everything that happened: new/modified/deleted documents, promotions, work orders, engine changes. |
-| **🧠 Knowledge** | Browse and edit the whole knowledge base. 🔒 folders are the brain — this dashboard is the only writer. **Promote to brain** turns an approved draft into doctrine. |
-| **🎭 Profiles** | Read any specialist's full contract — persona, playbooks, skills, outputs. |
-| **⚙️ Engine** | Configure the engine itself (next section). |
-| **🛠️ System** | Health & security: auth status, tokens, compliance state, protected dirs, runtime info. |
+| Tab                    | What you do there                                                                                                                                                         |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **🌍 World**     | The live map (cover image above). Team markers show documents, open and blocked orders; click one for its roster and stats.                                               |
+| **📊 Overview**  | Stat tiles, 14-day activity, outputs per profile, and the quality scorecard.                                                                                              |
+| **🗂️ Work**    | Open work orders (auto-routed by phrase or hand-assigned) and drive their status. This is how you assign work that survives sessions.                                     |
+| **✅ Reviews**   | Accept / revise / reject agent outputs, with a cause. Feeds the scorecard and the weekly retro.                                                                           |
+| **🕘 Activity**  | Everything that happened: new/modified/deleted documents, promotions, work orders, engine changes.                                                                        |
+| **🧠 Knowledge** | Browse and edit the whole knowledge base. 🔒 folders are the brain — this dashboard is the only writer.**Promote to brain** turns an approved draft into doctrine. |
+| **🎭 Profiles**  | Read any specialist's full contract — persona, playbooks, skills, outputs.                                                                                               |
+| **⚙️ Engine**  | Configure the engine itself (next section).                                                                                                                               |
+| **🛠️ System**  | Health & security: auth status, tokens, compliance state, protected dirs, runtime info.                                                                                   |
 
 ### Configuring the engine (⚙️ Engine tab)
 
@@ -253,17 +250,17 @@ HERMES_PROMOTE_TOKEN=<secret>    # lets the Marketing Director promote drafts
 The engine is built to the modern agent architecture rather than around a
 prompt. Each layer is a real, inspectable artifact:
 
-| Layer | Where it lives |
-| --- | --- |
-| **Instructions** | `hermes/VALGIST.md` + `knowledge/00-org/ORG.md` + the profile definition, compiled into each agent's `SOUL.md` |
-| **Memory** | `knowledge/` (organization) + per-profile `memories/MEMORY.md` (durable facts) |
-| **Context assembly** | `knowledge/INDEX.md` + each profile's **Context to load** list (+ Engine-tab brain wiring) + the `find-in-knowledge` skill |
-| **Skills** | `hermes/skills/` — shared procedures + a signature skill per profile |
-| **Planner / orchestrator** | Marketing Director + `hermes/routing.json` (+ admin routing overrides) + the work-order queue |
-| **Tools & integrations** | Runtime tools the agent actually has, listed separately from external systems (all `not wired`) |
-| **Guardrails** | Kernel-enforced read-only brain, the compliance gate, `hermes/hooks/pre-publish-gate.py`, `ORG.md` thresholds |
-| **Subagents** | `delegate` on orchestrators + the `batch-fanout` skill |
-| **Evaluation** | Review verdicts + scorecard in the dashboard, `evals/` golden briefs, `npm run eval`, the weekly retro |
+| Layer                            | Where it lives                                                                                                                       |
+| -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| **Instructions**           | `hermes/VALGIST.md` + `knowledge/00-org/ORG.md` + the profile definition, compiled into each agent's `SOUL.md`                 |
+| **Memory**                 | `knowledge/` (organization) + per-profile `memories/MEMORY.md` (durable facts)                                                   |
+| **Context assembly**       | `knowledge/INDEX.md` + each profile's **Context to load** list (+ Engine-tab brain wiring) + the `find-in-knowledge` skill |
+| **Skills**                 | `hermes/skills/` — shared procedures + a signature skill per profile                                                              |
+| **Planner / orchestrator** | Marketing Director +`hermes/routing.json` (+ admin routing overrides) + the work-order queue                                       |
+| **Tools & integrations**   | Runtime tools the agent actually has, listed separately from external systems (all`not wired`)                                     |
+| **Guardrails**             | Kernel-enforced read-only brain, the compliance gate,`hermes/hooks/pre-publish-gate.py`, `ORG.md` thresholds                     |
+| **Subagents**              | `delegate` on orchestrators + the `batch-fanout` skill                                                                           |
+| **Evaluation**             | Review verdicts + scorecard in the dashboard,`evals/` golden briefs, `npm run eval`, the weekly retro                            |
 
 ## Development
 
@@ -286,15 +283,15 @@ non-Docker setup).
 
 ## Guardrails
 
-| Guardrail | Default | How to change it |
-| --- | --- | --- |
-| Read-only organization brain | **On**, kernel-enforced (a healthcheck write-probes it) | Edit the `:ro` mounts + `hermes/scripts/protected-dirs.js` together |
-| Claims policy & approval thresholds | Whatever you write in `ORG.md` | Edit `knowledge/00-org/ORG.md` |
-| Compliance gate | Advisory (a skill) | Toggle in the dashboard's **Engine** tab (or `HERMES_ENFORCE_COMPLIANCE_HOOK=1`) |
-| Dashboard auth | Open, but localhost-only | Set `HERMES_ADMIN_TOKEN` (the lock screen accepts it, or open `/?token=…`) |
-| Chat front end auth | Open, but localhost-only | Set `HERMES_WEBUI_PASSWORD` |
-| Agent-side brain promotion | Open when no admin token; blocked otherwise | Set `HERMES_PROMOTE_TOKEN` — scoped to `/api/promote` + `/api/activity` only |
-| Subagent delegation | Orchestrators only, no recursion, no auto-approve | Per-profile `config.yaml` in `data/hermes-home/` (mark the profile *unmanaged* in the Engine tab first) |
+| Guardrail                           | Default                                                       | How to change it                                                                                             |
+| ----------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| Read-only organization brain        | **On**, kernel-enforced (a healthcheck write-probes it) | Edit the`:ro` mounts + `hermes/scripts/protected-dirs.js` together                                       |
+| Claims policy & approval thresholds | Whatever you write in`ORG.md`                               | Edit`knowledge/00-org/ORG.md`                                                                              |
+| Compliance gate                     | Advisory (a skill)                                            | Toggle in the dashboard's**Engine** tab (or `HERMES_ENFORCE_COMPLIANCE_HOOK=1`)                      |
+| Dashboard auth                      | Open, but localhost-only                                      | Set`HERMES_ADMIN_TOKEN` (the lock screen accepts it, or open `/?token=…`)                               |
+| Chat front end auth                 | Open, but localhost-only                                      | Set`HERMES_WEBUI_PASSWORD`                                                                                 |
+| Agent-side brain promotion          | Open when no admin token; blocked otherwise                   | Set`HERMES_PROMOTE_TOKEN` — scoped to `/api/promote` + `/api/activity` only                           |
+| Subagent delegation                 | Orchestrators only, no recursion, no auto-approve             | Per-profile`config.yaml` in `data/hermes-home/` (mark the profile *unmanaged* in the Engine tab first) |
 
 Turning the compliance hook on means a write marked `status: publish-ready`
 without a linked PASS report is refused at the tool level. See
