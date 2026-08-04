@@ -1,6 +1,6 @@
 # 🔎 Market Research
 
-Everything Hermes learns about the market.
+Everything Valgist learns about the market.
 
 - `competitors/` — one teardown per competitor
 - `accounts/` — ABM account dossiers

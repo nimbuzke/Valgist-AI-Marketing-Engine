@@ -28,3 +28,12 @@ campaigns executed well.
 Draft the plan to `07-agent-outputs/` and promote the approved version to
 `03-campaigns/quarterly-plan.md`, plus the master `03-campaigns/calendar.md`.
 (Those live outside the read-only brain, so you write them directly.)
+
+## Quality bar
+
+- [ ] Fewer strategies than felt comfortable — the killed ones are named
+- [ ] Every campaign has an owning profile resolved from `routing.json`
+- [ ] Every goal has one north-star metric and a named measurement source
+- [ ] Dependencies between campaigns are explicit
+- [ ] Spend aligned with Budget Planner, and anything over the `ORG.md` §5 threshold flagged
+- [ ] Work orders opened for the first wave — a plan with no orders is intent, not work

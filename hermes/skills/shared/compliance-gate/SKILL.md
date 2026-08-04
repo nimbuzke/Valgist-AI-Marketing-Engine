@@ -10,6 +10,9 @@ hard gate, not a suggestion.
 
 ## Steps
 
+0. **Read `00-org/ORG.md` §3–§5.** The regulatory ticks, the claims policy, and the
+   approval thresholds are organization-specific. A generic compliance pass against
+   the wrong regime is worse than none.
 1. **Self-check first** so the review is fast. Confirm the asset has, as applicable:
    - Clear sender identity and a working unsubscribe/opt-out (email/SMS).
    - Required disclosures (FTC #ad/#sponsored for influencer/affiliate; testimonials).
@@ -21,6 +24,17 @@ hard gate, not a suggestion.
 3. **Hand off to Compliance Guard** and wait for an explicit pass/fail.
 4. **On fail**, apply every required fix and re-submit. Do not ship on a partial pass.
 5. **On pass**, note the approval (date + reviewer) alongside the asset before it goes out.
+
+## Where the record lives
+
+Compliance Guard files one report per asset at
+`05-analytics-reports/compliance/YYYY-MM-DD--<asset-slug>.md`, ending in a literal
+**PASS** or **FAIL** line. That file is the evidence — link it from the work order and
+from the asset's frontmatter (`compliance: 05-analytics-reports/compliance/…`).
+
+If the optional pre-publish guardrail hook is enabled, an asset marked
+`status: publish-ready` without a linked PASS report is **blocked at write time**. The
+gate is not honour-system when that switch is on.
 
 ## Note
 

@@ -24,3 +24,12 @@ A tight, decision-oriented review. The output is decisions, not a status dump.
 Write the retro to `05-analytics-reports/weekly/YYYY-Www-retro.md` (outside the
 read-only brain — write it directly). Roll notable items into the monthly executive
 summary.
+
+## Quality bar
+
+- [ ] Every active campaign scored, with the one metric that justifies the score
+- [ ] Each loss has a likely cause and the smallest next test
+- [ ] At least one concrete reallocation decision, with an owner and expected effect
+- [ ] Review verdicts from the dashboard read, and recurring causes turned into a
+      repo change (a skill edit, an `ORG.md` line, a routing fix) — not just a note
+- [ ] New work handed off as work orders, not intentions

@@ -1,0 +1,1973 @@
+{
+  "note": "Task routing table. The Marketing Director resolves an incoming request to an owner profile here, then writes a work order.",
+  "matching": "Case-insensitive, on whole words only — a phrase matches when it appears in the request bounded by non-alphanumeric characters, so \"ice\" never matches \"service\". Longest matching phrase wins; no match falls back to `fallback`.",
+  "fallback": "marketing-director",
+  "routes": [
+    {
+      "phrase": "competitive research",
+      "owner": "market-researcher",
+      "ownerName": "🔎 Market Researcher",
+      "requires": [
+        "02-market-research/"
+      ],
+      "outputPath": "knowledge/02-market-research/"
+    },
+    {
+      "phrase": "messaging hierarchy",
+      "owner": "brand-strategist",
+      "ownerName": "🧭 Brand Strategist",
+      "requires": [
+        "02-market-research/",
+        "01-brand/"
+      ],
+      "outputPath": "knowledge/01-brand/"
+    },
+    {
+      "phrase": "competitor teardown",
+      "owner": "market-researcher",
+      "ownerName": "🔎 Market Researcher",
+      "requires": [
+        "02-market-research/"
+      ],
+      "outputPath": "knowledge/02-market-research/"
+    },
+    {
+      "phrase": "registration funnel",
+      "owner": "event-webinar",
+      "ownerName": "🎪 Events & Webinars",
+      "requires": [
+        "03-campaigns/events/",
+        "04-content/email/"
+      ],
+      "outputPath": "knowledge/03-campaigns/events/"
+    },
+    {
+      "phrase": "product description",
+      "owner": "copywriter",
+      "ownerName": "🪝 Copywriter",
+      "requires": [
+        "04-content/copy/",
+        "01-brand/voice-and-tone.md",
+        "01-brand/personas/"
+      ],
+      "outputPath": "knowledge/04-content/copy/"
+    },
+    {
+      "phrase": "onboarding sequence",
+      "owner": "email-lifecycle",
+      "ownerName": "📧 Email Lifecycle",
+      "requires": [
+        "04-content/email/",
+        "01-brand/voice-and-tone.md"
+      ],
+      "outputPath": "knowledge/04-content/email/"
+    },
+    {
+      "phrase": "performance digest",
+      "owner": "analytics-engine",
+      "ownerName": "📊 Analytics Engine",
+      "requires": [
+        "05-analytics-reports/",
+        "03-campaigns/quarterly-plan.md"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/"
+    },
+    {
+      "phrase": "thought leadership",
+      "owner": "pr-communications",
+      "ownerName": "📰 PR & Communications",
+      "requires": [
+        "04-content/pr/",
+        "06-playbooks/crisis-comms.md"
+      ],
+      "outputPath": "knowledge/04-content/pr/"
+    },
+    {
+      "phrase": "ice prioritization",
+      "owner": "cro-optimizer",
+      "ownerName": "📈 CRO Optimizer",
+      "requires": [
+        "06-playbooks/experiment-backlog.md",
+        "05-analytics-reports/experiments/"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/experiments/"
+    },
+    {
+      "phrase": "voice of customer",
+      "owner": "market-researcher",
+      "ownerName": "🔎 Market Researcher",
+      "requires": [
+        "02-market-research/"
+      ],
+      "outputPath": "knowledge/02-market-research/"
+    },
+    {
+      "phrase": "campaign calendar",
+      "owner": "marketing-director",
+      "ownerName": "🎯 Marketing Director (CMO)",
+      "requires": [
+        "03-campaigns/",
+        "05-analytics-reports/",
+        "03-campaigns/work-orders/"
+      ],
+      "outputPath": "knowledge/03-campaigns/"
+    },
+    {
+      "phrase": "executive summary",
+      "owner": "marketing-director",
+      "ownerName": "🎯 Marketing Director (CMO)",
+      "requires": [
+        "03-campaigns/",
+        "05-analytics-reports/",
+        "03-campaigns/work-orders/"
+      ],
+      "outputPath": "knowledge/03-campaigns/"
+    },
+    {
+      "phrase": "compliance review",
+      "owner": "compliance-guard",
+      "ownerName": "🛡️ Compliance Guard",
+      "requires": [
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/06-playbooks/compliance-checklists.md"
+    },
+    {
+      "phrase": "negative keywords",
+      "owner": "paid-search",
+      "ownerName": "🔑 Paid Search",
+      "requires": [
+        "03-campaigns/",
+        "04-content/copy/"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/"
+    },
+    {
+      "phrase": "landing page copy",
+      "owner": "copywriter",
+      "ownerName": "🪝 Copywriter",
+      "requires": [
+        "04-content/copy/",
+        "01-brand/voice-and-tone.md",
+        "01-brand/personas/"
+      ],
+      "outputPath": "knowledge/04-content/copy/"
+    },
+    {
+      "phrase": "push notification",
+      "owner": "sms-messaging",
+      "ownerName": "💬 SMS & Messaging",
+      "requires": [
+        "04-content/messaging/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/04-content/messaging/"
+    },
+    {
+      "phrase": "content calendar",
+      "owner": "content-writer",
+      "ownerName": "✍️ Content Writer",
+      "requires": [
+        "04-content/seo/",
+        "04-content/content-calendar.md"
+      ],
+      "outputPath": "knowledge/04-content/drafts/"
+    },
+    {
+      "phrase": "keyword research",
+      "owner": "seo-engine",
+      "ownerName": "🔍 SEO Engine",
+      "requires": [
+        "04-content/seo/",
+        "02-market-research/"
+      ],
+      "outputPath": "knowledge/04-content/seo/"
+    },
+    {
+      "phrase": "internal linking",
+      "owner": "seo-engine",
+      "ownerName": "🔍 SEO Engine",
+      "requires": [
+        "04-content/seo/",
+        "02-market-research/"
+      ],
+      "outputPath": "knowledge/04-content/seo/"
+    },
+    {
+      "phrase": "creative fatigue",
+      "owner": "paid-social",
+      "ownerName": "📢 Paid Social",
+      "requires": [
+        "03-campaigns/",
+        "01-brand/personas/"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-social/"
+    },
+    {
+      "phrase": "journalist pitch",
+      "owner": "pr-communications",
+      "ownerName": "📰 PR & Communications",
+      "requires": [
+        "04-content/pr/",
+        "06-playbooks/crisis-comms.md"
+      ],
+      "outputPath": "knowledge/04-content/pr/"
+    },
+    {
+      "phrase": "creator outreach",
+      "owner": "influencer-manager",
+      "ownerName": "🤝 Influencer Manager",
+      "requires": [
+        "03-campaigns/influencer/",
+        "01-brand/personas/"
+      ],
+      "outputPath": "knowledge/03-campaigns/influencer/"
+    },
+    {
+      "phrase": "referral program",
+      "owner": "affiliate-partnerships",
+      "ownerName": "🔗 Affiliate & Partnerships",
+      "requires": [
+        "03-campaigns/partnerships/"
+      ],
+      "outputPath": "knowledge/03-campaigns/partnerships/"
+    },
+    {
+      "phrase": "sales enablement",
+      "owner": "product-marketer",
+      "ownerName": "🚀 Product Marketer",
+      "requires": [
+        "03-campaigns/launches/",
+        "01-brand/messaging/",
+        "02-market-research/competitors/"
+      ],
+      "outputPath": "knowledge/03-campaigns/launches/"
+    },
+    {
+      "phrase": "cart abandonment",
+      "owner": "email-lifecycle",
+      "ownerName": "📧 Email Lifecycle",
+      "requires": [
+        "04-content/email/",
+        "01-brand/voice-and-tone.md"
+      ],
+      "outputPath": "knowledge/04-content/email/"
+    },
+    {
+      "phrase": "social calendar",
+      "owner": "social-organic",
+      "ownerName": "📱 Social Organic",
+      "requires": [
+        "04-content/social/",
+        "04-content/drafts/"
+      ],
+      "outputPath": "knowledge/04-content/social/"
+    },
+    {
+      "phrase": "ugc partnership",
+      "owner": "influencer-manager",
+      "ownerName": "🤝 Influencer Manager",
+      "requires": [
+        "03-campaigns/influencer/",
+        "01-brand/personas/"
+      ],
+      "outputPath": "knowledge/03-campaigns/influencer/"
+    },
+    {
+      "phrase": "event follow-up",
+      "owner": "event-webinar",
+      "ownerName": "🎪 Events & Webinars",
+      "requires": [
+        "03-campaigns/events/",
+        "04-content/email/"
+      ],
+      "outputPath": "knowledge/03-campaigns/events/"
+    },
+    {
+      "phrase": "account dossier",
+      "owner": "abm-engine",
+      "ownerName": "🏢 ABM Engine",
+      "requires": [
+        "02-market-research/accounts/",
+        "01-brand/personas/"
+      ],
+      "outputPath": "knowledge/02-market-research/accounts/"
+    },
+    {
+      "phrase": "conversion copy",
+      "owner": "copywriter",
+      "ownerName": "🪝 Copywriter",
+      "requires": [
+        "04-content/copy/",
+        "01-brand/voice-and-tone.md",
+        "01-brand/personas/"
+      ],
+      "outputPath": "knowledge/04-content/copy/"
+    },
+    {
+      "phrase": "funnel analysis",
+      "owner": "cro-optimizer",
+      "ownerName": "📈 CRO Optimizer",
+      "requires": [
+        "06-playbooks/experiment-backlog.md",
+        "05-analytics-reports/experiments/"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/experiments/"
+    },
+    {
+      "phrase": "conversion rate",
+      "owner": "cro-optimizer",
+      "ownerName": "📈 CRO Optimizer",
+      "requires": [
+        "06-playbooks/experiment-backlog.md",
+        "05-analytics-reports/experiments/"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/experiments/"
+    },
+    {
+      "phrase": "review response",
+      "owner": "reputation-manager",
+      "ownerName": "⭐ Reputation Manager",
+      "requires": [
+        "05-analytics-reports/reputation/",
+        "01-brand/voice-and-tone.md"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/reputation/"
+    },
+    {
+      "phrase": "slack community",
+      "owner": "community-manager",
+      "ownerName": "👥 Community Manager",
+      "requires": [
+        "06-playbooks/community-playbook.md",
+        "03-campaigns/community/"
+      ],
+      "outputPath": "knowledge/03-campaigns/community/"
+    },
+    {
+      "phrase": "voice and tone",
+      "owner": "brand-strategist",
+      "ownerName": "🧭 Brand Strategist",
+      "requires": [
+        "02-market-research/",
+        "01-brand/"
+      ],
+      "outputPath": "knowledge/01-brand/"
+    },
+    {
+      "phrase": "quarterly plan",
+      "owner": "marketing-director",
+      "ownerName": "🎯 Marketing Director (CMO)",
+      "requires": [
+        "03-campaigns/",
+        "05-analytics-reports/",
+        "03-campaigns/work-orders/"
+      ],
+      "outputPath": "knowledge/03-campaigns/"
+    },
+    {
+      "phrase": "monthly report",
+      "owner": "analytics-engine",
+      "ownerName": "📊 Analytics Engine",
+      "requires": [
+        "05-analytics-reports/",
+        "03-campaigns/quarterly-plan.md"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/"
+    },
+    {
+      "phrase": "ftc disclosure",
+      "owner": "compliance-guard",
+      "ownerName": "🛡️ Compliance Guard",
+      "requires": [
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/06-playbooks/compliance-checklists.md"
+    },
+    {
+      "phrase": "organic social",
+      "owner": "social-organic",
+      "ownerName": "📱 Social Organic",
+      "requires": [
+        "04-content/social/",
+        "04-content/drafts/"
+      ],
+      "outputPath": "knowledge/04-content/social/"
+    },
+    {
+      "phrase": "tiktok organic",
+      "owner": "social-organic",
+      "ownerName": "📱 Social Organic",
+      "requires": [
+        "04-content/social/",
+        "04-content/drafts/"
+      ],
+      "outputPath": "knowledge/04-content/social/"
+    },
+    {
+      "phrase": "guest outreach",
+      "owner": "podcast-audio",
+      "ownerName": "🎙️ Podcast & Audio",
+      "requires": [
+        "04-content/podcast/"
+      ],
+      "outputPath": "knowledge/04-content/podcast/"
+    },
+    {
+      "phrase": "target account",
+      "owner": "abm-engine",
+      "ownerName": "🏢 ABM Engine",
+      "requires": [
+        "02-market-research/accounts/",
+        "01-brand/personas/"
+      ],
+      "outputPath": "knowledge/02-market-research/accounts/"
+    },
+    {
+      "phrase": "tracking embed",
+      "owner": "landing-page-builder",
+      "ownerName": "🏗️ Landing Page Builder",
+      "requires": [
+        "04-content/copy/",
+        "04-content/landing-pages/"
+      ],
+      "outputPath": "knowledge/04-content/landing-pages/"
+    },
+    {
+      "phrase": "amazon listing",
+      "owner": "ecommerce-marketer",
+      "ownerName": "🛒 E-commerce Marketer",
+      "requires": [
+        "03-campaigns/ecommerce/",
+        "04-content/copy/"
+      ],
+      "outputPath": "knowledge/03-campaigns/ecommerce/"
+    },
+    {
+      "phrase": "promo calendar",
+      "owner": "ecommerce-marketer",
+      "ownerName": "🛒 E-commerce Marketer",
+      "requires": [
+        "03-campaigns/ecommerce/",
+        "04-content/copy/"
+      ],
+      "outputPath": "knowledge/03-campaigns/ecommerce/"
+    },
+    {
+      "phrase": "deliverability",
+      "owner": "email-lifecycle",
+      "ownerName": "📧 Email Lifecycle",
+      "requires": [
+        "04-content/email/",
+        "01-brand/voice-and-tone.md"
+      ],
+      "outputPath": "knowledge/04-content/email/"
+    },
+    {
+      "phrase": "market sizing",
+      "owner": "market-researcher",
+      "ownerName": "🔎 Market Researcher",
+      "requires": [
+        "02-market-research/"
+      ],
+      "outputPath": "knowledge/02-market-research/"
+    },
+    {
+      "phrase": "pricing intel",
+      "owner": "market-researcher",
+      "ownerName": "🔎 Market Researcher",
+      "requires": [
+        "02-market-research/"
+      ],
+      "outputPath": "knowledge/02-market-research/"
+    },
+    {
+      "phrase": "allocate work",
+      "owner": "marketing-director",
+      "ownerName": "🎯 Marketing Director (CMO)",
+      "requires": [
+        "03-campaigns/",
+        "05-analytics-reports/",
+        "03-campaigns/work-orders/"
+      ],
+      "outputPath": "knowledge/03-campaigns/"
+    },
+    {
+      "phrase": "promote draft",
+      "owner": "marketing-director",
+      "ownerName": "🎯 Marketing Director (CMO)",
+      "requires": [
+        "03-campaigns/",
+        "05-analytics-reports/",
+        "03-campaigns/work-orders/"
+      ],
+      "outputPath": "knowledge/03-campaigns/"
+    },
+    {
+      "phrase": "weekly report",
+      "owner": "analytics-engine",
+      "ownerName": "📊 Analytics Engine",
+      "requires": [
+        "05-analytics-reports/",
+        "03-campaigns/quarterly-plan.md"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/"
+    },
+    {
+      "phrase": "scenario plan",
+      "owner": "budget-planner",
+      "ownerName": "💰 Budget Planner",
+      "requires": [
+        "05-analytics-reports/budget/",
+        "03-campaigns/quarterly-plan.md"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/budget/"
+    },
+    {
+      "phrase": "technical seo",
+      "owner": "seo-engine",
+      "ownerName": "🔍 SEO Engine",
+      "requires": [
+        "04-content/seo/",
+        "02-market-research/"
+      ],
+      "outputPath": "knowledge/04-content/seo/"
+    },
+    {
+      "phrase": "rank tracking",
+      "owner": "seo-engine",
+      "ownerName": "🔍 SEO Engine",
+      "requires": [
+        "04-content/seo/",
+        "02-market-research/"
+      ],
+      "outputPath": "knowledge/04-content/seo/"
+    },
+    {
+      "phrase": "press release",
+      "owner": "pr-communications",
+      "ownerName": "📰 PR & Communications",
+      "requires": [
+        "04-content/pr/",
+        "06-playbooks/crisis-comms.md"
+      ],
+      "outputPath": "knowledge/04-content/pr/"
+    },
+    {
+      "phrase": "account based",
+      "owner": "abm-engine",
+      "ownerName": "🏢 ABM Engine",
+      "requires": [
+        "02-market-research/accounts/",
+        "01-brand/personas/"
+      ],
+      "outputPath": "knowledge/02-market-research/accounts/"
+    },
+    {
+      "phrase": "transcreation",
+      "owner": "localization-engine",
+      "ownerName": "🌍 Localization Engine",
+      "requires": [
+        "04-content/localization/",
+        "02-market-research/"
+      ],
+      "outputPath": "knowledge/04-content/localization/"
+    },
+    {
+      "phrase": "international",
+      "owner": "localization-engine",
+      "ownerName": "🌍 Localization Engine",
+      "requires": [
+        "04-content/localization/",
+        "02-market-research/"
+      ],
+      "outputPath": "knowledge/04-content/localization/"
+    },
+    {
+      "phrase": "messaging doc",
+      "owner": "product-marketer",
+      "ownerName": "🚀 Product Marketer",
+      "requires": [
+        "03-campaigns/launches/",
+        "01-brand/messaging/",
+        "02-market-research/competitors/"
+      ],
+      "outputPath": "knowledge/03-campaigns/launches/"
+    },
+    {
+      "phrase": "merchandising",
+      "owner": "ecommerce-marketer",
+      "ownerName": "🛒 E-commerce Marketer",
+      "requires": [
+        "03-campaigns/ecommerce/",
+        "04-content/copy/"
+      ],
+      "outputPath": "knowledge/03-campaigns/ecommerce/"
+    },
+    {
+      "phrase": "trend report",
+      "owner": "market-researcher",
+      "ownerName": "🔎 Market Researcher",
+      "requires": [
+        "02-market-research/"
+      ],
+      "outputPath": "knowledge/02-market-research/"
+    },
+    {
+      "phrase": "weekly retro",
+      "owner": "marketing-director",
+      "ownerName": "🎯 Marketing Director (CMO)",
+      "requires": [
+        "03-campaigns/",
+        "05-analytics-reports/",
+        "03-campaigns/work-orders/"
+      ],
+      "outputPath": "knowledge/03-campaigns/"
+    },
+    {
+      "phrase": "claims check",
+      "owner": "compliance-guard",
+      "ownerName": "🛡️ Compliance Guard",
+      "requires": [
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/06-playbooks/compliance-checklists.md"
+    },
+    {
+      "phrase": "spend pacing",
+      "owner": "budget-planner",
+      "ownerName": "💰 Budget Planner",
+      "requires": [
+        "05-analytics-reports/budget/",
+        "03-campaigns/quarterly-plan.md"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/budget/"
+    },
+    {
+      "phrase": "search terms",
+      "owner": "paid-search",
+      "ownerName": "🔑 Paid Search",
+      "requires": [
+        "03-campaigns/",
+        "04-content/copy/"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/"
+    },
+    {
+      "phrase": "facebook ads",
+      "owner": "paid-social",
+      "ownerName": "📢 Paid Social",
+      "requires": [
+        "03-campaigns/",
+        "01-brand/personas/"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-social/"
+    },
+    {
+      "phrase": "linkedin ads",
+      "owner": "paid-social",
+      "ownerName": "📢 Paid Social",
+      "requires": [
+        "03-campaigns/",
+        "01-brand/personas/"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-social/"
+    },
+    {
+      "phrase": "crisis comms",
+      "owner": "pr-communications",
+      "ownerName": "📰 PR & Communications",
+      "requires": [
+        "04-content/pr/",
+        "06-playbooks/crisis-comms.md"
+      ],
+      "outputPath": "knowledge/04-content/pr/"
+    },
+    {
+      "phrase": "co-marketing",
+      "owner": "affiliate-partnerships",
+      "ownerName": "🔗 Affiliate & Partnerships",
+      "requires": [
+        "03-campaigns/partnerships/"
+      ],
+      "outputPath": "knowledge/03-campaigns/partnerships/"
+    },
+    {
+      "phrase": "video script",
+      "owner": "video-marketer",
+      "ownerName": "🎬 Video Marketer",
+      "requires": [
+        "04-content/video/",
+        "04-content/drafts/"
+      ],
+      "outputPath": "knowledge/04-content/video/"
+    },
+    {
+      "phrase": "localization",
+      "owner": "localization-engine",
+      "ownerName": "🌍 Localization Engine",
+      "requires": [
+        "04-content/localization/",
+        "02-market-research/"
+      ],
+      "outputPath": "knowledge/04-content/localization/"
+    },
+    {
+      "phrase": "market entry",
+      "owner": "localization-engine",
+      "ownerName": "🌍 Localization Engine",
+      "requires": [
+        "04-content/localization/",
+        "02-market-research/"
+      ],
+      "outputPath": "knowledge/04-content/localization/"
+    },
+    {
+      "phrase": "a/b variants",
+      "owner": "copywriter",
+      "ownerName": "🪝 Copywriter",
+      "requires": [
+        "04-content/copy/",
+        "01-brand/voice-and-tone.md",
+        "01-brand/personas/"
+      ],
+      "outputPath": "knowledge/04-content/copy/"
+    },
+    {
+      "phrase": "landing page",
+      "owner": "landing-page-builder",
+      "ownerName": "🏗️ Landing Page Builder",
+      "requires": [
+        "04-content/copy/",
+        "04-content/landing-pages/"
+      ],
+      "outputPath": "knowledge/04-content/landing-pages/"
+    },
+    {
+      "phrase": "lead scoring",
+      "owner": "lead-gen-crm",
+      "ownerName": "🧲 Lead Gen & CRM",
+      "requires": [
+        "06-playbooks/lead-scoring.md",
+        "01-brand/personas/"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/"
+    },
+    {
+      "phrase": "lead routing",
+      "owner": "lead-gen-crm",
+      "ownerName": "🧲 Lead Gen & CRM",
+      "requires": [
+        "06-playbooks/lead-scoring.md",
+        "01-brand/personas/"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/"
+    },
+    {
+      "phrase": "pricing page",
+      "owner": "product-marketer",
+      "ownerName": "🚀 Product Marketer",
+      "requires": [
+        "03-campaigns/launches/",
+        "01-brand/messaging/",
+        "02-market-research/competitors/"
+      ],
+      "outputPath": "knowledge/03-campaigns/launches/"
+    },
+    {
+      "phrase": "product feed",
+      "owner": "ecommerce-marketer",
+      "ownerName": "🛒 E-commerce Marketer",
+      "requires": [
+        "03-campaigns/ecommerce/",
+        "04-content/copy/"
+      ],
+      "outputPath": "knowledge/03-campaigns/ecommerce/"
+    },
+    {
+      "phrase": "text message",
+      "owner": "sms-messaging",
+      "ownerName": "💬 SMS & Messaging",
+      "requires": [
+        "04-content/messaging/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/04-content/messaging/"
+    },
+    {
+      "phrase": "positioning",
+      "owner": "brand-strategist",
+      "ownerName": "🧭 Brand Strategist",
+      "requires": [
+        "02-market-research/",
+        "01-brand/"
+      ],
+      "outputPath": "knowledge/01-brand/"
+    },
+    {
+      "phrase": "brand audit",
+      "owner": "brand-strategist",
+      "ownerName": "🧭 Brand Strategist",
+      "requires": [
+        "02-market-research/",
+        "01-brand/"
+      ],
+      "outputPath": "knowledge/01-brand/"
+    },
+    {
+      "phrase": "attribution",
+      "owner": "analytics-engine",
+      "ownerName": "📊 Analytics Engine",
+      "requires": [
+        "05-analytics-reports/",
+        "03-campaigns/quarterly-plan.md"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/"
+    },
+    {
+      "phrase": "pre-publish",
+      "owner": "compliance-guard",
+      "ownerName": "🛡️ Compliance Guard",
+      "requires": [
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/06-playbooks/compliance-checklists.md"
+    },
+    {
+      "phrase": "legal check",
+      "owner": "compliance-guard",
+      "ownerName": "🛡️ Compliance Guard",
+      "requires": [
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/06-playbooks/compliance-checklists.md"
+    },
+    {
+      "phrase": "ad creative",
+      "owner": "creative-designer",
+      "ownerName": "🎨 Creative Designer",
+      "requires": [
+        "01-brand/",
+        "04-content/assets/"
+      ],
+      "outputPath": "knowledge/04-content/assets/"
+    },
+    {
+      "phrase": "pillar page",
+      "owner": "content-writer",
+      "ownerName": "✍️ Content Writer",
+      "requires": [
+        "04-content/seo/",
+        "04-content/content-calendar.md"
+      ],
+      "outputPath": "knowledge/04-content/drafts/"
+    },
+    {
+      "phrase": "topical map",
+      "owner": "seo-engine",
+      "ownerName": "🔍 SEO Engine",
+      "requires": [
+        "04-content/seo/",
+        "02-market-research/"
+      ],
+      "outputPath": "knowledge/04-content/seo/"
+    },
+    {
+      "phrase": "social post",
+      "owner": "social-organic",
+      "ownerName": "📱 Social Organic",
+      "requires": [
+        "04-content/social/",
+        "04-content/drafts/"
+      ],
+      "outputPath": "knowledge/04-content/social/"
+    },
+    {
+      "phrase": "paid search",
+      "owner": "paid-search",
+      "ownerName": "🔑 Paid Search",
+      "requires": [
+        "03-campaigns/",
+        "04-content/copy/"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/"
+    },
+    {
+      "phrase": "paid social",
+      "owner": "paid-social",
+      "ownerName": "📢 Paid Social",
+      "requires": [
+        "03-campaigns/",
+        "01-brand/personas/"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-social/"
+    },
+    {
+      "phrase": "sponsorship",
+      "owner": "influencer-manager",
+      "ownerName": "🤝 Influencer Manager",
+      "requires": [
+        "03-campaigns/influencer/",
+        "01-brand/personas/"
+      ],
+      "outputPath": "knowledge/03-campaigns/influencer/"
+    },
+    {
+      "phrase": "partnership",
+      "owner": "affiliate-partnerships",
+      "ownerName": "🔗 Affiliate & Partnerships",
+      "requires": [
+        "03-campaigns/partnerships/"
+      ],
+      "outputPath": "knowledge/03-campaigns/partnerships/"
+    },
+    {
+      "phrase": "run of show",
+      "owner": "event-webinar",
+      "ownerName": "🎪 Events & Webinars",
+      "requires": [
+        "03-campaigns/events/",
+        "04-content/email/"
+      ],
+      "outputPath": "knowledge/03-campaigns/events/"
+    },
+    {
+      "phrase": "intent data",
+      "owner": "abm-engine",
+      "ownerName": "🏢 ABM Engine",
+      "requires": [
+        "02-market-research/accounts/",
+        "01-brand/personas/"
+      ],
+      "outputPath": "knowledge/02-market-research/accounts/"
+    },
+    {
+      "phrase": "form wiring",
+      "owner": "landing-page-builder",
+      "ownerName": "🏗️ Landing Page Builder",
+      "requires": [
+        "04-content/copy/",
+        "04-content/landing-pages/"
+      ],
+      "outputPath": "knowledge/04-content/landing-pages/"
+    },
+    {
+      "phrase": "lead magnet",
+      "owner": "lead-gen-crm",
+      "ownerName": "🧲 Lead Gen & CRM",
+      "requires": [
+        "06-playbooks/lead-scoring.md",
+        "01-brand/personas/"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/"
+    },
+    {
+      "phrase": "sql handoff",
+      "owner": "lead-gen-crm",
+      "ownerName": "🧲 Lead Gen & CRM",
+      "requires": [
+        "06-playbooks/lead-scoring.md",
+        "01-brand/personas/"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/"
+    },
+    {
+      "phrase": "form design",
+      "owner": "lead-gen-crm",
+      "ownerName": "🧲 Lead Gen & CRM",
+      "requires": [
+        "06-playbooks/lead-scoring.md",
+        "01-brand/personas/"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/"
+    },
+    {
+      "phrase": "release kit",
+      "owner": "product-marketer",
+      "ownerName": "🚀 Product Marketer",
+      "requires": [
+        "03-campaigns/launches/",
+        "01-brand/messaging/",
+        "02-market-research/competitors/"
+      ],
+      "outputPath": "knowledge/03-campaigns/launches/"
+    },
+    {
+      "phrase": "route work",
+      "owner": "marketing-director",
+      "ownerName": "🎯 Marketing Director (CMO)",
+      "requires": [
+        "03-campaigns/",
+        "05-analytics-reports/",
+        "03-campaigns/work-orders/"
+      ],
+      "outputPath": "knowledge/03-campaigns/"
+    },
+    {
+      "phrase": "asset pack",
+      "owner": "creative-designer",
+      "ownerName": "🎨 Creative Designer",
+      "requires": [
+        "01-brand/",
+        "04-content/assets/"
+      ],
+      "outputPath": "knowledge/04-content/assets/"
+    },
+    {
+      "phrase": "whitepaper",
+      "owner": "content-writer",
+      "ownerName": "✍️ Content Writer",
+      "requires": [
+        "04-content/seo/",
+        "04-content/content-calendar.md"
+      ],
+      "outputPath": "knowledge/04-content/drafts/"
+    },
+    {
+      "phrase": "case study",
+      "owner": "content-writer",
+      "ownerName": "✍️ Content Writer",
+      "requires": [
+        "04-content/seo/",
+        "04-content/content-calendar.md"
+      ],
+      "outputPath": "knowledge/04-content/drafts/"
+    },
+    {
+      "phrase": "google ads",
+      "owner": "paid-search",
+      "ownerName": "🔑 Paid Search",
+      "requires": [
+        "03-campaigns/",
+        "04-content/copy/"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/"
+    },
+    {
+      "phrase": "tiktok ads",
+      "owner": "paid-social",
+      "ownerName": "📢 Paid Social",
+      "requires": [
+        "03-campaigns/",
+        "01-brand/personas/"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-social/"
+    },
+    {
+      "phrase": "media list",
+      "owner": "pr-communications",
+      "ownerName": "📰 PR & Communications",
+      "requires": [
+        "04-content/pr/",
+        "06-playbooks/crisis-comms.md"
+      ],
+      "outputPath": "knowledge/04-content/pr/"
+    },
+    {
+      "phrase": "influencer",
+      "owner": "influencer-manager",
+      "ownerName": "🤝 Influencer Manager",
+      "requires": [
+        "03-campaigns/influencer/",
+        "01-brand/personas/"
+      ],
+      "outputPath": "knowledge/03-campaigns/influencer/"
+    },
+    {
+      "phrase": "commission",
+      "owner": "affiliate-partnerships",
+      "ownerName": "🔗 Affiliate & Partnerships",
+      "requires": [
+        "03-campaigns/partnerships/"
+      ],
+      "outputPath": "knowledge/03-campaigns/partnerships/"
+    },
+    {
+      "phrase": "show notes",
+      "owner": "podcast-audio",
+      "ownerName": "🎙️ Podcast & Audio",
+      "requires": [
+        "04-content/podcast/"
+      ],
+      "outputPath": "knowledge/04-content/podcast/"
+    },
+    {
+      "phrase": "storyboard",
+      "owner": "video-marketer",
+      "ownerName": "🎬 Video Marketer",
+      "requires": [
+        "04-content/video/",
+        "04-content/drafts/"
+      ],
+      "outputPath": "knowledge/04-content/video/"
+    },
+    {
+      "phrase": "build page",
+      "owner": "landing-page-builder",
+      "ownerName": "🏗️ Landing Page Builder",
+      "requires": [
+        "04-content/copy/",
+        "04-content/landing-pages/"
+      ],
+      "outputPath": "knowledge/04-content/landing-pages/"
+    },
+    {
+      "phrase": "page build",
+      "owner": "landing-page-builder",
+      "ownerName": "🏗️ Landing Page Builder",
+      "requires": [
+        "04-content/copy/",
+        "04-content/landing-pages/"
+      ],
+      "outputPath": "knowledge/04-content/landing-pages/"
+    },
+    {
+      "phrase": "experiment",
+      "owner": "cro-optimizer",
+      "ownerName": "📈 CRO Optimizer",
+      "requires": [
+        "06-playbooks/experiment-backlog.md",
+        "05-analytics-reports/experiments/"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/experiments/"
+    },
+    {
+      "phrase": "page audit",
+      "owner": "cro-optimizer",
+      "ownerName": "📈 CRO Optimizer",
+      "requires": [
+        "06-playbooks/experiment-backlog.md",
+        "05-analytics-reports/experiments/"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/experiments/"
+    },
+    {
+      "phrase": "battlecard",
+      "owner": "product-marketer",
+      "ownerName": "🚀 Product Marketer",
+      "requires": [
+        "03-campaigns/launches/",
+        "01-brand/messaging/",
+        "02-market-research/competitors/"
+      ],
+      "outputPath": "knowledge/03-campaigns/launches/"
+    },
+    {
+      "phrase": "newsletter",
+      "owner": "email-lifecycle",
+      "ownerName": "📧 Email Lifecycle",
+      "requires": [
+        "04-content/email/",
+        "01-brand/voice-and-tone.md"
+      ],
+      "outputPath": "knowledge/04-content/email/"
+    },
+    {
+      "phrase": "automation",
+      "owner": "marketing-automation",
+      "ownerName": "⚙️ Marketing Automation",
+      "requires": [
+        "06-playbooks/automation-library.md",
+        "03-campaigns/automation/"
+      ],
+      "outputPath": "knowledge/03-campaigns/automation/"
+    },
+    {
+      "phrase": "reputation",
+      "owner": "reputation-manager",
+      "ownerName": "⭐ Reputation Manager",
+      "requires": [
+        "05-analytics-reports/reputation/",
+        "01-brand/voice-and-tone.md"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/reputation/"
+    },
+    {
+      "phrase": "trustpilot",
+      "owner": "reputation-manager",
+      "ownerName": "⭐ Reputation Manager",
+      "requires": [
+        "05-analytics-reports/reputation/",
+        "01-brand/voice-and-tone.md"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/reputation/"
+    },
+    {
+      "phrase": "moderation",
+      "owner": "community-manager",
+      "ownerName": "👥 Community Manager",
+      "requires": [
+        "06-playbooks/community-playbook.md",
+        "03-campaigns/community/"
+      ],
+      "outputPath": "knowledge/03-campaigns/community/"
+    },
+    {
+      "phrase": "ambassador",
+      "owner": "community-manager",
+      "ownerName": "👥 Community Manager",
+      "requires": [
+        "06-playbooks/community-playbook.md",
+        "03-campaigns/community/"
+      ],
+      "outputPath": "knowledge/03-campaigns/community/"
+    },
+    {
+      "phrase": "brand kit",
+      "owner": "brand-strategist",
+      "ownerName": "🧭 Brand Strategist",
+      "requires": [
+        "02-market-research/",
+        "01-brand/"
+      ],
+      "outputPath": "knowledge/01-brand/"
+    },
+    {
+      "phrase": "dashboard",
+      "owner": "analytics-engine",
+      "ownerName": "📊 Analytics Engine",
+      "requires": [
+        "05-analytics-reports/",
+        "03-campaigns/quarterly-plan.md"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/"
+    },
+    {
+      "phrase": "thumbnail",
+      "owner": "creative-designer",
+      "ownerName": "🎨 Creative Designer",
+      "requires": [
+        "01-brand/",
+        "04-content/assets/"
+      ],
+      "outputPath": "knowledge/04-content/assets/"
+    },
+    {
+      "phrase": "media mix",
+      "owner": "budget-planner",
+      "ownerName": "💰 Budget Planner",
+      "requires": [
+        "05-analytics-reports/budget/",
+        "03-campaigns/quarterly-plan.md"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/budget/"
+    },
+    {
+      "phrase": "blog post",
+      "owner": "content-writer",
+      "ownerName": "✍️ Content Writer",
+      "requires": [
+        "04-content/seo/",
+        "04-content/content-calendar.md"
+      ],
+      "outputPath": "knowledge/04-content/drafts/"
+    },
+    {
+      "phrase": "long-form",
+      "owner": "content-writer",
+      "ownerName": "✍️ Content Writer",
+      "requires": [
+        "04-content/seo/",
+        "04-content/content-calendar.md"
+      ],
+      "outputPath": "knowledge/04-content/drafts/"
+    },
+    {
+      "phrase": "seo brief",
+      "owner": "seo-engine",
+      "ownerName": "🔍 SEO Engine",
+      "requires": [
+        "04-content/seo/",
+        "02-market-research/"
+      ],
+      "outputPath": "knowledge/04-content/seo/"
+    },
+    {
+      "phrase": "instagram",
+      "owner": "social-organic",
+      "ownerName": "📱 Social Organic",
+      "requires": [
+        "04-content/social/",
+        "04-content/drafts/"
+      ],
+      "outputPath": "knowledge/04-content/social/"
+    },
+    {
+      "phrase": "repurpose",
+      "owner": "social-organic",
+      "ownerName": "📱 Social Organic",
+      "requires": [
+        "04-content/social/",
+        "04-content/drafts/"
+      ],
+      "outputPath": "knowledge/04-content/social/"
+    },
+    {
+      "phrase": "affiliate",
+      "owner": "affiliate-partnerships",
+      "ownerName": "🔗 Affiliate & Partnerships",
+      "requires": [
+        "03-campaigns/partnerships/"
+      ],
+      "outputPath": "knowledge/03-campaigns/partnerships/"
+    },
+    {
+      "phrase": "audiogram",
+      "owner": "podcast-audio",
+      "ownerName": "🎙️ Podcast & Audio",
+      "requires": [
+        "04-content/podcast/"
+      ],
+      "outputPath": "knowledge/04-content/podcast/"
+    },
+    {
+      "phrase": "translate",
+      "owner": "localization-engine",
+      "ownerName": "🌍 Localization Engine",
+      "requires": [
+        "04-content/localization/",
+        "02-market-research/"
+      ],
+      "outputPath": "knowledge/04-content/localization/"
+    },
+    {
+      "phrase": "ecommerce",
+      "owner": "ecommerce-marketer",
+      "ownerName": "🛒 E-commerce Marketer",
+      "requires": [
+        "03-campaigns/ecommerce/",
+        "04-content/copy/"
+      ],
+      "outputPath": "knowledge/03-campaigns/ecommerce/"
+    },
+    {
+      "phrase": "sentiment",
+      "owner": "reputation-manager",
+      "ownerName": "⭐ Reputation Manager",
+      "requires": [
+        "05-analytics-reports/reputation/",
+        "01-brand/voice-and-tone.md"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/reputation/"
+    },
+    {
+      "phrase": "community",
+      "owner": "community-manager",
+      "ownerName": "👥 Community Manager",
+      "requires": [
+        "06-playbooks/community-playbook.md",
+        "03-campaigns/community/"
+      ],
+      "outputPath": "knowledge/03-campaigns/community/"
+    },
+    {
+      "phrase": "personas",
+      "owner": "brand-strategist",
+      "ownerName": "🧭 Brand Strategist",
+      "requires": [
+        "02-market-research/",
+        "01-brand/"
+      ],
+      "outputPath": "knowledge/01-brand/"
+    },
+    {
+      "phrase": "can-spam",
+      "owner": "compliance-guard",
+      "ownerName": "🛡️ Compliance Guard",
+      "requires": [
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/06-playbooks/compliance-checklists.md"
+    },
+    {
+      "phrase": "creative",
+      "owner": "creative-designer",
+      "ownerName": "🎨 Creative Designer",
+      "requires": [
+        "01-brand/",
+        "04-content/assets/"
+      ],
+      "outputPath": "knowledge/04-content/assets/"
+    },
+    {
+      "phrase": "og image",
+      "owner": "creative-designer",
+      "ownerName": "🎨 Creative Designer",
+      "requires": [
+        "01-brand/",
+        "04-content/assets/"
+      ],
+      "outputPath": "knowledge/04-content/assets/"
+    },
+    {
+      "phrase": "linkedin",
+      "owner": "social-organic",
+      "ownerName": "📱 Social Organic",
+      "requires": [
+        "04-content/social/",
+        "04-content/drafts/"
+      ],
+      "outputPath": "knowledge/04-content/social/"
+    },
+    {
+      "phrase": "meta ads",
+      "owner": "paid-social",
+      "ownerName": "📢 Paid Social",
+      "requires": [
+        "03-campaigns/",
+        "01-brand/personas/"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-social/"
+    },
+    {
+      "phrase": "hreflang",
+      "owner": "localization-engine",
+      "ownerName": "🌍 Localization Engine",
+      "requires": [
+        "04-content/localization/",
+        "02-market-research/"
+      ],
+      "outputPath": "knowledge/04-content/localization/"
+    },
+    {
+      "phrase": "headline",
+      "owner": "copywriter",
+      "ownerName": "🪝 Copywriter",
+      "requires": [
+        "04-content/copy/",
+        "01-brand/voice-and-tone.md",
+        "01-brand/personas/"
+      ],
+      "outputPath": "knowledge/04-content/copy/"
+    },
+    {
+      "phrase": "a/b test",
+      "owner": "cro-optimizer",
+      "ownerName": "📈 CRO Optimizer",
+      "requires": [
+        "06-playbooks/experiment-backlog.md",
+        "05-analytics-reports/experiments/"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/experiments/"
+    },
+    {
+      "phrase": "win loss",
+      "owner": "product-marketer",
+      "ownerName": "🚀 Product Marketer",
+      "requires": [
+        "03-campaigns/launches/",
+        "01-brand/messaging/",
+        "02-market-research/competitors/"
+      ],
+      "outputPath": "knowledge/03-campaigns/launches/"
+    },
+    {
+      "phrase": "win-back",
+      "owner": "email-lifecycle",
+      "ownerName": "📧 Email Lifecycle",
+      "requires": [
+        "04-content/email/",
+        "01-brand/voice-and-tone.md"
+      ],
+      "outputPath": "knowledge/04-content/email/"
+    },
+    {
+      "phrase": "workflow",
+      "owner": "marketing-automation",
+      "ownerName": "⚙️ Marketing Automation",
+      "requires": [
+        "06-playbooks/automation-library.md",
+        "03-campaigns/automation/"
+      ],
+      "outputPath": "knowledge/03-campaigns/automation/"
+    },
+    {
+      "phrase": "whatsapp",
+      "owner": "sms-messaging",
+      "ownerName": "💬 SMS & Messaging",
+      "requires": [
+        "04-content/messaging/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/04-content/messaging/"
+    },
+    {
+      "phrase": "anomaly",
+      "owner": "analytics-engine",
+      "ownerName": "📊 Analytics Engine",
+      "requires": [
+        "05-analytics-reports/",
+        "03-campaigns/quarterly-plan.md"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/"
+    },
+    {
+      "phrase": "on-page",
+      "owner": "seo-engine",
+      "ownerName": "🔍 SEO Engine",
+      "requires": [
+        "04-content/seo/",
+        "02-market-research/"
+      ],
+      "outputPath": "knowledge/04-content/seo/"
+    },
+    {
+      "phrase": "twitter",
+      "owner": "social-organic",
+      "ownerName": "📱 Social Organic",
+      "requires": [
+        "04-content/social/",
+        "04-content/drafts/"
+      ],
+      "outputPath": "knowledge/04-content/social/"
+    },
+    {
+      "phrase": "creator",
+      "owner": "influencer-manager",
+      "ownerName": "🤝 Influencer Manager",
+      "requires": [
+        "03-campaigns/influencer/",
+        "01-brand/personas/"
+      ],
+      "outputPath": "knowledge/03-campaigns/influencer/"
+    },
+    {
+      "phrase": "podcast",
+      "owner": "podcast-audio",
+      "ownerName": "🎙️ Podcast & Audio",
+      "requires": [
+        "04-content/podcast/"
+      ],
+      "outputPath": "knowledge/04-content/podcast/"
+    },
+    {
+      "phrase": "episode",
+      "owner": "podcast-audio",
+      "ownerName": "🎙️ Podcast & Audio",
+      "requires": [
+        "04-content/podcast/"
+      ],
+      "outputPath": "knowledge/04-content/podcast/"
+    },
+    {
+      "phrase": "webinar",
+      "owner": "event-webinar",
+      "ownerName": "🎪 Events & Webinars",
+      "requires": [
+        "03-campaigns/events/",
+        "04-content/email/"
+      ],
+      "outputPath": "knowledge/03-campaigns/events/"
+    },
+    {
+      "phrase": "youtube",
+      "owner": "video-marketer",
+      "ownerName": "🎬 Video Marketer",
+      "requires": [
+        "04-content/video/",
+        "04-content/drafts/"
+      ],
+      "outputPath": "knowledge/04-content/video/"
+    },
+    {
+      "phrase": "ad copy",
+      "owner": "copywriter",
+      "ownerName": "🪝 Copywriter",
+      "requires": [
+        "04-content/copy/",
+        "01-brand/voice-and-tone.md",
+        "01-brand/personas/"
+      ],
+      "outputPath": "knowledge/04-content/copy/"
+    },
+    {
+      "phrase": "shopify",
+      "owner": "ecommerce-marketer",
+      "ownerName": "🛒 E-commerce Marketer",
+      "requires": [
+        "03-campaigns/ecommerce/",
+        "04-content/copy/"
+      ],
+      "outputPath": "knowledge/03-campaigns/ecommerce/"
+    },
+    {
+      "phrase": "journey",
+      "owner": "marketing-automation",
+      "ownerName": "⚙️ Marketing Automation",
+      "requires": [
+        "06-playbooks/automation-library.md",
+        "03-campaigns/automation/"
+      ],
+      "outputPath": "knowledge/03-campaigns/automation/"
+    },
+    {
+      "phrase": "trigger",
+      "owner": "marketing-automation",
+      "ownerName": "⚙️ Marketing Automation",
+      "requires": [
+        "06-playbooks/automation-library.md",
+        "03-campaigns/automation/"
+      ],
+      "outputPath": "knowledge/03-campaigns/automation/"
+    },
+    {
+      "phrase": "discord",
+      "owner": "community-manager",
+      "ownerName": "👥 Community Manager",
+      "requires": [
+        "06-playbooks/community-playbook.md",
+        "03-campaigns/community/"
+      ],
+      "outputPath": "knowledge/03-campaigns/community/"
+    },
+    {
+      "phrase": "consent",
+      "owner": "sms-messaging",
+      "ownerName": "💬 SMS & Messaging",
+      "requires": [
+        "04-content/messaging/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/04-content/messaging/"
+    },
+    {
+      "phrase": "design",
+      "owner": "creative-designer",
+      "ownerName": "🎨 Creative Designer",
+      "requires": [
+        "01-brand/",
+        "04-content/assets/"
+      ],
+      "outputPath": "knowledge/04-content/assets/"
+    },
+    {
+      "phrase": "budget",
+      "owner": "budget-planner",
+      "ownerName": "💰 Budget Planner",
+      "requires": [
+        "05-analytics-reports/budget/",
+        "03-campaigns/quarterly-plan.md"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/budget/"
+    },
+    {
+      "phrase": "shorts",
+      "owner": "video-marketer",
+      "ownerName": "🎬 Video Marketer",
+      "requires": [
+        "04-content/video/",
+        "04-content/drafts/"
+      ],
+      "outputPath": "knowledge/04-content/video/"
+    },
+    {
+      "phrase": "launch",
+      "owner": "product-marketer",
+      "ownerName": "🚀 Product Marketer",
+      "requires": [
+        "03-campaigns/launches/",
+        "01-brand/messaging/",
+        "02-market-research/competitors/"
+      ],
+      "outputPath": "knowledge/03-campaigns/launches/"
+    },
+    {
+      "phrase": "review",
+      "owner": "reputation-manager",
+      "ownerName": "⭐ Reputation Manager",
+      "requires": [
+        "05-analytics-reports/reputation/",
+        "01-brand/voice-and-tone.md"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/reputation/"
+    },
+    {
+      "phrase": "reddit",
+      "owner": "community-manager",
+      "ownerName": "👥 Community Manager",
+      "requires": [
+        "06-playbooks/community-playbook.md",
+        "03-campaigns/community/"
+      ],
+      "outputPath": "knowledge/03-campaigns/community/"
+    },
+    {
+      "phrase": "image",
+      "owner": "creative-designer",
+      "ownerName": "🎨 Creative Designer",
+      "requires": [
+        "01-brand/",
+        "04-content/assets/"
+      ],
+      "outputPath": "knowledge/04-content/assets/"
+    },
+    {
+      "phrase": "ebook",
+      "owner": "content-writer",
+      "ownerName": "✍️ Content Writer",
+      "requires": [
+        "04-content/seo/",
+        "04-content/content-calendar.md"
+      ],
+      "outputPath": "knowledge/04-content/drafts/"
+    },
+    {
+      "phrase": "audio",
+      "owner": "podcast-audio",
+      "ownerName": "🎙️ Podcast & Audio",
+      "requires": [
+        "04-content/podcast/"
+      ],
+      "outputPath": "knowledge/04-content/podcast/"
+    },
+    {
+      "phrase": "event",
+      "owner": "event-webinar",
+      "ownerName": "🎪 Events & Webinars",
+      "requires": [
+        "03-campaigns/events/",
+        "04-content/email/"
+      ],
+      "outputPath": "knowledge/03-campaigns/events/"
+    },
+    {
+      "phrase": "video",
+      "owner": "video-marketer",
+      "ownerName": "🎬 Video Marketer",
+      "requires": [
+        "04-content/video/",
+        "04-content/drafts/"
+      ],
+      "outputPath": "knowledge/04-content/video/"
+    },
+    {
+      "phrase": "reels",
+      "owner": "video-marketer",
+      "ownerName": "🎬 Video Marketer",
+      "requires": [
+        "04-content/video/",
+        "04-content/drafts/"
+      ],
+      "outputPath": "knowledge/04-content/video/"
+    },
+    {
+      "phrase": "email",
+      "owner": "email-lifecycle",
+      "ownerName": "📧 Email Lifecycle",
+      "requires": [
+        "04-content/email/",
+        "01-brand/voice-and-tone.md"
+      ],
+      "outputPath": "knowledge/04-content/email/"
+    },
+    {
+      "phrase": "swot",
+      "owner": "market-researcher",
+      "ownerName": "🔎 Market Researcher",
+      "requires": [
+        "02-market-research/"
+      ],
+      "outputPath": "knowledge/02-market-research/"
+    },
+    {
+      "phrase": "gdpr",
+      "owner": "compliance-guard",
+      "ownerName": "🛡️ Compliance Guard",
+      "requires": [
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/06-playbooks/compliance-checklists.md"
+    },
+    {
+      "phrase": "roas",
+      "owner": "paid-social",
+      "ownerName": "📢 Paid Social",
+      "requires": [
+        "03-campaigns/",
+        "01-brand/personas/"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-social/"
+    },
+    {
+      "phrase": "haro",
+      "owner": "pr-communications",
+      "ownerName": "📰 PR & Communications",
+      "requires": [
+        "04-content/pr/",
+        "06-playbooks/crisis-comms.md"
+      ],
+      "outputPath": "knowledge/04-content/pr/"
+    },
+    {
+      "phrase": "drip",
+      "owner": "email-lifecycle",
+      "ownerName": "📧 Email Lifecycle",
+      "requires": [
+        "04-content/email/",
+        "01-brand/voice-and-tone.md"
+      ],
+      "outputPath": "knowledge/04-content/email/"
+    },
+    {
+      "phrase": "kpi",
+      "owner": "analytics-engine",
+      "ownerName": "📊 Analytics Engine",
+      "requires": [
+        "05-analytics-reports/",
+        "03-campaigns/quarterly-plan.md"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/"
+    },
+    {
+      "phrase": "cac",
+      "owner": "budget-planner",
+      "ownerName": "💰 Budget Planner",
+      "requires": [
+        "05-analytics-reports/budget/",
+        "03-campaigns/quarterly-plan.md"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/budget/"
+    },
+    {
+      "phrase": "ltv",
+      "owner": "budget-planner",
+      "ownerName": "💰 Budget Planner",
+      "requires": [
+        "05-analytics-reports/budget/",
+        "03-campaigns/quarterly-plan.md"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/budget/"
+    },
+    {
+      "phrase": "sem",
+      "owner": "paid-search",
+      "ownerName": "🔑 Paid Search",
+      "requires": [
+        "03-campaigns/",
+        "04-content/copy/"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/"
+    },
+    {
+      "phrase": "rsa",
+      "owner": "paid-search",
+      "ownerName": "🔑 Paid Search",
+      "requires": [
+        "03-campaigns/",
+        "04-content/copy/"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/"
+    },
+    {
+      "phrase": "ppc",
+      "owner": "paid-search",
+      "ownerName": "🔑 Paid Search",
+      "requires": [
+        "03-campaigns/",
+        "04-content/copy/"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/"
+    },
+    {
+      "phrase": "abm",
+      "owner": "abm-engine",
+      "ownerName": "🏢 ABM Engine",
+      "requires": [
+        "02-market-research/accounts/",
+        "01-brand/personas/"
+      ],
+      "outputPath": "knowledge/02-market-research/accounts/"
+    },
+    {
+      "phrase": "cta",
+      "owner": "copywriter",
+      "ownerName": "🪝 Copywriter",
+      "requires": [
+        "04-content/copy/",
+        "01-brand/voice-and-tone.md",
+        "01-brand/personas/"
+      ],
+      "outputPath": "knowledge/04-content/copy/"
+    },
+    {
+      "phrase": "cro",
+      "owner": "cro-optimizer",
+      "ownerName": "📈 CRO Optimizer",
+      "requires": [
+        "06-playbooks/experiment-backlog.md",
+        "05-analytics-reports/experiments/"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/experiments/"
+    },
+    {
+      "phrase": "crm",
+      "owner": "lead-gen-crm",
+      "ownerName": "🧲 Lead Gen & CRM",
+      "requires": [
+        "06-playbooks/lead-scoring.md",
+        "01-brand/personas/"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/"
+    },
+    {
+      "phrase": "mql",
+      "owner": "lead-gen-crm",
+      "ownerName": "🧲 Lead Gen & CRM",
+      "requires": [
+        "06-playbooks/lead-scoring.md",
+        "01-brand/personas/"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/"
+    },
+    {
+      "phrase": "n8n",
+      "owner": "marketing-automation",
+      "ownerName": "⚙️ Marketing Automation",
+      "requires": [
+        "06-playbooks/automation-library.md",
+        "03-campaigns/automation/"
+      ],
+      "outputPath": "knowledge/03-campaigns/automation/"
+    },
+    {
+      "phrase": "ugc",
+      "owner": "community-manager",
+      "ownerName": "👥 Community Manager",
+      "requires": [
+        "06-playbooks/community-playbook.md",
+        "03-campaigns/community/"
+      ],
+      "outputPath": "knowledge/03-campaigns/community/"
+    },
+    {
+      "phrase": "sms",
+      "owner": "sms-messaging",
+      "ownerName": "💬 SMS & Messaging",
+      "requires": [
+        "04-content/messaging/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/04-content/messaging/"
+    },
+    {
+      "phrase": "pr",
+      "owner": "pr-communications",
+      "ownerName": "📰 PR & Communications",
+      "requires": [
+        "04-content/pr/",
+        "06-playbooks/crisis-comms.md"
+      ],
+      "outputPath": "knowledge/04-content/pr/"
+    },
+    {
+      "phrase": "g2",
+      "owner": "reputation-manager",
+      "ownerName": "⭐ Reputation Manager",
+      "requires": [
+        "05-analytics-reports/reputation/",
+        "01-brand/voice-and-tone.md"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/reputation/"
+    }
+  ]
+}

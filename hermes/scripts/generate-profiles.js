@@ -1,14 +1,82 @@
 #!/usr/bin/env node
 /**
- * Generates the 31 Hermes profile files (hermes/profiles/*.profile.md).
- * Each profile carries: persona, funnel category, playbooks, tools,
- * required keys, and output contracts. Tiers are intentionally ignored —
+ * Generates the 31 Valgist profile files (hermes/profiles/*.profile.md) plus the
+ * machine-readable artifacts the admin server, the sync script and the dashboard
+ * consume:
+ *
+ *   hermes/profiles/*.profile.md   — human-readable profile contract
+ *   hermes/profiles/index.json     — the full profile registry
+ *   hermes/integrations.json       — external systems, their keys, and wiring status
+ *   hermes/routing.json            — task type → owning profile → inputs → output path
+ *
+ * Each profile carries: persona, funnel category, playbooks, runtime tools,
+ * declared integrations, the context it loads before working, the knowledge
+ * folders it owns, and its output contracts. Tiers are intentionally ignored —
  * all profiles are installed and available.
+ *
+ * IMPORTANT — capability honesty:
+ *   `tools` may only contain ids from TOOL_CATALOG (things the Hermes Agent
+ *   runtime actually provides). Anything external is an entry in INTEGRATIONS
+ *   with an explicit wiring status. This repo ships with every integration
+ *   `not-wired` — the community edition has no live provider or API connectivity.
  *
  * Run: node hermes/scripts/generate-profiles.js
  */
 const fs = require("fs");
 const path = require("path");
+
+// ─────────────────────────── Runtime tool catalog ───────────────────────────
+// Only tools the Hermes Agent runtime actually exposes. `offline: true` means the
+// tool works with no model provider configured at all (pure file/shell work).
+const TOOL_CATALOG = {
+  "files:read": { label: "Read workspace files", offline: true, note: "The workspace is the organization knowledge base." },
+  "files:write": { label: "Write workspace files", offline: true, note: "Everything except the read-only organization brain." },
+  "terminal": { label: "Shell in the workspace", offline: true, note: "Search, move and transform knowledge files." },
+  "memory": { label: "Profile memory", offline: true, note: "Durable per-profile MEMORY.md across sessions." },
+  "skills": { label: "Packaged skills", offline: true, note: "The procedures shipped in this profile's skills/ folder." },
+  "web-search": { label: "Web search", offline: false, note: "Requires a configured model provider with search." },
+  "browser": { label: "Browser / page fetch", offline: false, note: "Requires a configured model provider." },
+  "image-generation": { label: "Image generation", offline: false, note: "Requires a provider and IMAGE_API_KEY." },
+  "code-execution": { label: "Code execution", offline: false, note: "For data work and report generation." },
+  "delegate": { label: "Delegate to subagents", offline: false, note: "Orchestrators only — bounded, non-recursive workers." },
+};
+
+// ──────────────────────── External integration registry ─────────────────────
+// status is ALWAYS "not-wired" in the community edition: no connector code and
+// no credentials ship with this repo. `via` records how it would be wired.
+const INTEGRATIONS = {
+  ga4: { name: "Google Analytics 4", env: ["GA4_PROPERTY_ID"], via: "mcp" },
+  "google-ads": { name: "Google Ads", env: ["GOOGLE_ADS_API_KEY"], via: "mcp" },
+  "bing-ads": { name: "Microsoft Advertising", env: ["BING_ADS_API_KEY"], via: "mcp" },
+  "meta-ads": { name: "Meta Ads", env: ["META_ADS_TOKEN"], via: "mcp" },
+  "linkedin-ads": { name: "LinkedIn Ads", env: ["LINKEDIN_ADS_TOKEN"], via: "mcp" },
+  "tiktok-ads": { name: "TikTok Ads", env: ["TIKTOK_ADS_TOKEN"], via: "mcp" },
+  "amazon-ads": { name: "Amazon Ads", env: ["AMAZON_ADS_API_KEY"], via: "mcp" },
+  crm: { name: "CRM (HubSpot / Salesforce / Pipedrive)", env: ["CRM_API_KEY"], via: "mcp" },
+  esp: { name: "Email provider (Resend / SendGrid / Mailchimp / Klaviyo)", env: ["ESP_API_KEY"], via: "mcp" },
+  n8n: { name: "n8n automation", env: ["N8N_API_URL", "N8N_API_KEY"], via: "mcp" },
+  twilio: { name: "Twilio SMS / WhatsApp", env: ["TWILIO_ACCOUNT_SID", "TWILIO_AUTH_TOKEN"], via: "mcp" },
+  shopify: { name: "Shopify", env: ["SHOPIFY_API_KEY"], via: "mcp" },
+  "seo-tool": { name: "SEO suite (Ahrefs / Semrush / DataForSEO)", env: ["SEO_TOOL_API_KEY"], via: "mcp" },
+  "review-platforms": { name: "Review platforms (G2 / Capterra / Trustpilot / app stores)", env: ["REVIEW_PLATFORM_API_KEY"], via: "mcp" },
+  "ab-testing": { name: "A/B testing (VWO / Optimizely / GrowthBook)", env: ["AB_TESTING_TOOL_API_KEY"], via: "mcp" },
+  webinar: { name: "Webinar platform (Zoom / Livestorm / Demio)", env: ["WEBINAR_PLATFORM_API_KEY"], via: "mcp" },
+  "social-scheduler": { name: "Social scheduler (Buffer / Hootsuite / Later)", env: ["SOCIAL_SCHEDULER_API_KEY"], via: "mcp" },
+  affiliate: { name: "Affiliate platform (Impact / PartnerStack / Rewardful)", env: ["AFFILIATE_PLATFORM_API_KEY"], via: "mcp" },
+  "intent-data": { name: "Intent data (Bombora / 6sense)", env: ["INTENT_DATA_API_KEY"], via: "mcp" },
+  hosting: { name: "Hosting / deploy target", env: ["HOSTING_DEPLOY_TOKEN"], via: "mcp" },
+  "image-provider": { name: "Image generation provider", env: ["IMAGE_API_KEY"], via: "provider" },
+};
+
+// Context every profile loads before it does anything, in this order.
+const BASE_CONTEXT = [
+  "INDEX.md",
+  "00-org/ORG.md",
+  "01-brand/brand-kit.md",
+];
+
+// Tools every profile has.
+const BASE_TOOLS = ["files:read", "files:write", "memory", "skills"];
 
 const P = [
   // ───────────────────────── OPERATIONS ─────────────────────────
@@ -25,8 +93,11 @@ const P = [
       "Visual guideline brief — logo usage, color, typography, imagery direction",
       "Quarterly brand audit — consistency scan across all published assets",
     ],
-    tools: ["knowledge-base:read/write", "web-research", "document-generator"],
-    keys: [],
+    tools: ["web-search", "browser"],
+    integrations: [],
+    context: ["02-market-research/", "01-brand/"],
+    owns: ["01-brand/ (via promotion)"],
+    routes: ["brand kit", "positioning", "personas", "voice and tone", "messaging hierarchy", "brand audit"],
     outputs: [
       "`knowledge/01-brand/brand-kit.md` — the canonical Brand Kit (single source of truth)",
       "`knowledge/01-brand/personas/*.md` — one file per ICP persona",
@@ -47,8 +118,11 @@ const P = [
       "SWOT & opportunity map — synthesized from all research artifacts",
       "Voice-of-customer mining — review/forum/social scraping into theme clusters with verbatims",
     ],
-    tools: ["web-research", "web-scraper", "knowledge-base:read/write", "spreadsheet-generator"],
-    keys: [],
+    tools: ["web-search", "browser", "code-execution"],
+    integrations: [],
+    context: ["02-market-research/"],
+    owns: ["02-market-research/ (via promotion)"],
+    routes: ["market sizing", "competitor teardown", "competitive research", "pricing intel", "voice of customer", "trend report", "swot"],
     outputs: [
       "`knowledge/02-market-research/competitors/*.md` — one teardown per competitor",
       "`knowledge/02-market-research/market-sizing.md` — sized market with assumptions",
@@ -64,17 +138,21 @@ const P = [
     playbooks: [
       "Quarterly planning — goals → strategies → campaigns → owner profiles → KPIs",
       "Master campaign calendar — cross-channel calendar with dependencies",
-      "Work allocation — brief generation and hand-off to specialist profiles",
+      "Work allocation — work orders routed to specialist profiles via routing.json",
       "Weekly retro — KPI review, wins/losses, reallocation decisions",
       "Budget alignment — sync with budget-planner on spend vs. plan",
-      "Stakeholder reporting — monthly executive summary",
+      "Brain promotion — reviews specialist drafts and promotes them into the org brain",
     ],
-    tools: ["knowledge-base:read/write", "calendar", "task-router", "report-generator"],
-    keys: [],
+    tools: ["delegate", "web-search", "code-execution"],
+    integrations: [],
+    context: ["03-campaigns/", "05-analytics-reports/", "03-campaigns/work-orders/"],
+    owns: ["03-campaigns/", "03-campaigns/work-orders/"],
+    routes: ["quarterly plan", "campaign calendar", "allocate work", "route work", "weekly retro", "promote draft", "executive summary"],
+    orchestrator: true,
     outputs: [
       "`knowledge/03-campaigns/quarterly-plan.md` — the active quarter plan",
       "`knowledge/03-campaigns/calendar.md` — master campaign calendar",
-      "Campaign briefs handed to specialist profiles",
+      "`knowledge/03-campaigns/work-orders/*.md` — work orders routed to specialists",
       "Weekly retro notes + monthly executive summary in `knowledge/05-analytics-reports/`",
     ],
   },
@@ -91,34 +169,40 @@ const P = [
       "Weekly report — automated performance digest with insights, not just numbers",
       "Monthly deep-dive — trends, cohort retention, channel efficiency (CAC by channel)",
     ],
-    tools: ["ga4-connector", "ads-connector", "crm-connector", "chart-generator", "knowledge-base:read/write"],
-    keys: ["GA4_PROPERTY_ID", "GOOGLE_ADS_API_KEY (optional)", "META_ADS_TOKEN (optional)", "CRM_API_KEY (optional)"],
+    tools: ["code-execution", "web-search"],
+    integrations: ["ga4", "google-ads", "meta-ads", "crm"],
+    context: ["05-analytics-reports/", "03-campaigns/quarterly-plan.md"],
+    owns: ["05-analytics-reports/"],
+    routes: ["kpi", "weekly report", "monthly report", "attribution", "anomaly", "dashboard", "performance digest"],
     outputs: [
       "`knowledge/05-analytics-reports/weekly/*.md` — weekly digests",
       "`knowledge/05-analytics-reports/monthly/*.md` — monthly deep-dives",
-      "Anomaly alerts pushed to the activity feed",
-      "KPI dashboard JSON consumed by the Admin UI",
+      "Anomaly alerts recorded in the activity feed",
+      "KPI summary consumed by the Admin Dashboard scorecard",
     ],
   },
   {
     id: "compliance-guard", emoji: "🛡️", category: "Operations",
     title: "Compliance Guard",
     tagline: "Reviews all outbound content for GDPR/CCPA, CAN-SPAM, FTC, and platform policy. Runs before any publish.",
-    persona: "A meticulous marketing-compliance reviewer. Checks every outbound asset against GDPR/CCPA, CAN-SPAM, FTC disclosure rules, ad-platform policies, and industry claim restrictions. Operates as a mandatory pre-publish hook — nothing ships without a pass.",
+    persona: "A meticulous marketing-compliance reviewer. Checks every outbound asset against GDPR/CCPA, CAN-SPAM, FTC disclosure rules, ad-platform policies, and industry claim restrictions. Operates as a mandatory pre-publish gate — nothing ships without a pass.",
     playbooks: [
-      "Pre-publish review — automated checklist scan of any outbound asset",
+      "Pre-publish review — checklist scan of any outbound asset, ending in PASS or FAIL",
       "Email compliance — CAN-SPAM/GDPR consent, unsubscribe, sender identity checks",
       "Ad policy review — platform-specific restricted-content and claim checks",
       "FTC disclosure audit — influencer/affiliate/testimonial disclosure verification",
       "Claims substantiation — flag health/financial/superlative claims lacking evidence",
       "Data-privacy review — form/consent/cookie language for GDPR/CCPA",
     ],
-    tools: ["policy-checklists", "knowledge-base:read/write"],
-    keys: [],
+    tools: ["web-search"],
+    integrations: [],
+    context: ["06-playbooks/compliance-checklists.md", "00-org/ORG.md"],
+    owns: ["06-playbooks/compliance-checklists.md (via promotion)", "05-analytics-reports/compliance/"],
+    routes: ["compliance review", "pre-publish", "legal check", "ftc disclosure", "can-spam", "gdpr", "claims check"],
     outputs: [
-      "Pass/fail compliance report per asset with line-level flags and required fixes",
+      "`knowledge/05-analytics-reports/compliance/*.md` — one PASS/FAIL report per reviewed asset",
       "`knowledge/06-playbooks/compliance-checklists.md` — maintained checklist library",
-      "Compliance log in the activity feed (audit trail)",
+      "Compliance verdicts recorded in the activity feed (audit trail)",
     ],
   },
   {
@@ -133,10 +217,13 @@ const P = [
       "Creative refresh — variant generation to fight ad fatigue",
       "Brand-guideline enforcement — color/typography/logo checks on all output",
     ],
-    tools: ["image-generation", "image-editing", "brand-kit:read", "asset-library:write"],
-    keys: ["IMAGE_API_KEY (optional — provider for image generation)"],
+    tools: ["image-generation"],
+    integrations: ["image-provider"],
+    context: ["01-brand/", "04-content/assets/"],
+    owns: ["04-content/assets/"],
+    routes: ["creative", "ad creative", "image", "og image", "asset pack", "thumbnail", "design"],
     outputs: [
-      "Asset packs stored in `knowledge/04-content/assets/`",
+      "Asset packs and specs stored in `knowledge/04-content/assets/`",
       "Ad-size matrix per campaign (all required dimensions)",
       "Creative brief responses with 2-3 concept directions",
     ],
@@ -153,8 +240,11 @@ const P = [
       "Spend-pacing alerts — daily pace vs. plan monitoring",
       "CAC/LTV guardrails — per-channel thresholds with breach alerts",
     ],
-    tools: ["spreadsheet-generator", "ads-connector", "knowledge-base:read/write"],
-    keys: [],
+    tools: ["code-execution"],
+    integrations: ["google-ads", "meta-ads"],
+    context: ["05-analytics-reports/budget/", "03-campaigns/quarterly-plan.md"],
+    owns: ["05-analytics-reports/budget/"],
+    routes: ["budget", "media mix", "spend pacing", "cac", "ltv", "scenario plan"],
     outputs: [
       "`knowledge/05-analytics-reports/budget/budget-model.md` — active budget",
       "Scenario comparison tables",
@@ -175,8 +265,11 @@ const P = [
       "Content calendar maintenance — pipeline of briefs, drafts, and publish dates",
       "Content refresh — decay detection and update of aging posts",
     ],
-    tools: ["knowledge-base:read/write", "seo-brief:read", "web-research", "document-generator"],
-    keys: [],
+    tools: ["web-search", "browser"],
+    integrations: [],
+    context: ["04-content/seo/", "04-content/content-calendar.md"],
+    owns: ["04-content/drafts/", "04-content/content-calendar.md"],
+    routes: ["blog post", "long-form", "pillar page", "whitepaper", "ebook", "case study", "content calendar"],
     outputs: [
       "Publish-ready long-form drafts in `knowledge/04-content/drafts/`",
       "`knowledge/04-content/content-calendar.md` — maintained calendar",
@@ -196,8 +289,11 @@ const P = [
       "Technical audit — crawlability, CWV, indexation, duplicate content",
       "Internal-linking pass + rank tracking report",
     ],
-    tools: ["web-research", "serp-analysis", "site-crawler", "knowledge-base:read/write"],
-    keys: ["SEO_TOOL_API_KEY (optional — Ahrefs/Semrush/DataForSEO)"],
+    tools: ["web-search", "browser"],
+    integrations: ["seo-tool"],
+    context: ["04-content/seo/", "02-market-research/"],
+    owns: ["04-content/seo/"],
+    routes: ["keyword research", "seo brief", "topical map", "on-page", "technical seo", "rank tracking", "internal linking"],
     outputs: [
       "`knowledge/04-content/seo/topical-map.md` — the domain topical map",
       "Content briefs in `knowledge/04-content/seo/briefs/`",
@@ -218,8 +314,11 @@ const P = [
       "Hashtag & discovery strategy per platform",
       "Engagement playbook — reply/community interaction guidelines",
     ],
-    tools: ["knowledge-base:read/write", "calendar", "scheduler-connector"],
-    keys: ["SOCIAL_SCHEDULER_API_KEY (optional — Buffer/Hootsuite/Later)"],
+    tools: ["web-search"],
+    integrations: ["social-scheduler"],
+    context: ["04-content/social/", "04-content/drafts/"],
+    owns: ["04-content/social/"],
+    routes: ["social post", "organic social", "linkedin", "twitter", "instagram", "tiktok organic", "social calendar", "repurpose"],
     outputs: [
       "`knowledge/04-content/social/calendar.md` — rolling social calendar",
       "Platform-native post batches ready to schedule",
@@ -239,12 +338,15 @@ const P = [
       "Search-term audit — weekly waste elimination and negative expansion",
       "Landing-page alignment check with cro-optimizer",
     ],
-    tools: ["ads-connector", "keyword-research", "knowledge-base:read/write"],
-    keys: ["GOOGLE_ADS_API_KEY (optional)", "BING_ADS_API_KEY (optional)"],
+    tools: ["web-search", "code-execution"],
+    integrations: ["google-ads", "bing-ads"],
+    context: ["03-campaigns/", "04-content/copy/"],
+    owns: ["03-campaigns/paid-search/"],
+    routes: ["google ads", "paid search", "sem", "rsa", "search terms", "negative keywords", "ppc"],
     outputs: [
       "Campaign build sheets (structure, keywords, negatives, RSAs)",
       "Weekly search-term audit report",
-      "Budget pacing dashboard data",
+      "Budget pacing data for budget-planner",
     ],
   },
   {
@@ -260,8 +362,11 @@ const P = [
       "ROAS reporting — blended + platform views with caveats",
       "Creative testing matrix — systematic hook/format/audience tests",
     ],
-    tools: ["ads-connector", "creative-brief-generator", "knowledge-base:read/write"],
-    keys: ["META_ADS_TOKEN (optional)", "LINKEDIN_ADS_TOKEN (optional)", "TIKTOK_ADS_TOKEN (optional)"],
+    tools: ["web-search", "code-execution"],
+    integrations: ["meta-ads", "linkedin-ads", "tiktok-ads"],
+    context: ["03-campaigns/", "01-brand/personas/"],
+    owns: ["03-campaigns/paid-social/"],
+    routes: ["paid social", "meta ads", "facebook ads", "linkedin ads", "tiktok ads", "roas", "creative fatigue"],
     outputs: [
       "Campaign build docs + audience matrices",
       "Creative briefs handed to creative-designer",
@@ -281,8 +386,11 @@ const P = [
       "Crisis-comms playbook — scenarios, holding statements, spokesperson prep",
       "Executive thought leadership — bylines and op-ed pipeline",
     ],
-    tools: ["web-research", "document-generator", "knowledge-base:read/write"],
-    keys: [],
+    tools: ["web-search", "browser"],
+    integrations: [],
+    context: ["04-content/pr/", "06-playbooks/crisis-comms.md"],
+    owns: ["04-content/pr/"],
+    routes: ["press release", "pr", "media list", "journalist pitch", "haro", "crisis comms", "thought leadership"],
     outputs: [
       "Press releases + pitch kits in `knowledge/04-content/pr/`",
       "Media lists with beat and personalization data",
@@ -302,8 +410,11 @@ const P = [
       "Campaign tracking — content delivery, performance, cost-per-engagement",
       "FTC compliance check with compliance-guard",
     ],
-    tools: ["web-research", "knowledge-base:read/write", "spreadsheet-generator"],
-    keys: [],
+    tools: ["web-search", "browser"],
+    integrations: [],
+    context: ["03-campaigns/influencer/", "01-brand/personas/"],
+    owns: ["03-campaigns/influencer/"],
+    routes: ["influencer", "creator", "ugc partnership", "creator outreach", "sponsorship"],
     outputs: [
       "Vetted creator shortlists with scores",
       "Outreach sequences + campaign briefs",
@@ -323,8 +434,11 @@ const P = [
       "Partner newsletter — monthly activation update",
       "Fraud checks — coupon abuse, self-referral, cookie-stuffing detection",
     ],
-    tools: ["web-research", "spreadsheet-generator", "knowledge-base:read/write"],
-    keys: ["AFFILIATE_PLATFORM_API_KEY (optional — Impact/PartnerStack/Rewardful)"],
+    tools: ["web-search", "code-execution"],
+    integrations: ["affiliate"],
+    context: ["03-campaigns/partnerships/"],
+    owns: ["03-campaigns/partnerships/"],
+    routes: ["affiliate", "partnership", "commission", "co-marketing", "referral program"],
     outputs: [
       "Program design doc + commission model",
       "Partner recruitment pipeline",
@@ -344,8 +458,11 @@ const P = [
       "Podcast SEO — titles, descriptions, directory optimization",
       "Guest-placement pipeline — pitching the brand's experts onto other shows",
     ],
-    tools: ["web-research", "document-generator", "knowledge-base:read/write"],
-    keys: [],
+    tools: ["web-search", "browser"],
+    integrations: [],
+    context: ["04-content/podcast/"],
+    owns: ["04-content/podcast/"],
+    routes: ["podcast", "audio", "show notes", "episode", "guest outreach", "audiogram"],
     outputs: [
       "Episode briefs + show notes in `knowledge/04-content/podcast/`",
       "Guest booking pipeline",
@@ -365,8 +482,11 @@ const P = [
       "Follow-up flows — attended/no-show branches with next-step CTAs",
       "Repurposing plan — clips, blog recap, snippet calendar from the recording",
     ],
-    tools: ["knowledge-base:read/write", "calendar", "document-generator"],
-    keys: ["WEBINAR_PLATFORM_API_KEY (optional — Zoom/Livestorm/Demio)"],
+    tools: ["web-search"],
+    integrations: ["webinar"],
+    context: ["03-campaigns/events/", "04-content/email/"],
+    owns: ["03-campaigns/events/"],
+    routes: ["webinar", "event", "registration funnel", "run of show", "event follow-up"],
     outputs: [
       "Event plan + run-of-show",
       "Full promotion and follow-up sequence copy",
@@ -386,11 +506,14 @@ const P = [
       "Sales-marketing orchestration — SLA and hand-off design",
       "Account-level reporting — engagement and pipeline influence",
     ],
-    tools: ["web-research", "crm-connector", "knowledge-base:read/write"],
-    keys: ["INTENT_DATA_API_KEY (optional — Bombora/6sense)", "CRM_API_KEY (optional)"],
+    tools: ["web-search", "browser", "delegate"],
+    integrations: ["intent-data", "crm"],
+    context: ["02-market-research/accounts/", "01-brand/personas/"],
+    owns: ["02-market-research/accounts/ (via promotion)", "03-campaigns/abm/"],
+    routes: ["abm", "target account", "account dossier", "intent data", "account based"],
     outputs: [
       "Tiered target account list",
-      "Account dossiers in `knowledge/02-market-research/accounts/`",
+      "Account dossiers drafted for `knowledge/02-market-research/accounts/`",
       "Play sequences + account engagement reports",
     ],
   },
@@ -407,8 +530,11 @@ const P = [
       "Video SEO — titles, descriptions, chapters, tags",
       "Long→short repurposing — clip selection from long-form",
     ],
-    tools: ["document-generator", "knowledge-base:read/write", "web-research"],
-    keys: [],
+    tools: ["web-search"],
+    integrations: [],
+    context: ["04-content/video/", "04-content/drafts/"],
+    owns: ["04-content/video/"],
+    routes: ["video", "youtube", "shorts", "reels", "video script", "storyboard"],
     outputs: [
       "Scripts + storyboards in `knowledge/04-content/video/`",
       "Thumbnail briefs for creative-designer",
@@ -427,8 +553,11 @@ const P = [
       "Cultural compliance check — imagery, claims, taboos per market",
       "Local channel plan — market-specific platform priorities",
     ],
-    tools: ["web-research", "knowledge-base:read/write", "seo-brief:read"],
-    keys: [],
+    tools: ["web-search", "browser", "delegate"],
+    integrations: [],
+    context: ["04-content/localization/", "02-market-research/"],
+    owns: ["04-content/localization/"],
+    routes: ["localization", "translate", "transcreation", "hreflang", "market entry", "international"],
     outputs: [
       "Market-entry briefs per target market",
       "Transcreated campaign kits with cultural annotations",
@@ -449,8 +578,11 @@ const P = [
       "Script hooks — first-3-seconds hooks for video ads",
       "A/B variant generation — each variant tied to a testable hypothesis",
     ],
-    tools: ["brand-kit:read", "knowledge-base:read/write", "document-generator"],
-    keys: [],
+    tools: [],
+    integrations: [],
+    context: ["04-content/copy/", "01-brand/voice-and-tone.md", "01-brand/personas/"],
+    owns: ["04-content/copy/"],
+    routes: ["ad copy", "headline", "cta", "landing page copy", "product description", "conversion copy", "a/b variants"],
     outputs: [
       "Copy decks per campaign in `knowledge/04-content/copy/`",
       "A/B variant sets with hypotheses for cro-optimizer",
@@ -460,21 +592,24 @@ const P = [
   {
     id: "landing-page-builder", emoji: "🏗️", category: "Conversion",
     title: "Landing Page Builder",
-    tagline: "Builds/edits landing pages via CLI, embeds tracking, ships A/B variants, connects forms.",
-    persona: "A hands-on builder who turns copy decks into live landing pages. Uses the Opencode CLI to build and edit pages, embeds analytics/pixel tracking, ships A/B variants, and wires forms to the CRM/ESP.",
+    tagline: "Builds landing pages in the workspace, specs tracking, ships A/B variants, wires forms.",
+    persona: "A hands-on builder who turns copy decks into real pages. Writes the page source in the workspace, specifies analytics and pixel tracking, ships A/B variants, and documents exactly how forms map to the CRM/ESP.",
     playbooks: [
-      "Page build — copy deck → responsive landing page",
-      "Tracking embed — GA4, pixels, conversion events",
-      "A/B variant shipping — variant pages + traffic-split setup",
-      "Form → CRM/ESP wiring — field mapping and consent capture",
-      "Page-speed pass — CWV optimization",
+      "Page build — copy deck → responsive landing page source in the workspace",
+      "Tracking spec — GA4, pixels, conversion events, dataLayer contract",
+      "A/B variant shipping — variant pages + traffic-split spec",
+      "Form → CRM/ESP wiring spec — field mapping and consent capture",
+      "Page-speed pass — CWV budget and optimization checklist",
       "Post-launch QA — links, forms, tracking verification checklist",
     ],
-    tools: ["opencode-cli", "code-editor", "ga4-connector", "crm-connector"],
-    keys: ["HOSTING_DEPLOY_TOKEN (optional)", "CRM_API_KEY (optional)", "ESP_API_KEY (optional)"],
+    tools: ["terminal", "code-execution", "browser"],
+    integrations: ["hosting", "crm", "esp", "ga4"],
+    context: ["04-content/copy/", "04-content/landing-pages/"],
+    owns: ["04-content/landing-pages/"],
+    routes: ["landing page", "build page", "page build", "form wiring", "tracking embed"],
     outputs: [
-      "Deployed landing pages (URL + source in repo)",
-      "Tracking-verification report per page",
+      "Page source + assets in `knowledge/04-content/landing-pages/`",
+      "Tracking-verification checklist per page",
       "A/B variant map registered with cro-optimizer",
     ],
   },
@@ -491,8 +626,11 @@ const P = [
       "Result analysis — significance, segments, and next-step recommendation",
       "Personalization recommendations — segment-specific experiences",
     ],
-    tools: ["ga4-connector", "knowledge-base:read/write", "spreadsheet-generator"],
-    keys: ["AB_TESTING_TOOL_API_KEY (optional — VWO/Optimizely/GrowthBook)"],
+    tools: ["code-execution", "browser"],
+    integrations: ["ga4", "ab-testing"],
+    context: ["06-playbooks/experiment-backlog.md", "05-analytics-reports/experiments/"],
+    owns: ["05-analytics-reports/experiments/"],
+    routes: ["cro", "a/b test", "experiment", "funnel analysis", "conversion rate", "ice prioritization", "page audit"],
     outputs: [
       "Funnel leak report + audit scorecards",
       "`knowledge/06-playbooks/experiment-backlog.md` — ICE-ranked backlog",
@@ -512,8 +650,11 @@ const P = [
       "Routing rules — territory/round-robin/SLA design",
       "MQL→SQL handoff — definition alignment + feedback loop with sales",
     ],
-    tools: ["crm-connector", "esp-connector", "knowledge-base:read/write"],
-    keys: ["CRM_API_KEY (optional — HubSpot/Salesforce/Pipedrive)"],
+    tools: ["code-execution"],
+    integrations: ["crm", "esp"],
+    context: ["06-playbooks/lead-scoring.md", "01-brand/personas/"],
+    owns: ["03-campaigns/lead-gen/"],
+    routes: ["lead magnet", "lead scoring", "crm", "mql", "sql handoff", "lead routing", "form design"],
     outputs: [
       "Lead-magnet concepts + funnel specs",
       "`knowledge/06-playbooks/lead-scoring.md` — scoring model doc",
@@ -533,11 +674,14 @@ const P = [
       "Release announcement kit — blog/email/social/changelog bundle",
       "Win/loss analysis — interview synthesis into messaging updates",
     ],
-    tools: ["knowledge-base:read/write", "document-generator", "web-research"],
-    keys: [],
+    tools: ["web-search"],
+    integrations: [],
+    context: ["03-campaigns/launches/", "01-brand/messaging/", "02-market-research/competitors/"],
+    owns: ["03-campaigns/launches/"],
+    routes: ["launch", "messaging doc", "battlecard", "sales enablement", "pricing page", "release kit", "win loss"],
     outputs: [
       "Launch plans in `knowledge/03-campaigns/launches/`",
-      "Messaging docs + battlecards in `knowledge/01-brand/messaging/`",
+      "Messaging docs + battlecards drafted for `knowledge/01-brand/messaging/`",
       "Release kits ready for channel distribution",
     ],
   },
@@ -554,8 +698,11 @@ const P = [
       "Merchandising copy — collection and category page copy",
       "Shopify integration — app/flow recommendations, conversion checks",
     ],
-    tools: ["feed-optimizer", "knowledge-base:read/write", "spreadsheet-generator"],
-    keys: ["SHOPIFY_API_KEY (optional)", "AMAZON_ADS_API_KEY (optional)"],
+    tools: ["code-execution", "web-search"],
+    integrations: ["shopify", "amazon-ads", "google-ads"],
+    context: ["03-campaigns/ecommerce/", "04-content/copy/"],
+    owns: ["03-campaigns/ecommerce/"],
+    routes: ["ecommerce", "product feed", "amazon listing", "shopify", "promo calendar", "merchandising"],
     outputs: [
       "Optimized feed spec + listing copy",
       "`knowledge/03-campaigns/promo-calendar.md` — promotion calendar",
@@ -576,8 +723,11 @@ const P = [
       "List hygiene — sunset policy, re-permission, segmentation refresh",
       "Deliverability — SPF/DKIM/DMARC checks, warm-up plans, placement monitoring",
     ],
-    tools: ["esp-connector", "knowledge-base:read/write", "document-generator"],
-    keys: ["ESP_API_KEY (optional — Resend/SendGrid/Mailchimp/Klaviyo)"],
+    tools: [],
+    integrations: ["esp"],
+    context: ["04-content/email/", "01-brand/voice-and-tone.md"],
+    owns: ["04-content/email/"],
+    routes: ["email", "newsletter", "drip", "onboarding sequence", "win-back", "cart abandonment", "deliverability"],
     outputs: [
       "Flow maps + full email copy per sequence in `knowledge/04-content/email/`",
       "Deliverability audit report",
@@ -587,22 +737,25 @@ const P = [
   {
     id: "marketing-automation", emoji: "⚙️", category: "Retention",
     title: "Marketing Automation",
-    tagline: "Owns the n8n workflow library: designs, builds, deploys (after approval), monitors run health.",
-    persona: "An automation engineer for marketing. Designs cross-channel journeys as n8n workflows, deploys them via the n8n API only after human approval, and monitors run health.",
+    tagline: "Owns the automation library: designs cross-channel journeys, specs them as n8n workflows, monitors run health.",
+    persona: "An automation engineer for marketing. Designs cross-channel journeys, authors them as n8n workflow definitions in the workspace, and requires human approval before anything is deployed.",
     playbooks: [
       "Journey design — cross-channel flow diagrams with trigger logic",
-      "Workflow build — n8n workflow JSON authoring",
-      "Approval gate — human sign-off before any deploy",
-      "Deploy via n8n API + version the workflow library",
-      "Run-health monitoring — failure alerts and retry policies",
+      "Workflow authoring — n8n workflow JSON written into the workspace",
+      "Approval gate — human sign-off recorded before any deploy",
+      "Deploy runbook — exact steps to import a versioned workflow into n8n",
+      "Run-health monitoring — failure alert and retry policy design",
       "Workflow library documentation — what each automation does and why",
     ],
-    tools: ["n8n-api", "knowledge-base:read/write", "diagram-generator"],
-    keys: ["N8N_API_URL", "N8N_API_KEY"],
+    tools: ["terminal", "code-execution"],
+    integrations: ["n8n"],
+    context: ["06-playbooks/automation-library.md", "03-campaigns/automation/"],
+    owns: ["03-campaigns/automation/"],
+    routes: ["automation", "n8n", "workflow", "journey", "trigger"],
     outputs: [
       "`knowledge/06-playbooks/automation-library.md` — documented workflow library",
-      "Deployed n8n workflows (post-approval)",
-      "Run-health reports + failure alerts in the activity feed",
+      "Versioned workflow JSON + deploy runbook in `knowledge/03-campaigns/automation/`",
+      "Run-health report template + failure alert spec",
     ],
   },
   {
@@ -617,11 +770,14 @@ const P = [
       "Sentiment trend report — theme-level movement over time",
       "Escalation protocol — routing serious complaints to humans fast",
     ],
-    tools: ["web-scraper", "knowledge-base:read/write", "document-generator"],
-    keys: ["REVIEW_PLATFORM_API_KEY (optional)"],
+    tools: ["web-search", "browser"],
+    integrations: ["review-platforms"],
+    context: ["05-analytics-reports/reputation/", "01-brand/voice-and-tone.md"],
+    owns: ["05-analytics-reports/reputation/"],
+    routes: ["review", "reputation", "g2", "trustpilot", "sentiment", "review response"],
     outputs: [
       "Response drafts queued for approval",
-      "Monthly sentiment trend report in `knowledge/05-analytics-reports/`",
+      "Monthly sentiment trend report in `knowledge/05-analytics-reports/reputation/`",
       "Review-generation campaign kits",
     ],
   },
@@ -638,8 +794,11 @@ const P = [
       "Ambassador program — tiers, perks, responsibilities",
       "Community health report — activity, retention, sentiment metrics",
     ],
-    tools: ["knowledge-base:read/write", "calendar", "document-generator"],
-    keys: [],
+    tools: ["web-search"],
+    integrations: [],
+    context: ["06-playbooks/community-playbook.md", "03-campaigns/community/"],
+    owns: ["03-campaigns/community/"],
+    routes: ["community", "discord", "slack community", "reddit", "moderation", "ugc", "ambassador"],
     outputs: [
       "`knowledge/06-playbooks/community-playbook.md` — strategy + moderation guide",
       "Engagement calendars + event briefs",
@@ -650,7 +809,7 @@ const P = [
     id: "sms-messaging", emoji: "💬", category: "Retention",
     title: "SMS & Messaging",
     tagline: "Compliant SMS/WhatsApp campaigns, push strategy, quiet hours & consent management.",
-    persona: "A messaging specialist who treats the SMS inbox as sacred. Designs high-signal campaigns with strict consent, quiet-hours, and frequency governance via Twilio/WhatsApp.",
+    persona: "A messaging specialist who treats the SMS inbox as sacred. Designs high-signal campaigns with strict consent, quiet-hours, and frequency governance.",
     playbooks: [
       "SMS campaign design — offer-worthy, concise, compliant messages",
       "WhatsApp flows — template design and approval process",
@@ -658,10 +817,13 @@ const P = [
       "Consent management — opt-in/opt-out flows, records, TCPA hygiene",
       "Quiet-hours & frequency governance — per-region send windows",
     ],
-    tools: ["twilio-connector", "knowledge-base:read/write"],
-    keys: ["TWILIO_ACCOUNT_SID (optional)", "TWILIO_AUTH_TOKEN (optional)"],
+    tools: [],
+    integrations: ["twilio"],
+    context: ["04-content/messaging/", "06-playbooks/compliance-checklists.md"],
+    owns: ["04-content/messaging/"],
+    routes: ["sms", "whatsapp", "push notification", "text message", "consent"],
     outputs: [
-      "Campaign copy + send plans",
+      "Campaign copy + send plans in `knowledge/04-content/messaging/`",
       "Consent/compliance audit report with compliance-guard",
       "Messaging performance summary",
     ],
@@ -675,19 +837,100 @@ const CATEGORY_DESC = {
   Operations: "Foundation, orchestration, governance, and measurement",
 };
 
-const outDir = path.join(__dirname, "..", "profiles");
+const ROOT = path.join(__dirname, "..", "..");
+const outDir = path.join(ROOT, "hermes", "profiles");
+const skillsRoot = path.join(ROOT, "hermes", "skills");
 fs.mkdirSync(outDir, { recursive: true });
 
-for (const p of P) {
+// ── skills manifest ──────────────────────────────────────────────────────────
+// Reads the SKILL.md frontmatter so index.json can report what each profile can
+// actually execute. Shared skills go to every profile.
+function readSkillMeta(skillDir) {
+  const file = path.join(skillDir, "SKILL.md");
+  if (!fs.existsSync(file)) return null;
+  const src = fs.readFileSync(file, "utf8");
+  const fm = src.match(/^---\n([\s\S]*?)\n---/);
+  const get = (key) => {
+    const m = fm && fm[1].match(new RegExp(`^${key}:\\s*(.*)$`, "m"));
+    return m ? m[1].trim() : "";
+  };
+  return { name: get("name") || path.basename(skillDir), description: get("description") };
+}
+function listSkills(dir) {
+  if (!fs.existsSync(dir)) return [];
+  return fs.readdirSync(dir, { withFileTypes: true })
+    .filter((e) => e.isDirectory())
+    .map((e) => readSkillMeta(path.join(dir, e.name)))
+    .filter(Boolean)
+    .sort((a, b) => a.name.localeCompare(b.name));
+}
+const sharedSkills = listSkills(path.join(skillsRoot, "shared"));
+
+// ── normalization ────────────────────────────────────────────────────────────
+function normalize(p) {
+  const tools = [...BASE_TOOLS, ...(p.tools || [])];
+  for (const t of tools) {
+    if (!TOOL_CATALOG[t]) throw new Error(`${p.id}: unknown tool "${t}" — add it to TOOL_CATALOG or use an integration`);
+  }
+  const integrations = (p.integrations || []).map((id) => {
+    if (!INTEGRATIONS[id]) throw new Error(`${p.id}: unknown integration "${id}"`);
+    return { id, ...INTEGRATIONS[id], status: "not-wired" };
+  });
+  const context = [...BASE_CONTEXT, ...(p.context || [])];
+  const profileSkills = listSkills(path.join(skillsRoot, "profiles", p.id));
+  return {
+    id: p.id, emoji: p.emoji, category: p.category, name: p.title, tagline: p.tagline,
+    persona: p.persona, playbooks: p.playbooks,
+    tools, integrations, context,
+    owns: p.owns || [], routes: p.routes || [],
+    // Optional per-profile default LLM. Admin-side overrides (the dashboard's
+    // Engine tab → data/engine-config.json) take precedence over this at sync.
+    model: p.model || null,
+    orchestrator: !!p.orchestrator,
+    requiredKeys: [...new Set(integrations.flatMap((i) => i.env))],
+    skills: { shared: sharedSkills.map((s) => s.name), signature: profileSkills },
+    outputs: p.outputs,
+  };
+}
+
+const registry = P.map(normalize);
+
+// ── markdown emission ────────────────────────────────────────────────────────
+function toolLines(tools) {
+  return tools.map((t) => {
+    const c = TOOL_CATALOG[t];
+    const tag = c.offline ? "" : " _(needs a configured model provider)_";
+    return `- \`${t}\` — ${c.label}${tag}`;
+  }).join("\n");
+}
+function integrationLines(integrations) {
+  if (!integrations.length) return "_None — this profile needs no external system._";
+  return [
+    "| System | Status | Wired via | Environment |",
+    "| --- | --- | --- | --- |",
+    ...integrations.map((i) => `| ${i.name} | ⚪ not wired | ${i.via} | ${i.env.map((e) => `\`${e}\``).join(", ")} |`),
+    "",
+    "> The community edition ships **no connector code and no credentials**. These rows",
+    "> describe what this profile would need before it can touch live data. Until a system",
+    "> is wired, never state platform numbers as fact — ask the human for an export and",
+    "> work from that file in the knowledge base.",
+  ].join("\n");
+}
+
+for (const p of registry) {
   const md = `---
 id: ${p.id}
-name: ${p.title}
+name: ${p.name}
 emoji: ${p.emoji}
 category: ${p.category}
 tagline: ${p.tagline}
 ---
 
-# ${p.emoji} ${p.title}
+> **Generated file — do not edit.** Source: the \`P\` array in
+> \`hermes/scripts/generate-profiles.js\`. Hand edits are overwritten by the next
+> \`npm run generate:profiles\`.
+
+# ${p.emoji} ${p.name}
 
 > **Funnel category:** ${p.category} — ${CATEGORY_DESC[p.category]}
 
@@ -699,17 +942,37 @@ ${p.persona}
 
 You always read the Brand Kit (\`knowledge/01-brand/brand-kit.md\`) before producing any deliverable, and you store every key output in the organization knowledge base under the correct category so humans can find it later. When a deliverable is outbound-facing, you request a compliance-guard review before it is marked publish-ready.
 
+## Context to load
+
+Load these, in order, before you start work. \`INDEX.md\` tells you what already
+exists — read it first so you extend the organization's knowledge instead of
+duplicating it.
+
+${p.context.map((c, i) => `- **${i + 1}.** \`knowledge/${c}\``).join("\n")}
+
 ## Playbooks
 
 ${p.playbooks.map((x) => `- ${x}`).join("\n")}
 
+## Skills
+
+Executable procedures available to this profile:
+
+${[...p.skills.signature, ...sharedSkills].map((s) => `- \`${s.name}\` — ${s.description}`).join("\n") || "_Shared skills only._"}
+
 ## Tools
 
-${p.tools.map((x) => `- \`${x}\``).join("\n")}
+${toolLines(p.tools)}
 
-## Required Keys
+## Integrations
 
-${p.keys.length ? p.keys.map((x) => `- \`${x}\``).join("\n") : "_None — this profile runs without external API keys._"}
+${integrationLines(p.integrations)}
+
+## Owns
+
+Knowledge folders this profile is responsible for:
+
+${p.owns.length ? p.owns.map((x) => `- \`knowledge/${x}\``).join("\n") : "_No exclusive folder — writes to shared category folders._"}
 
 ## Output Contracts
 
@@ -719,10 +982,36 @@ ${p.outputs.map((x) => `- ${x}`).join("\n")}
   console.log(`✓ ${p.id}.profile.md`);
 }
 
-// Emit a machine-readable index used by the server & UIs.
-const index = P.map(({ id, emoji, category, title, tagline, playbooks, tools, keys, outputs }) => ({
-  id, emoji, category, name: title, tagline,
-  playbooks, tools, requiredKeys: keys, outputs,
-}));
-fs.writeFileSync(path.join(outDir, "index.json"), JSON.stringify(index, null, 2), "utf8");
-console.log(`\nGenerated ${P.length} profiles + index.json`);
+// ── machine-readable artifacts ───────────────────────────────────────────────
+fs.writeFileSync(path.join(outDir, "index.json"), JSON.stringify(registry, null, 2), "utf8");
+
+const integrationsDoc = {
+  note: "Community edition: every integration is not-wired. No connector code and no credentials ship with this repo.",
+  toolCatalog: TOOL_CATALOG,
+  integrations: Object.entries(INTEGRATIONS).map(([id, v]) => ({
+    id, ...v, status: "not-wired",
+    usedBy: registry.filter((p) => p.integrations.some((i) => i.id === id)).map((p) => p.id),
+  })),
+};
+fs.writeFileSync(path.join(ROOT, "hermes", "integrations.json"), JSON.stringify(integrationsDoc, null, 2), "utf8");
+
+// routing.json — task phrase → owning profile → required inputs → output path
+const routing = {
+  note: "Task routing table. The Marketing Director resolves an incoming request to an owner profile here, then writes a work order.",
+  matching: "Case-insensitive, on whole words only — a phrase matches when it appears in the request bounded by non-alphanumeric characters, so \"ice\" never matches \"service\". Longest matching phrase wins; no match falls back to `fallback`.",
+  fallback: "marketing-director",
+  routes: registry.flatMap((p) =>
+    p.routes.map((phrase) => ({
+      phrase,
+      owner: p.id,
+      ownerName: `${p.emoji} ${p.name}`,
+      requires: p.context.filter((c) => !BASE_CONTEXT.includes(c)),
+      outputPath: p.owns[0] ? `knowledge/${p.owns[0].replace(/ \(via promotion\)$/, "")}` : "knowledge/07-agent-outputs/",
+    }))
+  ).sort((a, b) => b.phrase.length - a.phrase.length),
+};
+fs.writeFileSync(path.join(ROOT, "hermes", "routing.json"), JSON.stringify(routing, null, 2), "utf8");
+
+console.log(`\nGenerated ${registry.length} profiles + index.json`);
+console.log(`Generated hermes/integrations.json (${integrationsDoc.integrations.length} systems, all not-wired)`);
+console.log(`Generated hermes/routing.json (${routing.routes.length} routes)`);

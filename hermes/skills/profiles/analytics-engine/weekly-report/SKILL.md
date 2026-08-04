@@ -28,3 +28,18 @@ directly):
 - **KPI table** — metric | this week | last week | target | status.
 - **Insights & recommendations** — the "so what," with owners.
 - **Anomalies & caveats.**
+
+## Quality bar
+
+- [ ] Every number traces to a file in the knowledge base, with its source and date
+- [ ] No metric estimated — unavailable data marked `[AWAITING DATA — source, range]`
+- [ ] Each notable move has a likely driver and a recommended action with an owner
+- [ ] The TL;DR is readable in 15 seconds and states a decision, not a summary
+- [ ] Caveats stated where attribution or sample size is weak
+- [ ] Filed at `05-analytics-reports/weekly/YYYY-Www.md`
+
+## Hand-offs
+
+- **Marketing Director** — this report is the input to the weekly retro
+- **Budget Planner** — pacing and CAC movement
+- The profile that owns any channel showing an anomaly

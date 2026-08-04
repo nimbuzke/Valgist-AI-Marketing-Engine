@@ -9,6 +9,9 @@ Every deliverable must sound like the brand. Run this before you call anything d
 
 ## Steps
 
+0. **Read `00-org/ORG.md` first.** The constitution outranks the Brand Kit: banned
+   words, the claims policy, and the risk posture are decided there. A line that is
+   perfectly on-voice and breaks the claims policy still does not ship.
 1. **Read the source of truth.** Open `01-brand/brand-kit.md`. If they exist, also
    read `01-brand/voice-and-tone.md` and the relevant persona in
    `01-brand/personas/`. (These are read-only — see below.)

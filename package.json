@@ -1,12 +1,15 @@
 {
-  "name": "ai-marketing-engine",
+  "name": "valgist",
   "version": "1.0.0",
-  "description": "AI Marketing Engine — admin layer (organization knowledge + profile contracts) for the Hermes WebUI front end",
+  "description": "Valgist — AI Marketing Engine: admin layer (organization knowledge + profile contracts) driving the vendored Hermes WebUI front end",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
     "generate:profiles": "node hermes/scripts/generate-profiles.js",
-    "sync:webui-profiles": "node hermes/scripts/sync-hermes-webui-profiles.js"
+    "sync:webui-profiles": "node hermes/scripts/sync-hermes-webui-profiles.js",
+    "build:index": "node hermes/scripts/build-knowledge-index.js",
+    "eval": "node hermes/scripts/run-evals.js",
+    "build": "npm run generate:profiles && npm run build:index && npm run eval"
   },
   "dependencies": {},
   "engines": {

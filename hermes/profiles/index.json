@@ -5,6 +5,7 @@
     "category": "Operations",
     "name": "Brand Strategist",
     "tagline": "Builds and maintains the Brand Kit that every other profile reads.",
+    "persona": "A seasoned brand strategist who has positioned dozens of companies from seed to IPO. Thinks in positioning maps, jobs-to-be-done, and message hierarchies. Protective of brand consistency; every deliverable begins and ends with the Brand Kit.",
     "playbooks": [
       "Brand Kit creation — mission, vision, values, positioning statement, competitive frame",
       "ICP & persona development — 3-5 personas with pains, gains, watering holes, objections",
@@ -14,11 +15,53 @@
       "Quarterly brand audit — consistency scan across all published assets"
     ],
     "tools": [
-      "knowledge-base:read/write",
-      "web-research",
-      "document-generator"
+      "files:read",
+      "files:write",
+      "memory",
+      "skills",
+      "web-search",
+      "browser"
     ],
+    "integrations": [],
+    "context": [
+      "INDEX.md",
+      "00-org/ORG.md",
+      "01-brand/brand-kit.md",
+      "02-market-research/",
+      "01-brand/"
+    ],
+    "owns": [
+      "01-brand/ (via promotion)"
+    ],
+    "routes": [
+      "brand kit",
+      "positioning",
+      "personas",
+      "voice and tone",
+      "messaging hierarchy",
+      "brand audit"
+    ],
+    "model": null,
+    "orchestrator": false,
     "requiredKeys": [],
+    "skills": {
+      "shared": [
+        "brand-kit-check",
+        "capability-check",
+        "compliance-gate",
+        "find-in-knowledge",
+        "handoff-brief",
+        "remember-this",
+        "save-to-knowledge",
+        "work-order"
+      ],
+      "signature": [
+        {
+          "name": "brand-kit-authoring",
+          "description": "Use when creating or revising the Brand Kit, personas, or voice-and-tone — the core brand identity every other profile reads. Because 01-brand is read-only in chat, this skill produces a promotion-ready draft for the Marketing Director."
+        }
+      ]
+    },
     "outputs": [
       "`knowledge/01-brand/brand-kit.md` — the canonical Brand Kit (single source of truth)",
       "`knowledge/01-brand/personas/*.md` — one file per ICP persona",
@@ -32,6 +75,7 @@
     "category": "Acquisition",
     "name": "Market Researcher",
     "tagline": "Market sizing, competitor teardowns, pricing intel, and voice-of-customer mining.",
+    "persona": "A rigorous analyst who refuses to state a claim without a source. Blends quantitative sizing (TAM/SAM/SOM) with qualitative voice-of-customer mining from reviews, forums, and social listening.",
     "playbooks": [
       "Market sizing — TAM/SAM/SOM with method + assumptions documented",
       "Competitor teardown — product, pricing, positioning, GTM motion, weaknesses",
@@ -41,12 +85,54 @@
       "Voice-of-customer mining — review/forum/social scraping into theme clusters with verbatims"
     ],
     "tools": [
-      "web-research",
-      "web-scraper",
-      "knowledge-base:read/write",
-      "spreadsheet-generator"
+      "files:read",
+      "files:write",
+      "memory",
+      "skills",
+      "web-search",
+      "browser",
+      "code-execution"
     ],
+    "integrations": [],
+    "context": [
+      "INDEX.md",
+      "00-org/ORG.md",
+      "01-brand/brand-kit.md",
+      "02-market-research/"
+    ],
+    "owns": [
+      "02-market-research/ (via promotion)"
+    ],
+    "routes": [
+      "market sizing",
+      "competitor teardown",
+      "competitive research",
+      "pricing intel",
+      "voice of customer",
+      "trend report",
+      "swot"
+    ],
+    "model": null,
+    "orchestrator": false,
     "requiredKeys": [],
+    "skills": {
+      "shared": [
+        "brand-kit-check",
+        "capability-check",
+        "compliance-gate",
+        "find-in-knowledge",
+        "handoff-brief",
+        "remember-this",
+        "save-to-knowledge",
+        "work-order"
+      ],
+      "signature": [
+        {
+          "name": "competitor-teardown",
+          "description": "Use when asked to research, analyze, or compare a competitor — produces one sourced teardown per competitor, structured so positioning, pricing and GTM comparisons across the set are possible later."
+        }
+      ]
+    },
     "outputs": [
       "`knowledge/02-market-research/competitors/*.md` — one teardown per competitor",
       "`knowledge/02-market-research/market-sizing.md` — sized market with assumptions",
@@ -60,25 +146,87 @@
     "category": "Operations",
     "name": "Marketing Director (CMO)",
     "tagline": "Turns goals into quarterly plans, allocates work, owns the campaign calendar, runs retros.",
+    "persona": "The orchestrator. A pragmatic CMO who converts business goals into quarterly marketing plans, delegates to the right specialist profiles, and holds weekly retros against KPIs. Ruthless about focus: fewer campaigns, executed better.",
     "playbooks": [
       "Quarterly planning — goals → strategies → campaigns → owner profiles → KPIs",
       "Master campaign calendar — cross-channel calendar with dependencies",
-      "Work allocation — brief generation and hand-off to specialist profiles",
+      "Work allocation — work orders routed to specialist profiles via routing.json",
       "Weekly retro — KPI review, wins/losses, reallocation decisions",
       "Budget alignment — sync with budget-planner on spend vs. plan",
-      "Stakeholder reporting — monthly executive summary"
+      "Brain promotion — reviews specialist drafts and promotes them into the org brain"
     ],
     "tools": [
-      "knowledge-base:read/write",
-      "calendar",
-      "task-router",
-      "report-generator"
+      "files:read",
+      "files:write",
+      "memory",
+      "skills",
+      "delegate",
+      "web-search",
+      "code-execution"
     ],
+    "integrations": [],
+    "context": [
+      "INDEX.md",
+      "00-org/ORG.md",
+      "01-brand/brand-kit.md",
+      "03-campaigns/",
+      "05-analytics-reports/",
+      "03-campaigns/work-orders/"
+    ],
+    "owns": [
+      "03-campaigns/",
+      "03-campaigns/work-orders/"
+    ],
+    "routes": [
+      "quarterly plan",
+      "campaign calendar",
+      "allocate work",
+      "route work",
+      "weekly retro",
+      "promote draft",
+      "executive summary"
+    ],
+    "model": null,
+    "orchestrator": true,
     "requiredKeys": [],
+    "skills": {
+      "shared": [
+        "brand-kit-check",
+        "capability-check",
+        "compliance-gate",
+        "find-in-knowledge",
+        "handoff-brief",
+        "remember-this",
+        "save-to-knowledge",
+        "work-order"
+      ],
+      "signature": [
+        {
+          "name": "batch-fanout",
+          "description": "Use when the same procedure must run over many independent units — ten competitor teardowns, twelve account dossiers, six market localizations, twenty ad variants. Runs them as bounded parallel workers and synthesizes the results, instead of grinding through them serially."
+        },
+        {
+          "name": "promote-to-brain",
+          "description": "Use when a specialist has drafted content that belongs in a read-only brain folder (00-org, 01-brand, 02-market-research, 06-playbooks) and needs it published. The Marketing Director owns promotion of drafts into the curated organization brain."
+        },
+        {
+          "name": "quarterly-plan",
+          "description": "Use when setting or resetting the quarter's marketing direction — turning business goals into strategies, campaigns, owners, and KPIs. Produces the quarterly plan the whole engine works from."
+        },
+        {
+          "name": "route-work",
+          "description": "Use when a request arrives that isn't yours to execute, or when the quarterly plan needs turning into assigned work — resolves the owner from routing.json and opens a work order the specialist can pick up in its own session."
+        },
+        {
+          "name": "weekly-retro",
+          "description": "Use for the weekly marketing review — KPIs vs. plan, wins and losses, and reallocation decisions. Produces the retro note that steers the next week."
+        }
+      ]
+    },
     "outputs": [
       "`knowledge/03-campaigns/quarterly-plan.md` — the active quarter plan",
       "`knowledge/03-campaigns/calendar.md` — master campaign calendar",
-      "Campaign briefs handed to specialist profiles",
+      "`knowledge/03-campaigns/work-orders/*.md` — work orders routed to specialists",
       "Weekly retro notes + monthly executive summary in `knowledge/05-analytics-reports/`"
     ]
   },
@@ -88,6 +236,7 @@
     "category": "Operations",
     "name": "Analytics Engine",
     "tagline": "KPI dashboards, attribution analysis, anomaly alerts, automated reports.",
+    "persona": "A marketing data analyst who lives in GA4, ad platforms, and the CRM. Builds KPI dashboards, runs attribution analysis, flags anomalies before humans notice, and ships automated weekly/monthly reports.",
     "playbooks": [
       "KPI framework setup — north-star + input metrics per funnel stage",
       "Dashboard build — channel, campaign, and cohort views",
@@ -97,23 +246,101 @@
       "Monthly deep-dive — trends, cohort retention, channel efficiency (CAC by channel)"
     ],
     "tools": [
-      "ga4-connector",
-      "ads-connector",
-      "crm-connector",
-      "chart-generator",
-      "knowledge-base:read/write"
+      "files:read",
+      "files:write",
+      "memory",
+      "skills",
+      "code-execution",
+      "web-search"
     ],
+    "integrations": [
+      {
+        "id": "ga4",
+        "name": "Google Analytics 4",
+        "env": [
+          "GA4_PROPERTY_ID"
+        ],
+        "via": "mcp",
+        "status": "not-wired"
+      },
+      {
+        "id": "google-ads",
+        "name": "Google Ads",
+        "env": [
+          "GOOGLE_ADS_API_KEY"
+        ],
+        "via": "mcp",
+        "status": "not-wired"
+      },
+      {
+        "id": "meta-ads",
+        "name": "Meta Ads",
+        "env": [
+          "META_ADS_TOKEN"
+        ],
+        "via": "mcp",
+        "status": "not-wired"
+      },
+      {
+        "id": "crm",
+        "name": "CRM (HubSpot / Salesforce / Pipedrive)",
+        "env": [
+          "CRM_API_KEY"
+        ],
+        "via": "mcp",
+        "status": "not-wired"
+      }
+    ],
+    "context": [
+      "INDEX.md",
+      "00-org/ORG.md",
+      "01-brand/brand-kit.md",
+      "05-analytics-reports/",
+      "03-campaigns/quarterly-plan.md"
+    ],
+    "owns": [
+      "05-analytics-reports/"
+    ],
+    "routes": [
+      "kpi",
+      "weekly report",
+      "monthly report",
+      "attribution",
+      "anomaly",
+      "dashboard",
+      "performance digest"
+    ],
+    "model": null,
+    "orchestrator": false,
     "requiredKeys": [
       "GA4_PROPERTY_ID",
-      "GOOGLE_ADS_API_KEY (optional)",
-      "META_ADS_TOKEN (optional)",
-      "CRM_API_KEY (optional)"
+      "GOOGLE_ADS_API_KEY",
+      "META_ADS_TOKEN",
+      "CRM_API_KEY"
     ],
+    "skills": {
+      "shared": [
+        "brand-kit-check",
+        "capability-check",
+        "compliance-gate",
+        "find-in-knowledge",
+        "handoff-brief",
+        "remember-this",
+        "save-to-knowledge",
+        "work-order"
+      ],
+      "signature": [
+        {
+          "name": "weekly-report",
+          "description": "Use to produce the weekly performance digest — insights, not just numbers — that feeds the Marketing Director's retro. Covers KPI pull, anomaly calls, and the report format."
+        }
+      ]
+    },
     "outputs": [
       "`knowledge/05-analytics-reports/weekly/*.md` — weekly digests",
       "`knowledge/05-analytics-reports/monthly/*.md` — monthly deep-dives",
-      "Anomaly alerts pushed to the activity feed",
-      "KPI dashboard JSON consumed by the Admin UI"
+      "Anomaly alerts recorded in the activity feed",
+      "KPI summary consumed by the Admin Dashboard scorecard"
     ]
   },
   {
@@ -122,8 +349,9 @@
     "category": "Operations",
     "name": "Compliance Guard",
     "tagline": "Reviews all outbound content for GDPR/CCPA, CAN-SPAM, FTC, and platform policy. Runs before any publish.",
+    "persona": "A meticulous marketing-compliance reviewer. Checks every outbound asset against GDPR/CCPA, CAN-SPAM, FTC disclosure rules, ad-platform policies, and industry claim restrictions. Operates as a mandatory pre-publish gate — nothing ships without a pass.",
     "playbooks": [
-      "Pre-publish review — automated checklist scan of any outbound asset",
+      "Pre-publish review — checklist scan of any outbound asset, ending in PASS or FAIL",
       "Email compliance — CAN-SPAM/GDPR consent, unsubscribe, sender identity checks",
       "Ad policy review — platform-specific restricted-content and claim checks",
       "FTC disclosure audit — influencer/affiliate/testimonial disclosure verification",
@@ -131,14 +359,58 @@
       "Data-privacy review — form/consent/cookie language for GDPR/CCPA"
     ],
     "tools": [
-      "policy-checklists",
-      "knowledge-base:read/write"
+      "files:read",
+      "files:write",
+      "memory",
+      "skills",
+      "web-search"
     ],
+    "integrations": [],
+    "context": [
+      "INDEX.md",
+      "00-org/ORG.md",
+      "01-brand/brand-kit.md",
+      "06-playbooks/compliance-checklists.md",
+      "00-org/ORG.md"
+    ],
+    "owns": [
+      "06-playbooks/compliance-checklists.md (via promotion)",
+      "05-analytics-reports/compliance/"
+    ],
+    "routes": [
+      "compliance review",
+      "pre-publish",
+      "legal check",
+      "ftc disclosure",
+      "can-spam",
+      "gdpr",
+      "claims check"
+    ],
+    "model": null,
+    "orchestrator": false,
     "requiredKeys": [],
+    "skills": {
+      "shared": [
+        "brand-kit-check",
+        "capability-check",
+        "compliance-gate",
+        "find-in-knowledge",
+        "handoff-brief",
+        "remember-this",
+        "save-to-knowledge",
+        "work-order"
+      ],
+      "signature": [
+        {
+          "name": "pre-publish-review",
+          "description": "Use to review an outbound asset for legal and platform compliance before it ships. Produces a pass/fail report with line-level flags and required fixes. This is the gate other profiles hand off to."
+        }
+      ]
+    },
     "outputs": [
-      "Pass/fail compliance report per asset with line-level flags and required fixes",
+      "`knowledge/05-analytics-reports/compliance/*.md` — one PASS/FAIL report per reviewed asset",
       "`knowledge/06-playbooks/compliance-checklists.md` — maintained checklist library",
-      "Compliance log in the activity feed (audit trail)"
+      "Compliance verdicts recorded in the activity feed (audit trail)"
     ]
   },
   {
@@ -147,6 +419,7 @@
     "category": "Operations",
     "name": "Creative Designer",
     "tagline": "Image generation and editing for ads, social, blog headers, OG images — on brand, every size.",
+    "persona": "A production designer who translates the visual brand guidelines into every required asset size. Generates and edits imagery for ads, social, blog headers, and OG images, and never ships an off-brand pixel.",
     "playbooks": [
       "Ad creative set — every required size per platform from one concept",
       "Social asset pack — platform-native sizes with brand-consistent templates",
@@ -155,16 +428,67 @@
       "Brand-guideline enforcement — color/typography/logo checks on all output"
     ],
     "tools": [
-      "image-generation",
-      "image-editing",
-      "brand-kit:read",
-      "asset-library:write"
+      "files:read",
+      "files:write",
+      "memory",
+      "skills",
+      "image-generation"
     ],
+    "integrations": [
+      {
+        "id": "image-provider",
+        "name": "Image generation provider",
+        "env": [
+          "IMAGE_API_KEY"
+        ],
+        "via": "provider",
+        "status": "not-wired"
+      }
+    ],
+    "context": [
+      "INDEX.md",
+      "00-org/ORG.md",
+      "01-brand/brand-kit.md",
+      "01-brand/",
+      "04-content/assets/"
+    ],
+    "owns": [
+      "04-content/assets/"
+    ],
+    "routes": [
+      "creative",
+      "ad creative",
+      "image",
+      "og image",
+      "asset pack",
+      "thumbnail",
+      "design"
+    ],
+    "model": null,
+    "orchestrator": false,
     "requiredKeys": [
-      "IMAGE_API_KEY (optional — provider for image generation)"
+      "IMAGE_API_KEY"
     ],
+    "skills": {
+      "shared": [
+        "brand-kit-check",
+        "capability-check",
+        "compliance-gate",
+        "find-in-knowledge",
+        "handoff-brief",
+        "remember-this",
+        "save-to-knowledge",
+        "work-order"
+      ],
+      "signature": [
+        {
+          "name": "creative-set",
+          "description": "Use when asked for ad creative, social assets, blog headers, OG images or a creative refresh — produces every required size from one concept, on brand, with the spec sheet a designer or generator can execute."
+        }
+      ]
+    },
     "outputs": [
-      "Asset packs stored in `knowledge/04-content/assets/`",
+      "Asset packs and specs stored in `knowledge/04-content/assets/`",
       "Ad-size matrix per campaign (all required dimensions)",
       "Creative brief responses with 2-3 concept directions"
     ]
@@ -175,6 +499,7 @@
     "category": "Operations",
     "name": "Budget Planner",
     "tagline": "Budget models, media-mix modeling, scenario planning, spend pacing, CAC/LTV guardrails.",
+    "persona": "A marketing-finance hybrid who builds annual/quarterly budget models, runs lightweight media-mix modeling, and raises the alarm when spend pacing or CAC/LTV guardrails break.",
     "playbooks": [
       "Annual/quarterly budget model — by channel, campaign, and month",
       "Media-mix modeling (lite) — diminishing-returns curves per channel",
@@ -183,11 +508,74 @@
       "CAC/LTV guardrails — per-channel thresholds with breach alerts"
     ],
     "tools": [
-      "spreadsheet-generator",
-      "ads-connector",
-      "knowledge-base:read/write"
+      "files:read",
+      "files:write",
+      "memory",
+      "skills",
+      "code-execution"
     ],
-    "requiredKeys": [],
+    "integrations": [
+      {
+        "id": "google-ads",
+        "name": "Google Ads",
+        "env": [
+          "GOOGLE_ADS_API_KEY"
+        ],
+        "via": "mcp",
+        "status": "not-wired"
+      },
+      {
+        "id": "meta-ads",
+        "name": "Meta Ads",
+        "env": [
+          "META_ADS_TOKEN"
+        ],
+        "via": "mcp",
+        "status": "not-wired"
+      }
+    ],
+    "context": [
+      "INDEX.md",
+      "00-org/ORG.md",
+      "01-brand/brand-kit.md",
+      "05-analytics-reports/budget/",
+      "03-campaigns/quarterly-plan.md"
+    ],
+    "owns": [
+      "05-analytics-reports/budget/"
+    ],
+    "routes": [
+      "budget",
+      "media mix",
+      "spend pacing",
+      "cac",
+      "ltv",
+      "scenario plan"
+    ],
+    "model": null,
+    "orchestrator": false,
+    "requiredKeys": [
+      "GOOGLE_ADS_API_KEY",
+      "META_ADS_TOKEN"
+    ],
+    "skills": {
+      "shared": [
+        "brand-kit-check",
+        "capability-check",
+        "compliance-gate",
+        "find-in-knowledge",
+        "handoff-brief",
+        "remember-this",
+        "save-to-knowledge",
+        "work-order"
+      ],
+      "signature": [
+        {
+          "name": "budget-model",
+          "description": "Use when asked to plan a budget, allocate spend, model scenarios, or check pacing and CAC/LTV — produces a channel-level model with explicit assumptions and guardrails that trigger before money is wasted."
+        }
+      ]
+    },
     "outputs": [
       "`knowledge/05-analytics-reports/budget/budget-model.md` — active budget",
       "Scenario comparison tables",
@@ -200,6 +588,7 @@
     "category": "Acquisition",
     "name": "Content Writer",
     "tagline": "Long-form content: blogs, pillar pages, whitepapers, case studies — brief → draft → SEO-final.",
+    "persona": "A long-form specialist who writes to rank and to convert. Works brief-first: every piece starts from an SEO brief and the Brand Kit voice, moves through draft, and lands as an SEO-optimized final with internal links.",
     "playbooks": [
       "Blog post production — brief → outline → draft → SEO-optimized final",
       "Pillar page + cluster build — hub-and-spoke structures from topical maps",
@@ -209,12 +598,55 @@
       "Content refresh — decay detection and update of aging posts"
     ],
     "tools": [
-      "knowledge-base:read/write",
-      "seo-brief:read",
-      "web-research",
-      "document-generator"
+      "files:read",
+      "files:write",
+      "memory",
+      "skills",
+      "web-search",
+      "browser"
     ],
+    "integrations": [],
+    "context": [
+      "INDEX.md",
+      "00-org/ORG.md",
+      "01-brand/brand-kit.md",
+      "04-content/seo/",
+      "04-content/content-calendar.md"
+    ],
+    "owns": [
+      "04-content/drafts/",
+      "04-content/content-calendar.md"
+    ],
+    "routes": [
+      "blog post",
+      "long-form",
+      "pillar page",
+      "whitepaper",
+      "ebook",
+      "case study",
+      "content calendar"
+    ],
+    "model": null,
+    "orchestrator": false,
     "requiredKeys": [],
+    "skills": {
+      "shared": [
+        "brand-kit-check",
+        "capability-check",
+        "compliance-gate",
+        "find-in-knowledge",
+        "handoff-brief",
+        "remember-this",
+        "save-to-knowledge",
+        "work-order"
+      ],
+      "signature": [
+        {
+          "name": "blog-production",
+          "description": "Use when asked to write a blog post, article, pillar page, guide, case study or whitepaper — takes an SEO brief through outline, draft and SEO-final, and files it with the metadata block attached."
+        }
+      ]
+    },
     "outputs": [
       "Publish-ready long-form drafts in `knowledge/04-content/drafts/`",
       "`knowledge/04-content/content-calendar.md` — maintained calendar",
@@ -227,6 +659,7 @@
     "category": "Acquisition",
     "name": "SEO Engine",
     "tagline": "Keyword research, topical maps, briefs, on-page + technical audits, internal linking, rank tracking.",
+    "persona": "A full-stack SEO who covers research, content strategy, on-page, and technical. Produces topical maps and content briefs the writers execute, audits the site, and tracks rankings.",
     "playbooks": [
       "Keyword research — seed expansion, intent classification, difficulty/volume prioritization",
       "Topical map — clusters and pillar structure for the domain",
@@ -236,14 +669,66 @@
       "Internal-linking pass + rank tracking report"
     ],
     "tools": [
-      "web-research",
-      "serp-analysis",
-      "site-crawler",
-      "knowledge-base:read/write"
+      "files:read",
+      "files:write",
+      "memory",
+      "skills",
+      "web-search",
+      "browser"
     ],
+    "integrations": [
+      {
+        "id": "seo-tool",
+        "name": "SEO suite (Ahrefs / Semrush / DataForSEO)",
+        "env": [
+          "SEO_TOOL_API_KEY"
+        ],
+        "via": "mcp",
+        "status": "not-wired"
+      }
+    ],
+    "context": [
+      "INDEX.md",
+      "00-org/ORG.md",
+      "01-brand/brand-kit.md",
+      "04-content/seo/",
+      "02-market-research/"
+    ],
+    "owns": [
+      "04-content/seo/"
+    ],
+    "routes": [
+      "keyword research",
+      "seo brief",
+      "topical map",
+      "on-page",
+      "technical seo",
+      "rank tracking",
+      "internal linking"
+    ],
+    "model": null,
+    "orchestrator": false,
     "requiredKeys": [
-      "SEO_TOOL_API_KEY (optional — Ahrefs/Semrush/DataForSEO)"
+      "SEO_TOOL_API_KEY"
     ],
+    "skills": {
+      "shared": [
+        "brand-kit-check",
+        "capability-check",
+        "compliance-gate",
+        "find-in-knowledge",
+        "handoff-brief",
+        "remember-this",
+        "save-to-knowledge",
+        "work-order"
+      ],
+      "signature": [
+        {
+          "name": "keyword-to-brief",
+          "description": "Use when asked for keyword research, a content brief, or what to write next for SEO — turns a topic into a prioritized keyword set and then into a brief a writer can execute without asking questions."
+        }
+      ]
+    },
     "outputs": [
       "`knowledge/04-content/seo/topical-map.md` — the domain topical map",
       "Content briefs in `knowledge/04-content/seo/briefs/`",
@@ -257,6 +742,7 @@
     "category": "Acquisition",
     "name": "Social Organic",
     "tagline": "Platform-native organic content for X, LinkedIn, Instagram, TikTok, Facebook, YouTube, Threads.",
+    "persona": "A social-native creator who writes platform-first, never cross-posts blindly. Maintains the social calendar, hashtag strategy, and repurposing pipeline from long-form into native formats.",
     "playbooks": [
       "Platform strategy — channel selection and native format plan per platform",
       "Content calendar — 2-week rolling calendar with themes and formats",
@@ -266,13 +752,66 @@
       "Engagement playbook — reply/community interaction guidelines"
     ],
     "tools": [
-      "knowledge-base:read/write",
-      "calendar",
-      "scheduler-connector"
+      "files:read",
+      "files:write",
+      "memory",
+      "skills",
+      "web-search"
     ],
+    "integrations": [
+      {
+        "id": "social-scheduler",
+        "name": "Social scheduler (Buffer / Hootsuite / Later)",
+        "env": [
+          "SOCIAL_SCHEDULER_API_KEY"
+        ],
+        "via": "mcp",
+        "status": "not-wired"
+      }
+    ],
+    "context": [
+      "INDEX.md",
+      "00-org/ORG.md",
+      "01-brand/brand-kit.md",
+      "04-content/social/",
+      "04-content/drafts/"
+    ],
+    "owns": [
+      "04-content/social/"
+    ],
+    "routes": [
+      "social post",
+      "organic social",
+      "linkedin",
+      "twitter",
+      "instagram",
+      "tiktok organic",
+      "social calendar",
+      "repurpose"
+    ],
+    "model": null,
+    "orchestrator": false,
     "requiredKeys": [
-      "SOCIAL_SCHEDULER_API_KEY (optional — Buffer/Hootsuite/Later)"
+      "SOCIAL_SCHEDULER_API_KEY"
     ],
+    "skills": {
+      "shared": [
+        "brand-kit-check",
+        "capability-check",
+        "compliance-gate",
+        "find-in-knowledge",
+        "handoff-brief",
+        "remember-this",
+        "save-to-knowledge",
+        "work-order"
+      ],
+      "signature": [
+        {
+          "name": "social-batch",
+          "description": "Use when asked for social posts, a social calendar, or to repurpose content into social — produces a platform-native batch where each post is written for its platform rather than cross-posted, and slots into the rolling calendar."
+        }
+      ]
+    },
     "outputs": [
       "`knowledge/04-content/social/calendar.md` — rolling social calendar",
       "Platform-native post batches ready to schedule",
@@ -285,6 +824,7 @@
     "category": "Acquisition",
     "name": "Paid Search",
     "tagline": "Google/Bing Ads: structure, keywords, RSAs, bids, budget pacing, search-term audits.",
+    "persona": "A performance marketer specialized in search intent. Builds tightly-themed campaign structures, writes RSA copy, manages negatives religiously, and audits search terms weekly.",
     "playbooks": [
       "Account structure — campaign/ad-group architecture by intent theme",
       "Keyword & negative list build — match-type strategy included",
@@ -294,18 +834,80 @@
       "Landing-page alignment check with cro-optimizer"
     ],
     "tools": [
-      "ads-connector",
-      "keyword-research",
-      "knowledge-base:read/write"
+      "files:read",
+      "files:write",
+      "memory",
+      "skills",
+      "web-search",
+      "code-execution"
     ],
+    "integrations": [
+      {
+        "id": "google-ads",
+        "name": "Google Ads",
+        "env": [
+          "GOOGLE_ADS_API_KEY"
+        ],
+        "via": "mcp",
+        "status": "not-wired"
+      },
+      {
+        "id": "bing-ads",
+        "name": "Microsoft Advertising",
+        "env": [
+          "BING_ADS_API_KEY"
+        ],
+        "via": "mcp",
+        "status": "not-wired"
+      }
+    ],
+    "context": [
+      "INDEX.md",
+      "00-org/ORG.md",
+      "01-brand/brand-kit.md",
+      "03-campaigns/",
+      "04-content/copy/"
+    ],
+    "owns": [
+      "03-campaigns/paid-search/"
+    ],
+    "routes": [
+      "google ads",
+      "paid search",
+      "sem",
+      "rsa",
+      "search terms",
+      "negative keywords",
+      "ppc"
+    ],
+    "model": null,
+    "orchestrator": false,
     "requiredKeys": [
-      "GOOGLE_ADS_API_KEY (optional)",
-      "BING_ADS_API_KEY (optional)"
+      "GOOGLE_ADS_API_KEY",
+      "BING_ADS_API_KEY"
     ],
+    "skills": {
+      "shared": [
+        "brand-kit-check",
+        "capability-check",
+        "compliance-gate",
+        "find-in-knowledge",
+        "handoff-brief",
+        "remember-this",
+        "save-to-knowledge",
+        "work-order"
+      ],
+      "signature": [
+        {
+          "name": "search-campaign-build",
+          "description": "Use when asked to build, restructure or audit a Google/Microsoft Ads search campaign — produces the full build sheet (structure, keywords, negatives, RSAs, bids, pacing) ready for a human to implement."
+        }
+      ]
+    },
     "outputs": [
       "Campaign build sheets (structure, keywords, negatives, RSAs)",
       "Weekly search-term audit report",
-      "Budget pacing dashboard data"
+      "Budget pacing data for budget-planner"
     ]
   },
   {
@@ -314,6 +916,7 @@
     "category": "Acquisition",
     "name": "Paid Social",
     "tagline": "Meta, LinkedIn, TikTok, X ads: audiences, creative briefs, builds, pacing, fatigue detection, ROAS.",
+    "persona": "A paid-social buyer who thinks creative-first. Builds audience strategies, briefs the creative-designer, monitors frequency and fatigue, and reports ROAS honestly with attribution caveats.",
     "playbooks": [
       "Audience strategy — prospecting/retargeting stack per platform",
       "Creative brief — concepts, hooks, formats for creative-designer",
@@ -323,15 +926,86 @@
       "Creative testing matrix — systematic hook/format/audience tests"
     ],
     "tools": [
-      "ads-connector",
-      "creative-brief-generator",
-      "knowledge-base:read/write"
+      "files:read",
+      "files:write",
+      "memory",
+      "skills",
+      "web-search",
+      "code-execution"
     ],
+    "integrations": [
+      {
+        "id": "meta-ads",
+        "name": "Meta Ads",
+        "env": [
+          "META_ADS_TOKEN"
+        ],
+        "via": "mcp",
+        "status": "not-wired"
+      },
+      {
+        "id": "linkedin-ads",
+        "name": "LinkedIn Ads",
+        "env": [
+          "LINKEDIN_ADS_TOKEN"
+        ],
+        "via": "mcp",
+        "status": "not-wired"
+      },
+      {
+        "id": "tiktok-ads",
+        "name": "TikTok Ads",
+        "env": [
+          "TIKTOK_ADS_TOKEN"
+        ],
+        "via": "mcp",
+        "status": "not-wired"
+      }
+    ],
+    "context": [
+      "INDEX.md",
+      "00-org/ORG.md",
+      "01-brand/brand-kit.md",
+      "03-campaigns/",
+      "01-brand/personas/"
+    ],
+    "owns": [
+      "03-campaigns/paid-social/"
+    ],
+    "routes": [
+      "paid social",
+      "meta ads",
+      "facebook ads",
+      "linkedin ads",
+      "tiktok ads",
+      "roas",
+      "creative fatigue"
+    ],
+    "model": null,
+    "orchestrator": false,
     "requiredKeys": [
-      "META_ADS_TOKEN (optional)",
-      "LINKEDIN_ADS_TOKEN (optional)",
-      "TIKTOK_ADS_TOKEN (optional)"
+      "META_ADS_TOKEN",
+      "LINKEDIN_ADS_TOKEN",
+      "TIKTOK_ADS_TOKEN"
     ],
+    "skills": {
+      "shared": [
+        "brand-kit-check",
+        "capability-check",
+        "compliance-gate",
+        "find-in-knowledge",
+        "handoff-brief",
+        "remember-this",
+        "save-to-knowledge",
+        "work-order"
+      ],
+      "signature": [
+        {
+          "name": "paid-social-build",
+          "description": "Use when asked to plan or build a Meta/LinkedIn/TikTok/X ads campaign — produces the audience stack, creative testing matrix, campaign build sheet and the creative brief that Creative Designer executes."
+        }
+      ]
+    },
     "outputs": [
       "Campaign build docs + audience matrices",
       "Creative briefs handed to creative-designer",
@@ -344,6 +1018,7 @@
     "category": "Acquisition",
     "name": "PR & Communications",
     "tagline": "Press releases, media lists, pitches, HARO responses, crisis comms, executive thought leadership.",
+    "persona": "A comms pro with a journalist's instincts. Writes releases that don't read like releases, builds targeted media lists, and keeps a crisis playbook ready before it's needed.",
     "playbooks": [
       "Press release — newsworthy angle, quotes, boilerplate",
       "Media list build — beat-matched journalists with personalization notes",
@@ -353,11 +1028,54 @@
       "Executive thought leadership — bylines and op-ed pipeline"
     ],
     "tools": [
-      "web-research",
-      "document-generator",
-      "knowledge-base:read/write"
+      "files:read",
+      "files:write",
+      "memory",
+      "skills",
+      "web-search",
+      "browser"
     ],
+    "integrations": [],
+    "context": [
+      "INDEX.md",
+      "00-org/ORG.md",
+      "01-brand/brand-kit.md",
+      "04-content/pr/",
+      "06-playbooks/crisis-comms.md"
+    ],
+    "owns": [
+      "04-content/pr/"
+    ],
+    "routes": [
+      "press release",
+      "pr",
+      "media list",
+      "journalist pitch",
+      "haro",
+      "crisis comms",
+      "thought leadership"
+    ],
+    "model": null,
+    "orchestrator": false,
     "requiredKeys": [],
+    "skills": {
+      "shared": [
+        "brand-kit-check",
+        "capability-check",
+        "compliance-gate",
+        "find-in-knowledge",
+        "handoff-brief",
+        "remember-this",
+        "save-to-knowledge",
+        "work-order"
+      ],
+      "signature": [
+        {
+          "name": "press-release",
+          "description": "Use when asked for a press release, media pitch, media list or announcement — produces a release that survives a journalist's first ten seconds, plus the targeted pitch and list to place it."
+        }
+      ]
+    },
     "outputs": [
       "Press releases + pitch kits in `knowledge/04-content/pr/`",
       "Media lists with beat and personalization data",
@@ -370,6 +1088,7 @@
     "category": "Acquisition",
     "name": "Influencer Manager",
     "tagline": "Creator discovery, vetting, outreach, briefs, contracts, tracking, FTC compliance.",
+    "persona": "A creator-economy operator who vets influencers on engagement authenticity, not follower counts. Runs outreach like a sales pipeline and keeps every campaign FTC-compliant.",
     "playbooks": [
       "Creator discovery & vetting — audience fit, engagement quality, brand-safety scan",
       "Outreach sequence — personalized pitch + negotiation templates",
@@ -379,11 +1098,52 @@
       "FTC compliance check with compliance-guard"
     ],
     "tools": [
-      "web-research",
-      "knowledge-base:read/write",
-      "spreadsheet-generator"
+      "files:read",
+      "files:write",
+      "memory",
+      "skills",
+      "web-search",
+      "browser"
     ],
+    "integrations": [],
+    "context": [
+      "INDEX.md",
+      "00-org/ORG.md",
+      "01-brand/brand-kit.md",
+      "03-campaigns/influencer/",
+      "01-brand/personas/"
+    ],
+    "owns": [
+      "03-campaigns/influencer/"
+    ],
+    "routes": [
+      "influencer",
+      "creator",
+      "ugc partnership",
+      "creator outreach",
+      "sponsorship"
+    ],
+    "model": null,
+    "orchestrator": false,
     "requiredKeys": [],
+    "skills": {
+      "shared": [
+        "brand-kit-check",
+        "capability-check",
+        "compliance-gate",
+        "find-in-knowledge",
+        "handoff-brief",
+        "remember-this",
+        "save-to-knowledge",
+        "work-order"
+      ],
+      "signature": [
+        {
+          "name": "creator-shortlist",
+          "description": "Use when asked to find, vet or brief influencers and creators — produces a scored shortlist built on engagement authenticity rather than follower count, plus the outreach sequence and FTC-compliant brief."
+        }
+      ]
+    },
     "outputs": [
       "Vetted creator shortlists with scores",
       "Outreach sequences + campaign briefs",
@@ -396,6 +1156,7 @@
     "category": "Acquisition",
     "name": "Affiliate & Partnerships",
     "tagline": "Program design, commission modeling, partner recruitment, co-marketing, fraud checks.",
+    "persona": "A partnerships builder who designs win-win commission structures and treats partners like a channel to be nurtured, not a set-and-forget program.",
     "playbooks": [
       "Program design — commission structure, cookie windows, terms",
       "Commission modeling — margin-safe payout scenarios",
@@ -405,13 +1166,63 @@
       "Fraud checks — coupon abuse, self-referral, cookie-stuffing detection"
     ],
     "tools": [
-      "web-research",
-      "spreadsheet-generator",
-      "knowledge-base:read/write"
+      "files:read",
+      "files:write",
+      "memory",
+      "skills",
+      "web-search",
+      "code-execution"
     ],
+    "integrations": [
+      {
+        "id": "affiliate",
+        "name": "Affiliate platform (Impact / PartnerStack / Rewardful)",
+        "env": [
+          "AFFILIATE_PLATFORM_API_KEY"
+        ],
+        "via": "mcp",
+        "status": "not-wired"
+      }
+    ],
+    "context": [
+      "INDEX.md",
+      "00-org/ORG.md",
+      "01-brand/brand-kit.md",
+      "03-campaigns/partnerships/"
+    ],
+    "owns": [
+      "03-campaigns/partnerships/"
+    ],
+    "routes": [
+      "affiliate",
+      "partnership",
+      "commission",
+      "co-marketing",
+      "referral program"
+    ],
+    "model": null,
+    "orchestrator": false,
     "requiredKeys": [
-      "AFFILIATE_PLATFORM_API_KEY (optional — Impact/PartnerStack/Rewardful)"
+      "AFFILIATE_PLATFORM_API_KEY"
     ],
+    "skills": {
+      "shared": [
+        "brand-kit-check",
+        "capability-check",
+        "compliance-gate",
+        "find-in-knowledge",
+        "handoff-brief",
+        "remember-this",
+        "save-to-knowledge",
+        "work-order"
+      ],
+      "signature": [
+        {
+          "name": "program-design",
+          "description": "Use when asked to design or fix an affiliate/partner program, model commissions, recruit partners or plan co-marketing — produces a margin-safe program design with recruitment plan and fraud controls."
+        }
+      ]
+    },
     "outputs": [
       "Program design doc + commission model",
       "Partner recruitment pipeline",
@@ -424,6 +1235,7 @@
     "category": "Acquisition",
     "name": "Podcast & Audio",
     "tagline": "Episode planning, guest outreach, show notes, audiograms, podcast SEO, and guest placements.",
+    "persona": "An audio-content strategist who runs both sides: producing the brand's show and getting the brand ON other podcasts as a guest.",
     "playbooks": [
       "Episode planning — season arcs, episode briefs, question docs",
       "Guest outreach — booking sequences for inbound and outbound guesting",
@@ -433,11 +1245,52 @@
       "Guest-placement pipeline — pitching the brand's experts onto other shows"
     ],
     "tools": [
-      "web-research",
-      "document-generator",
-      "knowledge-base:read/write"
+      "files:read",
+      "files:write",
+      "memory",
+      "skills",
+      "web-search",
+      "browser"
     ],
+    "integrations": [],
+    "context": [
+      "INDEX.md",
+      "00-org/ORG.md",
+      "01-brand/brand-kit.md",
+      "04-content/podcast/"
+    ],
+    "owns": [
+      "04-content/podcast/"
+    ],
+    "routes": [
+      "podcast",
+      "audio",
+      "show notes",
+      "episode",
+      "guest outreach",
+      "audiogram"
+    ],
+    "model": null,
+    "orchestrator": false,
     "requiredKeys": [],
+    "skills": {
+      "shared": [
+        "brand-kit-check",
+        "capability-check",
+        "compliance-gate",
+        "find-in-knowledge",
+        "handoff-brief",
+        "remember-this",
+        "save-to-knowledge",
+        "work-order"
+      ],
+      "signature": [
+        {
+          "name": "podcast-episode",
+          "description": "Use when asked to plan a podcast episode, write show notes, do guest outreach, or pitch the brand onto other shows — covers both producing our own audio and getting placed on someone else's."
+        }
+      ]
+    },
     "outputs": [
       "Episode briefs + show notes in `knowledge/04-content/podcast/`",
       "Guest booking pipeline",
@@ -450,6 +1303,7 @@
     "category": "Acquisition",
     "name": "Events & Webinars",
     "tagline": "Webinar/event planning, promotion sequences, registration funnels, follow-ups, repurposing.",
+    "persona": "An event marketer who measures success by pipeline, not registrations. Builds the full arc: promotion → registration funnel → show-up sequence → follow-up → content repurposing.",
     "playbooks": [
       "Event/webinar plan — topic, format, speakers, run-of-show",
       "Promotion sequence — email/social/paid promotion calendar",
@@ -459,13 +1313,63 @@
       "Repurposing plan — clips, blog recap, snippet calendar from the recording"
     ],
     "tools": [
-      "knowledge-base:read/write",
-      "calendar",
-      "document-generator"
+      "files:read",
+      "files:write",
+      "memory",
+      "skills",
+      "web-search"
     ],
+    "integrations": [
+      {
+        "id": "webinar",
+        "name": "Webinar platform (Zoom / Livestorm / Demio)",
+        "env": [
+          "WEBINAR_PLATFORM_API_KEY"
+        ],
+        "via": "mcp",
+        "status": "not-wired"
+      }
+    ],
+    "context": [
+      "INDEX.md",
+      "00-org/ORG.md",
+      "01-brand/brand-kit.md",
+      "03-campaigns/events/",
+      "04-content/email/"
+    ],
+    "owns": [
+      "03-campaigns/events/"
+    ],
+    "routes": [
+      "webinar",
+      "event",
+      "registration funnel",
+      "run of show",
+      "event follow-up"
+    ],
+    "model": null,
+    "orchestrator": false,
     "requiredKeys": [
-      "WEBINAR_PLATFORM_API_KEY (optional — Zoom/Livestorm/Demio)"
+      "WEBINAR_PLATFORM_API_KEY"
     ],
+    "skills": {
+      "shared": [
+        "brand-kit-check",
+        "capability-check",
+        "compliance-gate",
+        "find-in-knowledge",
+        "handoff-brief",
+        "remember-this",
+        "save-to-knowledge",
+        "work-order"
+      ],
+      "signature": [
+        {
+          "name": "webinar-arc",
+          "description": "Use when asked to plan a webinar, event or conference presence — produces the full arc from promotion through registration, show-up, live run-of-show, follow-up branches and content repurposing."
+        }
+      ]
+    },
     "outputs": [
       "Event plan + run-of-show",
       "Full promotion and follow-up sequence copy",
@@ -478,6 +1382,7 @@
     "category": "Acquisition",
     "name": "ABM Engine",
     "tagline": "Target account lists, research dossiers, personalized plays, intent data, sales orchestration.",
+    "persona": "An account-based marketer who treats each target account like a market of one. Builds research dossiers, designs multi-touch personalized plays, and keeps sales and marketing in lockstep.",
     "playbooks": [
       "Target account list — ICP-fit scoring and tiering",
       "Account dossier — org map, initiatives, tech stack, trigger events",
@@ -487,17 +1392,79 @@
       "Account-level reporting — engagement and pipeline influence"
     ],
     "tools": [
-      "web-research",
-      "crm-connector",
-      "knowledge-base:read/write"
+      "files:read",
+      "files:write",
+      "memory",
+      "skills",
+      "web-search",
+      "browser",
+      "delegate"
     ],
+    "integrations": [
+      {
+        "id": "intent-data",
+        "name": "Intent data (Bombora / 6sense)",
+        "env": [
+          "INTENT_DATA_API_KEY"
+        ],
+        "via": "mcp",
+        "status": "not-wired"
+      },
+      {
+        "id": "crm",
+        "name": "CRM (HubSpot / Salesforce / Pipedrive)",
+        "env": [
+          "CRM_API_KEY"
+        ],
+        "via": "mcp",
+        "status": "not-wired"
+      }
+    ],
+    "context": [
+      "INDEX.md",
+      "00-org/ORG.md",
+      "01-brand/brand-kit.md",
+      "02-market-research/accounts/",
+      "01-brand/personas/"
+    ],
+    "owns": [
+      "02-market-research/accounts/ (via promotion)",
+      "03-campaigns/abm/"
+    ],
+    "routes": [
+      "abm",
+      "target account",
+      "account dossier",
+      "intent data",
+      "account based"
+    ],
+    "model": null,
+    "orchestrator": false,
     "requiredKeys": [
-      "INTENT_DATA_API_KEY (optional — Bombora/6sense)",
-      "CRM_API_KEY (optional)"
+      "INTENT_DATA_API_KEY",
+      "CRM_API_KEY"
     ],
+    "skills": {
+      "shared": [
+        "brand-kit-check",
+        "capability-check",
+        "compliance-gate",
+        "find-in-knowledge",
+        "handoff-brief",
+        "remember-this",
+        "save-to-knowledge",
+        "work-order"
+      ],
+      "signature": [
+        {
+          "name": "account-dossier",
+          "description": "Use when asked to research a target account, build an account list, or design an ABM play — produces a sourced dossier and the multi-touch play it justifies, one file per account."
+        }
+      ]
+    },
     "outputs": [
       "Tiered target account list",
-      "Account dossiers in `knowledge/02-market-research/accounts/`",
+      "Account dossiers drafted for `knowledge/02-market-research/accounts/`",
       "Play sequences + account engagement reports"
     ]
   },
@@ -507,6 +1474,7 @@
     "category": "Acquisition",
     "name": "Video Marketer",
     "tagline": "Scripts, storyboards, hooks, thumbnails, video SEO, long→short repurposing.",
+    "persona": "A video strategist fluent in both YouTube-length storytelling and 15-second hook craft. Scripts, storyboards, and optimizes for each platform's algorithm.",
     "playbooks": [
       "YouTube script — hook, retention structure, CTA placement",
       "Shorts/Reels/TikTok scripts — hook-first vertical formats",
@@ -516,11 +1484,52 @@
       "Long→short repurposing — clip selection from long-form"
     ],
     "tools": [
-      "document-generator",
-      "knowledge-base:read/write",
-      "web-research"
+      "files:read",
+      "files:write",
+      "memory",
+      "skills",
+      "web-search"
     ],
+    "integrations": [],
+    "context": [
+      "INDEX.md",
+      "00-org/ORG.md",
+      "01-brand/brand-kit.md",
+      "04-content/video/",
+      "04-content/drafts/"
+    ],
+    "owns": [
+      "04-content/video/"
+    ],
+    "routes": [
+      "video",
+      "youtube",
+      "shorts",
+      "reels",
+      "video script",
+      "storyboard"
+    ],
+    "model": null,
+    "orchestrator": false,
     "requiredKeys": [],
+    "skills": {
+      "shared": [
+        "brand-kit-check",
+        "capability-check",
+        "compliance-gate",
+        "find-in-knowledge",
+        "handoff-brief",
+        "remember-this",
+        "save-to-knowledge",
+        "work-order"
+      ],
+      "signature": [
+        {
+          "name": "video-script",
+          "description": "Use when asked for a video script, YouTube video, Short/Reel/TikTok, storyboard or video repurposing plan — produces a shootable script with hook options, retention structure, shot list and platform metadata."
+        }
+      ]
+    },
     "outputs": [
       "Scripts + storyboards in `knowledge/04-content/video/`",
       "Thumbnail briefs for creative-designer",
@@ -533,6 +1542,7 @@
     "category": "Acquisition",
     "name": "Localization Engine",
     "tagline": "Market-entry research, transcreation, local SEO/hreflang, cultural compliance.",
+    "persona": "A localization strategist who transcreates rather than translates. Adapts campaigns to local idiom, culture, and search behavior, and keeps hreflang hygiene intact.",
     "playbooks": [
       "Market-entry research — local competitors, channels, pricing norms",
       "Campaign transcreation — message adaptation with cultural notes",
@@ -541,11 +1551,54 @@
       "Local channel plan — market-specific platform priorities"
     ],
     "tools": [
-      "web-research",
-      "knowledge-base:read/write",
-      "seo-brief:read"
+      "files:read",
+      "files:write",
+      "memory",
+      "skills",
+      "web-search",
+      "browser",
+      "delegate"
     ],
+    "integrations": [],
+    "context": [
+      "INDEX.md",
+      "00-org/ORG.md",
+      "01-brand/brand-kit.md",
+      "04-content/localization/",
+      "02-market-research/"
+    ],
+    "owns": [
+      "04-content/localization/"
+    ],
+    "routes": [
+      "localization",
+      "translate",
+      "transcreation",
+      "hreflang",
+      "market entry",
+      "international"
+    ],
+    "model": null,
+    "orchestrator": false,
     "requiredKeys": [],
+    "skills": {
+      "shared": [
+        "brand-kit-check",
+        "capability-check",
+        "compliance-gate",
+        "find-in-knowledge",
+        "handoff-brief",
+        "remember-this",
+        "save-to-knowledge",
+        "work-order"
+      ],
+      "signature": [
+        {
+          "name": "transcreation-kit",
+          "description": "Use when asked to localize, translate or adapt a campaign for another market — produces a transcreated kit with cultural annotations, local SEO spec and hreflang architecture rather than a translation."
+        }
+      ]
+    },
     "outputs": [
       "Market-entry briefs per target market",
       "Transcreated campaign kits with cultural annotations",
@@ -558,6 +1611,7 @@
     "category": "Conversion",
     "name": "Copywriter",
     "tagline": "Conversion copy: ads, landing pages, headlines, CTAs, product descriptions, A/B variants.",
+    "persona": "A direct-response copywriter obsessed with the first line. Writes ad copy, landing pages, headlines, and CTAs that convert, and always delivers A/B variants with a hypothesis attached.",
     "playbooks": [
       "Ad copy set — platform-fit variants with distinct angles",
       "Landing-page copy — hero, benefits, proof, objections, CTA architecture",
@@ -567,11 +1621,53 @@
       "A/B variant generation — each variant tied to a testable hypothesis"
     ],
     "tools": [
-      "brand-kit:read",
-      "knowledge-base:read/write",
-      "document-generator"
+      "files:read",
+      "files:write",
+      "memory",
+      "skills"
     ],
+    "integrations": [],
+    "context": [
+      "INDEX.md",
+      "00-org/ORG.md",
+      "01-brand/brand-kit.md",
+      "04-content/copy/",
+      "01-brand/voice-and-tone.md",
+      "01-brand/personas/"
+    ],
+    "owns": [
+      "04-content/copy/"
+    ],
+    "routes": [
+      "ad copy",
+      "headline",
+      "cta",
+      "landing page copy",
+      "product description",
+      "conversion copy",
+      "a/b variants"
+    ],
+    "model": null,
+    "orchestrator": false,
     "requiredKeys": [],
+    "skills": {
+      "shared": [
+        "brand-kit-check",
+        "capability-check",
+        "compliance-gate",
+        "find-in-knowledge",
+        "handoff-brief",
+        "remember-this",
+        "save-to-knowledge",
+        "work-order"
+      ],
+      "signature": [
+        {
+          "name": "conversion-copy-set",
+          "description": "Use when asked for ad copy, headlines, CTAs, landing page copy, product descriptions or video hooks — produces a variant set where each variant carries a distinct angle and a testable hypothesis, not cosmetic rewording."
+        }
+      ]
+    },
     "outputs": [
       "Copy decks per campaign in `knowledge/04-content/copy/`",
       "A/B variant sets with hypotheses for cro-optimizer",
@@ -583,29 +1679,109 @@
     "emoji": "🏗️",
     "category": "Conversion",
     "name": "Landing Page Builder",
-    "tagline": "Builds/edits landing pages via CLI, embeds tracking, ships A/B variants, connects forms.",
+    "tagline": "Builds landing pages in the workspace, specs tracking, ships A/B variants, wires forms.",
+    "persona": "A hands-on builder who turns copy decks into real pages. Writes the page source in the workspace, specifies analytics and pixel tracking, ships A/B variants, and documents exactly how forms map to the CRM/ESP.",
     "playbooks": [
-      "Page build — copy deck → responsive landing page",
-      "Tracking embed — GA4, pixels, conversion events",
-      "A/B variant shipping — variant pages + traffic-split setup",
-      "Form → CRM/ESP wiring — field mapping and consent capture",
-      "Page-speed pass — CWV optimization",
+      "Page build — copy deck → responsive landing page source in the workspace",
+      "Tracking spec — GA4, pixels, conversion events, dataLayer contract",
+      "A/B variant shipping — variant pages + traffic-split spec",
+      "Form → CRM/ESP wiring spec — field mapping and consent capture",
+      "Page-speed pass — CWV budget and optimization checklist",
       "Post-launch QA — links, forms, tracking verification checklist"
     ],
     "tools": [
-      "opencode-cli",
-      "code-editor",
-      "ga4-connector",
-      "crm-connector"
+      "files:read",
+      "files:write",
+      "memory",
+      "skills",
+      "terminal",
+      "code-execution",
+      "browser"
     ],
+    "integrations": [
+      {
+        "id": "hosting",
+        "name": "Hosting / deploy target",
+        "env": [
+          "HOSTING_DEPLOY_TOKEN"
+        ],
+        "via": "mcp",
+        "status": "not-wired"
+      },
+      {
+        "id": "crm",
+        "name": "CRM (HubSpot / Salesforce / Pipedrive)",
+        "env": [
+          "CRM_API_KEY"
+        ],
+        "via": "mcp",
+        "status": "not-wired"
+      },
+      {
+        "id": "esp",
+        "name": "Email provider (Resend / SendGrid / Mailchimp / Klaviyo)",
+        "env": [
+          "ESP_API_KEY"
+        ],
+        "via": "mcp",
+        "status": "not-wired"
+      },
+      {
+        "id": "ga4",
+        "name": "Google Analytics 4",
+        "env": [
+          "GA4_PROPERTY_ID"
+        ],
+        "via": "mcp",
+        "status": "not-wired"
+      }
+    ],
+    "context": [
+      "INDEX.md",
+      "00-org/ORG.md",
+      "01-brand/brand-kit.md",
+      "04-content/copy/",
+      "04-content/landing-pages/"
+    ],
+    "owns": [
+      "04-content/landing-pages/"
+    ],
+    "routes": [
+      "landing page",
+      "build page",
+      "page build",
+      "form wiring",
+      "tracking embed"
+    ],
+    "model": null,
+    "orchestrator": false,
     "requiredKeys": [
-      "HOSTING_DEPLOY_TOKEN (optional)",
-      "CRM_API_KEY (optional)",
-      "ESP_API_KEY (optional)"
+      "HOSTING_DEPLOY_TOKEN",
+      "CRM_API_KEY",
+      "ESP_API_KEY",
+      "GA4_PROPERTY_ID"
     ],
+    "skills": {
+      "shared": [
+        "brand-kit-check",
+        "capability-check",
+        "compliance-gate",
+        "find-in-knowledge",
+        "handoff-brief",
+        "remember-this",
+        "save-to-knowledge",
+        "work-order"
+      ],
+      "signature": [
+        {
+          "name": "page-build",
+          "description": "Use when asked to build, edit or ship a landing page — turns a copy deck into real page source in the workspace, with the tracking spec, form mapping and QA checklist a human needs to deploy it."
+        }
+      ]
+    },
     "outputs": [
-      "Deployed landing pages (URL + source in repo)",
-      "Tracking-verification report per page",
+      "Page source + assets in `knowledge/04-content/landing-pages/`",
+      "Tracking-verification checklist per page",
       "A/B variant map registered with cro-optimizer"
     ]
   },
@@ -615,6 +1791,7 @@
     "category": "Conversion",
     "name": "CRO Optimizer",
     "tagline": "Funnel analysis, page audits, A/B test design & ICE prioritization, result analysis, personalization.",
+    "persona": "A conversion scientist who never ships an opinion without a test. Audits funnels heuristically, designs experiments, prioritizes by ICE, and reads results with statistical honesty.",
     "playbooks": [
       "Funnel analysis — step-conversion mapping with leak identification",
       "Heuristic page audit — clarity, relevance, friction, anxiety scoring",
@@ -624,13 +1801,76 @@
       "Personalization recommendations — segment-specific experiences"
     ],
     "tools": [
-      "ga4-connector",
-      "knowledge-base:read/write",
-      "spreadsheet-generator"
+      "files:read",
+      "files:write",
+      "memory",
+      "skills",
+      "code-execution",
+      "browser"
     ],
+    "integrations": [
+      {
+        "id": "ga4",
+        "name": "Google Analytics 4",
+        "env": [
+          "GA4_PROPERTY_ID"
+        ],
+        "via": "mcp",
+        "status": "not-wired"
+      },
+      {
+        "id": "ab-testing",
+        "name": "A/B testing (VWO / Optimizely / GrowthBook)",
+        "env": [
+          "AB_TESTING_TOOL_API_KEY"
+        ],
+        "via": "mcp",
+        "status": "not-wired"
+      }
+    ],
+    "context": [
+      "INDEX.md",
+      "00-org/ORG.md",
+      "01-brand/brand-kit.md",
+      "06-playbooks/experiment-backlog.md",
+      "05-analytics-reports/experiments/"
+    ],
+    "owns": [
+      "05-analytics-reports/experiments/"
+    ],
+    "routes": [
+      "cro",
+      "a/b test",
+      "experiment",
+      "funnel analysis",
+      "conversion rate",
+      "ice prioritization",
+      "page audit"
+    ],
+    "model": null,
+    "orchestrator": false,
     "requiredKeys": [
-      "AB_TESTING_TOOL_API_KEY (optional — VWO/Optimizely/GrowthBook)"
+      "GA4_PROPERTY_ID",
+      "AB_TESTING_TOOL_API_KEY"
     ],
+    "skills": {
+      "shared": [
+        "brand-kit-check",
+        "capability-check",
+        "compliance-gate",
+        "find-in-knowledge",
+        "handoff-brief",
+        "remember-this",
+        "save-to-knowledge",
+        "work-order"
+      ],
+      "signature": [
+        {
+          "name": "experiment-design",
+          "description": "Use when asked to improve conversion, run an A/B test, audit a page or funnel, or decide what to test next — produces a falsifiable experiment spec with a sample-size requirement and an ICE-ranked backlog entry."
+        }
+      ]
+    },
     "outputs": [
       "Funnel leak report + audit scorecards",
       "`knowledge/06-playbooks/experiment-backlog.md` — ICE-ranked backlog",
@@ -643,6 +1883,7 @@
     "category": "Conversion",
     "name": "Lead Gen & CRM",
     "tagline": "Lead magnets, funnels, scoring, CRM hygiene, routing, MQL→SQL handoff.",
+    "persona": "A demand-gen operator who owns the lead lifecycle from magnet to MQL→SQL handoff. Keeps the CRM clean, the scoring honest, and the routing instant.",
     "playbooks": [
       "Lead-magnet strategy — offer ideation matched to funnel stage",
       "Form & funnel design — friction-minimized capture flows",
@@ -652,13 +1893,75 @@
       "MQL→SQL handoff — definition alignment + feedback loop with sales"
     ],
     "tools": [
-      "crm-connector",
-      "esp-connector",
-      "knowledge-base:read/write"
+      "files:read",
+      "files:write",
+      "memory",
+      "skills",
+      "code-execution"
     ],
+    "integrations": [
+      {
+        "id": "crm",
+        "name": "CRM (HubSpot / Salesforce / Pipedrive)",
+        "env": [
+          "CRM_API_KEY"
+        ],
+        "via": "mcp",
+        "status": "not-wired"
+      },
+      {
+        "id": "esp",
+        "name": "Email provider (Resend / SendGrid / Mailchimp / Klaviyo)",
+        "env": [
+          "ESP_API_KEY"
+        ],
+        "via": "mcp",
+        "status": "not-wired"
+      }
+    ],
+    "context": [
+      "INDEX.md",
+      "00-org/ORG.md",
+      "01-brand/brand-kit.md",
+      "06-playbooks/lead-scoring.md",
+      "01-brand/personas/"
+    ],
+    "owns": [
+      "03-campaigns/lead-gen/"
+    ],
+    "routes": [
+      "lead magnet",
+      "lead scoring",
+      "crm",
+      "mql",
+      "sql handoff",
+      "lead routing",
+      "form design"
+    ],
+    "model": null,
+    "orchestrator": false,
     "requiredKeys": [
-      "CRM_API_KEY (optional — HubSpot/Salesforce/Pipedrive)"
+      "CRM_API_KEY",
+      "ESP_API_KEY"
     ],
+    "skills": {
+      "shared": [
+        "brand-kit-check",
+        "capability-check",
+        "compliance-gate",
+        "find-in-knowledge",
+        "handoff-brief",
+        "remember-this",
+        "save-to-knowledge",
+        "work-order"
+      ],
+      "signature": [
+        {
+          "name": "lead-scoring-model",
+          "description": "Use when asked about lead scoring, MQL definitions, lead routing, CRM hygiene or lead-magnet strategy — produces a scoring model with explicit thresholds, routing rules and the feedback loop that keeps it honest."
+        }
+      ]
+    },
     "outputs": [
       "Lead-magnet concepts + funnel specs",
       "`knowledge/06-playbooks/lead-scoring.md` — scoring model doc",
@@ -671,6 +1974,7 @@
     "category": "Conversion",
     "name": "Product Marketer",
     "tagline": "Launch plans, messaging docs, sales enablement, pricing-page strategy, release kits.",
+    "persona": "A product marketer who bridges product and revenue. Owns launch plans, messaging docs, battlecards, and the pricing page narrative.",
     "playbooks": [
       "Launch plan — tiered launch (P0-P2) with channel plan and owners",
       "Messaging doc — positioning, value props, proof, objection handling",
@@ -680,14 +1984,57 @@
       "Win/loss analysis — interview synthesis into messaging updates"
     ],
     "tools": [
-      "knowledge-base:read/write",
-      "document-generator",
-      "web-research"
+      "files:read",
+      "files:write",
+      "memory",
+      "skills",
+      "web-search"
     ],
+    "integrations": [],
+    "context": [
+      "INDEX.md",
+      "00-org/ORG.md",
+      "01-brand/brand-kit.md",
+      "03-campaigns/launches/",
+      "01-brand/messaging/",
+      "02-market-research/competitors/"
+    ],
+    "owns": [
+      "03-campaigns/launches/"
+    ],
+    "routes": [
+      "launch",
+      "messaging doc",
+      "battlecard",
+      "sales enablement",
+      "pricing page",
+      "release kit",
+      "win loss"
+    ],
+    "model": null,
+    "orchestrator": false,
     "requiredKeys": [],
+    "skills": {
+      "shared": [
+        "brand-kit-check",
+        "capability-check",
+        "compliance-gate",
+        "find-in-knowledge",
+        "handoff-brief",
+        "remember-this",
+        "save-to-knowledge",
+        "work-order"
+      ],
+      "signature": [
+        {
+          "name": "launch-plan",
+          "description": "Use when asked to plan a product, feature or release launch — produces a tiered launch plan with messaging, channel assignments, owner profiles, dates and a measurable definition of success."
+        }
+      ]
+    },
     "outputs": [
       "Launch plans in `knowledge/03-campaigns/launches/`",
-      "Messaging docs + battlecards in `knowledge/01-brand/messaging/`",
+      "Messaging docs + battlecards drafted for `knowledge/01-brand/messaging/`",
       "Release kits ready for channel distribution"
     ]
   },
@@ -697,6 +2044,7 @@
     "category": "Conversion",
     "name": "E-commerce Marketer",
     "tagline": "Product-feed optimization, marketplace listings & ads, promotion calendars, Shopify integration.",
+    "persona": "An e-commerce growth specialist covering feeds, marketplaces, and promotions. Optimizes product data for Google Shopping and Amazon, and runs the promotion calendar.",
     "playbooks": [
       "Product-feed optimization — titles, attributes, categorization for Shopping",
       "Amazon/marketplace listings — SEO'd titles, bullets, A+ content briefs",
@@ -706,14 +2054,85 @@
       "Shopify integration — app/flow recommendations, conversion checks"
     ],
     "tools": [
-      "feed-optimizer",
-      "knowledge-base:read/write",
-      "spreadsheet-generator"
+      "files:read",
+      "files:write",
+      "memory",
+      "skills",
+      "code-execution",
+      "web-search"
     ],
+    "integrations": [
+      {
+        "id": "shopify",
+        "name": "Shopify",
+        "env": [
+          "SHOPIFY_API_KEY"
+        ],
+        "via": "mcp",
+        "status": "not-wired"
+      },
+      {
+        "id": "amazon-ads",
+        "name": "Amazon Ads",
+        "env": [
+          "AMAZON_ADS_API_KEY"
+        ],
+        "via": "mcp",
+        "status": "not-wired"
+      },
+      {
+        "id": "google-ads",
+        "name": "Google Ads",
+        "env": [
+          "GOOGLE_ADS_API_KEY"
+        ],
+        "via": "mcp",
+        "status": "not-wired"
+      }
+    ],
+    "context": [
+      "INDEX.md",
+      "00-org/ORG.md",
+      "01-brand/brand-kit.md",
+      "03-campaigns/ecommerce/",
+      "04-content/copy/"
+    ],
+    "owns": [
+      "03-campaigns/ecommerce/"
+    ],
+    "routes": [
+      "ecommerce",
+      "product feed",
+      "amazon listing",
+      "shopify",
+      "promo calendar",
+      "merchandising"
+    ],
+    "model": null,
+    "orchestrator": false,
     "requiredKeys": [
-      "SHOPIFY_API_KEY (optional)",
-      "AMAZON_ADS_API_KEY (optional)"
+      "SHOPIFY_API_KEY",
+      "AMAZON_ADS_API_KEY",
+      "GOOGLE_ADS_API_KEY"
     ],
+    "skills": {
+      "shared": [
+        "brand-kit-check",
+        "capability-check",
+        "compliance-gate",
+        "find-in-knowledge",
+        "handoff-brief",
+        "remember-this",
+        "save-to-knowledge",
+        "work-order"
+      ],
+      "signature": [
+        {
+          "name": "feed-optimization",
+          "description": "Use when asked about product feeds, Shopping ads, marketplace listings, merchandising copy or promotion calendars — produces the feed spec and listing copy that make products findable and comparable."
+        }
+      ]
+    },
     "outputs": [
       "Optimized feed spec + listing copy",
       "`knowledge/03-campaigns/promo-calendar.md` — promotion calendar",
@@ -726,6 +2145,7 @@
     "category": "Retention",
     "name": "Email Lifecycle",
     "tagline": "Newsletters, drips, onboarding, win-back, cart abandonment; hygiene; deliverability; ESP integration.",
+    "persona": "A lifecycle marketer who maps every email to a lifecycle stage. Designs drips, onboarding, win-back, and cart-abandonment flows, guards deliverability, and keeps lists clean.",
     "playbooks": [
       "Newsletter program — cadence, format, content sourcing",
       "Drip sequence design — stage-mapped nurture flows",
@@ -735,13 +2155,64 @@
       "Deliverability — SPF/DKIM/DMARC checks, warm-up plans, placement monitoring"
     ],
     "tools": [
-      "esp-connector",
-      "knowledge-base:read/write",
-      "document-generator"
+      "files:read",
+      "files:write",
+      "memory",
+      "skills"
     ],
+    "integrations": [
+      {
+        "id": "esp",
+        "name": "Email provider (Resend / SendGrid / Mailchimp / Klaviyo)",
+        "env": [
+          "ESP_API_KEY"
+        ],
+        "via": "mcp",
+        "status": "not-wired"
+      }
+    ],
+    "context": [
+      "INDEX.md",
+      "00-org/ORG.md",
+      "01-brand/brand-kit.md",
+      "04-content/email/",
+      "01-brand/voice-and-tone.md"
+    ],
+    "owns": [
+      "04-content/email/"
+    ],
+    "routes": [
+      "email",
+      "newsletter",
+      "drip",
+      "onboarding sequence",
+      "win-back",
+      "cart abandonment",
+      "deliverability"
+    ],
+    "model": null,
+    "orchestrator": false,
     "requiredKeys": [
-      "ESP_API_KEY (optional — Resend/SendGrid/Mailchimp/Klaviyo)"
+      "ESP_API_KEY"
     ],
+    "skills": {
+      "shared": [
+        "brand-kit-check",
+        "capability-check",
+        "compliance-gate",
+        "find-in-knowledge",
+        "handoff-brief",
+        "remember-this",
+        "save-to-knowledge",
+        "work-order"
+      ],
+      "signature": [
+        {
+          "name": "lifecycle-flow",
+          "description": "Use when asked for an email sequence, drip, onboarding, win-back, cart-abandonment or newsletter program — produces the flow map plus every email written in full, with triggers, exits and compliance elements in place."
+        }
+      ]
+    },
     "outputs": [
       "Flow maps + full email copy per sequence in `knowledge/04-content/email/`",
       "Deliverability audit report",
@@ -753,28 +2224,81 @@
     "emoji": "⚙️",
     "category": "Retention",
     "name": "Marketing Automation",
-    "tagline": "Owns the n8n workflow library: designs, builds, deploys (after approval), monitors run health.",
+    "tagline": "Owns the automation library: designs cross-channel journeys, specs them as n8n workflows, monitors run health.",
+    "persona": "An automation engineer for marketing. Designs cross-channel journeys, authors them as n8n workflow definitions in the workspace, and requires human approval before anything is deployed.",
     "playbooks": [
       "Journey design — cross-channel flow diagrams with trigger logic",
-      "Workflow build — n8n workflow JSON authoring",
-      "Approval gate — human sign-off before any deploy",
-      "Deploy via n8n API + version the workflow library",
-      "Run-health monitoring — failure alerts and retry policies",
+      "Workflow authoring — n8n workflow JSON written into the workspace",
+      "Approval gate — human sign-off recorded before any deploy",
+      "Deploy runbook — exact steps to import a versioned workflow into n8n",
+      "Run-health monitoring — failure alert and retry policy design",
       "Workflow library documentation — what each automation does and why"
     ],
     "tools": [
-      "n8n-api",
-      "knowledge-base:read/write",
-      "diagram-generator"
+      "files:read",
+      "files:write",
+      "memory",
+      "skills",
+      "terminal",
+      "code-execution"
     ],
+    "integrations": [
+      {
+        "id": "n8n",
+        "name": "n8n automation",
+        "env": [
+          "N8N_API_URL",
+          "N8N_API_KEY"
+        ],
+        "via": "mcp",
+        "status": "not-wired"
+      }
+    ],
+    "context": [
+      "INDEX.md",
+      "00-org/ORG.md",
+      "01-brand/brand-kit.md",
+      "06-playbooks/automation-library.md",
+      "03-campaigns/automation/"
+    ],
+    "owns": [
+      "03-campaigns/automation/"
+    ],
+    "routes": [
+      "automation",
+      "n8n",
+      "workflow",
+      "journey",
+      "trigger"
+    ],
+    "model": null,
+    "orchestrator": false,
     "requiredKeys": [
       "N8N_API_URL",
       "N8N_API_KEY"
     ],
+    "skills": {
+      "shared": [
+        "brand-kit-check",
+        "capability-check",
+        "compliance-gate",
+        "find-in-knowledge",
+        "handoff-brief",
+        "remember-this",
+        "save-to-knowledge",
+        "work-order"
+      ],
+      "signature": [
+        {
+          "name": "journey-spec",
+          "description": "Use when asked to automate a journey, build an n8n workflow, or connect channels into a triggered flow — produces the flow diagram, the workflow definition and a deploy runbook that a human executes after approval."
+        }
+      ]
+    },
     "outputs": [
       "`knowledge/06-playbooks/automation-library.md` — documented workflow library",
-      "Deployed n8n workflows (post-approval)",
-      "Run-health reports + failure alerts in the activity feed"
+      "Versioned workflow JSON + deploy runbook in `knowledge/03-campaigns/automation/`",
+      "Run-health report template + failure alert spec"
     ]
   },
   {
@@ -783,6 +2307,7 @@
     "category": "Retention",
     "name": "Reputation Manager",
     "tagline": "Monitors G2/Capterra/Google/Trustpilot/app stores, drafts responses, review campaigns, sentiment trends.",
+    "persona": "A reputation steward who reads every review and answers with empathy and brand voice. Runs review-generation campaigns and reports sentiment trends before they become problems.",
     "playbooks": [
       "Review monitoring — G2/Capterra/Google/Trustpilot/app-store sweeps",
       "Response drafting — tone-matched replies for positive/negative/neutral",
@@ -791,16 +2316,68 @@
       "Escalation protocol — routing serious complaints to humans fast"
     ],
     "tools": [
-      "web-scraper",
-      "knowledge-base:read/write",
-      "document-generator"
+      "files:read",
+      "files:write",
+      "memory",
+      "skills",
+      "web-search",
+      "browser"
     ],
+    "integrations": [
+      {
+        "id": "review-platforms",
+        "name": "Review platforms (G2 / Capterra / Trustpilot / app stores)",
+        "env": [
+          "REVIEW_PLATFORM_API_KEY"
+        ],
+        "via": "mcp",
+        "status": "not-wired"
+      }
+    ],
+    "context": [
+      "INDEX.md",
+      "00-org/ORG.md",
+      "01-brand/brand-kit.md",
+      "05-analytics-reports/reputation/",
+      "01-brand/voice-and-tone.md"
+    ],
+    "owns": [
+      "05-analytics-reports/reputation/"
+    ],
+    "routes": [
+      "review",
+      "reputation",
+      "g2",
+      "trustpilot",
+      "sentiment",
+      "review response"
+    ],
+    "model": null,
+    "orchestrator": false,
     "requiredKeys": [
-      "REVIEW_PLATFORM_API_KEY (optional)"
+      "REVIEW_PLATFORM_API_KEY"
     ],
+    "skills": {
+      "shared": [
+        "brand-kit-check",
+        "capability-check",
+        "compliance-gate",
+        "find-in-knowledge",
+        "handoff-brief",
+        "remember-this",
+        "save-to-knowledge",
+        "work-order"
+      ],
+      "signature": [
+        {
+          "name": "review-response-set",
+          "description": "Use when asked to respond to reviews, monitor reputation, run a review-generation campaign or report sentiment — produces response drafts queued for approval plus the theme analysis that makes them worth writing."
+        }
+      ]
+    },
     "outputs": [
       "Response drafts queued for approval",
-      "Monthly sentiment trend report in `knowledge/05-analytics-reports/`",
+      "Monthly sentiment trend report in `knowledge/05-analytics-reports/reputation/`",
       "Review-generation campaign kits"
     ]
   },
@@ -810,6 +2387,7 @@
     "category": "Retention",
     "name": "Community Manager",
     "tagline": "Discord/Slack/Reddit/forum strategy, engagement calendars, moderation, UGC & ambassador programs.",
+    "persona": "A community builder who measures belonging, not just membership. Designs engagement rituals, moderation guidelines, and UGC/ambassador programs that compound.",
     "playbooks": [
       "Community strategy — platform choice, structure, rituals",
       "Engagement calendar — events, AMAs, prompts, spotlights",
@@ -819,11 +2397,53 @@
       "Community health report — activity, retention, sentiment metrics"
     ],
     "tools": [
-      "knowledge-base:read/write",
-      "calendar",
-      "document-generator"
+      "files:read",
+      "files:write",
+      "memory",
+      "skills",
+      "web-search"
     ],
+    "integrations": [],
+    "context": [
+      "INDEX.md",
+      "00-org/ORG.md",
+      "01-brand/brand-kit.md",
+      "06-playbooks/community-playbook.md",
+      "03-campaigns/community/"
+    ],
+    "owns": [
+      "03-campaigns/community/"
+    ],
+    "routes": [
+      "community",
+      "discord",
+      "slack community",
+      "reddit",
+      "moderation",
+      "ugc",
+      "ambassador"
+    ],
+    "model": null,
+    "orchestrator": false,
     "requiredKeys": [],
+    "skills": {
+      "shared": [
+        "brand-kit-check",
+        "capability-check",
+        "compliance-gate",
+        "find-in-knowledge",
+        "handoff-brief",
+        "remember-this",
+        "save-to-knowledge",
+        "work-order"
+      ],
+      "signature": [
+        {
+          "name": "community-plan",
+          "description": "Use when asked to start, grow or run a community — Discord/Slack/forum strategy, engagement calendars, moderation guidelines, UGC or ambassador programs. Produces a plan with rituals, rules and health metrics rather than a channel list."
+        }
+      ]
+    },
     "outputs": [
       "`knowledge/06-playbooks/community-playbook.md` — strategy + moderation guide",
       "Engagement calendars + event briefs",
@@ -836,6 +2456,7 @@
     "category": "Retention",
     "name": "SMS & Messaging",
     "tagline": "Compliant SMS/WhatsApp campaigns, push strategy, quiet hours & consent management.",
+    "persona": "A messaging specialist who treats the SMS inbox as sacred. Designs high-signal campaigns with strict consent, quiet-hours, and frequency governance.",
     "playbooks": [
       "SMS campaign design — offer-worthy, concise, compliant messages",
       "WhatsApp flows — template design and approval process",
@@ -844,15 +2465,66 @@
       "Quiet-hours & frequency governance — per-region send windows"
     ],
     "tools": [
-      "twilio-connector",
-      "knowledge-base:read/write"
+      "files:read",
+      "files:write",
+      "memory",
+      "skills"
     ],
+    "integrations": [
+      {
+        "id": "twilio",
+        "name": "Twilio SMS / WhatsApp",
+        "env": [
+          "TWILIO_ACCOUNT_SID",
+          "TWILIO_AUTH_TOKEN"
+        ],
+        "via": "mcp",
+        "status": "not-wired"
+      }
+    ],
+    "context": [
+      "INDEX.md",
+      "00-org/ORG.md",
+      "01-brand/brand-kit.md",
+      "04-content/messaging/",
+      "06-playbooks/compliance-checklists.md"
+    ],
+    "owns": [
+      "04-content/messaging/"
+    ],
+    "routes": [
+      "sms",
+      "whatsapp",
+      "push notification",
+      "text message",
+      "consent"
+    ],
+    "model": null,
+    "orchestrator": false,
     "requiredKeys": [
-      "TWILIO_ACCOUNT_SID (optional)",
-      "TWILIO_AUTH_TOKEN (optional)"
+      "TWILIO_ACCOUNT_SID",
+      "TWILIO_AUTH_TOKEN"
     ],
+    "skills": {
+      "shared": [
+        "brand-kit-check",
+        "capability-check",
+        "compliance-gate",
+        "find-in-knowledge",
+        "handoff-brief",
+        "remember-this",
+        "save-to-knowledge",
+        "work-order"
+      ],
+      "signature": [
+        {
+          "name": "sms-campaign",
+          "description": "Use when asked for SMS, WhatsApp or push messaging — produces campaign copy inside segment limits with consent, quiet-hours and frequency governance built in, because SMS compliance failures are expensive."
+        }
+      ]
+    },
     "outputs": [
-      "Campaign copy + send plans",
+      "Campaign copy + send plans in `knowledge/04-content/messaging/`",
       "Consent/compliance audit report with compliance-guard",
       "Messaging performance summary"
     ]

@@ -1,0 +1,323 @@
+{
+  "note": "Community edition: every integration is not-wired. No connector code and no credentials ship with this repo.",
+  "toolCatalog": {
+    "files:read": {
+      "label": "Read workspace files",
+      "offline": true,
+      "note": "The workspace is the organization knowledge base."
+    },
+    "files:write": {
+      "label": "Write workspace files",
+      "offline": true,
+      "note": "Everything except the read-only organization brain."
+    },
+    "terminal": {
+      "label": "Shell in the workspace",
+      "offline": true,
+      "note": "Search, move and transform knowledge files."
+    },
+    "memory": {
+      "label": "Profile memory",
+      "offline": true,
+      "note": "Durable per-profile MEMORY.md across sessions."
+    },
+    "skills": {
+      "label": "Packaged skills",
+      "offline": true,
+      "note": "The procedures shipped in this profile's skills/ folder."
+    },
+    "web-search": {
+      "label": "Web search",
+      "offline": false,
+      "note": "Requires a configured model provider with search."
+    },
+    "browser": {
+      "label": "Browser / page fetch",
+      "offline": false,
+      "note": "Requires a configured model provider."
+    },
+    "image-generation": {
+      "label": "Image generation",
+      "offline": false,
+      "note": "Requires a provider and IMAGE_API_KEY."
+    },
+    "code-execution": {
+      "label": "Code execution",
+      "offline": false,
+      "note": "For data work and report generation."
+    },
+    "delegate": {
+      "label": "Delegate to subagents",
+      "offline": false,
+      "note": "Orchestrators only — bounded, non-recursive workers."
+    }
+  },
+  "integrations": [
+    {
+      "id": "ga4",
+      "name": "Google Analytics 4",
+      "env": [
+        "GA4_PROPERTY_ID"
+      ],
+      "via": "mcp",
+      "status": "not-wired",
+      "usedBy": [
+        "analytics-engine",
+        "landing-page-builder",
+        "cro-optimizer"
+      ]
+    },
+    {
+      "id": "google-ads",
+      "name": "Google Ads",
+      "env": [
+        "GOOGLE_ADS_API_KEY"
+      ],
+      "via": "mcp",
+      "status": "not-wired",
+      "usedBy": [
+        "analytics-engine",
+        "budget-planner",
+        "paid-search",
+        "ecommerce-marketer"
+      ]
+    },
+    {
+      "id": "bing-ads",
+      "name": "Microsoft Advertising",
+      "env": [
+        "BING_ADS_API_KEY"
+      ],
+      "via": "mcp",
+      "status": "not-wired",
+      "usedBy": [
+        "paid-search"
+      ]
+    },
+    {
+      "id": "meta-ads",
+      "name": "Meta Ads",
+      "env": [
+        "META_ADS_TOKEN"
+      ],
+      "via": "mcp",
+      "status": "not-wired",
+      "usedBy": [
+        "analytics-engine",
+        "budget-planner",
+        "paid-social"
+      ]
+    },
+    {
+      "id": "linkedin-ads",
+      "name": "LinkedIn Ads",
+      "env": [
+        "LINKEDIN_ADS_TOKEN"
+      ],
+      "via": "mcp",
+      "status": "not-wired",
+      "usedBy": [
+        "paid-social"
+      ]
+    },
+    {
+      "id": "tiktok-ads",
+      "name": "TikTok Ads",
+      "env": [
+        "TIKTOK_ADS_TOKEN"
+      ],
+      "via": "mcp",
+      "status": "not-wired",
+      "usedBy": [
+        "paid-social"
+      ]
+    },
+    {
+      "id": "amazon-ads",
+      "name": "Amazon Ads",
+      "env": [
+        "AMAZON_ADS_API_KEY"
+      ],
+      "via": "mcp",
+      "status": "not-wired",
+      "usedBy": [
+        "ecommerce-marketer"
+      ]
+    },
+    {
+      "id": "crm",
+      "name": "CRM (HubSpot / Salesforce / Pipedrive)",
+      "env": [
+        "CRM_API_KEY"
+      ],
+      "via": "mcp",
+      "status": "not-wired",
+      "usedBy": [
+        "analytics-engine",
+        "abm-engine",
+        "landing-page-builder",
+        "lead-gen-crm"
+      ]
+    },
+    {
+      "id": "esp",
+      "name": "Email provider (Resend / SendGrid / Mailchimp / Klaviyo)",
+      "env": [
+        "ESP_API_KEY"
+      ],
+      "via": "mcp",
+      "status": "not-wired",
+      "usedBy": [
+        "landing-page-builder",
+        "lead-gen-crm",
+        "email-lifecycle"
+      ]
+    },
+    {
+      "id": "n8n",
+      "name": "n8n automation",
+      "env": [
+        "N8N_API_URL",
+        "N8N_API_KEY"
+      ],
+      "via": "mcp",
+      "status": "not-wired",
+      "usedBy": [
+        "marketing-automation"
+      ]
+    },
+    {
+      "id": "twilio",
+      "name": "Twilio SMS / WhatsApp",
+      "env": [
+        "TWILIO_ACCOUNT_SID",
+        "TWILIO_AUTH_TOKEN"
+      ],
+      "via": "mcp",
+      "status": "not-wired",
+      "usedBy": [
+        "sms-messaging"
+      ]
+    },
+    {
+      "id": "shopify",
+      "name": "Shopify",
+      "env": [
+        "SHOPIFY_API_KEY"
+      ],
+      "via": "mcp",
+      "status": "not-wired",
+      "usedBy": [
+        "ecommerce-marketer"
+      ]
+    },
+    {
+      "id": "seo-tool",
+      "name": "SEO suite (Ahrefs / Semrush / DataForSEO)",
+      "env": [
+        "SEO_TOOL_API_KEY"
+      ],
+      "via": "mcp",
+      "status": "not-wired",
+      "usedBy": [
+        "seo-engine"
+      ]
+    },
+    {
+      "id": "review-platforms",
+      "name": "Review platforms (G2 / Capterra / Trustpilot / app stores)",
+      "env": [
+        "REVIEW_PLATFORM_API_KEY"
+      ],
+      "via": "mcp",
+      "status": "not-wired",
+      "usedBy": [
+        "reputation-manager"
+      ]
+    },
+    {
+      "id": "ab-testing",
+      "name": "A/B testing (VWO / Optimizely / GrowthBook)",
+      "env": [
+        "AB_TESTING_TOOL_API_KEY"
+      ],
+      "via": "mcp",
+      "status": "not-wired",
+      "usedBy": [
+        "cro-optimizer"
+      ]
+    },
+    {
+      "id": "webinar",
+      "name": "Webinar platform (Zoom / Livestorm / Demio)",
+      "env": [
+        "WEBINAR_PLATFORM_API_KEY"
+      ],
+      "via": "mcp",
+      "status": "not-wired",
+      "usedBy": [
+        "event-webinar"
+      ]
+    },
+    {
+      "id": "social-scheduler",
+      "name": "Social scheduler (Buffer / Hootsuite / Later)",
+      "env": [
+        "SOCIAL_SCHEDULER_API_KEY"
+      ],
+      "via": "mcp",
+      "status": "not-wired",
+      "usedBy": [
+        "social-organic"
+      ]
+    },
+    {
+      "id": "affiliate",
+      "name": "Affiliate platform (Impact / PartnerStack / Rewardful)",
+      "env": [
+        "AFFILIATE_PLATFORM_API_KEY"
+      ],
+      "via": "mcp",
+      "status": "not-wired",
+      "usedBy": [
+        "affiliate-partnerships"
+      ]
+    },
+    {
+      "id": "intent-data",
+      "name": "Intent data (Bombora / 6sense)",
+      "env": [
+        "INTENT_DATA_API_KEY"
+      ],
+      "via": "mcp",
+      "status": "not-wired",
+      "usedBy": [
+        "abm-engine"
+      ]
+    },
+    {
+      "id": "hosting",
+      "name": "Hosting / deploy target",
+      "env": [
+        "HOSTING_DEPLOY_TOKEN"
+      ],
+      "via": "mcp",
+      "status": "not-wired",
+      "usedBy": [
+        "landing-page-builder"
+      ]
+    },
+    {
+      "id": "image-provider",
+      "name": "Image generation provider",
+      "env": [
+        "IMAGE_API_KEY"
+      ],
+      "via": "provider",
+      "status": "not-wired",
+      "usedBy": [
+        "creative-designer"
+      ]
+    }
+  ]
+}

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>🛰️ Hermes Admin — AI Marketing Engine</title>
+<title>🛰️ Valgist Admin — AI Marketing Engine</title>
 <style>
   :root{
     --ink:#eaf0ff; --ink2:#aab8e2; --muted:#7787b5;
@@ -18,23 +18,237 @@
   html,body{height:100%;overflow:hidden}
   body{font-family:"Segoe UI",system-ui,sans-serif;color:var(--ink);background:#060b1e}
 
-  /* ── 3D background scene ─────────────────────────────────────────────── */
-  .scene{position:fixed;inset:0;perspective:1100px;overflow:hidden}
-  .bg{
-    position:absolute;inset:-6%;
-    background:url("/assets/bg.png") center/cover no-repeat;
-    transform-style:preserve-3d;
-    will-change:transform;
-    transition:transform .15s ease-out;
-    animation:bgdrift 26s ease-in-out infinite alternate;
+  /* ── 3D isometric world ──────────────────────────────────────────────────
+     The background art is a 3:2 isometric map of ten teams. To overlay
+     hotspots that stay glued to their island at any viewport size, the art and
+     the hotspot layer live in ONE aspect-locked box that is cover-sized by
+     hand — so a hotspot at 50%/46% is always Strategy HQ, never drifting. */
+  .scene{position:fixed;inset:0;perspective:1200px;overflow:hidden;z-index:0}
+  .world{
+    --u:1200px;                       /* world width in px, set by JS      */
+    position:absolute;left:50%;top:50%;
+    width:max(106vw, 159vh);          /* background mode: cover the screen */
+    height:max(70.67vw, 106vh);       /* 159vh = 106vh × 3/2 (art aspect)  */
+    transform:translate(-50%,-50%);
+    transform-style:preserve-3d;will-change:transform;
+    transition:width .5s ease, height .5s ease, top .5s ease, left .38s cubic-bezier(.3,.9,.3,1);
   }
-  @keyframes bgdrift{from{scale:1.02}to{scale:1.07}}
-  .veil{
+  /* slide the map clear of the drawer instead of letting it hide teams.
+     `left` is used rather than transform — the parallax loop owns transform. */
+  body.worldview.panel-open .world{left:calc(50% - min(200px,45vw))}
+  body.worldview.panel-open .hud-totals{opacity:0;pointer-events:none}
+  .hud-totals{transition:opacity .3s ease}
+  /* World mode runs the art edge to edge. It is 3:2, so on a wider screen it
+     overflows vertically — capped at 200px of overflow, which only eats empty
+     sky and cloud, never an island. Beyond ~2.1:1 the cap wins and the art
+     stops growing rather than pushing the bottom row off screen. */
+  body.worldview .world{
+    width:min(100vw, calc((100vh + 200px) * 1.5));
+    height:min(66.67vw, calc(100vh + 200px));
+    top:calc(50% + 6px);    /* nudged down to clear the header and nav */
+  }
+  .bg{
     position:absolute;inset:0;
+    background:url("/assets/bg.png") center/100% 100% no-repeat;
+    transform-style:preserve-3d;
+  }
+  .veil{
+    position:absolute;inset:0;pointer-events:none;
     background:
       radial-gradient(1000px 500px at 50% -10%, rgba(6,11,30,.25), transparent 55%),
       linear-gradient(180deg, rgba(6,11,30,.78) 0%, rgba(6,11,30,.60) 30%, rgba(6,11,30,.74) 100%);
     backdrop-filter:blur(1.5px);
+    transition:background .5s ease, backdrop-filter .5s ease;
+  }
+  /* In world mode the art is the interface — the veil drops to a vignette. */
+  body.worldview .veil{
+    background:
+      radial-gradient(125% 95% at 50% 46%, transparent 26%, rgba(6,11,30,.42) 72%, rgba(6,11,30,.82) 100%),
+      linear-gradient(180deg, rgba(6,11,30,.62) 0%, rgba(6,11,30,.04) 18%, rgba(6,11,30,0) 55%, rgba(6,11,30,.38) 100%);
+    backdrop-filter:none;
+  }
+  body.worldview header{background:rgba(8,13,32,.34)}
+  body.worldview nav button:not(.on){background:rgba(13,21,48,.28)}
+  /* Clicks must reach the islands, which sit in .scene *below* .app. The whole
+     app chrome goes transparent to the pointer and only the parts that need
+     input opt back in (descendants may re-enable what an ancestor disabled). */
+  body.worldview .stage{overflow:hidden;padding:0}
+  body.worldview .app{pointer-events:none}
+  body.worldview header,body.worldview nav{pointer-events:auto}
+
+  /* ── hotspots pinned to the islands ──────────────────────────────────── */
+  .hotspots{position:absolute;inset:0;transform-style:preserve-3d;pointer-events:none;
+    opacity:0;visibility:hidden;transition:opacity .45s ease,visibility .45s}
+  body.worldview .hotspots{opacity:1;visibility:visible}
+  /* The button is a STABLE hit box: it encloses both the plate and the marker
+     and never moves on hover. Every visual child is pointer-transparent, so
+     nothing that animates can slide out from under the cursor and set up a
+     hover-on/hover-off flicker loop. --p is the plate size. */
+  .hs{
+    --p:calc(var(--u) * .105);
+    position:absolute;left:var(--x);top:var(--y);
+    width:var(--p);height:calc(var(--p) + 92px);
+    margin:0;padding:0;border:0;background:none;color:inherit;font:inherit;
+    /* depth parallax: the nearer a team, the harder it rides the pointer */
+    transform:translate(-50%,-50%)
+      translate3d(calc(var(--px,0px) * var(--d)), calc(var(--py,0px) * var(--d)), 0);
+    transform-style:preserve-3d;pointer-events:auto;cursor:pointer;
+    animation:hsIn .6s cubic-bezier(.2,.9,.3,1.2) both;
+  }
+  @keyframes hsIn{from{opacity:0;transform:translate(-50%,-50%) scale(.7)}}
+  .hs:focus{outline:none}
+  .hs>*{pointer-events:none}
+  /* isometric landing plate — a square laid flat in 3D reads as a diamond */
+  .hs .plate,.hs .ring{
+    position:absolute;left:50%;top:50%;width:var(--p);height:var(--p);
+    transform:translate(-50%,-50%) rotateX(62deg) rotateZ(45deg);
+    border-radius:16%;
+  }
+  .hs .plate{
+    border:1px solid rgba(120,200,255,.45);
+    background:radial-gradient(closest-side, rgba(79,183,255,.30), rgba(79,183,255,.06) 70%, transparent);
+    box-shadow:0 0 26px rgba(79,183,255,.22), inset 0 0 30px rgba(140,210,255,.18);
+    opacity:.34;transition:opacity .22s, box-shadow .22s, transform .22s;
+  }
+  .hs .ring{border:1px solid rgba(160,220,255,.7);opacity:0}
+  /* vertical light column tying the marker to its island */
+  .hs .beam{
+    position:absolute;left:50%;bottom:calc(50% + var(--p) * .18);
+    width:calc(var(--u) * .022);height:calc(var(--u) * .05);transform:translateX(-50%);
+    background:linear-gradient(to top, rgba(120,200,255,.42), rgba(120,200,255,0));
+    filter:blur(3px);opacity:.5;transition:opacity .22s;
+  }
+  .hs.flip .beam{bottom:auto;top:calc(50% + var(--p) * .18);
+    background:linear-gradient(to bottom, rgba(120,200,255,.42), rgba(120,200,255,0))}
+  /* the holographic marker itself — floats above its island, or below it for
+     the top row, which would otherwise sit behind the header and nav */
+  .hs .pin{
+    position:absolute;left:50%;translate:-50% 0;
+    bottom:calc(50% + var(--p) / 2 + 4px);
+    display:flex;align-items:center;gap:8px;white-space:nowrap;
+    padding:7px 12px 7px 8px;border-radius:13px;
+    background:linear-gradient(180deg, rgba(15,26,60,.90), rgba(10,18,44,.86));
+    border:1px solid rgba(140,200,255,.36);
+    box-shadow:0 12px 30px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.04) inset;
+    backdrop-filter:blur(9px);
+    transition:border-color .22s, box-shadow .22s, background .22s;
+    animation:bob 5.5s ease-in-out infinite;animation-delay:var(--bob,0s);
+  }
+  .hs.flip .pin{bottom:auto;top:calc(50% + var(--p) / 2 + 4px)}
+  /* bob moves the marker with transform, not margin — no layout per frame */
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+  .hs .pin .ico{font-size:1.15rem;line-height:1;filter:drop-shadow(0 2px 5px rgba(0,0,0,.6))}
+  .hs .pin .txt{display:flex;flex-direction:column;gap:1px;text-align:left}
+  .hs .pin .nm{font-size:.76rem;font-weight:800;letter-spacing:.02em;color:#fff;
+    text-shadow:0 1px 6px rgba(0,0,0,.7)}
+  .hs .pin .mt{font-size:.63rem;color:var(--ink2);letter-spacing:.03em}
+  .hs .pin .mt b{color:var(--cyanHi);font-weight:700}
+  .hs .pin::after{ /* stem back down to the plate */
+    content:"";position:absolute;left:50%;top:100%;width:1px;height:14px;
+    background:linear-gradient(to bottom, rgba(140,200,255,.65), transparent);
+  }
+  .hs.flip .pin::after{top:auto;bottom:100%;
+    background:linear-gradient(to top, rgba(140,200,255,.65), transparent)}
+  .hs .cnt{ /* count chip on the pin */
+    display:inline-flex;align-items:center;justify-content:center;min-width:19px;height:19px;
+    padding:0 6px;border-radius:999px;font-size:.66rem;font-weight:800;
+    background:rgba(79,183,255,.16);border:1px solid rgba(79,183,255,.4);color:#9fd8ff;
+  }
+  /* idle reads quieter, but still plainly clickable — a fresh install has no
+     data yet and the map must not look dead on first run */
+  .hs.idle .pin{opacity:.82}
+  .hs.idle .plate{opacity:.26}
+  .hs.idle:hover .pin{opacity:1}
+  .hs.idle .cnt{background:rgba(120,140,180,.14);border-color:var(--line);color:var(--muted)}
+  .hs.alert .cnt{background:rgba(184,132,27,.2);border-color:rgba(184,132,27,.55);color:var(--goldHi)}
+  .hs.alert .pin{border-color:rgba(184,132,27,.5)}
+  .hs.alert .plate{border-color:rgba(255,206,99,.5);
+    background:radial-gradient(closest-side, rgba(255,190,80,.28), rgba(255,190,80,.05) 70%, transparent);
+    box-shadow:0 0 26px rgba(255,190,80,.22), inset 0 0 30px rgba(255,206,99,.16)}
+  .hs.alert .ring{border-color:rgba(255,206,99,.75);animation:ping 2.4s ease-out infinite}
+  @keyframes ping{
+    0%{opacity:.75;transform:translate(-50%,-50%) rotateX(62deg) rotateZ(45deg) scale(.9)}
+    70%,100%{opacity:0;transform:translate(-50%,-50%) rotateX(62deg) rotateZ(45deg) scale(1.55)}
+  }
+  /* hover / focus / selected */
+  .hs:hover .plate,.hs:focus-visible .plate,.hs.sel .plate{
+    opacity:1;box-shadow:0 0 60px rgba(79,183,255,.45), inset 0 0 44px rgba(140,210,255,.3);
+    transform:translate(-50%,-50%) rotateX(62deg) rotateZ(45deg) scale(1.06);
+  }
+  .hs:hover .beam,.hs:focus-visible .beam,.hs.sel .beam{opacity:1}
+  /* hover changes light, never geometry — the marker must not move away from
+     the pointer that is hovering it */
+  .hs:hover .pin,.hs:focus-visible .pin,.hs.sel .pin{
+    background:linear-gradient(180deg, rgba(24,42,88,.94), rgba(14,26,60,.92));
+    border-color:rgba(160,220,255,.8);box-shadow:0 18px 42px rgba(0,0,0,.6), 0 0 34px rgba(79,183,255,.3);
+  }
+  .hs.sel .pin{border-color:var(--accent)}
+  body.worldview.panel-open .hs:not(.sel){opacity:.45;transition:opacity .3s}
+
+  /* ── world HUD ───────────────────────────────────────────────────────── */
+  #tab-world{position:absolute;inset:0;pointer-events:none}
+  #tab-world.on{display:block}
+  .hud{
+    position:absolute;pointer-events:auto;
+    background:rgba(9,15,38,.78);border:1px solid var(--line2);border-radius:14px;
+    backdrop-filter:blur(14px);box-shadow:0 14px 40px rgba(0,0,0,.5);
+  }
+  .hud-intro{left:26px;bottom:26px;max-width:330px;padding:15px 17px;animation:rise .6s .2s ease both}
+  .hud-intro .t{font-size:.95rem;font-weight:800;color:#fff;margin-bottom:5px}
+  .hud-intro .s{font-size:.79rem;line-height:1.6;color:var(--ink2)}
+  .hud-intro .legend{display:flex;gap:14px;margin-top:11px;font-size:.71rem;color:var(--muted)}
+  .hud-intro .legend i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;
+    vertical-align:middle;font-style:normal}
+  /* no entry animation here: a filled animation's opacity would outrank the
+     .panel-open rule that hides this panel behind the drawer */
+  .hud-totals{right:26px;bottom:26px;display:flex;gap:2px;padding:11px 6px}
+  .hud-totals .t{padding:0 15px;text-align:center;border-right:1px solid var(--line)}
+  .hud-totals .t:last-child{border-right:none}
+  .hud-totals .v{font-size:1.35rem;font-weight:800;color:#fff;line-height:1.1}
+  .hud-totals .k{font-size:.63rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-top:3px}
+  @media(max-width:860px){.hud-intro{display:none}}
+
+  /* ── team drawer ─────────────────────────────────────────────────── */
+  .drawer{
+    position:fixed;top:0;right:0;bottom:0;width:min(400px,90vw);z-index:6;
+    background:linear-gradient(180deg, rgba(11,18,44,.94), rgba(8,13,32,.96));
+    border-left:1px solid var(--line2);backdrop-filter:blur(20px);
+    box-shadow:-20px 0 60px rgba(0,0,0,.55);
+    transform:translateX(102%);transition:transform .38s cubic-bezier(.3,.9,.3,1);
+    display:flex;flex-direction:column;
+  }
+  .drawer.open{transform:none}
+  .drawer .dh{padding:20px 22px 14px;border-bottom:1px solid var(--line);position:relative}
+  .drawer .dh .em{font-size:1.7rem;line-height:1}
+  .drawer .dh h3{font-size:1.05rem;margin:7px 0 4px;color:#fff}
+  .drawer .dh p{font-size:.8rem;color:var(--ink2);line-height:1.55}
+  .drawer .x{position:absolute;top:16px;right:16px;width:28px;height:28px;border-radius:9px;
+    border:1px solid var(--line);background:rgba(18,28,62,.6);color:var(--ink2);cursor:pointer;font-size:.9rem}
+  .drawer .x:hover{color:#fff;border-color:var(--line2)}
+  .drawer .db{flex:1;overflow-y:auto;padding:16px 22px 22px}
+  .drawer .strip{display:flex;gap:8px;margin-bottom:16px}
+  .drawer .strip div{flex:1;background:rgba(18,28,62,.55);border:1px solid var(--line);
+    border-radius:11px;padding:9px 10px;text-align:center}
+  .drawer .strip .v{font-size:1.15rem;font-weight:800;color:#fff}
+  .drawer .strip .k{font-size:.6rem;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin-top:2px}
+  .drawer h4{font-size:.7rem;text-transform:uppercase;letter-spacing:.13em;color:var(--muted);margin:0 0 9px}
+  .prow{display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:11px;
+    background:rgba(18,28,62,.45);border:1px solid var(--line);margin-bottom:7px;cursor:pointer;
+    transition:transform .12s,border-color .12s,background .12s;width:100%;text-align:left;
+    color:inherit;font:inherit}
+  .prow:hover{transform:translateX(3px);border-color:var(--line2);background:rgba(24,36,76,.6)}
+  .prow .e{font-size:1.1rem;flex-shrink:0}
+  .prow .i{flex:1;min-width:0}   /* min-width:0 lets the tagline ellipsis */
+  .prow .n{display:block;font-size:.83rem;font-weight:600;color:#fff}
+  .prow .g{display:block;font-size:.68rem;color:var(--muted);margin-top:1px;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .prow .r{text-align:right;flex-shrink:0}
+  .drawer .acts{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+
+  @media(prefers-reduced-motion:reduce){
+    .hs .pin{animation:none}
+    .hs.alert .ring{animation:none}
+    .hs{animation:none}
   }
   .orb{position:absolute;border-radius:50%;filter:blur(60px);opacity:.4;will-change:transform;pointer-events:none}
   .orb.a{width:420px;height:420px;left:-90px;top:-110px;background:#3a4fd8;animation:orb 18s ease-in-out infinite alternate}
@@ -62,7 +276,7 @@
   }
   nav button:hover{color:#fff;transform:translateY(-3px)}
   nav button.on{background:var(--glass2);color:#fff;border-color:var(--line2);box-shadow:0 -4px 20px rgba(79,183,255,.15)}
-  .stage{flex:1;overflow-y:auto;padding:20px 26px 40px;transform-style:preserve-3d}
+  .stage{position:relative;flex:1;overflow-y:auto;padding:20px 26px 40px;transform-style:preserve-3d}
   .tab{display:none;animation:enter .4s ease both}
   .tab.on{display:block}
   @keyframes enter{from{opacity:0;transform:translateY(14px) rotateX(4deg)}to{opacity:1;transform:none}}
@@ -150,6 +364,74 @@
   #preview th,#preview td,#profView th,#profView td{border:1px solid var(--line);padding:5px 10px;font-size:.85em}
   #preview blockquote,#profView blockquote{border-left:3px solid var(--accent);padding-left:12px;color:var(--ink2);margin:.5em 0}
 
+  /* ── work orders / reviews / scorecard ───────────────────────────────── */
+  table.data{width:100%;border-collapse:collapse;font-size:.85rem}
+  table.data th{text-align:left;font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;
+    color:var(--muted);padding:8px 10px;border-bottom:1px solid var(--line);font-weight:700}
+  table.data td{padding:9px 10px;border-bottom:1px solid rgba(140,170,255,.08);vertical-align:top}
+  table.data tr:hover td{background:rgba(79,183,255,.05)}
+  .pill{display:inline-block;padding:2px 9px;border-radius:999px;font-size:.7rem;font-weight:700;
+    letter-spacing:.02em;white-space:nowrap}
+  .pill.open{background:rgba(79,183,255,.16);color:#9fd8ff;border:1px solid rgba(79,183,255,.35)}
+  .pill.inprogress{background:rgba(155,109,242,.18);color:var(--purpleHi);border:1px solid rgba(155,109,242,.4)}
+  .pill.blocked{background:rgba(224,86,86,.16);color:#ff9d9d;border:1px solid rgba(224,86,86,.4)}
+  .pill.review{background:rgba(184,132,27,.18);color:var(--goldHi);border:1px solid rgba(184,132,27,.4)}
+  .pill.done{background:rgba(34,162,113,.2);color:var(--greenHi);border:1px solid rgba(34,162,113,.4)}
+  .pill.cancelled{background:rgba(120,140,180,.15);color:var(--muted);border:1px solid var(--line)}
+  .pill.flag{background:rgba(184,132,27,.14);color:var(--goldHi);border:1px solid rgba(184,132,27,.3);margin-left:5px}
+  .pill.ro{background:rgba(120,140,180,.14);color:var(--ink2);border:1px solid var(--line)}
+  .btn{padding:6px 13px;border-radius:9px;border:1px solid var(--line);background:rgba(18,28,62,.6);
+    color:var(--ink2);font-size:.78rem;cursor:pointer;transition:all .12s;font-family:inherit}
+  .btn:hover{color:#fff;border-color:var(--line2);transform:translateY(-1px)}
+  .btn.primary{background:linear-gradient(135deg,#2a5bd7,#7a3ff2);color:#fff;border:none;font-weight:600}
+  .btn.good{border-color:rgba(34,162,113,.5);color:var(--greenHi)}
+  .btn.warn{border-color:rgba(184,132,27,.5);color:var(--goldHi)}
+  .btn.bad{border-color:rgba(224,86,86,.5);color:#ff9d9d}
+  .btn.sm{padding:3px 9px;font-size:.72rem}
+  .toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+  .toolbar input,.toolbar select{padding:7px 11px;border-radius:9px;border:1px solid var(--line);
+    background:rgba(6,11,30,.7);color:var(--ink);font-size:.82rem;font-family:inherit;outline:none}
+  .toolbar input:focus,.toolbar select:focus{border-color:var(--accent)}
+  .toolbar input.grow{flex:1;min-width:220px}
+  .meter{height:6px;border-radius:3px;background:rgba(120,150,255,.14);overflow:hidden;margin-top:5px}
+  .meter i{display:block;height:100%;border-radius:3px;background:linear-gradient(90deg,var(--green),var(--greenHi))}
+  .empty{color:var(--muted);font-size:.85rem;padding:14px 4px;line-height:1.6}
+  .hint{color:var(--muted);font-size:.78rem;line-height:1.6;margin-top:10px}
+
+  /* ── modal dialogs (replace prompt/confirm/alert) ────────────────────── */
+  .ovl{position:fixed;inset:0;z-index:60;background:rgba(4,8,20,.66);backdrop-filter:blur(3px);
+    display:flex;align-items:center;justify-content:center;animation:fadeIn .15s ease}
+  @keyframes fadeIn{from{opacity:0}}
+  .dlg{width:min(460px,92vw);background:linear-gradient(180deg,rgba(15,24,54,.98),rgba(10,17,40,.98));
+    border:1px solid var(--line2);border-radius:16px;padding:20px 22px;box-shadow:0 24px 70px rgba(0,0,0,.6);
+    animation:rise .2s ease}
+  .dlg h3{font-size:1rem;color:#fff;margin-bottom:6px}
+  .dlg .dsc{font-size:.82rem;color:var(--ink2);line-height:1.6;margin-bottom:14px}
+  .dlg label{display:block;font-size:.74rem;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin:10px 0 5px}
+  .dlg input[type=text],.dlg select,.dlg textarea{width:100%;padding:8px 11px;border-radius:9px;
+    border:1px solid var(--line);background:rgba(6,11,30,.7);color:var(--ink);font-size:.86rem;font-family:inherit;outline:none}
+  .dlg input:focus,.dlg select:focus,.dlg textarea:focus{border-color:var(--accent)}
+  .dlg textarea{resize:vertical;min-height:64px}
+  .dlg .chk{display:flex;gap:8px;align-items:center;font-size:.84rem;color:var(--ink2);margin-top:12px}
+  .dlg .btns{display:flex;gap:8px;justify-content:flex-end;margin-top:18px}
+  .dlg .btn.danger{background:linear-gradient(135deg,#b23b3b,#d75050);color:#fff;border:none;font-weight:600}
+  .toast{position:fixed;left:50%;bottom:30px;transform:translateX(-50%);z-index:70;
+    background:rgba(12,20,48,.96);border:1px solid var(--line2);border-radius:12px;padding:11px 18px;
+    font-size:.85rem;color:var(--ink);box-shadow:0 12px 36px rgba(0,0,0,.55);animation:rise .25s ease}
+
+  /* ── engine tab ──────────────────────────────────────────────────────── */
+  .switch{position:relative;display:inline-block;width:38px;height:21px;vertical-align:middle}
+  .switch input{opacity:0;width:0;height:0}
+  .switch i{position:absolute;inset:0;border-radius:999px;background:rgba(120,140,180,.25);
+    border:1px solid var(--line);transition:.18s;cursor:pointer}
+  .switch i::after{content:"";position:absolute;left:2px;top:2px;width:15px;height:15px;border-radius:50%;
+    background:#aab8e2;transition:.18s}
+  .switch input:checked+i{background:rgba(34,162,113,.4);border-color:rgba(34,162,113,.6)}
+  .switch input:checked+i::after{left:19px;background:var(--greenHi)}
+  .pill.drift{background:rgba(184,132,27,.2);color:var(--goldHi);border:1px solid rgba(184,132,27,.5)}
+  .pill.sync{background:rgba(34,162,113,.16);color:var(--greenHi);border:1px solid rgba(34,162,113,.35)}
+  .pill.conflict{background:rgba(224,86,86,.18);color:#ff9d9d;border:1px solid rgba(224,86,86,.45)}
+
   /* ── system ──────────────────────────────────────────────────────────── */
   .kv{display:grid;grid-template-columns:180px 1fr;gap:8px 16px;font-size:.9rem}
   .kv .k{color:var(--muted)}
@@ -161,32 +443,54 @@
   ::-webkit-scrollbar-track{background:transparent}
 </style>
 </head>
-<body data-palette="#1F8FC7,#B8841B,#9B6DF2,#22A271">
+<body class="worldview" data-palette="#1F8FC7,#B8841B,#9B6DF2,#22A271">
 <div class="scene">
-  <div class="bg" id="bg3d"></div>
+  <div class="world" id="bg3d">
+    <div class="bg"></div>
+    <div class="hotspots" id="hotspots"></div>
+  </div>
   <div class="veil"></div>
   <div class="orb a"></div><div class="orb b"></div>
 </div>
 
 <div class="app">
   <header>
-    <div class="logo">🛰️ Hermes Admin</div>
-    <div class="sub">organization knowledge · profile contracts · activity — administration only</div>
+    <div class="logo">🛰️ Valgist Admin</div>
+    <div class="sub">knowledge · index · work orders · reviews · contracts — administration only</div>
     <div class="spacer"></div>
-    <a class="back" id="webuiLink" href="http://localhost:8787" target="_blank" rel="noopener">⚡ Open Hermes WebUI</a>
+    <a class="back" id="webuiLink" href="http://localhost:8787" target="_blank" rel="noopener">⚡ Open Valgist WebUI</a>
   </header>
 
   <nav>
-    <button class="on" data-tab="overview">📊 Overview</button>
+    <button class="on" data-tab="world">🌍 World</button>
+    <button data-tab="overview">📊 Overview</button>
+    <button data-tab="work">🗂️ Work</button>
+    <button data-tab="reviews">✅ Reviews</button>
     <button data-tab="activity">🕘 Activity</button>
     <button data-tab="knowledge">🧠 Knowledge</button>
     <button data-tab="profiles">🎭 Profiles</button>
+    <button data-tab="engine">⚙️ Engine</button>
     <button data-tab="system">🛠️ System</button>
   </nav>
 
   <div class="stage" id="stage">
+    <!-- WORLD — the isometric map is the interface; hotspots live in .scene -->
+    <section class="tab on" id="tab-world">
+      <div class="hud hud-intro">
+        <div class="t">🌍 The engine, as a map</div>
+        <div class="s">Ten teams, thirty-one profiles. Every marker reads live from the
+          knowledge index, the work-order queue and the review log — click one to open its team.</div>
+        <div class="legend">
+          <span><i style="background:#5fc4f0"></i>steady</span>
+          <span><i style="background:#ffce63"></i>needs attention</span>
+          <span><i style="background:#7787b5"></i>idle</span>
+        </div>
+      </div>
+      <div class="hud hud-totals" id="worldTotals"></div>
+    </section>
+
     <!-- OVERVIEW -->
-    <section class="tab on" id="tab-overview">
+    <section class="tab" id="tab-overview">
       <div class="grid g-stats" id="statTiles"></div>
       <div class="grid g-two">
         <div class="card tilt" style="animation-delay:.15s">
@@ -212,6 +516,57 @@
           <div class="kv" id="keyInfo"></div>
         </div>
       </div>
+      <div class="card" style="animation-delay:.42s;margin-top:16px">
+        <div class="edge purple"></div>
+        <h2>Profile scorecard <span style="color:var(--muted);text-transform:none;letter-spacing:0">— quality, not volume</span></h2>
+        <div id="scorecard"></div>
+      </div>
+    </section>
+
+    <!-- WORK -->
+    <section class="tab" id="tab-work">
+      <div class="card" style="animation:none">
+        <div class="edge cyan"></div>
+        <h2>Open a work order</h2>
+        <div class="toolbar">
+          <input class="grow" id="woTitle" placeholder="What needs producing? e.g. “Q3 topical map for the analytics category”">
+          <select id="woOwner"><option value="">Auto-route…</option></select>
+          <select id="woPriority"><option>P1</option><option selected>P2</option><option>P3</option></select>
+          <input id="woDue" type="date" title="Due date">
+          <button class="btn primary" onclick="createWO()">＋ Open</button>
+        </div>
+        <div class="toolbar" style="margin-bottom:4px">
+          <label style="font-size:.8rem;color:var(--ink2)"><input type="checkbox" id="woApproval"> needs human approval</label>
+          <label style="font-size:.8rem;color:var(--ink2)"><input type="checkbox" id="woCompliance"> needs compliance pass</label>
+          <span class="hint" id="woRoute" style="margin:0"></span>
+        </div>
+      </div>
+
+      <div class="card" style="animation:none;margin-top:16px">
+        <div class="edge purple"></div>
+        <h2>Queue <span style="color:var(--muted);text-transform:none;letter-spacing:0">— knowledge/03-campaigns/work-orders/</span></h2>
+        <div id="woList"></div>
+      </div>
+    </section>
+
+    <!-- REVIEWS -->
+    <section class="tab" id="tab-reviews">
+      <div class="grid g-stats" id="reviewTiles"></div>
+      <div class="card" style="animation:none;margin-top:16px">
+        <div class="edge gold"></div>
+        <h2>Awaiting review <span style="color:var(--muted);text-transform:none;letter-spacing:0">— agent outputs with no verdict yet</span></h2>
+        <div id="unreviewed"></div>
+        <div class="hint">
+          A verdict is only worth recording if it changes something. When you revise or reject,
+          name the cause — the weekly retro reads these and turns recurring ones into repo changes.
+          Scoring guidance lives in <code>evals/rubric.md</code>.
+        </div>
+      </div>
+      <div class="card" style="animation:none;margin-top:16px">
+        <div class="edge green"></div>
+        <h2>Verdict history</h2>
+        <div id="reviewHistory"></div>
+      </div>
     </section>
 
     <!-- ACTIVITY -->
@@ -232,13 +587,19 @@
             <button onclick="newFile()">＋ File</button>
             <button onclick="newFolder()">＋ Folder</button>
             <button onclick="loadTree()">⟳ Refresh</button>
+            <button onclick="reindex()">📇 Reindex</button>
             <button onclick="delFile()">🗑 Delete</button>
+          </div>
+          <div class="hint" style="margin:0 0 8px">
+            🔒 folders are the organization brain — read-only to every profile in chat.
+            This dashboard is the only way to change them.
           </div>
           <div class="tree" id="tree"></div>
         </div>
         <div class="card">
           <div class="ed-tools">
             <span class="path" id="edPath">Select a file to view or edit…</span>
+            <button id="btnPromote" onclick="promote()" style="display:none">⬆ Promote to brain</button>
             <button id="btnPreview" onclick="togglePreview()">👁 Preview</button>
             <button class="primary" onclick="saveFile()">💾 Save</button>
           </div>
@@ -252,7 +613,7 @@
     <section class="tab" id="tab-profiles">
       <div class="kb">
         <div class="card">
-          <h2>🎭 Hermes profiles <span style="color:var(--muted);text-transform:none;letter-spacing:0">— synced to the WebUI</span></h2>
+          <h2>🎭 Valgist profiles <span style="color:var(--muted);text-transform:none;letter-spacing:0">— synced to the WebUI</span></h2>
           <div class="tree" id="profTree"></div>
         </div>
         <div class="card">
@@ -260,6 +621,68 @@
             <span class="path" id="profPath">Select a profile to view its definition, playbooks and output contracts…</span>
           </div>
           <div id="profView" style="flex:1;overflow-y:auto;border:1px solid var(--line);border-radius:12px;background:rgba(6,11,30,.7);padding:18px;line-height:1.6;font-size:.9rem"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ENGINE -->
+    <section class="tab" id="tab-engine">
+      <div class="grid g-two">
+        <div class="card" style="animation:none">
+          <div class="edge cyan"></div>
+          <h2>Engine defaults</h2>
+          <div class="toolbar" style="margin-bottom:6px">
+            <span style="font-size:.84rem;color:var(--ink2)">Default model</span>
+            <input class="grow" id="engDefModel" list="modelList" placeholder="claude-opus-5" spellcheck="false">
+            <button class="btn primary" onclick="setDefaultModel()">Apply</button>
+          </div>
+          <div class="hint" id="engDefSrc" style="margin:0 0 12px"></div>
+          <div class="toolbar" style="margin-bottom:6px">
+            <span style="font-size:.84rem;color:var(--ink2)">Compliance gate</span>
+            <label class="switch"><input type="checkbox" id="engHook" onchange="setComplianceHook(this.checked)"><i></i></label>
+            <span class="hint" id="engHookSrc" style="margin:0"></span>
+          </div>
+          <div class="hint" style="margin-top:2px">
+            When on, a blocking pre-publish hook is registered in every profile: nothing marked
+            <code>status: publish-ready</code> can be written without a PASS compliance report.
+          </div>
+          <div class="toolbar" style="margin-top:14px;margin-bottom:0">
+            <button class="btn" onclick="resyncNow()">⟳ Resync profiles</button>
+            <button class="btn" onclick="regenNow()">🔁 Regenerate from source</button>
+          </div>
+          <div class="hint" style="margin-top:8px">
+            <b style="color:var(--ink2)">Resync</b> re-applies managed settings and repo skills to
+            <code>data/hermes-home</code> without a restart. <b style="color:var(--ink2)">Regenerate</b> also
+            re-runs <code>generate-profiles.js</code> (profile definitions, routing, integrations) first.
+          </div>
+          <datalist id="modelList"></datalist>
+        </div>
+        <div class="card" style="animation:none">
+          <div class="edge gold"></div>
+          <h2>Routing overrides</h2>
+          <div class="toolbar" style="margin-bottom:6px">
+            <input class="grow" id="rtPhrase" placeholder='Phrase to route, e.g. "webinar recap"'>
+            <select id="rtOwner"></select>
+            <button class="btn primary" onclick="addRoute()">＋ Override</button>
+          </div>
+          <div class="hint" id="rtProbe" style="margin:0 0 10px">Type in the box above to preview which profile currently wins that phrase.</div>
+          <div id="rtList"></div>
+          <div class="hint" style="margin-top:10px">
+            Overrides sit on top of the generated routing table (<code>hermes/routing.json</code> stays
+            untouched). An override with an existing phrase replaces its owner; a new phrase adds a route.
+          </div>
+        </div>
+      </div>
+      <div class="card" style="animation:none;margin-top:16px">
+        <div class="edge purple"></div>
+        <h2>Profiles — effective configuration <span style="color:var(--muted);text-transform:none;letter-spacing:0">— parsed live from each config.yaml</span></h2>
+        <div id="engTable"></div>
+        <div class="hint">
+          <b style="color:var(--ink2)">Running</b> is what the profile actually uses right now.
+          A <span class="pill drift">drift</span> badge means it differs from the configured default —
+          Resync fixes managed profiles. <b style="color:var(--ink2)">Managed</b> profiles get their model
+          and hook block re-applied on every sync; switch it off to hand-tune a profile's
+          <code>config.yaml</code> and have the sync leave it alone.
         </div>
       </div>
     </section>
@@ -277,15 +700,21 @@
           <h2>About</h2>
           <p style="font-size:.88rem;line-height:1.7;color:var(--ink2)">
             <b style="color:#fff">This dashboard is administration only.</b> It stores the organization's
-            knowledge and the critical outputs each Hermes profile needs — every artifact lives as plain
-            Markdown under <code>knowledge/</code>, categorized for humans, and the 31 profile definitions
-            are synced from here into Hermes Agent profile homes.
+            knowledge — plain Markdown under <code>knowledge/</code> — and runs the four jobs the chat
+            front end can't: it rebuilds <code>INDEX.md</code> (the catalogue every profile reads first),
+            keeps the work-order queue, records review verdicts, and is the only path that can write the
+            read-only organization brain.
             <br><br>
             To actually <i>use</i> the AI Marketing Engine, open
-            <a href="http://localhost:8787" id="webuiLink2" target="_blank" rel="noopener" style="color:var(--accent)">Hermes WebUI</a>
+            <a href="http://localhost:8787" id="webuiLink2" target="_blank" rel="noopener" style="color:var(--accent)">Valgist WebUI</a>
             and pick a profile from the composer footer. Its workspace is this same knowledge base.
             <br><br>
-            Launch anytime with the terminal command: <code>Hermes Dashboard</code>
+            <b style="color:#fff">No integration is wired.</b> The community edition ships no connector
+            code and no credentials, so profiles cannot reach analytics, ad platforms, CRMs or ESPs.
+            They work from files you put in the knowledge base and mark everything else
+            <code>[AWAITING DATA]</code> — by design, so nothing invented reaches a board deck.
+            <br><br>
+            Launch anytime with the terminal command: <code>Valgist Dashboard</code>
           </p>
         </div>
       </div>
@@ -293,25 +722,260 @@
   </div>
 </div>
 
+<!-- team drawer -->
+<aside class="drawer" id="drawer" aria-hidden="true">
+  <div class="dh">
+    <button class="x" onclick="closeTeam()" title="Close (Esc)">✕</button>
+    <div class="em" id="dEm">🌍</div>
+    <h3 id="dName">Team</h3>
+    <p id="dDesc"></p>
+  </div>
+  <div class="db">
+    <div class="strip" id="dStrip"></div>
+    <h4 id="dRoster">Profiles</h4>
+    <div id="dProfiles"></div>
+    <div class="acts" id="dActs"></div>
+  </div>
+</aside>
+
 <div class="tooltip" id="tip"></div>
 
 <script>
 const $=(id)=>document.getElementById(id);
 const tip=$("tip");
+
+/* ── API (token-aware) ────────────────────────────────────────────────────
+   When HERMES_ADMIN_TOKEN is set on the server, open the dashboard once as
+   /?token=… — it's kept in sessionStorage and sent as a header thereafter. */
+(function(){
+  const t=new URLSearchParams(location.search).get("token");
+  if(t){sessionStorage.setItem("hermesAdminToken",t);
+    history.replaceState({},"",location.pathname);}
+})();
+async function api(path,opts){
+  const o=Object.assign({headers:{}},opts||{});
+  const tok=sessionStorage.getItem("hermesAdminToken");
+  if(tok) o.headers["x-admin-token"]=tok;
+  if(o.body&&!o.headers["Content-Type"]) o.headers["Content-Type"]="application/json";
+  const r=await fetch(path,o);
+  if(r.status===401){
+    sessionStorage.removeItem("hermesAdminToken");
+    document.body.innerHTML='<div style="padding:40px;font-family:system-ui;color:#eaf0ff;background:#060b1e;height:100vh">'
+      +'<h1 style="font-size:1.2rem;margin-bottom:10px">🔒 Admin token required</h1>'
+      +'<p style="color:#aab8e2;font-size:.9rem;line-height:1.7;max-width:520px">This dashboard is protected by '
+      +'<code>HERMES_ADMIN_TOKEN</code>. Paste the token to unlock, or open the page as <code>/?token=YOUR_TOKEN</code>.</p>'
+      +'<form id="tokForm" style="margin-top:18px;display:flex;gap:8px;max-width:520px">'
+      +'<input id="tokIn" type="password" placeholder="Admin token" autocomplete="current-password" '
+      +'style="flex:1;padding:9px 12px;border-radius:9px;border:1px solid rgba(140,170,255,.32);background:rgba(6,11,30,.7);color:#eaf0ff;font-size:.9rem;outline:none">'
+      +'<button type="submit" style="padding:9px 18px;border-radius:9px;border:none;background:linear-gradient(135deg,#2a5bd7,#7a3ff2);color:#fff;font-weight:600;cursor:pointer">Unlock</button>'
+      +'</form>';
+    document.getElementById("tokForm").onsubmit=(e)=>{
+      e.preventDefault();
+      const v=document.getElementById("tokIn").value.trim();
+      if(!v) return;
+      sessionStorage.setItem("hermesAdminToken",v);
+      location.reload();
+    };
+    document.getElementById("tokIn").focus();
+    throw new Error("unauthorized");
+  }
+  return r;
+}
+const getJSON=(p)=>api(p).then(r=>r.json());
+const post=(p,body)=>api(p,{method:"POST",body:JSON.stringify(body)}).then(r=>r.json());
 const PALETTE={cyan:"#1F8FC7",gold:"#B8841B",purple:"#9B6DF2",green:"#22A271",
   cyanHi:"#5fc4f0",purpleHi:"#c3a6ff"};
 
-/* ── 3D parallax ──────────────────────────────────────────────────────── */
-const bg=$("bg3d");
+/* ── 3D parallax ──────────────────────────────────────────────────────────
+   One rAF drives the whole scene. The art and the hotspot layer share the
+   same aspect-locked box, so they rotate and breathe together and a marker
+   never slides off its island. Markers then take a second, per-marker
+   translation scaled by their --d depth — that is what sells the parallax. */
+const bg=$("bg3d"), hotspots=$("hotspots");
+const REDUCED=matchMedia("(prefers-reduced-motion: reduce)").matches;
 let tx=0,ty=0,cx=0,cy=0;
 document.addEventListener("mousemove",(e)=>{
   tx=(e.clientX/innerWidth-.5); ty=(e.clientY/innerHeight-.5);
 });
-(function loop(){
+/* markers are sized off the world's real width, so they scale with the map
+   rather than with the viewport (the two diverge once the map is contained) */
+function sizeWorld(){ bg.style.setProperty("--u",bg.offsetWidth+"px"); }
+addEventListener("resize",sizeWorld);
+(function loop(t){
   cx+=(tx-cx)*.06; cy+=(ty-cy)*.06;
-  bg.style.transform=`rotateY(${cx*4}deg) rotateX(${-cy*3}deg) translate3d(${cx*-22}px,${cy*-16}px,0)`;
+  if(bg.offsetWidth && bg.style.getPropertyValue("--u")!==bg.offsetWidth+"px") sizeWorld();
+  const w=document.body.classList.contains("worldview");
+  const amp=w?1:.55;                                    /* lean in on the map */
+  const breathe=REDUCED?1:1+0.012*Math.sin(t/9000);
+  bg.style.transform=
+    `translate(-50%,-50%) rotateY(${cx*5*amp}deg) rotateX(${-cy*3.6*amp}deg) `+
+    `translate3d(${cx*-30*amp}px,${cy*-22*amp}px,0) scale(${breathe})`;
+  hotspots.style.setProperty("--px",(cx*-26*amp).toFixed(2)+"px");
+  hotspots.style.setProperty("--py",(cy*-20*amp).toFixed(2)+"px");
   requestAnimationFrame(loop);
-})();
+})(0);
+
+/* ── the isometric world ──────────────────────────────────────────────────
+   Ten teams, matched to the ten labelled islands in assets/bg.png.
+   x/y are percentages of the artwork, so they hold at any viewport size;
+   d is parallax depth (higher = nearer the camera = moves more).
+   Anything in the top row (y < 30) hangs its marker below the island instead
+   of above it, so the header and nav can never cover it. */
+const TEAMS=[
+  {id:"audience",  name:"Target Audience",     emoji:"🎯", x:12.4, y:21.0, d:1.0,
+   desc:"Who we are selling to, and the brand story we tell them. Everything downstream reads these files first.",
+   profiles:["brand-strategist","market-researcher"]},
+  {id:"digital",   name:"Digital Marketing",   emoji:"📣", x:35.5, y:19.0, d:0.95,
+   desc:"Paid demand and earned reach — the channels that buy or borrow an audience.",
+   profiles:["paid-search","paid-social","pr-communications","influencer-manager","affiliate-partnerships","abm-engine"]},
+  {id:"analytics", name:"Analytics",           emoji:"📊", x:62.5, y:18.1, d:0.95,
+   desc:"Measurement and money. Reports what actually happened, and what it cost to make it happen.",
+   profiles:["analytics-engine","budget-planner"]},
+  {id:"social",    name:"Social Media",        emoji:"📱", x:84.0, y:19.5, d:1.0,
+   desc:"Owned audience across social, video and audio — reach we do not rent.",
+   profiles:["social-organic","video-marketer","podcast-audio"]},
+  {id:"content",   name:"Content Marketing",   emoji:"✍️", x:17.9, y:53.2, d:1.15,
+   desc:"The production floor: long-form, copy, creative and every language we ship in.",
+   profiles:["content-writer","copywriter","creative-designer","localization-engine"]},
+  {id:"hq",        name:"Strategy HQ",         emoji:"🧭", x:50.0, y:45.9, d:1.1,
+   desc:"Routes the work, sets the quarter, and holds the compliance gate every output passes through.",
+   profiles:["marketing-director","compliance-guard"]},
+  {id:"email",     name:"Email Marketing",     emoji:"📧", x:84.0, y:47.9, d:1.15,
+   desc:"Lifecycle messaging and the automation behind it — the channel we own outright.",
+   profiles:["email-lifecycle","marketing-automation","sms-messaging"]},
+  {id:"seo",       name:"SEO",                 emoji:"🔍", x:22.8, y:77.1, d:1.35,
+   desc:"Organic discovery: topical maps, technical health, and the compounding half of the funnel.",
+   profiles:["seo-engine"]},
+  {id:"engage",    name:"Customer Engagement", emoji:"👥", x:46.5, y:83.0, d:1.4,
+   desc:"Community, reputation and live events — where the audience talks back.",
+   profiles:["community-manager","reputation-manager","event-webinar"]},
+  {id:"convert",   name:"Conversion",          emoji:"🛒", x:71.0, y:78.1, d:1.35,
+   desc:"Where attention becomes revenue: pages, offers, experiments and the pipeline behind them.",
+   profiles:["cro-optimizer","landing-page-builder","lead-gen-crm","product-marketer","ecommerce-marketer"]},
+];
+let worldBuilt=false, openTeam=null, lastScore=null;
+function buildWorld(){
+  if(worldBuilt) return;
+  hotspots.innerHTML=TEAMS.map((d,i)=>`
+    <button class="hs${d.y<30?" flip":""}" id="hs-${d.id}" type="button"
+      style="--x:${d.x}%;--y:${d.y}%;--d:${d.d};--bob:${(i*0.45).toFixed(2)}s"
+      aria-label="${esc(d.name)} team">
+      <span class="plate"></span><span class="ring"></span><span class="beam"></span>
+      <span class="pin">
+        <span class="ico">${d.emoji}</span>
+        <span class="txt"><span class="nm">${esc(d.name)}</span><span class="mt" id="mt-${d.id}">—</span></span>
+        <span class="cnt" id="cnt-${d.id}">0</span>
+      </span>
+    </button>`).join("");
+  TEAMS.forEach(d=>{ $("hs-"+d.id).onclick=()=>showTeam(d.id); });
+  worldBuilt=true;
+}
+/* live numbers on every marker, from the scorecard the dashboard already has */
+function renderWorld(score){
+  buildWorld();
+  lastScore=score;
+  const rows={}; for(const r of (score.profiles||[])) rows[r.id]=r;
+  let liveTeams=0, totalDocs=0, totalOpen=0, totalBlocked=0;
+  for(const d of TEAMS){
+    const agg=d.profiles.reduce((a,id)=>{
+      const r=rows[id]||{};
+      a.documents+=r.documents||0; a.open+=r.openOrders||0; a.blocked+=r.blockedOrders||0;
+      a.done+=r.doneOrders||0; a.reviewed+=r.reviewed||0; a.accepted+=r.accepted||0;
+      return a;
+    },{documents:0,open:0,blocked:0,done:0,reviewed:0,accepted:0});
+    d.agg=agg;
+    const busy=agg.documents||agg.open||agg.blocked||agg.done;
+    if(busy) liveTeams++;
+    totalDocs+=agg.documents; totalOpen+=agg.open; totalBlocked+=agg.blocked;
+
+    const el=$("hs-"+d.id);
+    el.classList.toggle("alert",agg.blocked>0);
+    el.classList.toggle("idle",!busy);
+    $("mt-"+d.id).innerHTML=`${d.profiles.length} profile${d.profiles.length===1?"":"s"}`+
+      (agg.documents?` · <b>${agg.documents}</b> doc${agg.documents===1?"":"s"}`:"")+
+      (agg.open?` · <b>${agg.open}</b> open`:"");
+    const chip=$("cnt-"+d.id);
+    chip.textContent=agg.blocked?agg.blocked:(agg.open||agg.documents||d.profiles.length);
+    chip.title=agg.blocked?`${agg.blocked} blocked work order${agg.blocked===1?"":"s"}`
+      :agg.open?`${agg.open} open work order${agg.open===1?"":"s"}`
+      :agg.documents?`${agg.documents} document${agg.documents===1?"":"s"} produced`
+      :`${d.profiles.length} profile${d.profiles.length===1?"":"s"} stationed here`;
+  }
+  const acc=score.totals&&score.totals.acceptanceRate;
+  $("worldTotals").innerHTML=[
+    ["Teams live",`${liveTeams}<span style="color:var(--muted);font-size:.8rem">/${TEAMS.length}</span>`],
+    ["Documents",totalDocs],
+    ["Open orders",totalOpen],
+    ["Blocked",totalBlocked],
+    ["Acceptance",acc==null?"—":acc+"%"],
+  ].map(([k,v])=>`<div class="t"><div class="v">${v}</div><div class="k">${k}</div></div>`).join("");
+  if(openTeam) showTeam(openTeam,true);
+  else if(!hashChecked){                       /* /#seo deep-links a team */
+    hashChecked=true;
+    const h=decodeURIComponent(location.hash.slice(1));
+    if(TEAMS.some(x=>x.id===h)) showTeam(h);
+  }
+}
+let hashChecked=false;
+
+function showTeam(id,keepScroll){
+  const d=TEAMS.find(x=>x.id===id); if(!d) return;
+  openTeam=id;
+  document.querySelectorAll(".hs.sel").forEach(el=>el.classList.remove("sel"));
+  $("hs-"+id).classList.add("sel");
+  document.body.classList.add("panel-open");
+  const dr=$("drawer"); dr.classList.add("open"); dr.setAttribute("aria-hidden","false");
+  $("dEm").textContent=d.emoji; $("dName").textContent=d.name; $("dDesc").textContent=d.desc;
+
+  const a=d.agg||{documents:0,open:0,blocked:0,done:0,reviewed:0,accepted:0};
+  const rate=a.reviewed?Math.round(a.accepted/a.reviewed*100):null;
+  $("dStrip").innerHTML=[
+    ["Docs",a.documents],["Open",a.open],["Blocked",a.blocked],["Accept",rate==null?"—":rate+"%"],
+  ].map(([k,v])=>`<div><div class="v">${v}</div><div class="k">${k}</div></div>`).join("");
+
+  const rows={}; for(const r of ((lastScore&&lastScore.profiles)||[])) rows[r.id]=r;
+  $("dRoster").textContent=`${d.profiles.length} profile${d.profiles.length===1?"":"s"} stationed here`;
+  $("dProfiles").innerHTML=d.profiles.map(pid=>{
+    const p=profileList.find(x=>x.id===pid)||{emoji:"🎭",name:pid,tagline:""};
+    const r=rows[pid]||{};
+    const badge=r.blockedOrders?`<span class="pill blocked">${r.blockedOrders} blocked</span>`
+      :r.openOrders?`<span class="pill open">${r.openOrders} open</span>`
+      :r.documents?`<span class="pill done">${r.documents} doc${r.documents===1?"":"s"}</span>`
+      :`<span class="pill ro">idle</span>`;
+    return `<button class="prow" type="button" data-open-prof="${esc(pid)}" title="${esc(p.tagline||"")}">
+      <span class="e">${p.emoji}</span>
+      <span class="i"><span class="n">${esc(p.name)}</span><span class="g">${esc(p.tagline||"")}</span></span>
+      <span class="r">${badge}</span></button>`;
+  }).join("");
+  $("dProfiles").querySelectorAll("[data-open-prof]").forEach(b=>{
+    b.onclick=()=>openProfile(b.dataset.openProf);
+  });
+  $("dActs").innerHTML=
+    `<button class="btn" onclick="goTab('work')">🗂️ Work orders</button>`+
+    `<button class="btn" onclick="goTab('reviews')">✅ Reviews</button>`+
+    `<button class="btn" onclick="goTab('overview')">📊 Scorecard</button>`;
+  if(!keepScroll){
+    $("drawer").querySelector(".db").scrollTop=0;
+    history.replaceState(null,"","#"+id);      /* shareable team link */
+  }
+}
+function closeTeam(){
+  if(openTeam) history.replaceState(null,"",location.pathname);
+  openTeam=null;
+  document.body.classList.remove("panel-open");
+  document.querySelectorAll(".hs.sel").forEach(el=>el.classList.remove("sel"));
+  const dr=$("drawer"); dr.classList.remove("open"); dr.setAttribute("aria-hidden","true");
+}
+function goTab(name){
+  const b=document.querySelector(`nav button[data-tab="${name}"]`);
+  if(b){closeTeam(); b.click();}
+}
+function openProfile(id){
+  goTab("profiles");
+  const n=document.querySelector(`#profTree .node[data-prof="${id}"]`);
+  if(n){n.click(); n.scrollIntoView({block:"nearest"});}
+}
+document.addEventListener("keydown",(e)=>{ if(e.key==="Escape") closeTeam(); });
 /* per-card tilt */
 document.addEventListener("mousemove",(e)=>{
   const c=e.target.closest(".card.tilt");
@@ -329,8 +993,16 @@ document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{
   document.querySelectorAll("nav button").forEach(x=>x.classList.remove("on"));
   document.querySelectorAll(".tab").forEach(x=>x.classList.remove("on"));
   b.classList.add("on"); $("tab-"+b.dataset.tab).classList.add("on");
+  /* world mode pulls the veil back so the map itself becomes the interface */
+  document.body.classList.toggle("worldview",b.dataset.tab==="world");
+  if(b.dataset.tab!=="world") closeTeam();
   if(b.dataset.tab==="knowledge"&&!treeLoaded) loadTree();
+  if(b.dataset.tab==="work") loadWork();
+  if(b.dataset.tab==="reviews") loadReviews();
+  if(b.dataset.tab==="engine") loadEngine();
 });
+/* body ships with .worldview already set, so the map is contained on the very
+   first paint — no cover-to-contain lurch while the dashboard boots. */
 
 /* ── animated counters ────────────────────────────────────────────────── */
 function countUp(el,to){
@@ -394,43 +1066,56 @@ document.addEventListener("mousemove",(e)=>{
 });
 
 /* ── data loading ─────────────────────────────────────────────────────── */
-const ICONS={chat:"💬",output:"💾",knowledge:"🧠",system:"⚡",error:"⚠️"};
+const ICONS={chat:"💬",output:"💾",knowledge:"🧠",system:"⚡",error:"⚠️",
+  workorder:"🗂️",review:"✅",promote:"⬆️",agent:"🤖"};
 function ago(ts){
   const s=(Date.now()-new Date(ts))/1000;
   if(s<60)return`${s|0}s ago`; if(s<3600)return`${s/60|0}m ago`;
   if(s<86400)return`${s/3600|0}h ago`; return`${s/86400|0}d ago`;
 }
 function feedHTML(list){
-  if(!list.length) return `<div style="color:var(--muted);font-size:.85rem;padding:8px">No activity yet — edit the knowledge base here, or let a profile work in <a href="http://localhost:8787" target="_blank" rel="noopener" style="color:var(--accent)">Hermes WebUI</a>.</div>`;
+  if(!list.length) return `<div style="color:var(--muted);font-size:.85rem;padding:8px">No activity yet — edit the knowledge base here, or let a profile work in <a href="http://localhost:8787" target="_blank" rel="noopener" style="color:var(--accent)">Valgist WebUI</a>.</div>`;
+  /* a.detail arrives via the open POST /api/activity ingest — escape it, or a
+     posted <script> runs in this authenticated admin page (stored XSS). */
   return list.map((a,i)=>`<div class="act" style="animation-delay:${Math.min(i*0.03,.4)}s">
     <div class="i">${ICONS[a.type]||"•"}</div>
-    <div><div class="d">${a.detail}</div><div class="t">${ago(a.ts)} · ${new Date(a.ts).toLocaleString()}</div></div>
+    <div><div class="d">${esc(a.detail)}</div><div class="t">${ago(a.ts)} · ${new Date(a.ts).toLocaleString()}</div></div>
   </div>`).join("");
 }
 
-let profileNames={};
+let profileNames={}, profileList=[];
 async function refresh(){
-  const [stats,acts,status,profiles]=await Promise.all([
-    fetch("/api/stats").then(r=>r.json()),
-    fetch("/api/activities").then(r=>r.json()),
-    fetch("/api/status").then(r=>r.json()),
-    Object.keys(profileNames).length?Promise.resolve(null):fetch("/api/profiles").then(r=>r.json()),
+  const [stats,acts,status,profiles,score]=await Promise.all([
+    getJSON("/api/stats"),
+    getJSON("/api/activities"),
+    getJSON("/api/status"),
+    Object.keys(profileNames).length?Promise.resolve(null):getJSON("/api/profiles"),
+    getJSON("/api/scorecard"),
   ]);
   if(profiles){
+    profileList=profiles;
     for(const p of profiles) profileNames[p.id]=`${p.emoji} ${p.name}`;
     buildProfilesTab(profiles);
+    const sel=$("woOwner");
+    if(sel&&sel.options.length<2){
+      for(const p of profiles.slice().sort((a,b)=>a.name.localeCompare(b.name))){
+        const o=document.createElement("option"); o.value=p.id; o.textContent=`${p.emoji} ${p.name}`; sel.appendChild(o);
+      }
+    }
   }
+  renderScorecard(score);
+  renderWorld(score);
   if(status.webuiUrl){
     for(const id of ["webuiLink","webuiLink2"]){const a=$(id); if(a) a.href=status.webuiUrl;}
   }
 
   /* stat tiles */
   const tiles=[
-    {ico:"🧠",n:stats.knowledgeFiles||0,l:"Knowledge files",edge:"green"},
-    {ico:"💾",n:stats.outputsSaved||0,l:"Critical outputs stored",edge:"gold"},
-    {ico:"✏️",n:stats.knowledgeEdits||0,l:"Knowledge edits",edge:"cyan"},
-    {ico:"🎭",n:status.profiles||0,l:"Hermes profiles",edge:"purple"},
-    {ico:"🔄",n:status.webuiProfilesSynced||0,l:"Profiles synced to WebUI",edge:"cyan"},
+    {ico:"📇",n:status.indexedDocuments||0,l:"Documents indexed",edge:"green"},
+    {ico:"🗂️",n:(score.totals&&score.totals.openOrders)||0,l:"Open work orders",edge:"cyan"},
+    {ico:"⛔",n:(score.totals&&score.totals.blockedOrders)||0,l:"Blocked",edge:"gold"},
+    {ico:"✅",n:(score.totals&&score.totals.accepted)||0,l:"Outputs accepted",edge:"green"},
+    {ico:"🎭",n:status.profiles||0,l:"Valgist profiles",edge:"purple"},
   ];
   const st=$("statTiles");
   if(!st.dataset.built){
@@ -461,26 +1146,391 @@ async function refresh(){
   const kv=(pairs)=>pairs.map(([k,v])=>`<div class="k">${k}</div><div>${v}</div>`).join("");
   const up=status.uptimeSec, upStr=up>3600?`${(up/3600).toFixed(1)} h`:up>60?`${(up/60)|0} min`:`${up}s`;
   const webuiA=`<a href="${status.webuiUrl||"http://localhost:8787"}" target="_blank" rel="noopener" style="color:var(--accent)">${status.webuiUrl||"http://localhost:8787"}</a>`;
+  const accept=score.totals&&score.totals.acceptanceRate;
   $("keyInfo").innerHTML=kv([
-    ["Front end", `${webuiA} <span class="badge ok">Hermes WebUI</span>`],
-    ["This dashboard", `<span class="badge ok">admin only</span> knowledge + profile contracts`],
-    ["Profiles synced", `${status.webuiProfilesSynced||0} / ${status.profiles} → WebUI`],
+    ["Front end", `${webuiA} <span class="badge ok">Valgist WebUI</span>`],
+    ["Knowledge index", `${status.indexedDocuments||0} documents <span class="badge ok">retrieval layer</span>`],
+    ["Acceptance rate", accept===null||accept===undefined?`<span class="badge warn">nothing reviewed yet</span>`:`${accept}% of ${score.totals.reviewed} reviewed`],
+    ["Integrations", `<span class="badge warn">${status.integrationsWired||0} / ${status.integrationsTotal||0} wired</span> community edition ships none`],
+    ["Compliance gate", status.complianceHook?`<span class="badge ok">enforced</span>`:`<span class="badge warn">advisory (opt-in)</span>`],
     ["Runtime", status.container?`<span class="badge ok">Docker container</span>`:`<span class="badge warn">local Node</span>`],
-    ["Uptime", upStr],
   ]);
   $("sysInfo").innerHTML=kv([
-    ["Role", "Admin server — knowledge base + critical outputs store"],
-    ["Hermes WebUI", webuiA],
+    ["Role", "Admin server — knowledge, index, work orders, reviews, contracts"],
+    ["Valgist WebUI", webuiA],
+    ["Default model", `${status.model||"—"} <span style="color:var(--muted)">— enforced in every managed profile on each sync; change it (or pin per-profile models) in the Engine tab</span>`],
     ["Container", status.container?"yes (Docker)":"no (local Node fallback)"],
     ["Port", location.port||"80"],
     ["Uptime", upStr],
+    ["Dashboard auth", status.authEnabled?`<span class="badge ok">token required</span>`:`<span class="badge warn">open — set HERMES_ADMIN_TOKEN before exposing the port</span>`],
+    ["Promote token", status.promoteTokenSet?`<span class="badge ok">set — agents can promote via the Marketing Director</span>`:`<span class="badge warn">not set — agent-side promotion needs HERMES_PROMOTE_TOKEN when auth is on</span>`],
+    ["Compliance hook", status.complianceHook?`<span class="badge ok">enforced — blocks unreviewed publish-ready writes</span>`:`<span class="badge warn">opt-in — set HERMES_ENFORCE_COMPLIANCE_HOOK=1</span>`],
+    ["Read-only brain", (status.protectedDirs||[]).map(d=>`<code>${d}/</code>`).join(" ")],
+    ["Integrations wired", `${status.integrationsWired||0} of ${status.integrationsTotal||0} — no connector code ships with this repo`],
     ["Profiles", status.profiles],
     ["Profiles synced to WebUI", status.webuiProfilesSynced||0],
+    ["Documents indexed", status.indexedDocuments||0],
     ["Knowledge files", stats.knowledgeFiles],
     ["Knowledge edits", stats.knowledgeEdits||0],
-    ["Outputs stored", stats.outputsSaved||0],
   ]);
 }
+
+/* ── scorecard ────────────────────────────────────────────────────────── */
+function renderScorecard(score){
+  const el=$("scorecard"); if(!el) return;
+  const rows=(score.profiles||[]).filter(r=>r.documents||r.reviewed||r.openOrders||r.doneOrders);
+  if(!rows.length){
+    el.innerHTML=`<div class="empty">No profile has produced anything yet. Once agents write to the
+      knowledge base, this table shows what each one produced and how much of it was accepted —
+      volume alone tells you nothing.</div>`;
+    return;
+  }
+  const causes=Object.entries(score.causes||{}).sort((a,b)=>b[1]-a[1]);
+  el.innerHTML=`<div style="overflow-x:auto"><table class="data">
+    <tr><th>Profile</th><th>Docs</th><th>Reviewed</th><th>Accepted</th><th>Acceptance</th><th>Orders</th></tr>
+    ${rows.map(r=>`<tr>
+      <td>${r.name}</td>
+      <td>${r.documents}</td>
+      <td>${r.reviewed||"—"}</td>
+      <td>${r.accepted||"—"}</td>
+      <td>${r.acceptanceRate===null?'<span style="color:var(--muted)">—</span>'
+        :`${r.acceptanceRate}%<div class="meter"><i style="width:${r.acceptanceRate}%"></i></div>`}</td>
+      <td>${r.openOrders?`<span class="pill open">${r.openOrders} open</span> `:""}${r.blockedOrders?`<span class="pill blocked">${r.blockedOrders} blocked</span> `:""}${r.doneOrders?`<span class="pill done">${r.doneOrders} done</span>`:""}${!r.openOrders&&!r.blockedOrders&&!r.doneOrders?"—":""}</td>
+    </tr>`).join("")}
+  </table></div>
+  ${causes.length?`<div class="hint"><b style="color:var(--ink2)">Why work was revised or rejected:</b>
+    ${causes.map(([c,n])=>`${c} (${n})`).join(" · ")} — the weekly retro turns the recurring causes into repo changes.</div>`:""}`;
+}
+
+/* ── work orders ──────────────────────────────────────────────────────── */
+const WO_STATUSES=["open","in-progress","blocked","review","done","cancelled"];
+async function loadWork(){
+  const list=await getJSON("/api/work-orders");
+  const el=$("woList");
+  if(!list.length){
+    el.innerHTML=`<div class="empty">The queue is empty. A work order is one deliverable with one
+      owner profile, an output path and checkable acceptance criteria — it survives the chat session
+      that created it, which a hand-off in conversation does not.<br><br>
+      Open one above, or ask the Marketing Director to route work in the WebUI.</div>`;
+    return;
+  }
+  const order={open:0,"in-progress":1,blocked:2,review:3,done:4,cancelled:5};
+  list.sort((a,b)=>(order[a.status]??9)-(order[b.status]??9)||a.id.localeCompare(b.id));
+  el.innerHTML=`<div style="overflow-x:auto"><table class="data">
+    <tr><th>Status</th><th>Work order</th><th>Owner</th><th>Output</th><th>Due</th><th>Set status</th></tr>
+    ${list.map(w=>`<tr>
+      <td><span class="pill ${w.status.replace("-","")}">${w.status}</span></td>
+      <td><b>${esc(w.id)}</b> ${esc(w.title)}
+        ${w.approvalRequired?'<span class="pill flag">approval</span>':""}
+        ${w.complianceRequired?'<span class="pill flag">compliance</span>':""}
+        ${w.blockedOn?`<div class="hint" style="margin:3px 0 0">blocked on: ${esc(w.blockedOn)}</div>`:""}</td>
+      <td>${esc(w.ownerName||w.owner)}</td>
+      <td><code style="font-size:.75rem">${esc(w.outputPath||"—")}</code></td>
+      <td>${esc(w.due||"—")}</td>
+      <td><select class="btn sm" onchange="setWO('${esc(w.file)}',this.value)">
+        <option value="">…</option>
+        ${WO_STATUSES.filter(s=>s!==w.status).map(s=>`<option value="${s}">${s}</option>`).join("")}
+      </select></td>
+    </tr>`).join("")}
+  </table></div>`;
+}
+async function setWO(file,status){
+  if(!status) return;
+  await post("/api/work-orders/status",{file,status});
+  loadWork(); refresh();
+}
+async function createWO(){
+  const title=$("woTitle").value.trim();
+  if(!title) return toast("Give the work order a title — name the deliverable, not the topic.");
+  const r=await post("/api/work-orders",{
+    title, owner:$("woOwner").value||undefined, priority:$("woPriority").value,
+    due:$("woDue").value, approvalRequired:$("woApproval").checked, complianceRequired:$("woCompliance").checked,
+  });
+  $("woTitle").value=""; $("woRoute").textContent=`Opened ${r.id} → ${profileNames[r.owner]||r.owner}`;
+  loadWork(); refresh(); treeLoaded=false;
+}
+/* live routing preview — shows which profile owns this before you commit */
+let routeTimer=null;
+document.addEventListener("input",(e)=>{
+  if(e.target.id!=="woTitle") return;
+  clearTimeout(routeTimer);
+  routeTimer=setTimeout(async()=>{
+    const q=$("woTitle").value.trim();
+    if(!q||$("woOwner").value){$("woRoute").textContent="";return;}
+    const r=await getJSON("/api/route?q="+encodeURIComponent(q));
+    $("woRoute").textContent=r.phrase
+      ? `routes to ${profileNames[r.owner]||r.owner} (matched “${r.phrase}”)`
+      : `no route matched — falls back to ${profileNames[r.owner]||r.owner}`;
+  },250);
+});
+
+/* ── reviews ──────────────────────────────────────────────────────────── */
+const REVIEW_CAUSES=["missing org context","wrong procedure","wrong profile","couldn't find existing knowledge","invented data","other"];
+async function loadReviews(){
+  const [idx,reviews,score]=await Promise.all([getJSON("/api/index"),getJSON("/api/reviews"),getJSON("/api/scorecard")]);
+  const latest=new Map();
+  for(const r of reviews) if(!latest.has(r.path)) latest.set(r.path,r);
+
+  const t=score.totals||{};
+  $("reviewTiles").innerHTML=[
+    {ico:"📄",n:t.unreviewed||0,l:"Awaiting review",edge:"gold"},
+    {ico:"✅",n:t.accepted||0,l:"Accepted",edge:"green"},
+    {ico:"📊",n:t.acceptanceRate===null?"—":(t.acceptanceRate+"%"),l:"Acceptance rate",edge:"cyan"},
+    {ico:"🕘",n:reviews.length,l:"Verdicts recorded",edge:"purple"},
+  ].map(x=>`<div class="card stat"><div class="edge ${x.edge}"></div><span class="ico">${x.ico}</span>
+    <span class="num">${x.n}</span><div class="lbl">${x.l}</div></div>`).join("");
+
+  /* Work orders are tracked in the Work tab; they aren't deliverables to review. */
+  const pending=(idx.entries||[]).filter(e=>e.owner&&!latest.has(e.path)
+    &&!e.path.startsWith("03-campaigns/work-orders/"));
+  $("unreviewed").innerHTML=pending.length?`<div style="overflow-x:auto"><table class="data">
+    <tr><th>Document</th><th>Profile</th><th>Updated</th><th>Verdict</th></tr>
+    ${pending.slice(0,40).map(e=>`<tr>
+      <td><b>${esc(e.title)}</b><div class="hint" style="margin:2px 0 0"><code>${esc(e.path)}</code></div></td>
+      <td>${esc(profileNames[e.owner]||e.owner)}</td>
+      <td>${esc(e.updated)}</td>
+      <td style="white-space:nowrap">
+        <button class="btn sm good" onclick="review('${esc(e.path)}','accept')">accept</button>
+        <button class="btn sm warn" onclick="review('${esc(e.path)}','revise')">revise</button>
+        <button class="btn sm bad" onclick="review('${esc(e.path)}','reject')">reject</button>
+      </td></tr>`).join("")}
+  </table></div>`:`<div class="empty">Nothing awaiting review. Documents appear here once a profile
+    writes them — ownership comes from the file's <code>profile:</code> frontmatter or the dated
+    <code>07-agent-outputs</code> filename.</div>`;
+
+  $("reviewHistory").innerHTML=reviews.length?`<div style="overflow-x:auto"><table class="data">
+    <tr><th>When</th><th>Verdict</th><th>Document</th><th>Cause</th><th>Note</th></tr>
+    ${reviews.slice(0,60).map(r=>`<tr>
+      <td>${new Date(r.ts).toLocaleDateString()}</td>
+      <td><span class="pill ${r.verdict==="accept"?"done":r.verdict==="revise"?"review":"blocked"}">${r.verdict}</span></td>
+      <td><code style="font-size:.75rem">${esc(r.path)}</code></td>
+      <td>${esc(r.cause||"—")}</td><td>${esc(r.note||"")}</td>
+    </tr>`).join("")}
+  </table></div>`:`<div class="empty">No verdicts recorded yet.</div>`;
+}
+async function review(path,verdict){
+  let cause=null,note="";
+  if(verdict!=="accept"){
+    const r=await dlg({
+      title:`${verdict==="revise"?"Request revision":"Reject"} — why?`,
+      desc:`<code>${esc(path)}</code><br>The cause is what the weekly retro reads — recurring ones become repo changes.`,
+      fields:[
+        {id:"cause",label:"Cause",type:"select",options:REVIEW_CAUSES,value:REVIEW_CAUSES[0]},
+        {id:"note",label:"Note (optional)",type:"textarea",placeholder:"Anything specific worth recording…"},
+      ],
+      okText:verdict==="revise"?"Record revision":"Record rejection",
+    });
+    if(!r) return;
+    cause=r.cause; note=r.note||"";
+  }
+  await post("/api/reviews",{path,verdict,cause,note});
+  toast(`Verdict recorded: ${verdict}.`);
+  loadReviews(); refresh();
+}
+function esc(s){return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;")}
+
+/* ── modal dialogs & toasts (no prompt/confirm/alert) ─────────────────────
+   dlg() renders a form described by `fields` and resolves with the collected
+   values, or null on cancel/Esc. Field: {id,label,type,value,options,placeholder}
+   where type ∈ text|select|textarea|checkbox (default text). */
+function dlg({title,desc,fields=[],okText="OK",danger=false}){
+  return new Promise((resolve)=>{
+    const ovl=document.createElement("div"); ovl.className="ovl";
+    ovl.innerHTML=`<div class="dlg" role="dialog" aria-modal="true">
+      <h3>${esc(title)}</h3>${desc?`<div class="dsc">${desc}</div>`:""}
+      ${fields.map(f=>{
+        const t=f.type||"text";
+        if(t==="select") return `<label for="df-${f.id}">${esc(f.label||f.id)}</label>
+          <select id="df-${f.id}">${(f.options||[]).map(o=>{
+            const [v,l]=Array.isArray(o)?o:[o,o];
+            return `<option value="${esc(v)}"${v===f.value?" selected":""}>${esc(l)}</option>`;}).join("")}</select>`;
+        if(t==="textarea") return `<label for="df-${f.id}">${esc(f.label||f.id)}</label>
+          <textarea id="df-${f.id}" placeholder="${esc(f.placeholder||"")}">${esc(f.value||"")}</textarea>`;
+        if(t==="checkbox") return `<label class="chk"><input type="checkbox" id="df-${f.id}"${f.value?" checked":""}> ${esc(f.label||f.id)}</label>`;
+        return `<label for="df-${f.id}">${esc(f.label||f.id)}</label>
+          <input type="text" id="df-${f.id}" value="${esc(f.value||"")}" placeholder="${esc(f.placeholder||"")}" spellcheck="false"${f.list?` list="${esc(f.list)}"`:""}>`;
+      }).join("")}
+      <div class="btns">
+        <button class="btn" data-act="cancel">Cancel</button>
+        <button class="btn ${danger?"danger":"primary"}" data-act="ok">${esc(okText)}</button>
+      </div></div>`;
+    const close=(val)=>{ovl.remove();document.removeEventListener("keydown",onKey);resolve(val);};
+    const collect=()=>{
+      const out={};
+      for(const f of fields){
+        const el=ovl.querySelector(`#df-${f.id}`);
+        out[f.id]=(f.type==="checkbox")?el.checked:el.value;
+      }
+      return out;
+    };
+    const onKey=(e)=>{if(e.key==="Escape")close(null);
+      if(e.key==="Enter"&&e.target.tagName!=="TEXTAREA"){e.preventDefault();close(collect());}};
+    ovl.querySelector('[data-act="cancel"]').onclick=()=>close(null);
+    ovl.querySelector('[data-act="ok"]').onclick=()=>close(collect());
+    ovl.onclick=(e)=>{if(e.target===ovl)close(null);};
+    document.addEventListener("keydown",onKey);
+    document.body.appendChild(ovl);
+    const first=ovl.querySelector("input[type=text],select,textarea");
+    if(first)first.focus();
+  });
+}
+function confirmDlg(title,desc,okText="Delete"){
+  return dlg({title,desc,okText,danger:true}).then(v=>v!==null);
+}
+let toastTimer=null;
+function toast(msg){
+  let el=document.querySelector(".toast");
+  if(!el){el=document.createElement("div");el.className="toast";document.body.appendChild(el);}
+  el.textContent=msg;
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>el.remove(),3200);
+}
+
+/* ── engine tab ───────────────────────────────────────────────────────────
+   The single pane of glass: what each profile is actually running (parsed
+   live from its config.yaml) vs what the admin configured, with the write
+   controls next to the numbers. */
+const MODELS=["claude-opus-5","claude-sonnet-5","claude-haiku-4-5","claude-opus-4-8","claude-opus-4-5","claude-sonnet-4-5"];
+let engineData=null;
+async function loadEngine(){
+  const e=await getJSON("/api/engine");
+  engineData=e;
+  $("modelList").innerHTML=MODELS.map(m=>`<option value="${m}">`).join("");
+  $("engDefModel").value=e.defaultModel||"";
+  $("engDefSrc").innerHTML=e.defaultModelSource==="engine-config"
+    ?`Set here in the dashboard. Clear the box and Apply to fall back to the container's <code>HERMES_MODEL</code> (<code>${esc(e.envModel)}</code>).`
+    :`Currently from the container's <code>HERMES_MODEL</code> env (<code>${esc(e.envModel)}</code>). Applying a value here overrides it.`;
+  $("engHook").checked=!!e.complianceHook;
+  $("engHookSrc").textContent=e.complianceHookSource==="engine-config"?"set here":"from env (opt-in default)";
+
+  /* owner select for routing overrides */
+  const sel=$("rtOwner");
+  if(sel.options.length<2){
+    sel.innerHTML=profileList.slice().sort((a,b)=>a.name.localeCompare(b.name))
+      .map(p=>`<option value="${esc(p.id)}">${p.emoji} ${esc(p.name)}</option>`).join("");
+  }
+  $("rtList").innerHTML=(e.routingOverrides||[]).length
+    ?`<table class="data"><tr><th>Phrase</th><th>Routes to</th><th></th></tr>${
+      e.routingOverrides.map(o=>`<tr><td>“${esc(o.phrase)}”</td><td>${esc(profileNames[o.owner]||o.owner)}</td>
+        <td style="text-align:right"><button class="btn sm bad" onclick="delRoute('${esc(o.phrase)}')">remove</button></td></tr>`).join("")}</table>`
+    :`<div class="empty" style="padding:6px 2px">No overrides — the generated routing table is in effect.</div>`;
+
+  /* per-profile table */
+  const rows=e.profiles||[];
+  $("engTable").innerHTML=`<div style="overflow-x:auto"><table class="data">
+    <tr><th>Profile</th><th>Running</th><th></th><th>Model override</th><th>Brain wiring</th><th>Managed</th><th>Hooks</th></tr>
+    ${rows.map(p=>{
+      const fallbackModel=p.override?e.defaultModel:p.desiredModel;
+      const opts=[["",`(default — ${fallbackModel})`]].concat(MODELS.map(m=>[m,m]));
+      if(p.override&&!MODELS.includes(p.override)) opts.push([p.override,p.override]);
+      opts.push(["__custom__","custom…"]);
+      const nx=(p.extraContext||[]).length;
+      return `<tr>
+      <td>${esc(p.name)}</td>
+      <td><code style="font-size:.78rem">${esc(p.model||"—")}</code>${p.provider&&p.provider!=="anthropic"?` <span class="pill ro">${esc(p.provider)}</span>`:""}</td>
+      <td>${p.conflict?'<span class="pill conflict" title="A user-authored hooks block prevents the sync from registering the compliance gate here.">hook conflict</span>'
+        :p.drift?`<span class="pill drift" title="Differs from the configured model (${esc(p.desiredModel)}). Resync fixes managed profiles.">drift</span>`
+        :'<span class="pill sync">in sync</span>'}</td>
+      <td><select class="btn sm" onchange="setProfModel('${esc(p.id)}',this)">
+        ${opts.map(([v,l])=>`<option value="${esc(v)}"${(p.override||"")===v?" selected":""}>${esc(l)}</option>`).join("")}
+      </select></td>
+      <td>${p.id==="default"?'<span class="pill ro">—</span>'
+        :`<button class="btn sm" onclick="editWiring('${esc(p.id)}')" title="Documents this profile always loads before working">📚 ${(p.context||[]).length}${nx?` <b style="color:var(--cyanHi)">+${nx}</b>`:""}</button>`}</td>
+      <td><label class="switch"><input type="checkbox"${p.managed?" checked":""} onchange="setManaged('${esc(p.id)}',this.checked)"><i></i></label></td>
+      <td>${p.hooksActive?'<span class="pill done">gate on</span>':'<span class="pill ro">off</span>'}</td>
+    </tr>`;}).join("")}
+  </table></div>`;
+}
+async function setDefaultModel(){
+  const v=$("engDefModel").value.trim();
+  await post("/api/engine/config",{defaultModel:v||null});
+  toast(v?`Default model set to ${v} and applied to managed profiles.`:"Default model cleared — falling back to the container env.");
+  loadEngine(); refresh();
+}
+async function setComplianceHook(on){
+  await post("/api/engine/config",{complianceHook:on});
+  toast(`Compliance gate ${on?"enforced in every managed profile":"unregistered (advisory only)"}.`);
+  loadEngine(); refresh();
+}
+async function setProfModel(id,sel){
+  let v=sel.value;
+  if(v==="__custom__"){
+    const r=await dlg({title:`Custom model for ${id}`,
+      desc:"Any model id the WebUI's provider accepts, e.g. <code>claude-sonnet-5</code>.",
+      fields:[{id:"m",label:"Model id",list:"modelList"}],okText:"Set model"});
+    if(!r||!r.m.trim()){loadEngine();return;}
+    v=r.m.trim();
+  }
+  await post("/api/engine/config",{profile:{id,model:v||null}});
+  toast(v?`${id} pinned to ${v}.`:`${id} follows the default model again.`);
+  loadEngine();
+}
+async function editWiring(id){
+  const p=(engineData&&engineData.profiles||[]).find(x=>x.id===id);
+  if(!p) return;
+  const builtIn=(p.context||[]).map(c=>`<code>${esc(c)}</code>`).join(" · ")||"—";
+  const r=await dlg({title:`Brain wiring — ${p.name}`,
+    desc:`Documents this profile <b>always loads</b> before working (its context recipe).<br><br>
+      Built in from the profile definition: ${builtIn}<br><br>
+      Add more below — one path per line, relative to <code>knowledge/</code>, e.g.
+      <code>01-brand/voice-and-tone.md</code> or <code>06-playbooks/</code>. Everything else in the
+      brain stays discoverable through <code>INDEX.md</code>; wire only what this profile should
+      read on <i>every</i> task. Applied to its SOUL immediately.`,
+    fields:[{id:"ctx",label:"Additional context documents",type:"textarea",
+      value:(p.extraContext||[]).join("\n"),placeholder:"01-brand/voice-and-tone.md"}],
+    okText:"Save wiring"});
+  if(r===null) return;
+  const ctx=r.ctx.split("\n").map(s=>s.trim()).filter(Boolean);
+  await post("/api/engine/config",{profile:{id,context:ctx}});
+  toast(ctx.length?`${id} now always loads ${ctx.length} extra document${ctx.length===1?"":"s"}.`
+    :`${id} is back to its built-in context list.`);
+  loadEngine();
+}
+async function setManaged(id,on){
+  await post("/api/engine/config",{profile:{id,managed:on}});
+  toast(on?`${id} is managed again — settings re-applied.`:`${id} is now unmanaged: its config.yaml is yours; the sync will not touch it.`);
+  loadEngine();
+}
+async function addRoute(){
+  const phrase=$("rtPhrase").value.trim(), owner=$("rtOwner").value;
+  if(!phrase) return toast("Type the phrase to route first.");
+  await post("/api/engine/routing",{phrase,owner});
+  $("rtPhrase").value="";
+  toast(`“${phrase}” now routes to ${profileNames[owner]||owner}.`);
+  loadEngine();
+}
+async function delRoute(phrase){
+  await api("/api/engine/routing?phrase="+encodeURIComponent(phrase),{method:"DELETE"});
+  toast(`Override removed — “${phrase}” follows the generated table again.`);
+  loadEngine();
+}
+async function resyncNow(){
+  const r=await post("/api/reload",{});
+  toast(`Resynced ${r.synced} profiles; registries reloaded.`);
+  loadEngine(); refresh();
+}
+async function regenNow(){
+  const ok=await confirmDlg("Regenerate profiles from source?",
+    "Re-runs <code>generate-profiles.js</code>: profile definitions, routing table and integrations are rewritten from the <code>P</code> array, then resynced to the WebUI. Hand edits to <code>.profile.md</code> files are overwritten.","Regenerate");
+  if(!ok) return;
+  const r=await post("/api/engine/regenerate",{});
+  toast(r.error?`Regenerate failed: ${r.error}`:`Regenerated ${r.profiles} profiles and resynced.`);
+  loadEngine(); refresh();
+}
+/* live routing probe for the override box */
+let rtTimer=null;
+document.addEventListener("input",(e)=>{
+  if(e.target.id!=="rtPhrase") return;
+  clearTimeout(rtTimer);
+  rtTimer=setTimeout(async()=>{
+    const q=$("rtPhrase").value.trim();
+    if(!q){$("rtProbe").textContent="Type in the box above to preview which profile currently wins that phrase.";return;}
+    const r=await getJSON("/api/route?q="+encodeURIComponent(q));
+    $("rtProbe").textContent=r.phrase
+      ?`currently routes to ${profileNames[r.owner]||r.owner} (matched “${r.phrase}”)`
+      :`no route matches — falls back to ${profileNames[r.owner]||r.owner}`;
+  },250);
+});
 
 /* ── profiles tab ─────────────────────────────────────────────────────── */
 const PROF_CATS=["Acquisition","Conversion","Retention","Operations"];
@@ -501,8 +1551,10 @@ function buildProfilesTab(profiles){
       el.onclick=async()=>{
         document.querySelectorAll("#profTree .node.sel").forEach(x=>x.classList.remove("sel"));
         el.classList.add("sel");
-        $("profPath").textContent=`hermes/profiles/${p.id}.profile.md — synced to WebUI profile "${p.id}"`;
-        const md=await(await fetch("/api/profiles/"+p.id)).text();
+        const sig=(p.skills&&p.skills.signature||[]).length, shared=(p.skills&&p.skills.shared||[]).length;
+        $("profPath").textContent=`hermes/profiles/${p.id}.profile.md — ${sig} signature + ${shared} shared skills · `
+          +`${p.integrations.length} integration${p.integrations.length===1?"":"s"} (none wired)`;
+        const md=await(await api("/api/profiles/"+p.id)).text();
         $("profView").innerHTML=mdLite(md.replace(/^---[\s\S]*?---\n/,""));
       };
       c.appendChild(el);
@@ -518,7 +1570,9 @@ function renderTree(nodes,container){
     const el=document.createElement("div");
     if(n.type==="dir"){
       const head=document.createElement("div");
-      head.className="node"; head.innerHTML=`<span>📁</span><span>${n.name}</span>`;
+      head.className="node";
+      head.innerHTML=`<span>📁</span><span>${n.name}</span>${n.protected?'<span class="pill ro" style="margin-left:auto">🔒 brain</span>':""}`;
+      if(n.protected) head.title="Organization brain — read-only to profiles in chat; editable here.";
       const kids=document.createElement("div"); kids.className="kids";
       if(!/^0[1-7]/.test(n.name)) kids.classList.add("closed");
       head.onclick=()=>{kids.classList.toggle("closed");head.querySelector("span").textContent=kids.classList.contains("closed")?"📁":"📂";};
@@ -536,43 +1590,77 @@ function renderTree(nodes,container){
   }
 }
 async function loadTree(){
-  const tree=await(await fetch("/api/knowledge/tree")).json();
+  const tree=await getJSON("/api/knowledge/tree");
   const c=$("tree"); c.innerHTML=""; renderTree(tree,c); treeLoaded=true;
 }
 async function openFile(path,el){
   document.querySelectorAll(".node.sel").forEach(x=>x.classList.remove("sel"));
   if(el) el.classList.add("sel");
-  const j=await(await fetch("/api/knowledge/file?path="+encodeURIComponent(path))).json();
+  const j=await getJSON("/api/knowledge/file?path="+encodeURIComponent(path));
   selPath=path; $("edPath").textContent="knowledge/"+path;
   $("editor").value=j.content;
+  // Promotion is only meaningful for a draft heading into the read-only brain.
+  $("btnPromote").style.display=path.startsWith("07-agent-outputs/")?"":"none";
   if(previewOn) $("preview").innerHTML=mdLite(j.content);
 }
 async function saveFile(){
-  if(!selPath) return alert("Select a file first.");
-  await fetch("/api/knowledge/file",{method:"POST",headers:{"Content-Type":"application/json"},
-    body:JSON.stringify({path:selPath,content:$("editor").value})});
+  if(!selPath) return toast("Select a file first.");
+  await post("/api/knowledge/file",{path:selPath,content:$("editor").value});
   $("edPath").textContent="knowledge/"+selPath+"  ✅ saved";
   setTimeout(()=>$("edPath").textContent="knowledge/"+selPath,1500);
   refresh();
 }
 async function newFile(){
-  const p=prompt("New file path (inside knowledge/):","07-agent-outputs/note.md");
-  if(!p) return;
-  await fetch("/api/knowledge/file",{method:"POST",headers:{"Content-Type":"application/json"},
-    body:JSON.stringify({path:p,content:"# "+p.split("/").pop().replace(/\.md$/,"")+"\n\n"})});
+  const r=await dlg({title:"New knowledge file",
+    desc:"Path is relative to <code>knowledge/</code>. Drafts belong in <code>07-agent-outputs/</code>; brain folders (🔒) are curated — prefer drafting then promoting.",
+    fields:[{id:"p",label:"File path",value:"07-agent-outputs/note.md"}],okText:"Create"});
+  if(!r||!r.p.trim()) return;
+  const p=r.p.trim();
+  await post("/api/knowledge/file",{path:p,content:"# "+p.split("/").pop().replace(/\.md$/,"")+"\n\n"});
   await loadTree(); openFile(p,document.querySelector(`[data-path="${CSS.escape(p)}"]`));
 }
 async function newFolder(){
-  const p=prompt("New folder path (inside knowledge/):","08-custom");
-  if(!p) return;
-  await fetch("/api/knowledge/folder",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({path:p})});
+  const r=await dlg({title:"New knowledge folder",
+    desc:"Note: folders outside the standard <code>00-</code>…<code>07-</code> structure are flagged as ungoverned in the index agents read.",
+    fields:[{id:"p",label:"Folder path",value:"08-custom"}],okText:"Create"});
+  if(!r||!r.p.trim()) return;
+  await post("/api/knowledge/folder",{path:r.p.trim()});
   loadTree();
 }
 async function delFile(){
-  if(!selPath) return alert("Select a file first.");
-  if(!confirm("Delete knowledge/"+selPath+" ?")) return;
-  await fetch("/api/knowledge/file?path="+encodeURIComponent(selPath),{method:"DELETE"});
+  if(!selPath) return toast("Select a file first.");
+  const ok=await confirmDlg("Delete this file?",`<code>knowledge/${esc(selPath)}</code> will be removed and the index rebuilt.`);
+  if(!ok) return;
+  await api("/api/knowledge/file?path="+encodeURIComponent(selPath),{method:"DELETE"});
   selPath=null; $("editor").value=""; $("edPath").textContent="Select a file…";
+  toast("Deleted.");
+  loadTree(); refresh();
+}
+async function reindex(){
+  const r=await post("/api/knowledge/reindex",{});
+  toast(`Knowledge index rebuilt — ${r.documents} documents. INDEX.md is what every profile reads first.`);
+  loadTree();
+}
+/* Promotion: draft in 07-agent-outputs/ → curated organization brain. */
+const BRAIN_DIRS=["00-org/","01-brand/","02-market-research/","06-playbooks/"];
+async function promote(){
+  if(!selPath) return;
+  const header=(($("editor").value.match(/^>\s*Promote to:\s*(.+)$/im)||[])[1]||"").trim();
+  const headerDir=BRAIN_DIRS.find(d=>header.startsWith(d));
+  const r=await dlg({title:"Promote into the organization brain",
+    desc:`<code>${esc(selPath)}</code> becomes curated doctrine: <code>status: draft</code> flips to
+      <code>approved</code> and the promotion header is stripped.${header?`<br>Draft asks for: <code>${esc(header)}</code>`:""}`,
+    fields:[
+      {id:"dir",label:"Brain folder",type:"select",options:BRAIN_DIRS,value:headerDir||"01-brand/"},
+      {id:"rest",label:"Path inside that folder",value:header&&headerDir?header.slice(headerDir.length):selPath.split("/").pop().replace(/^\d{4}-\d{2}-\d{2}--[a-z0-9-]+--/,""),placeholder:"e.g. competitors/acme.md"},
+      {id:"keep",label:"Keep the draft in 07-agent-outputs/ as well",type:"checkbox",value:false},
+    ],okText:"Promote"});
+  if(!r||!r.rest.trim()) return;
+  const to=r.dir+r.rest.trim().replace(/^\/+/,"");
+  const res=await post("/api/promote",{from:selPath,to,keepDraft:r.keep});
+  if(res.error) return toast(res.error);
+  toast(`Promoted to knowledge/${to}`);
+  selPath=null; $("editor").value=""; $("btnPromote").style.display="none";
   loadTree(); refresh();
 }
 function togglePreview(){

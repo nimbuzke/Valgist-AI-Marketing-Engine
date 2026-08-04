@@ -23,6 +23,13 @@ service-account*.json
 # state + personal data, not source. Do NOT publish it.
 /data/
 
+# === Generated artifacts ===================================================
+# The knowledge index is rebuilt by the admin server at boot and after every
+# change (and by `npm run build:index`). Tracking it would mean a diff on every
+# boot from the build timestamp and post-clone file mtimes. It is derived data —
+# regenerate it, don't version it.
+/knowledge/INDEX.md
+
 # === Node / JS =============================================================
 node_modules/
 npm-debug.log*
