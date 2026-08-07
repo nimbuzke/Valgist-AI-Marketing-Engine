@@ -10,6 +10,9 @@ marketing team does. Self-hosted, model-agnostic, and open source.
 *The Valgist Admin **World** view: ten teams, thirty-one specialists, drawn live
 from what the engine is actually doing. Click an island to open its team.*
 
+*(Your team gets its own version of this — the 🌍 **office** in the chat front
+end, which is where they start their day. See [The end-user seat](#the-end-user-seat-webui-8787).)*
+
 ---
 
 ## Why it exists
@@ -53,8 +56,9 @@ cloud. You own the data, the model choice, and the outputs.
 - **Secure by default.** Both apps bind to localhost until you say otherwise;
   token auth, a login password and a scoped promotion token are one `.env` edit
   away.
-- **Tested architecture.** `npm run eval` runs 44 offline checks — registry
-  integrity, skills, routing, guardrails, and repo/container consistency.
+- **Tested architecture.** `npm run eval` runs 55 offline checks — registry
+  integrity, skills, routing, guardrails, the office map, and repo/container
+  consistency.
 - **Self-hosted in two containers.** One command brings the stack up. Your
   knowledge base is plain Markdown on your own disk.
 
@@ -115,12 +119,15 @@ To stop: `docker compose down`.
    Knowledge tab, or open the WebUI, pick the **🧭 Brand Strategist**, and give
    it what you have ("here's our site and positioning — draft our Brand Kit").
    It drafts to `07-agent-outputs/`; you review and promote (below).
-3. **Give someone work.** Pick any specialist in the WebUI composer footer and
-   write a brief, or open a routed work order from the Admin **Work** tab.
+3. **Give someone work.** Open the 🌍 **office** in the WebUI, click the room
+   that does the kind of work you need, and start a chat — or open a routed work
+   order from the Admin **Work** tab.
 
 ### The end-user seat (WebUI, :8787)
 
-Pick a specialist from the composer footer and talk to it like a colleague.
+Start at the 🌍 **office** (first button in the rail): pick the room that does
+the work, pick the specialist, talk to them like a colleague. If you already
+know who you want, the composer footer switches profiles directly.
 Every agent:
 
 - reads `INDEX.md`, the org constitution and the Brand Kit before working;
@@ -133,6 +140,28 @@ Every agent:
 The **🎯 Marketing Director** is the orchestrator: give it a goal and it
 routes work to the right specialists, opens work orders, and gatekeeps what
 enters the brain.
+
+**🌍 The office.** The 🌍 button at the top of the rail opens a full-screen
+isometric cutaway of the department: ten rooms, each holding the specialists who
+do that kind of work, with permanent name plates and live badges for queued,
+blocked and written work. Click a room to see who is in it — what each one
+**reads first**, which **connectors** it would use (and that none are wired),
+and what it can do — then start a chat with any of them. The **Lobby** searches
+all 31 at once.
+
+It is the friendly way in: nobody should have to know which of 31 profile names
+they want before they begin.
+
+A small dock in the top right holds the numbers — **📊 at a glance**,
+**🎯 campaigns**, **📋 the live task list** (click a task to chat with its
+owner), **🔔 what just happened** — so the office keeps the screen and the
+dashboard is one click away. Counts ride on the icons; blocked work turns its
+badge red. It refreshes every minute and closes as soon as you click anything
+else in the rail or sidebar.
+
+The room map is data (`hermes/world/rooms.json`), so moving a profile between
+rooms is an edit, not a code change — and `npm run eval` fails if any profile
+ends up in no room or two.
 
 Every profile can also build **🧩 mini-apps** — saved, reusable interactive
 tools ("build a mini-app that calculates our Q3 budget split"). They are
@@ -149,14 +178,6 @@ rail button in the WebUI or the Admin **Mini-apps** tab.
 > trusting the frame.
 
 A working example ships at `04-content/apps/utm-link-builder.html`.
-
-**🌍 The office.** The 🌍 rail button opens an isometric map of the department:
-ten rooms, each holding the profiles who do that kind of work. Click a room to
-see who is in it, what each one owns and their signature skills, then start a
-chat with any of them. It is the friendly way in — no need to know which of 31
-profile names you want before you begin. The room map is data
-(`hermes/world/rooms.json`), so moving a profile between rooms is an edit, not
-a code change.
 
 **Extensions.** Settings → Extensions → Gallery installs third-party WebUI
 extensions, and they work alongside the two Valgist ships. (Extensions are
@@ -354,11 +375,14 @@ So the sync re-asserts its entries on every boot and structurally verifies each
 extension, and the Admin **System** tab reports `WebUI extensions: OK` or
 `DEGRADED (reason)`. Check it after any upgrade.
 
-There is also one deliberate local patch inside the vendored tree — the widened
-mini-app sandbox in `hermes-webui/api/routes.py`, marked
-`VALGIST LOCAL PATCH — mini-app sandbox`. `npm run eval` asserts it is still
-there, so a re-vendor that drops it fails the build instead of quietly making
-mini-apps inert.
+There are also two deliberate local patches inside the vendored tree, both
+marked `VALGIST LOCAL PATCH` and both asserted by `npm run eval`, so a re-vendor
+that drops one fails the build instead of quietly regressing:
+
+| Patch | File | Without it |
+| --- | --- | --- |
+| mini-app sandbox | `hermes-webui/api/routes.py` | mini-apps lose storage, forms and `fetch` — inert pages |
+| page title | `hermes-webui/static/index.html` | the browser tab reads "Hermes" until JS loads |
 
 **After re-vendoring `hermes-webui/`, or replacing
 `data/hermes-home/hermes-agent/`:**
@@ -374,7 +398,8 @@ mini-apps inert.
 
 | Guardrail                           | Default                                                       | How to change it                                                                                             |
 | ----------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
-| Read-only organization brain        | **On**, kernel-enforced (a healthcheck write-probes it) | Edit the`:ro` mounts + `hermes/scripts/protected-dirs.js` together                                       |
+| Read-only organization brain        | **On**, kernel-enforced (a healthcheck write-probes it) | Add`-f docker-compose.open.yml` (see [Open-brain mode](#open-brain-mode-opt-in)) — it drops the mounts, the probe and the read-only wording in every SOUL together |
+| Mini-app frame                      | Scripts, forms, modals and same-origin                        | `server.js` `/api/apps/raw` + the sandbox patch in `hermes-webui/api/routes.py` — see the mini-apps note above for the trade |
 | Claims policy & approval thresholds | Whatever you write in`ORG.md`                               | Edit`knowledge/00-org/ORG.md`                                                                              |
 | Compliance gate                     | Advisory (a skill)                                            | Toggle in the dashboard's**Engine** tab (or `HERMES_ENFORCE_COMPLIANCE_HOOK=1`)                      |
 | Dashboard auth                      | Open, but localhost-only                                      | Set`HERMES_ADMIN_TOKEN` (the lock screen accepts it, or open `/?token=…`)                               |
