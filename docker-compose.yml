@@ -56,12 +56,32 @@ services:
       - HERMES_WEBUI_PORT=8787
       - HERMES_WEBUI_STATE_DIR=/home/hermeswebui/.hermes/webui
       - HERMES_WEBUI_DEFAULT_WORKSPACE=/workspace
+      # Browser tab, login page and sidebar wordmark. This is only the *default*
+      # for the `bot_name` setting — an install that already saved the upstream
+      # "Hermes" keeps it, so the sync migrates that one value too (see
+      # applyWebuiBranding in hermes/scripts/sync-hermes-webui-profiles.js).
+      - HERMES_WEBUI_BOT_NAME=${HERMES_WEBUI_BOT_NAME:-Valgist Marketing AI Engine}
       # Login password for the WebUI (empty = no login). Set it before exposing
       # the port beyond your own machine.
       - HERMES_WEBUI_PASSWORD=${HERMES_WEBUI_PASSWORD:-}
-      # The profile homes are pre-provisioned by hermes-admin — never show the
-      # first-run provider wizard, whose self-written config the sync preserves.
-      - HERMES_WEBUI_SKIP_ONBOARDING=1
+      # NOTE — deliberately NOT setting HERMES_WEBUI_SKIP_ONBOARDING.
+      # It suppresses the first-run provider wizard AND hard-blocks
+      # apply_onboarding_setup() from writing config.yaml/.env at all, so a fresh
+      # clone with no ANTHROPIC_API_KEY got a chat box that silently failed and no
+      # way to fix it in the UI. The wizard is safe against the pre-provisioned
+      # homes on its own: it refuses to touch an existing config.yaml without an
+      # explicit confirm_overwrite, and when confirmed it merges into the loaded
+      # config (only model.provider/default/base_url) rather than replacing it.
+      # NOTE — deliberately NOT setting HERMES_WEBUI_EXTENSION_MANIFEST.
+      # When that variable is set the WebUI loads *only* the named manifest and
+      # silently ignores everything installed from its own extension gallery
+      # (hermes-webui/api/extensions.py, _load_manifest_with_status: gallery
+      # installs are consulted in the `not_configured` branch alone). Users could
+      # install extensions that then never loaded, with no error and no warning.
+      # Instead, hermes-admin registers the repo-shipped extensions
+      # (hermes/webui-extensions/) the same way the gallery registers its own —
+      # as entries in the WebUI's extension-install-manifest.json — so both load
+      # side by side. See hermes/scripts/sync-hermes-webui-profiles.js.
       # Where the Marketing Director's promote-to-brain skill reaches the admin
       # server (compose-internal hostname), and the scoped token it presents.
       - HERMES_ADMIN_URL=${HERMES_ADMIN_URL:-http://valgist-admin:8321}

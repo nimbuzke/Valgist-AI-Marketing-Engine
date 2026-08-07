@@ -1,0 +1,413 @@
+/* Valgist World extension — every selector is vgw-/vgWorld-prefixed so nothing can
+   collide with vendored WebUI styles. Colours lean on the WebUI's CSS variables
+   where they exist, with dark fallbacks. */
+
+#vgWorldPanel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;                       /* overridden at runtime: right edge of the icon rail */
+  z-index: 8500;                 /* under the mini-apps overlay (9000), over the app */
+  display: none;
+  flex-direction: column;
+  background:
+    radial-gradient(1200px 620px at 50% -8%, rgba(80, 130, 220, 0.16), transparent 62%),
+    var(--bg-primary, var(--bg, #12151c));
+  color: var(--text-primary, var(--fg, #e6e9f0));
+}
+#vgWorldPanel.open { display: flex; }
+
+/* ── the scene owns the screen ───────────────────────────────────────────── */
+
+#vgWorldPanel .vgw-stage {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px;
+  perspective: 1500px;
+}
+
+/* Wordmark, floating over the scene rather than sitting in a bar above it. */
+#vgWorldPanel .vgw-mark {
+  position: absolute;
+  top: 14px; left: 18px;
+  pointer-events: none;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.75);
+}
+#vgWorldPanel .vgw-mark b { display: block; font-size: 15px; font-weight: 800; letter-spacing: 0.02em; }
+#vgWorldPanel .vgw-mark span {
+  display: block; margin-top: 2px; font-size: 11.5px;
+  color: var(--text-muted, var(--muted, #96a0b5));
+}
+
+/* ── data dock (top right) ───────────────────────────────────────────────── */
+
+#vgWorldPanel .vgw-dock {
+  position: absolute;
+  top: 12px; right: 14px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 6px;
+  border-radius: 12px;
+  background: rgba(12, 15, 22, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.42);
+}
+#vgWorldPanel .vgw-docksep {
+  width: 1px; height: 20px; margin: 0 3px;
+  background: rgba(255, 255, 255, 0.14);
+}
+#vgWorldPanel .vgw-dockbtn {
+  position: relative;
+  width: 32px; height: 32px;
+  display: grid; place-items: center;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  transition: background 0.13s ease, border-color 0.13s ease, transform 0.13s ease;
+}
+#vgWorldPanel .vgw-dockbtn:hover { background: rgba(255, 255, 255, 0.1); transform: translateY(-1px); }
+#vgWorldPanel .vgw-dockbtn.on {
+  background: rgba(79, 183, 255, 0.16);
+  border-color: rgba(79, 183, 255, 0.5);
+}
+#vgWorldPanel .vgw-dockbtn:focus-visible { outline: 2px solid rgba(79, 183, 255, 0.7); outline-offset: 1px; }
+#vgWorldPanel .vgw-dockicon { font-size: 15px; line-height: 1; display: block; }
+#vgWorldPanel .vgw-dockicon.vgw-spin { animation: vgw-spin 0.9s linear; }
+@keyframes vgw-spin { to { transform: rotate(360deg); } }
+#vgWorldPanel .vgw-dockbadge {
+  position: absolute;
+  top: -3px; right: -3px;
+  min-width: 15px; height: 15px; padding: 0 4px;
+  display: none;
+  place-items: center;
+  border-radius: 999px;
+  font-size: 9.5px; font-style: normal; font-weight: 800; line-height: 15px;
+  text-align: center;
+  color: #06121d;
+  background: #7fd0ff;
+  box-shadow: 0 0 0 2px rgba(12, 15, 22, 0.9);
+}
+#vgWorldPanel .vgw-dockbadge.on { display: block; }
+#vgWorldPanel .vgw-dockbadge.bad { background: #ff8f8f; color: #2b0b0b; }
+
+/* ── popover ─────────────────────────────────────────────────────────────── */
+
+#vgWorldPanel .vgw-pop {
+  position: absolute;
+  top: 56px; right: 14px;
+  width: min(340px, calc(100% - 28px));
+  max-height: min(520px, calc(100% - 84px));
+  overflow: auto;
+  display: none;
+  padding: 13px 14px 14px;
+  border-radius: 12px;
+  background: rgba(16, 20, 28, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 20px 54px rgba(0, 0, 0, 0.55);
+  animation: vgw-drop 0.14s ease;
+}
+#vgWorldPanel .vgw-pop.open { display: block; }
+@keyframes vgw-drop { from { opacity: 0; transform: translateY(-6px); } }
+#vgWorldPanel .vgw-pop-title {
+  margin: 0 0 10px;
+  font-size: 10.5px; font-weight: 700;
+  letter-spacing: 0.09em; text-transform: uppercase;
+  color: var(--text-muted, var(--muted, #96a0b5));
+}
+@media (prefers-reduced-motion: reduce) {
+  #vgWorldPanel .vgw-pop { animation: none; }
+  #vgWorldPanel .vgw-dockicon.vgw-spin { animation: none; }
+}
+#vgWorldPanel .vgw-msg {
+  max-width: 46ch; text-align: center; font-size: 13px; line-height: 1.6;
+  color: var(--text-muted, var(--muted, #96a0b5));
+}
+
+/* ── the map ─────────────────────────────────────────────────────────────── */
+
+/* The wrapper shrinks to the rendered image, so percentage hotspots are always
+   measured against the artwork itself — never against letterboxed padding. */
+#vgWorldPanel .vgw-frame {
+  position: relative;
+  display: inline-block;
+  font-size: 0;
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  transition: transform 0.25s cubic-bezier(0.2, 0.7, 0.3, 1);
+  box-shadow: 0 22px 70px rgba(0, 0, 0, 0.5);
+}
+#vgWorldPanel .vgw-art {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto; height: auto;
+}
+
+#vgWorldPanel .vgw-hot {
+  position: absolute;
+  margin: 0; padding: 0;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  transition: background 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease, opacity 0.16s ease;
+}
+#vgWorldPanel .vgw-hot:hover,
+#vgWorldPanel .vgw-hot:focus-visible {
+  background: color-mix(in srgb, var(--room) 20%, transparent);
+  border-color: var(--room);
+  box-shadow: inset 0 0 46px color-mix(in srgb, var(--room) 34%, transparent);
+  outline: none;
+}
+@supports not (background: color-mix(in srgb, red 20%, transparent)) {
+  #vgWorldPanel .vgw-hot:hover,
+  #vgWorldPanel .vgw-hot:focus-visible {
+    background: rgba(255, 255, 255, 0.13);
+    border-color: var(--room);
+  }
+}
+/* Spotlight — pointing at one room dims the rest, so the map reads as a place. */
+#vgWorldPanel .vgw-stage[data-focus] .vgw-hot .vgw-plate { opacity: 0.42; }
+#vgWorldPanel .vgw-stage[data-focus] .vgw-hot:hover .vgw-plate,
+#vgWorldPanel .vgw-stage[data-focus] .vgw-hot:focus-visible .vgw-plate { opacity: 1; }
+
+/* ── permanent name plates ───────────────────────────────────────────────── */
+
+#vgWorldPanel .vgw-plate {
+  /* Never wider than the room it names — the narrow rooms (Writers' Room,
+     Insights Lab) are barely wider than their own label, and a plate that
+     spills over the wall reads as a bug. Long names wrap instead. */
+  max-width: 94%;
+  margin-bottom: 5%;
+  padding: 5px 10px 6px;
+  border-radius: 10px;
+  background: linear-gradient(180deg, rgba(12, 15, 22, 0.9), rgba(12, 15, 22, 0.82));
+  border: 1px solid color-mix(in srgb, var(--room) 65%, rgba(255, 255, 255, 0.25));
+  border-top: 2px solid var(--room);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45), 0 0 22px -8px var(--room);
+  backdrop-filter: blur(3px);
+  text-align: center;
+  color: #fff;
+  pointer-events: none;
+  transition: transform 0.16s ease, opacity 0.16s ease, box-shadow 0.16s ease;
+}
+@supports not (border: 1px solid color-mix(in srgb, red 65%, white)) {
+  #vgWorldPanel .vgw-plate { border: 1px solid var(--room); border-top-width: 2px; }
+}
+#vgWorldPanel .vgw-hot:hover .vgw-plate,
+#vgWorldPanel .vgw-hot:focus-visible .vgw-plate {
+  transform: translateY(-3px) scale(1.045);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.55), 0 0 30px -6px var(--room);
+}
+#vgWorldPanel .vgw-plate-name {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.015em;
+  line-height: 1.2;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+  text-wrap: balance;
+}
+#vgWorldPanel .vgw-plate-meta {
+  display: flex; align-items: center; justify-content: center; gap: 5px;
+  margin-top: 3px; font-size: 10.5px; line-height: 1;
+}
+#vgWorldPanel .vgw-plate-people {
+  color: rgba(255, 255, 255, 0.62);
+}
+#vgWorldPanel .vgw-plate-people::after { content: " people"; }
+#vgWorldPanel .vgw-plate-badges { display: inline-flex; gap: 4px; }
+#vgWorldPanel .vgw-b {
+  font-style: normal;
+  padding: 1px 6px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 700;
+}
+#vgWorldPanel .vgw-b-open { background: rgba(79, 183, 255, 0.22); color: #a8dcff; }
+#vgWorldPanel .vgw-b-blocked { background: rgba(230, 92, 92, 0.26); color: #ffb3b3; }
+#vgWorldPanel .vgw-b-docs { background: rgba(255, 255, 255, 0.12); color: rgba(255, 255, 255, 0.72); }
+
+/* A room with blocked work asks for attention rather than waiting to be found. */
+#vgWorldPanel .vgw-hot.vgw-attention .vgw-plate { animation: vgw-pulse 2.6s ease-in-out infinite; }
+@keyframes vgw-pulse {
+  0%, 100% { box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45), 0 0 14px -6px rgba(230, 92, 92, 0.6); }
+  50%      { box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45), 0 0 30px -2px rgba(230, 92, 92, 0.95); }
+}
+#vgWorldPanel .vgw-lobby { --room: #9fb0cc; }
+#vgWorldPanel .vgw-lobby .vgw-plate-people::after { content: " profiles"; }
+
+@media (prefers-reduced-motion: reduce) {
+  #vgWorldPanel .vgw-frame,
+  #vgWorldPanel .vgw-plate { transition: none; }
+  #vgWorldPanel .vgw-hot.vgw-attention .vgw-plate { animation: none; }
+}
+
+/* ── dashboard content (inside the popover) ──────────────────────────────── */
+
+#vgWorldPanel .vgw-quiet {
+  font-size: 11.5px; line-height: 1.55;
+  color: var(--text-muted, var(--muted, #96a0b5));
+}
+#vgWorldPanel .vgw-quiet code { font-size: 10.5px; }
+
+#vgWorldPanel .vgw-tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+#vgWorldPanel .vgw-tile {
+  padding: 8px 9px;
+  border-radius: 9px;
+  background: var(--code-bg, rgba(255, 255, 255, 0.05));
+  border: 1px solid transparent;
+}
+#vgWorldPanel .vgw-tile.bad { border-color: rgba(230, 92, 92, 0.45); background: rgba(230, 92, 92, 0.1); }
+#vgWorldPanel .vgw-tile b { display: block; font-size: 19px; line-height: 1.15; font-weight: 750; }
+#vgWorldPanel .vgw-tile span {
+  display: block; margin-top: 2px; font-size: 10.5px;
+  color: var(--text-muted, var(--muted, #96a0b5));
+}
+
+#vgWorldPanel .vgw-list { list-style: none; margin: 0; padding: 0; }
+#vgWorldPanel .vgw-list li {
+  padding: 7px 0;
+  border-top: 1px solid var(--border-color, rgba(255, 255, 255, 0.07));
+}
+#vgWorldPanel .vgw-list li:first-child { border-top: 0; padding-top: 0; }
+#vgWorldPanel .vgw-list b {
+  display: block; font-size: 12px; font-weight: 600; line-height: 1.35;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+#vgWorldPanel .vgw-list span {
+  display: block; margin-top: 2px; font-size: 10.5px;
+  color: var(--text-muted, var(--muted, #96a0b5));
+}
+#vgWorldPanel .vgw-clickable { cursor: pointer; }
+#vgWorldPanel .vgw-clickable:hover b { text-decoration: underline; }
+#vgWorldPanel .vgw-pri {
+  font-style: normal; padding: 0 5px; border-radius: 4px; font-weight: 700;
+  background: rgba(255, 255, 255, 0.1);
+}
+#vgWorldPanel .vgw-pri-p0, #vgWorldPanel .vgw-pri-p1 { background: rgba(230, 92, 92, 0.25); color: #ffb3b3; }
+#vgWorldPanel .vgw-blocked { font-style: normal; color: #ff9d9d; }
+
+/* ── room drawer ─────────────────────────────────────────────────────────── */
+
+#vgWorldPanel .vgw-drawer {
+  position: absolute;
+  top: 0; right: 0; bottom: 0;
+  width: min(440px, 100%);
+  display: none;
+  flex-direction: column;
+  background: var(--bg-secondary, var(--bg, #1a1e27));
+  border-left: 1px solid var(--border-color, rgba(255, 255, 255, 0.12));
+  box-shadow: -16px 0 48px rgba(0, 0, 0, 0.45);
+}
+#vgWorldPanel .vgw-drawer.open { display: flex; }
+#vgWorldPanel .vgw-drawer-head {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border-color, rgba(255, 255, 255, 0.12));
+  border-top: 3px solid var(--room);
+  flex: 0 0 auto;
+}
+#vgWorldPanel .vgw-drawer-head > div:first-child { flex: 1 1 auto; min-width: 0; }
+#vgWorldPanel .vgw-drawer-title { font-weight: 700; font-size: 14.5px; }
+#vgWorldPanel .vgw-drawer-sub {
+  margin-top: 4px; font-size: 12px; line-height: 1.5;
+  color: var(--text-muted, var(--muted, #96a0b5));
+}
+#vgWorldPanel .vgw-drawer-body { flex: 1 1 auto; overflow: auto; padding: 12px 14px 22px; }
+
+#vgWorldPanel .vgw-strip {
+  display: flex; flex-direction: column; gap: 4px;
+  padding: 9px 11px; margin-bottom: 12px;
+  border-radius: 9px;
+  background: var(--code-bg, rgba(255, 255, 255, 0.05));
+  font-size: 11.5px;
+  color: var(--text-muted, var(--muted, #96a0b5));
+}
+#vgWorldPanel .vgw-strip b { color: var(--text-primary, #e6e9f0); }
+#vgWorldPanel .vgw-strip .bad { color: #ff9d9d; }
+
+#vgWorldPanel .vgw-search { margin-bottom: 10px; }
+#vgWorldPanel .vgw-search input {
+  width: 100%; padding: 8px 10px; border-radius: 8px; font: inherit; font-size: 13px;
+  color: inherit;
+  background: var(--code-bg, rgba(255, 255, 255, 0.05));
+  border: 1px solid var(--border-color, rgba(255, 255, 255, 0.14));
+}
+
+#vgWorldPanel .vgw-card {
+  border: 1px solid var(--border-color, rgba(255, 255, 255, 0.1));
+  border-left: 3px solid var(--room);
+  border-radius: 10px;
+  padding: 11px 12px;
+  margin-bottom: 9px;
+  background: rgba(255, 255, 255, 0.022);
+}
+#vgWorldPanel .vgw-card-head { display: flex; align-items: center; gap: 8px; }
+#vgWorldPanel .vgw-emoji { font-size: 16px; }
+#vgWorldPanel .vgw-name { font-weight: 650; font-size: 13px; flex: 1 1 auto; }
+#vgWorldPanel .vgw-chat {
+  flex: 0 0 auto; padding: 4px 11px; border-radius: 999px;
+  font: inherit; font-size: 11.5px; font-weight: 600; cursor: pointer;
+  color: inherit; background: transparent; border: 1px solid var(--room);
+}
+#vgWorldPanel .vgw-chat:hover { background: var(--room); color: #fff; }
+#vgWorldPanel .vgw-tagline {
+  margin-top: 5px; font-size: 12px; line-height: 1.5;
+  color: var(--text-muted, var(--muted, #96a0b5));
+}
+#vgWorldPanel .vgw-facet { display: flex; gap: 8px; margin-top: 8px; font-size: 11px; }
+#vgWorldPanel .vgw-facet-k {
+  flex: 0 0 74px; padding-top: 2px;
+  color: var(--text-muted, var(--muted, #96a0b5));
+  font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em;
+}
+#vgWorldPanel .vgw-facet-v { flex: 1 1 auto; min-width: 0; display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
+#vgWorldPanel .vgw-facet-v code {
+  padding: 1px 5px; border-radius: 4px; font-size: 10px;
+  background: var(--code-bg, rgba(255, 255, 255, 0.06));
+}
+#vgWorldPanel .vgw-conn {
+  padding: 2px 7px; border-radius: 999px; font-size: 10.5px;
+  border: 1px solid transparent;
+}
+#vgWorldPanel .vgw-conn.on { background: rgba(46, 178, 122, 0.16); color: #7fe0b4; border-color: rgba(46, 178, 122, 0.4); }
+#vgWorldPanel .vgw-conn.off { background: rgba(255, 255, 255, 0.05); color: var(--text-muted, #96a0b5); border-color: rgba(255, 255, 255, 0.13); }
+#vgWorldPanel .vgw-conn.off::after { content: " · not wired"; opacity: 0.65; }
+#vgWorldPanel .vgw-conn.none { background: none; color: var(--text-muted, #96a0b5); font-style: italic; }
+#vgWorldPanel .vgw-skill {
+  padding: 2px 7px; border-radius: 999px; font-size: 10.5px;
+  background: var(--code-bg, rgba(255, 255, 255, 0.06));
+  color: var(--text-muted, var(--muted, #96a0b5));
+}
+
+/* Fallback launcher when the rail isn't where we expect it. */
+#vgWorldBtn.vgw-float {
+  position: fixed; right: 18px; bottom: 78px; z-index: 8400;
+  width: 42px; height: 42px; border-radius: 50%; font-size: 19px; cursor: pointer;
+  color: inherit;
+  background: var(--bg-secondary, #1c2029);
+  border: 1px solid var(--border-color, rgba(255, 255, 255, 0.16));
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+@media (max-width: 860px) {
+  #vgWorldPanel .vgw-drawer { width: 100%; }
+  #vgWorldPanel .vgw-plate-people::after { content: ""; }
+  #vgWorldPanel .vgw-mark span { display: none; }
+}

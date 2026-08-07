@@ -44,6 +44,8 @@ const PROFILES_DIR = path.join(ROOT, "hermes", "profiles");
 const HERMES_MD = path.join(ROOT, "hermes", "VALGIST.md");
 const SKILLS_DIR = path.join(ROOT, "hermes", "skills");
 const HOOKS_DIR = path.join(ROOT, "hermes", "hooks");
+const WEBUI_EXTENSIONS_DIR = path.join(ROOT, "hermes", "webui-extensions");
+const WORLD_ROOMS_FILE = path.join(ROOT, "hermes", "world", "rooms.json");
 const MODEL = process.env.HERMES_MODEL || "claude-opus-5";
 // Opt-in enforcement of the pre-publish compliance gate (see hermes/hooks/README.md).
 const ENFORCE_COMPLIANCE_HOOK = /^(1|true|yes)$/i.test(process.env.HERMES_ENFORCE_COMPLIANCE_HOOK || "");
@@ -59,6 +61,12 @@ const PROFILE_DIRS = ["memories", "sessions", "skills", "skins", "logs", "plans"
 // Dashboard (:8321). The list lives in ONE module — protected-dirs.js — which
 // `npm run eval` checks against the :ro mounts in the compose file.
 const { PROTECTED_DIRS } = require("./protected-dirs.js");
+
+// Open-brain mode (docker-compose.open.yml): the :ro mounts are off, so profiles
+// can write the brain directly. Every SOUL promises "a write to the brain fails at
+// the filesystem level" — a promise that is false in this mode, so the wording has
+// to change with the mounts rather than quietly become a lie.
+const OPEN_BRAIN = /^(1|true|yes)$/i.test(process.env.HERMES_OPEN_BRAIN || "");
 
 const WORKSPACE_NOTE = [
   "## Workspace = organization knowledge base",
@@ -77,16 +85,30 @@ const WORKSPACE_NOTE = [
   "- Raw working outputs go to `07-agent-outputs/YYYY-MM-DD--<profile>--<topic>.md`.",
   "- Never delete another profile's files; append or create new ones.",
   "",
-  "### Organization brain — read-only in chat",
-  "",
-  "These folders are the curated organization brain and are **read-only** here:",
-  PROTECTED_DIRS.map((d) => `\`${d}/\``).join(", ") + ".",
-  "You can read them freely, but you **cannot write** them from chat — the attempt",
-  "will fail with a read-only error. To change a brain file, draft the new content",
-  "to `07-agent-outputs/YYYY-MM-DD--<profile>--<topic>.md` and hand it to the",
-  "**Marketing Director**, who reviews and promotes approved drafts via the",
-  "`promote-to-brain` skill (the admin server's promotion API), or hands off to the",
-  "human admin's dashboard. Never try to write these paths directly.",
+  ...(OPEN_BRAIN ? [
+    "### Organization brain — writable in this deployment",
+    "",
+    "These folders are the curated organization brain:",
+    PROTECTED_DIRS.map((d) => `\`${d}/\``).join(", ") + ".",
+    "This engine runs in **open-brain mode**, so you *can* write them directly — the",
+    "usual read-only mount is off. Treat that as a responsibility, not a shortcut:",
+    "these files are what every other profile reads first, so never rewrite one",
+    "wholesale, never delete another profile's work, and say plainly in your reply",
+    "which brain file you changed and why. When a change is contentious or",
+    "far-reaching, still draft it to `07-agent-outputs/` and hand it to the",
+    "**Marketing Director** instead of editing in place.",
+  ] : [
+    "### Organization brain — read-only in chat",
+    "",
+    "These folders are the curated organization brain and are **read-only** here:",
+    PROTECTED_DIRS.map((d) => `\`${d}/\``).join(", ") + ".",
+    "You can read them freely, but you **cannot write** them from chat — the attempt",
+    "will fail with a read-only error. To change a brain file, draft the new content",
+    "to `07-agent-outputs/YYYY-MM-DD--<profile>--<topic>.md` and hand it to the",
+    "**Marketing Director**, who reviews and promotes approved drafts via the",
+    "`promote-to-brain` skill (the admin server's promotion API), or hands off to the",
+    "human admin's dashboard. Never try to write these paths directly.",
+  ]),
 ].join("\n");
 
 // Capability honesty. The community edition ships no connectors and no credentials;
@@ -175,6 +197,21 @@ function readEngineConfig(rootDir) {
   } catch {
     return fallback;
   }
+}
+
+/**
+ * Persist only the sync-owned `lastWritten` stamps back into engine-config.json,
+ * leaving every operator-owned field untouched. Called at the end of a sync so
+ * the user-edit detector has a baseline on the next run.
+ */
+function writeLastWritten(lastWritten, rootDir) {
+  const file = path.join(rootDir || ROOT, "data", "engine-config.json");
+  const cfg = readJsonSafe(file, { defaultModel: null, complianceHook: null, profiles: {}, routingOverrides: [] });
+  if (JSON.stringify(cfg.lastWritten || {}) === JSON.stringify(lastWritten)) return false;
+  cfg.lastWritten = lastWritten;
+  ensureDir(path.dirname(file));
+  fs.writeFileSync(file, JSON.stringify(cfg, null, 2) + "\n", "utf8");
+  return true;
 }
 
 function hooksBlock(profileId, enforced) {
@@ -379,6 +416,58 @@ function soulFor(coreRules, profileMd, profileName, opts = {}) {
   ].join("\n");
 }
 
+/**
+ * Show or hide the persona-less base profile in the WebUI picker.
+ *
+ * It is hidden by default so end users land on a real marketing profile, but that
+ * used to mean "find and delete data/hermes-home/profile.yaml", which nobody would
+ * guess. It is a switch in the Engine tab now; this writes the file to match.
+ */
+function applyDefaultProfileVisibility(hermesHome, visible) {
+  const file = path.join(hermesHome, "profile.yaml");
+  const desired = `visible: ${visible ? "true" : "false"}`;
+  const fresh = [
+    "# Whether the persona-less base profile shows in the WebUI picker.",
+    "# Managed from the Admin Dashboard's Engine tab — hand edits are overwritten.",
+    desired,
+    "",
+  ].join("\n");
+  // Older installs carry a comment telling the user to edit or delete this file,
+  // which stopped being true when the Engine tab took ownership. Replace it.
+  const stale = /^# Hides the persona-less base profile from the WebUI picker/m;
+  if (!fs.existsSync(file) || stale.test(fs.readFileSync(file, "utf8"))) {
+    fs.writeFileSync(file, fresh, "utf8");
+    return visible;
+  }
+  const text = fs.readFileSync(file, "utf8");
+  const next = /^visible:\s*.*$/m.test(text)
+    ? text.replace(/^visible:\s*.*$/m, desired)
+    : text.trimEnd() + "\n" + desired + "\n";
+  if (next !== text) fs.writeFileSync(file, next, "utf8");
+  return visible;
+}
+
+/**
+ * Name the front end after this engine rather than after the runtime it is built
+ * on. `bot_name` drives the browser tab, the login page and the sidebar wordmark.
+ *
+ * HERMES_WEBUI_BOT_NAME only supplies the *default*, so an install that already
+ * saved the upstream "Hermes" would keep showing it forever. We migrate that one
+ * value — and only that one value: a name the user actually chose is left alone.
+ */
+function applyWebuiBranding(hermesHome) {
+  const file = path.join(webuiStateDir(hermesHome), "settings.json");
+  const desired = process.env.HERMES_WEBUI_BOT_NAME || "Valgist Marketing AI Engine";
+  const settings = readJsonSafe(file, null);
+  if (!settings) return false; // first boot: the env default already applies
+  const current = typeof settings.bot_name === "string" ? settings.bot_name.trim() : "";
+  if (current && current !== "Hermes") return false; // the user named it; leave it
+  if (current === desired) return false;
+  settings.bot_name = desired;
+  fs.writeFileSync(file, JSON.stringify(settings, null, 2) + "\n", "utf8");
+  return true;
+}
+
 function ensureDir(p) { fs.mkdirSync(p, { recursive: true }); }
 function writeIfMissing(file, content) {
   if (!fs.existsSync(file)) fs.writeFileSync(file, content, "utf8");
@@ -414,6 +503,190 @@ function syncHooks(destHooksDir) {
   copyDirInto(HOOKS_DIR, destHooksDir);
 }
 
+// ── Repo-shipped WebUI extensions ─────────────────────────────────────────────
+//
+// Source of truth is hermes/webui-extensions/ — deliberately OUTSIDE the vendored
+// hermes-webui/ tree, so re-vendoring upstream can never delete it. Every sync
+// re-projects it into the WebUI's managed extension dir, so wiping data/ self-heals.
+//
+// Loading contract: the WebUI injects extension assets from exactly ONE source.
+// With HERMES_WEBUI_EXTENSION_MANIFEST set it loads that manifest and nothing else,
+// silently dropping gallery installs; with it unset it loads the extensions listed
+// in its own extension-install-manifest.json (hermes-webui/api/extensions.py,
+// _load_manifest_with_status). We use the second path for both, so repo-shipped and
+// user-installed extensions coexist. That file is WebUI-managed state, so we
+// re-assert our entries on every boot rather than writing them once.
+const WEBUI_EXTENSION_IDS = ["valgist-mini-apps", "valgist-world"];
+
+const webuiStateDir = (home) => path.join(home, "webui");
+const webuiExtensionsDir = (home) => path.join(webuiStateDir(home), "extensions");
+// WebUI-managed: records what the gallery has installed. We merge into it.
+const installManifestFile = (home) => path.join(webuiStateDir(home), "extension-install-manifest.json");
+// Sync-owned: remembers which extensions we have registered, so that a user
+// uninstalling one from the gallery stays uninstalled instead of coming back on
+// the next boot. Delete this file to get the repo-shipped extensions back.
+const valgistStateFile = (home) => path.join(webuiStateDir(home), ".valgist-extensions.json");
+
+function readJsonSafe(file, fallback) {
+  try {
+    const v = JSON.parse(fs.readFileSync(file, "utf8"));
+    return v && typeof v === "object" && !Array.isArray(v) ? v : fallback;
+  } catch {
+    return fallback;
+  }
+}
+
+/** Read a repo-shipped extension's manifest, or null when it is unusable. */
+function readExtensionManifest(dir) {
+  const m = readJsonSafe(path.join(dir, "manifest.json"), null);
+  if (!m || typeof m.id !== "string") return null;
+  return m;
+}
+
+/**
+ * Project the repo-shipped extensions into the WebUI state dir and register them
+ * in the WebUI's install manifest, preserving every entry the user installed.
+ *
+ * Returns one report row per extension: {id, status, reason}
+ *   ok        — projected, registered, all declared assets present
+ *   opted-out — the user uninstalled it from the gallery; we leave it uninstalled
+ *   degraded  — something is missing; the reason says what
+ */
+/**
+ * Compose world.json for the World extension: the room map from
+ * hermes/world/rooms.json plus just enough profile metadata to render a card.
+ * Shipping the data alongside the extension means the map works with no admin
+ * API at all; live counts are a separate, entirely optional fetch.
+ */
+function buildWorldData(index) {
+  const rooms = readJsonSafe(WORLD_ROOMS_FILE, null);
+  if (!rooms || !Array.isArray(rooms.rooms)) return null;
+  const profiles = {};
+  for (const p of index) {
+    profiles[p.id] = {
+      emoji: p.emoji,
+      name: p.name,
+      tagline: p.tagline,
+      // What this profile actually reaches. "Owns a folder" told an end user
+      // nothing they could act on; what they want to know before opening a chat
+      // is what it has read, and whether it can reach the outside world.
+      reads: Array.isArray(p.context) ? p.context : [],
+      connectors: (Array.isArray(p.integrations) ? p.integrations : []).map((i) => ({
+        name: i.name,
+        wired: i.status !== "not-wired",
+      })),
+      signatureSkills: (((p.skills || {}).signature) || []).map((s) => s && s.name).filter(Boolean),
+    };
+  }
+  return {
+    art: rooms.art,
+    aspect: rooms.aspect,
+    lobby: rooms.lobby,
+    rooms: rooms.rooms,
+    profiles,
+    // Where the browser can reach the admin server for the optional live counts.
+    // Wrong value = no counts, never a broken map.
+    adminUrl: process.env.HERMES_ADMIN_PUBLIC_URL || "http://localhost:8321",
+  };
+}
+
+/**
+ * Per-extension data files that are generated rather than copied. Returns an
+ * error string when generation failed, or "" on success.
+ */
+function writeExtensionData(id, dest, index) {
+  if (id !== "valgist-world") return "";
+  const data = buildWorldData(index);
+  if (!data) return "hermes/world/rooms.json is missing or malformed";
+  fs.writeFileSync(path.join(dest, "world.json"), JSON.stringify(data, null, 2) + "\n", "utf8");
+  return "";
+}
+
+function syncWebuiExtensions(hermesHome, index) {
+  const extDir = webuiExtensionsDir(hermesHome);
+  ensureDir(extDir);
+
+  // Migration: earlier builds projected an aggregate extensions.json here and
+  // pointed HERMES_WEBUI_EXTENSION_MANIFEST at it. Both are gone; drop the file
+  // so it cannot be picked up again if anyone re-adds the env var by hand.
+  const legacyManifest = path.join(extDir, "extensions.json");
+  if (fs.existsSync(legacyManifest)) fs.rmSync(legacyManifest, { force: true });
+
+  const own = readJsonSafe(valgistStateFile(hermesHome), {});
+  const previouslyRegistered = Array.isArray(own.registered) ? own.registered : [];
+
+  const manifest = readJsonSafe(installManifestFile(hermesHome), {});
+  if (typeof manifest.version !== "number") manifest.version = 1;
+  if (!manifest.installed || typeof manifest.installed !== "object" || Array.isArray(manifest.installed)) {
+    manifest.installed = {};
+  }
+
+  const report = [];
+  const registered = [];
+  let manifestChanged = false;
+
+  for (const id of WEBUI_EXTENSION_IDS) {
+    const src = path.join(WEBUI_EXTENSIONS_DIR, id);
+    const dest = path.join(extDir, id);
+
+    // The repo does not ship it (yet) — nothing to do, and not an error.
+    if (!fs.existsSync(src)) continue;
+
+    // Uninstall detection must happen BEFORE we copy the directory back.
+    // Gone from disk AND gone from the install manifest AND we put it there
+    // once = the user removed it on purpose.
+    if (previouslyRegistered.includes(id) && !fs.existsSync(dest) && !manifest.installed[id]) {
+      report.push({ id, status: "opted-out", reason: "uninstalled from the WebUI gallery" });
+      continue;
+    }
+
+    copyDirInto(src, dest);
+
+    const dataErr = writeExtensionData(id, dest, index || []);
+    if (dataErr) {
+      report.push({ id, status: "degraded", reason: dataErr });
+      continue;
+    }
+
+    const m = readExtensionManifest(dest);
+    if (!m) {
+      report.push({ id, status: "degraded", reason: "manifest.json missing or unparseable" });
+      continue;
+    }
+
+    const assets = [...(Array.isArray(m.scripts) ? m.scripts : []), ...(Array.isArray(m.stylesheets) ? m.stylesheets : [])];
+    const missing = assets.filter((a) => typeof a !== "string" || !fs.existsSync(path.join(dest, a)));
+    if (!assets.length) {
+      report.push({ id, status: "degraded", reason: "manifest declares no scripts or stylesheets" });
+      continue;
+    }
+    if (missing.length) {
+      report.push({ id, status: "degraded", reason: `declared asset(s) missing on disk: ${missing.join(", ")}` });
+      continue;
+    }
+
+    const version = typeof m.version === "string" ? m.version : "1.0.0";
+    const existing = manifest.installed[id];
+    if (!existing || typeof existing !== "object" || existing.version !== version) {
+      // Merge, never clobber: only this key is touched, everything the user
+      // installed is written back untouched.
+      manifest.installed[id] = { version, files: [], installed_at: new Date().toISOString() };
+      manifestChanged = true;
+    }
+    registered.push(id);
+    report.push({ id, status: "ok", reason: "" });
+  }
+
+  if (manifestChanged) {
+    fs.writeFileSync(installManifestFile(hermesHome), JSON.stringify(manifest, null, 2) + "\n", "utf8");
+  }
+  const nextOwn = { registered: registered.concat(report.filter((r) => r.status === "opted-out").map((r) => r.id)).sort() };
+  if (JSON.stringify(nextOwn) !== JSON.stringify({ registered: previouslyRegistered.slice().sort() })) {
+    fs.writeFileSync(valgistStateFile(hermesHome), JSON.stringify(nextOwn, null, 2) + "\n", "utf8");
+  }
+  return report;
+}
+
 /**
  * @param {string} hermesHome host path that is mounted as the container's HERMES_HOME
  * @param {{engineConfig?: object}} [opts]
@@ -435,6 +708,13 @@ function syncHermesWebuiProfiles(hermesHome, opts = {}) {
     || (profile && profile.model)
     || MODEL;
 
+  // What the sync itself last wrote into each config.yaml. Anything else found
+  // on disk was put there by somebody: the WebUI's Preferences pane, the
+  // onboarding wizard, or a hand edit. That person wins — see userPinned below.
+  const lastWritten = engineCfg.lastWritten && typeof engineCfg.lastWritten === "object" && !Array.isArray(engineCfg.lastWritten)
+    ? engineCfg.lastWritten : {};
+  const nextLastWritten = { ...lastWritten };
+
   // Enforce the managed keys on one profile home; returns the report entry.
   const applyConfig = (dir, profile) => {
     const id = profile ? profile.id : "default";
@@ -443,12 +723,26 @@ function syncHermesWebuiProfiles(hermesHome, opts = {}) {
     const managed = overrideFor(id).managed !== false;
     if (!fs.existsSync(cfgFile)) {
       fs.writeFileSync(cfgFile, defaultConfigYaml(profile, desired, hookEnforced), "utf8");
-      return { id, ...parseProfileConfig(fs.readFileSync(cfgFile, "utf8")), previousModel: null, managed, changed: true, conflict: false, desiredModel: desired };
+      nextLastWritten[id] = desired;
+      return { id, ...parseProfileConfig(fs.readFileSync(cfgFile, "utf8")), previousModel: null, managed, changed: true, conflict: false, desiredModel: desired, userPinned: false };
     }
     if (!managed) {
-      return { id, ...parseProfileConfig(fs.readFileSync(cfgFile, "utf8")), previousModel: null, managed, changed: false, conflict: false, desiredModel: desired };
+      return { id, ...parseProfileConfig(fs.readFileSync(cfgFile, "utf8")), previousModel: null, managed, changed: false, conflict: false, desiredModel: desired, userPinned: false };
     }
-    return { id, ...enforceManagedConfig(cfgFile, id, desired, hookEnforced), managed, desiredModel: desired };
+    // A model on disk that is neither what we last wrote nor what we want now is
+    // a user edit. Defer to it: leave model.default alone and report it as
+    // user-pinned. The compliance-hook block stays managed either way. We
+    // deliberately do NOT update lastWritten here, so the pin survives every
+    // later sync until an operator sets that model from the Engine tab (which
+    // clears the stamp and hands control back).
+    const onDisk = parseProfileConfig(fs.readFileSync(cfgFile, "utf8")).model;
+    const stamp = lastWritten[id];
+    const userPinned = Boolean(onDisk && stamp && onDisk !== stamp && onDisk !== desired);
+    if (userPinned) {
+      return { id, ...enforceManagedConfig(cfgFile, id, onDisk, hookEnforced), managed, desiredModel: desired, userPinned: true };
+    }
+    nextLastWritten[id] = desired;
+    return { id, ...enforceManagedConfig(cfgFile, id, desired, hookEnforced), managed, desiredModel: desired, userPinned: false };
   };
 
   // Root profile home ("default" in the WebUI): generalist Valgist. Hidden from
@@ -457,12 +751,7 @@ function syncHermesWebuiProfiles(hermesHome, opts = {}) {
   ensureDir(hermesHome);
   for (const d of PROFILE_DIRS) ensureDir(path.join(hermesHome, d));
   const report = [applyConfig(hermesHome, null)];
-  writeIfMissing(path.join(hermesHome, "profile.yaml"), [
-    "# Hides the persona-less base profile from the WebUI picker so end users",
-    "# land on a real marketing profile. Set to true (or delete) to show it.",
-    "visible: false",
-    "",
-  ].join("\n"));
+  applyDefaultProfileVisibility(hermesHome, engineCfg.showDefaultProfile === true);
   writeIfMissing(path.join(hermesHome, "memories", "MEMORY.md"), seedMemory(null));
   writeIfMissing(
     path.join(hermesHome, "SOUL.md"),
@@ -476,6 +765,9 @@ function syncHermesWebuiProfiles(hermesHome, opts = {}) {
   // The default/generalist home gets the shared skills and the hooks too.
   syncSkills(path.join(hermesHome, "skills"), null);
   syncHooks(path.join(hermesHome, "hooks"));
+  // WebUI extensions are per-home (STATE_DIR), not per-profile — project once.
+  const extensions = syncWebuiExtensions(hermesHome, index);
+  applyWebuiBranding(hermesHome);
 
   let synced = 0;
   for (const p of index) {
@@ -507,18 +799,29 @@ function syncHermesWebuiProfiles(hermesHome, opts = {}) {
     syncHooks(path.join(dir, "hooks"));
     synced++;
   }
+  writeLastWritten(nextLastWritten);
   return {
     synced, home: hermesHome, hookEnforced,
     model: engineCfg.defaultModel || MODEL,
     profiles: report,
+    extensions,
   };
 }
 
-module.exports = { syncHermesWebuiProfiles, readEngineConfig, parseProfileConfig, PROTECTED_DIRS };
+module.exports = {
+  syncHermesWebuiProfiles, readEngineConfig, parseProfileConfig, PROTECTED_DIRS,
+  WEBUI_EXTENSION_IDS,
+};
 
 if (require.main === module) {
   const home = process.argv[2] || path.join(ROOT, "data", "hermes-home");
   const r = syncHermesWebuiProfiles(home);
   console.log(`Synced ${r.synced} Valgist WebUI profiles into ${r.home}`);
   console.log(`Model: ${r.model} · compliance hook: ${r.hookEnforced ? "ENFORCED" : "opt-in (off)"}`);
+  console.log(
+    "WebUI extensions: " +
+    (r.extensions.length
+      ? r.extensions.map((e) => `${e.id} ${e.status}${e.reason ? ` (${e.reason})` : ""}`).join(" · ")
+      : "none shipped")
+  );
 }

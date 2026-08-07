@@ -1,0 +1,8 @@
+{
+  "id": "valgist-world",
+  "name": "Valgist World",
+  "version": "1.0.0",
+  "description": "Isometric office map: browse the marketing departments, see who works where, and start a chat with any profile.",
+  "scripts": ["world.js"],
+  "stylesheets": ["world.css"]
+}

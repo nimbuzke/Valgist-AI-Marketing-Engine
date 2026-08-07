@@ -134,6 +134,35 @@ The **🎯 Marketing Director** is the orchestrator: give it a goal and it
 routes work to the right specialists, opens work orders, and gatekeeps what
 enters the brain.
 
+Every profile can also build **🧩 mini-apps** — saved, reusable interactive
+tools ("build a mini-app that calculates our Q3 budget split"). They are
+single self-contained HTML files in `04-content/apps/`, opened from the 🧩
+rail button in the WebUI or the Admin **Mini-apps** tab.
+
+> Mini-apps run in a frame that allows scripts, forms, modals and same-origin
+> access, so they can keep state and call APIs — a mini-app that could not
+> `fetch` was not much of an app. The trade is real and worth stating: a
+> mini-app runs with the page's origin and can call the local APIs as you. They
+> are written by your own profiles into your own workspace, which is the same
+> trust boundary that already lets those profiles write files. If that ever
+> stops being true for you, serve them from a separate origin rather than
+> trusting the frame.
+
+A working example ships at `04-content/apps/utm-link-builder.html`.
+
+**🌍 The office.** The 🌍 rail button opens an isometric map of the department:
+ten rooms, each holding the profiles who do that kind of work. Click a room to
+see who is in it, what each one owns and their signature skills, then start a
+chat with any of them. It is the friendly way in — no need to know which of 31
+profile names you want before you begin. The room map is data
+(`hermes/world/rooms.json`), so moving a profile between rooms is an edit, not
+a code change.
+
+**Extensions.** Settings → Extensions → Gallery installs third-party WebUI
+extensions, and they work alongside the two Valgist ships. (Extensions are
+third-party code running inside the WebUI page — install what you would trust
+with your workspace.)
+
 ### The admin seat (Admin, :8321)
 
 | Tab                    | What you do there                                                                                                                                                         |
@@ -144,6 +173,7 @@ enters the brain.
 | **✅ Reviews**   | Accept / revise / reject agent outputs, with a cause. Feeds the scorecard and the weekly retro.                                                                           |
 | **🕘 Activity**  | Everything that happened: new/modified/deleted documents, promotions, work orders, engine changes.                                                                        |
 | **🧠 Knowledge** | Browse and edit the whole knowledge base. 🔒 folders are the brain — this dashboard is the only writer.**Promote to brain** turns an approved draft into doctrine. |
+| **🧩 Mini-apps** | The saved interactive tools agents build — preview each in a sandboxed frame, open it full-page, or delete it.                                                             |
 | **🎭 Profiles**  | Read any specialist's full contract — persona, playbooks, skills, outputs.                                                                                               |
 | **⚙️ Engine**  | Configure the engine itself (next section).                                                                                                                               |
 | **🛠️ System**  | Health & security: auth status, tokens, compliance state, protected dirs, runtime info.                                                                                   |
@@ -158,6 +188,15 @@ Everything applies live — no restarts, no file edits, no CLI:
   Analytics Engine on your strongest one. The table shows what each profile is
   *actually running* (parsed from disk), with a **drift** badge when reality
   differs from configuration.
+- **User pins win.** Change a profile's model from the WebUI's own Preferences
+  pane (or the onboarding wizard, or by editing `config.yaml`) and the sync
+  stops enforcing the engine model for that profile — it shows as
+  **user-pinned** instead of being silently reverted on the next resync.
+  **take back** discards the pin and re-enforces. Changing the default model
+  deliberately leaves existing pins alone.
+- **Show the generalist profile** — the persona-less base profile is hidden
+  from the WebUI picker so end users land on a real specialist. One switch
+  makes it selectable.
 - **📚 Brain wiring** — choose extra knowledge documents any profile *always*
   loads before working (its built-in context recipe is shown alongside).
   Everything else in the brain stays discoverable through `INDEX.md`.
@@ -183,6 +222,24 @@ The brain — `00-org/`, `01-brand/`, `02-market-research/`, `06-playbooks/` —
 is read-only in chat at the filesystem level. Promotion flips a draft's
 `status: draft` to `approved`, strips its promotion header, and reindexes.
 You can also edit brain files directly in the Knowledge tab; you're the admin.
+
+#### Open-brain mode (opt-in)
+
+If you would rather have agents maintain the brain directly and skip the
+promotion round-trip:
+
+```
+docker compose -f docker-compose.yml -f docker-compose.open.yml up -d
+```
+
+That drops the read-only mounts, disables the write-probe healthcheck (it exists
+to fail when the brain *is* writable), and regenerates every `SOUL.md` with
+governance wording that matches — otherwise all 31 profiles would keep telling
+you a brain write "fails at the filesystem level" while it quietly succeeded.
+Drop the extra `-f` to switch back; the wording follows the mounts both ways.
+
+Worth knowing what you give up: the read-only mount is what makes review a gate
+rather than a suggestion. Nothing else enforces it.
 
 ### Serving your team (beyond your own machine)
 
@@ -269,7 +326,7 @@ npm start                  # Admin dashboard → http://localhost:8321
 npm run generate:profiles  # Rebuild profiles, index.json, routing.json, integrations.json
 npm run build:index        # Rebuild knowledge/INDEX.md
 npm run sync:webui-profiles# Project profiles into data/hermes-home
-npm run eval               # 44 offline architecture checks — no API key needed
+npm run eval               # offline architecture checks — no API key needed
 npm run build              # generate + index + eval
 ```
 
@@ -280,6 +337,38 @@ runs the generator + resync for you.) Skill authoring rules are in
 
 The chat front end runs in its container (see `hermes-webui/README.md` for a
 non-Docker setup).
+
+### Upgrading Hermes without losing the Valgist bits
+
+The mini-apps gallery and the 🌍 office are WebUI *extensions*. Their source
+lives in `hermes/webui-extensions/` — deliberately **outside** the vendored
+`hermes-webui/` tree — and the admin re-projects it into
+`data/hermes-home/webui/extensions/` on every boot. Deleting `data/` cannot lose
+them; re-vendoring upstream cannot delete them.
+
+The one thing that can go wrong quietly: they are registered in the WebUI's own
+`extension-install-manifest.json`, which is WebUI-managed state. An upgrade that
+migrates or resets that file would stop both from loading — and **the WebUI's
+extension loader is silent about it**: no error, no warning, nothing in the UI.
+So the sync re-asserts its entries on every boot and structurally verifies each
+extension, and the Admin **System** tab reports `WebUI extensions: OK` or
+`DEGRADED (reason)`. Check it after any upgrade.
+
+There is also one deliberate local patch inside the vendored tree — the widened
+mini-app sandbox in `hermes-webui/api/routes.py`, marked
+`VALGIST LOCAL PATCH — mini-app sandbox`. `npm run eval` asserts it is still
+there, so a re-vendor that drops it fails the build instead of quietly making
+mini-apps inert.
+
+**After re-vendoring `hermes-webui/`, or replacing
+`data/hermes-home/hermes-agent/`:**
+
+1. `docker compose up -d --build`
+2. `npm run eval` — the Extensions suite catches a dropped patch or a broken manifest.
+3. Admin → **System** → *WebUI extensions* should read OK for both.
+4. Open :8787 and confirm the 🧩 and 🌍 rail buttons are there.
+5. Record which WebUI and agent versions you tested together — upstream treats
+   them as a release pair.
 
 ## Guardrails
 

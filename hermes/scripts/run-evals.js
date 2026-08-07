@@ -529,6 +529,135 @@ check("the generated artifacts are current", () => {
   return before === after || "index.json changed on regeneration — edit the generator, not the output";
 });
 
+// ═══════════════════════ WEBUI EXTENSIONS ═══════════════════════
+// The WebUI's extension loader fails silently: an extension that stops loading
+// produces no error, no warning, nothing in the UI. These checks exist because
+// that already bit us once — a manifest env var suppressed the entire gallery
+// and nothing anywhere said so.
+suite("Extensions");
+
+const EXT_DIR = "hermes/webui-extensions";
+const extensionIds = exists(EXT_DIR)
+  ? fs.readdirSync(path.join(ROOT, EXT_DIR), { withFileTypes: true })
+      .filter((e) => e.isDirectory()).map((e) => e.name)
+  : [];
+
+check("compose does not set HERMES_WEBUI_EXTENSION_MANIFEST", () => {
+  const compose = read("docker-compose.yml");
+  const set = compose.split("\n").some((l) => /^\s*-?\s*HERMES_WEBUI_EXTENSION_MANIFEST\s*=/.test(l));
+  return set
+    ? "HERMES_WEBUI_EXTENSION_MANIFEST is set — the WebUI then loads that manifest ONLY and silently ignores every gallery-installed extension"
+    : false;
+});
+
+check("compose does not set HERMES_WEBUI_SKIP_ONBOARDING", () => {
+  const compose = read("docker-compose.yml");
+  const set = compose.split("\n").some((l) => /^\s*-?\s*HERMES_WEBUI_SKIP_ONBOARDING\s*=/.test(l));
+  return set
+    ? "HERMES_WEBUI_SKIP_ONBOARDING is set — a fresh clone with no provider key gets no setup path in the UI"
+    : false;
+});
+
+check("extension source lives outside the vendored WebUI", () =>
+  fail(extensionIds
+    .filter((id) => exists(`hermes-webui/static/extensions/${id}`) || exists(`hermes-webui/${id}`))
+    .map((id) => `${id} also exists under hermes-webui/ — re-vendoring upstream would delete it`)));
+
+check("every shipped extension declares assets that exist", () =>
+  fail(extensionIds.flatMap((id) => {
+    const dir = `${EXT_DIR}/${id}`;
+    if (!exists(`${dir}/manifest.json`)) return [`${id}: no manifest.json`];
+    let m;
+    try { m = readJson(`${dir}/manifest.json`); } catch (e) { return [`${id}: manifest.json is not valid JSON`]; }
+    if (m.id !== id) return [`${id}: manifest id is "${m.id}"`];
+    const assets = [...(m.scripts || []), ...(m.stylesheets || [])];
+    if (!assets.length) return [`${id}: manifest declares no scripts or stylesheets`];
+    return assets.filter((a) => !exists(`${dir}/${a}`)).map((a) => `${id}: declared asset ${a} is missing`);
+  })));
+
+check("the mini-app sandbox patch survives re-vendoring", () => {
+  // A local deviation inside the vendored tree. If an upstream refresh drops it,
+  // mini-apps silently lose storage/fetch/forms again — so assert it by hand.
+  const src = read("hermes-webui/api/routes.py");
+  if (!/VALGIST LOCAL PATCH — mini-app sandbox/.test(src)) return "the VALGIST LOCAL PATCH marker is gone from hermes-webui/api/routes.py — a re-vendor dropped it";
+  return /csp = "sandbox allow-scripts allow-popups allow-forms allow-modals allow-same-origin" if html_inline_ok/.test(src)
+    ? false
+    : "the marker is present but the widened sandbox line no longer matches — re-apply it";
+});
+
+check("the page-title patch survives re-vendoring", () => {
+  const src = read("hermes-webui/static/index.html");
+  if (!/VALGIST LOCAL PATCH — page title/.test(src)) return "the VALGIST LOCAL PATCH marker is gone from hermes-webui/static/index.html — a re-vendor dropped it";
+  return /<title>Valgist Marketing AI Engine<\/title>/.test(src)
+    ? false
+    : "the marker is present but the <title> no longer says Valgist — re-apply it";
+});
+
+check("compose names the front end after this engine", () => {
+  const compose = read("docker-compose.yml");
+  return /HERMES_WEBUI_BOT_NAME=/.test(compose)
+    ? false
+    : "HERMES_WEBUI_BOT_NAME is unset, so a fresh install's tab, login page and sidebar all say Hermes";
+});
+
+// ═══════════════════════ WORLD MAP ═══════════════════════
+suite("World");
+
+const world = exists("hermes/world/rooms.json") ? readJson("hermes/world/rooms.json") : null;
+
+check("every profile sits in exactly one room", () => {
+  if (!world) return "hermes/world/rooms.json is missing";
+  const placed = world.rooms.flatMap((r) => r.profiles || []);
+  const ids = registry.map((p) => p.id);
+  const dupes = placed.filter((x, i) => placed.indexOf(x) !== i);
+  return fail([
+    ...ids.filter((id) => !placed.includes(id)).map((id) => `${id} is in no room`),
+    ...placed.filter((id) => !ids.includes(id)).map((id) => `room references unknown profile ${id}`),
+    ...[...new Set(dupes)].map((id) => `${id} appears in more than one room`),
+  ]);
+});
+
+check("room hotspots stay inside the artwork", () => {
+  if (!world) return "skip";
+  const boxes = world.rooms.map((r) => [r.id, r.rect]).concat(world.lobby ? [["lobby", world.lobby.rect]] : []);
+  return fail(boxes.flatMap(([id, rect]) => {
+    if (!Array.isArray(rect) || rect.length !== 4 || rect.some((n) => typeof n !== "number")) {
+      return [`${id}: rect must be [left, top, width, height] in percent`];
+    }
+    const [l, t, w, h] = rect;
+    const bad = [];
+    if (l < 0 || t < 0 || w <= 0 || h <= 0) bad.push(`${id}: rect has a negative or zero dimension`);
+    if (l + w > 100 || t + h > 100) bad.push(`${id}: rect runs past the edge of the image (${l + w}% × ${t + h}%)`);
+    return bad;
+  }));
+});
+
+check("open-brain override covers exactly the protected dirs", () => {
+  if (!exists("docker-compose.open.yml")) return "skip";
+  const open = read("docker-compose.open.yml");
+  const mounted = [...open.matchAll(/\.\/knowledge\/([\w-]+):\/workspace\/[\w-]+(?!:ro)\s*$/gm)].map((m) => m[1]).sort();
+  const declared = PROTECTED_DIRS.slice().sort();
+  const problems = [];
+  if (JSON.stringify(mounted) !== JSON.stringify(declared)) {
+    problems.push(`override mounts [${mounted}] but PROTECTED_DIRS is [${declared}] — a brain dir left out stays read-only, one added by mistake is silently opened`);
+  }
+  // Only real mount lines count — the file's own comments talk about `:ro` a lot.
+  const roMounts = open.split("\n")
+    .map((l) => l.replace(/#.*$/, "").trim())
+    .filter((l) => /^-\s*\.\/knowledge\/.*:ro$/.test(l));
+  if (roMounts.length) problems.push(`the override still carries ${roMounts.length} :ro mount(s), which defeats the point of the file`);
+  if (!/HERMES_OPEN_BRAIN=1/.test(open)) problems.push("the override does not set HERMES_OPEN_BRAIN=1, so every SOUL would keep claiming the brain is read-only");
+  if (!/healthcheck:[\s\S]*disable:\s*true/.test(open)) problems.push("the override does not disable the write-probe healthcheck, which will report the container unhealthy forever");
+  return fail(problems);
+});
+
+check("the world artwork the map references is shipped", () => {
+  if (!world) return "skip";
+  return exists(`hermes/webui-extensions/valgist-world/${world.art}`)
+    ? false
+    : `hermes/world/rooms.json points at "${world.art}", which is not in the valgist-world extension`;
+});
+
 // ═══════════════════════ REPORT ═══════════════════════
 const failed = results.filter((r) => !r.ok);
 const skipped = results.filter((r) => r.skipped);

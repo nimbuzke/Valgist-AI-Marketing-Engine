@@ -19080,7 +19080,18 @@ def _handle_media(handler, parsed):
         )
     ) else "attachment"
     # _serve_file_bytes sends Content-Security-Policy when csp is set.
-    csp = "sandbox allow-scripts" if html_inline_ok else None
+    # VALGIST LOCAL PATCH — mini-app sandbox (hermes/webui-extensions/valgist-mini-apps).
+    # Upstream serves inline HTML as an opaque origin with scripts only, which makes a
+    # mini-app unable to keep state, submit a form, or call an API — i.e. unable to be an
+    # app. Valgist's mini-apps are authored by its own profiles into
+    # knowledge/04-content/apps/, the same trust boundary that already lets those profiles
+    # write the workspace, so the sandbox is widened to match server.js's /api/apps/raw.
+    # Cost, stated plainly: allow-scripts + allow-same-origin drops the opaque origin, so
+    # inline HTML runs with the WebUI origin. Revisit if authorship ever becomes untrusted
+    # (multi-user / RBAC) — serve from a separate origin rather than narrowing this back.
+    # `npm run eval` asserts this patch is still present, so a re-vendor cannot drop it
+    # silently. Keep the VALGIST LOCAL PATCH marker on the line below.
+    csp = "sandbox allow-scripts allow-popups allow-forms allow-modals allow-same-origin" if html_inline_ok else None
     return _serve_file_bytes(handler, target, mime, disposition, "private, max-age=3600", csp=csp)
 
 

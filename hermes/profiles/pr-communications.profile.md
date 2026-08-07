@@ -49,6 +49,7 @@ Executable procedures available to this profile:
 
 - `press-release` — Use when asked for a press release, media pitch, media list or announcement — produces a release that survives a journalist's first ten seconds, plus the targeted pitch and list to place it.
 - `brand-kit-check` — Use before producing ANY outbound or customer-facing deliverable — copy, creative, email, social, ads, landing pages, scripts. Loads the Brand Kit and checks the draft stays on voice, tone, and messaging.
+- `build-mini-app` — Use when a deliverable is better served as an interactive tool than a document — a calculator, checklist, dashboard, briefing deck, quiz or planner the team will reuse — or when asked to build, update or list mini-apps. Covers the single-file HTML contract and where apps live.
 - `capability-check` — Use the moment a task needs live platform data — analytics, ad spend, CRM records, review feeds, send stats. Establishes what you can actually reach before you answer, so you never present invented numbers as measurement.
 - `compliance-gate` — Use before marking ANY outbound-facing asset publish-ready — emails, ads, landing pages, social posts, SMS, PR, influencer/affiliate content. Runs the pre-publish compliance handoff so nothing ships unreviewed.
 - `find-in-knowledge` — Use at the START of every task, before writing anything — finds what the organization already knows about a topic so you extend existing knowledge instead of duplicating it under a new filename.

@@ -1,0 +1,51 @@
+# Open-brain mode — OPT-IN OVERRIDE, not the default.
+#
+#   docker compose -f docker-compose.yml -f docker-compose.open.yml up -d
+#
+# The base compose file mounts the four organization-brain folders read-only into
+# the WebUI container, so no profile can write them from chat. That is what makes
+# the Marketing Director's promote step a real review gate instead of a suggestion,
+# and it is enforced by the kernel rather than by asking agents nicely.
+#
+# Some people want the opposite: agents that maintain the brain directly, no
+# promotion round-trip. This file is that. It re-declares the same four mount
+# targets WITHOUT `:ro` — Docker Compose merges volumes by target, so these replace
+# the read-only ones rather than adding to them.
+#
+# Three things change together, and all three are deliberate:
+#
+#   1. The brain becomes writable from chat.
+#   2. The base healthcheck is a write-probe — it deliberately goes unhealthy when
+#      the brain IS writable — so it must be disabled here. Nothing else uses it.
+#   3. HERMES_OPEN_BRAIN=1 makes the sync generate a different governance section
+#      in every SOUL.md. Without it, all 31 profiles would keep telling users that
+#      a write to the brain "fails at the filesystem level" while it quietly
+#      succeeds — a worse outcome than either mode on its own.
+#
+# Switching back: drop the `-f docker-compose.open.yml` and bring the stack up
+# again. The sync rewrites every SOUL.md on boot, so the wording follows the mounts
+# automatically in both directions.
+#
+# The Admin Dashboard's promote flow keeps working either way — it writes the brain
+# through the admin container, which always had read-write access.
+
+services:
+  valgist-admin:
+    environment:
+      # Regenerates every SOUL.md with the writable-brain wording.
+      - HERMES_OPEN_BRAIN=1
+
+  valgist-webui:
+    volumes:
+      # Same targets as docker-compose.yml, without :ro. Compose matches on the
+      # container path, so these override the read-only mounts.
+      # This list MUST match PROTECTED_DIRS in hermes/scripts/protected-dirs.js —
+      # `npm run eval` checks it.
+      - ./knowledge/00-org:/workspace/00-org
+      - ./knowledge/01-brand:/workspace/01-brand
+      - ./knowledge/02-market-research:/workspace/02-market-research
+      - ./knowledge/06-playbooks:/workspace/06-playbooks
+    # The base healthcheck asserts the brain is NOT writable. In this mode it is,
+    # by design, so the probe would keep the container permanently unhealthy.
+    healthcheck:
+      disable: true

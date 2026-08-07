@@ -397,6 +397,18 @@
   .meter i{display:block;height:100%;border-radius:3px;background:linear-gradient(90deg,var(--green),var(--greenHi))}
   .empty{color:var(--muted);font-size:.85rem;padding:14px 4px;line-height:1.6}
   .hint{color:var(--muted);font-size:.78rem;line-height:1.6;margin-top:10px}
+  /* mini-apps */
+  .apps-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+  .app-card{text-align:left;padding:14px;border-radius:11px;border:1px solid var(--line);
+    background:rgba(18,28,62,.45);color:var(--fg);cursor:pointer;display:flex;flex-direction:column;
+    gap:6px;min-height:92px;font:inherit;transition:border-color .15s,transform .15s}
+  .app-card:hover{border-color:var(--accent);transform:translateY(-1px)}
+  .app-card .t{font-weight:600;font-size:.88rem}
+  .app-card .d{font-size:.76rem;color:var(--muted);flex:1;line-height:1.5}
+  .app-card .m{font-size:.7rem;color:var(--muted);opacity:.75}
+  .apps-empty{grid-column:1/-1;padding:28px 18px;text-align:center;color:var(--muted);
+    font-size:.85rem;line-height:1.7}
+  #appFrame{width:100%;height:62vh;border:1px solid var(--line);border-radius:11px;background:#fff}
 
   /* ── modal dialogs (replace prompt/confirm/alert) ────────────────────── */
   .ovl{position:fixed;inset:0;z-index:60;background:rgba(4,8,20,.66);backdrop-filter:blur(3px);
@@ -431,6 +443,7 @@
   .pill.drift{background:rgba(184,132,27,.2);color:var(--goldHi);border:1px solid rgba(184,132,27,.5)}
   .pill.sync{background:rgba(34,162,113,.16);color:var(--greenHi);border:1px solid rgba(34,162,113,.35)}
   .pill.conflict{background:rgba(224,86,86,.18);color:#ff9d9d;border:1px solid rgba(224,86,86,.45)}
+  .pill.pinned{background:rgba(79,183,255,.16);color:#9fd8ff;border:1px solid rgba(79,183,255,.4)}
 
   /* ── system ──────────────────────────────────────────────────────────── */
   .kv{display:grid;grid-template-columns:180px 1fr;gap:8px 16px;font-size:.9rem}
@@ -468,6 +481,7 @@
     <button data-tab="reviews">✅ Reviews</button>
     <button data-tab="activity">🕘 Activity</button>
     <button data-tab="knowledge">🧠 Knowledge</button>
+    <button data-tab="apps">🧩 Mini-apps</button>
     <button data-tab="profiles">🎭 Profiles</button>
     <button data-tab="engine">⚙️ Engine</button>
     <button data-tab="system">🛠️ System</button>
@@ -609,6 +623,32 @@
       </div>
     </section>
 
+    <!-- MINI-APPS — reusable single-file HTML tools the agents save (build-mini-app skill) -->
+    <section class="tab" id="tab-apps">
+      <div class="card" style="animation:none">
+        <div class="edge purple"></div>
+        <h2>🧩 Mini-apps <span style="color:var(--muted);text-transform:none;letter-spacing:0">— reusable tools saved to 04-content/apps/</span></h2>
+        <div class="toolbar">
+          <button class="btn" onclick="loadApps()">⟳ Refresh</button>
+          <span class="hint" style="margin:0" id="appsCount"></span>
+        </div>
+        <div class="apps-grid" id="appsGrid"></div>
+        <div class="hint">Any profile can build one — ask in the WebUI, e.g. “build a mini-app that
+          calculates our Q3 budget split”. Apps run here in a sandboxed frame: scripts execute, but
+          they cannot touch admin cookies or this page.</div>
+      </div>
+      <div class="card" id="appPreviewCard" style="display:none;animation:none;margin-top:16px">
+        <div class="edge cyan"></div>
+        <h2 id="appPreviewTitle">Preview</h2>
+        <div class="toolbar">
+          <a class="btn" id="appOpenFull" href="#" target="_blank" rel="noopener">Open full ↗</a>
+          <button class="btn bad" onclick="deleteApp()">🗑 Delete</button>
+          <button class="btn" onclick="closeAppPreview()">✕ Close</button>
+        </div>
+        <iframe id="appFrame" sandbox="allow-scripts allow-popups" title="Mini-app preview"></iframe>
+      </div>
+    </section>
+
     <!-- PROFILES -->
     <section class="tab" id="tab-profiles">
       <div class="kb">
@@ -645,6 +685,15 @@
           <div class="hint" style="margin-top:2px">
             When on, a blocking pre-publish hook is registered in every profile: nothing marked
             <code>status: publish-ready</code> can be written without a PASS compliance report.
+          </div>
+          <div class="toolbar" style="margin-top:14px;margin-bottom:6px">
+            <span style="font-size:.84rem;color:var(--ink2)">Show the generalist profile</span>
+            <label class="switch"><input type="checkbox" id="engShowDefault" onchange="setShowDefaultProfile(this.checked)"><i></i></label>
+          </div>
+          <div class="hint" style="margin-top:2px">
+            The persona-less base profile is hidden from the WebUI picker so end users land on a
+            real marketing profile. Turn it on to make it selectable — useful for cross-profile
+            briefs and for testing.
           </div>
           <div class="toolbar" style="margin-top:14px;margin-bottom:0">
             <button class="btn" onclick="resyncNow()">⟳ Resync profiles</button>
@@ -683,6 +732,12 @@
           Resync fixes managed profiles. <b style="color:var(--ink2)">Managed</b> profiles get their model
           and hook block re-applied on every sync; switch it off to hand-tune a profile's
           <code>config.yaml</code> and have the sync leave it alone.
+          <br><br>
+          <span class="pill pinned">user-pinned</span> means somebody set that model outside this
+          dashboard — in the WebUI's Preferences pane, the onboarding wizard, or by editing
+          <code>config.yaml</code>. The sync defers to them and stops enforcing the engine model for
+          that profile. <b style="color:var(--ink2)">take back</b> discards the pin and re-enforces.
+          Changing the default model above deliberately leaves pins alone.
         </div>
       </div>
     </section>
@@ -997,6 +1052,7 @@ document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{
   document.body.classList.toggle("worldview",b.dataset.tab==="world");
   if(b.dataset.tab!=="world") closeTeam();
   if(b.dataset.tab==="knowledge"&&!treeLoaded) loadTree();
+  if(b.dataset.tab==="apps") loadApps();
   if(b.dataset.tab==="work") loadWork();
   if(b.dataset.tab==="reviews") loadReviews();
   if(b.dataset.tab==="engine") loadEngine();
@@ -1166,6 +1222,7 @@ async function refresh(){
     ["Promote token", status.promoteTokenSet?`<span class="badge ok">set — agents can promote via the Marketing Director</span>`:`<span class="badge warn">not set — agent-side promotion needs HERMES_PROMOTE_TOKEN when auth is on</span>`],
     ["Compliance hook", status.complianceHook?`<span class="badge ok">enforced — blocks unreviewed publish-ready writes</span>`:`<span class="badge warn">opt-in — set HERMES_ENFORCE_COMPLIANCE_HOOK=1</span>`],
     ["Read-only brain", (status.protectedDirs||[]).map(d=>`<code>${d}/</code>`).join(" ")],
+    ["WebUI extensions", extensionHealth(status.extensions)],
     ["Integrations wired", `${status.integrationsWired||0} of ${status.integrationsTotal||0} — no connector code ships with this repo`],
     ["Profiles", status.profiles],
     ["Profiles synced to WebUI", status.webuiProfilesSynced||0],
@@ -1173,6 +1230,26 @@ async function refresh(){
     ["Knowledge files", stats.knowledgeFiles],
     ["Knowledge edits", stats.knowledgeEdits||0],
   ]);
+}
+
+/* The WebUI loads extensions silently: one that stops loading reports nothing,
+   anywhere. That happened once already (a manifest env var quietly suppressed the
+   whole gallery), so the sync structurally verifies every repo-shipped extension
+   and the result is surfaced here rather than left to be discovered. */
+function extensionHealth(list){
+  const rows=Array.isArray(list)?list:[];
+  if(!rows.length) return `<span class="badge warn">none projected — run Resync in the Engine tab</span>`;
+  const bad=rows.filter(e=>e.status==="degraded");
+  const out=rows.map(e=>{
+    if(e.status==="ok") return `<span class="badge ok">${esc(e.id)}</span>`;
+    if(e.status==="opted-out") return `<span class="badge">${esc(e.id)} — uninstalled by you</span>`;
+    return `<span class="badge warn">${esc(e.id)} — ${esc(e.reason||"degraded")}</span>`;
+  }).join(" ");
+  return out+(bad.length?`<div style="color:var(--muted);margin-top:5px;font-size:.78rem">
+    A degraded extension does not load and the WebUI will not say so. Re-run
+    <b>Resync profiles</b> in the Engine tab; if it persists, the projected copy in
+    <code>data/hermes-home/webui/extensions/</code> is out of step with
+    <code>hermes/webui-extensions/</code>.</div>`:"");
 }
 
 /* ── scorecard ────────────────────────────────────────────────────────── */
@@ -1386,6 +1463,67 @@ function toast(msg){
   toastTimer=setTimeout(()=>el.remove(),3200);
 }
 
+/* ── mini-apps ────────────────────────────────────────────────────────────
+   Reusable single-file HTML tools the agents save to 04-content/apps/ (see the
+   shared build-mini-app skill). Listed via /api/apps; previewed in a sandboxed
+   iframe via /api/apps/raw, which serves a CSP sandbox so app scripts run in an
+   opaque origin with no access to this dashboard. */
+let openApp=null;
+function appRawUrl(name){
+  const tok=sessionStorage.getItem("hermesAdminToken");
+  /* iframes can't carry the header — the ?token= query form is the sanctioned
+     fallback (see authorized() in server.js). Sandboxed apps can't read it. */
+  return "/api/apps/raw?name="+encodeURIComponent(name)
+    +(tok?"&token="+encodeURIComponent(tok):"")+"&ts="+Date.now();
+}
+async function loadApps(){
+  const grid=$("appsGrid");
+  grid.innerHTML='<div class="apps-empty">Loading…</div>';
+  try{
+    const data=await getJSON("/api/apps");
+    const apps=data.apps||[];
+    $("appsCount").textContent=apps.length?`${apps.length} app${apps.length===1?"":"s"}`:"";
+    if(!apps.length){
+      grid.innerHTML='<div class="apps-empty">No mini-apps yet.<br>Ask any profile in the WebUI to build one — '
+        +'agents save them to <code>04-content/apps/</code> and they appear here and in the WebUI’s 🧩 gallery.</div>';
+      return;
+    }
+    grid.innerHTML=apps.map((a,i)=>`<button class="app-card" type="button" data-app="${i}">
+      <span class="t">${esc(a.title||a.name.replace(/\.html?$/i,""))}</span>
+      <span class="d">${esc(a.description||"")}</span>
+      <span class="m">${esc([a.profile,new Date(a.mtime).toLocaleDateString()].filter(Boolean).join(" · "))}</span>
+    </button>`).join("");
+    grid.querySelectorAll(".app-card").forEach(c=>{
+      c.onclick=()=>previewApp(apps[Number(c.dataset.app)]);
+    });
+  }catch(e){
+    grid.innerHTML='<div class="apps-empty">Could not load mini-apps.</div>';
+  }
+}
+function previewApp(app){
+  openApp=app;
+  $("appPreviewCard").style.display="";
+  $("appPreviewTitle").textContent="🧩 "+(app.title||app.name);
+  $("appOpenFull").href=appRawUrl(app.name);
+  $("appFrame").src=appRawUrl(app.name);
+  $("appPreviewCard").scrollIntoView({behavior:"smooth",block:"start"});
+}
+function closeAppPreview(){
+  openApp=null;
+  $("appPreviewCard").style.display="none";
+  $("appFrame").src="about:blank";
+}
+async function deleteApp(){
+  if(!openApp) return;
+  const ok=await confirmDlg("Delete mini-app?",
+    `<code>${esc(openApp.path)}</code> will be removed for everyone — the WebUI gallery too.`);
+  if(!ok) return;
+  await api("/api/knowledge/file?path="+encodeURIComponent(openApp.path),{method:"DELETE"});
+  toast("Mini-app deleted");
+  closeAppPreview();
+  loadApps();
+}
+
 /* ── engine tab ───────────────────────────────────────────────────────────
    The single pane of glass: what each profile is actually running (parsed
    live from its config.yaml) vs what the admin configured, with the write
@@ -1402,6 +1540,7 @@ async function loadEngine(){
     :`Currently from the container's <code>HERMES_MODEL</code> env (<code>${esc(e.envModel)}</code>). Applying a value here overrides it.`;
   $("engHook").checked=!!e.complianceHook;
   $("engHookSrc").textContent=e.complianceHookSource==="engine-config"?"set here":"from env (opt-in default)";
+  $("engShowDefault").checked=!!e.showDefaultProfile;
 
   /* owner select for routing overrides */
   const sel=$("rtOwner");
@@ -1429,6 +1568,7 @@ async function loadEngine(){
       <td>${esc(p.name)}</td>
       <td><code style="font-size:.78rem">${esc(p.model||"—")}</code>${p.provider&&p.provider!=="anthropic"?` <span class="pill ro">${esc(p.provider)}</span>`:""}</td>
       <td>${p.conflict?'<span class="pill conflict" title="A user-authored hooks block prevents the sync from registering the compliance gate here.">hook conflict</span>'
+        :p.userPinned?`<span class="pill pinned" title="Set from the WebUI (or by hand), not here. The sync leaves it alone. Engine default is ${esc(p.desiredModel)}.">user-pinned</span> <button class="btn sm" style="margin-left:5px" onclick="unpinProfile('${esc(p.id)}')" title="Discard the user's model and re-enforce the engine default">take back</button>`
         :p.drift?`<span class="pill drift" title="Differs from the configured model (${esc(p.desiredModel)}). Resync fixes managed profiles.">drift</span>`
         :'<span class="pill sync">in sync</span>'}</td>
       <td><select class="btn sm" onchange="setProfModel('${esc(p.id)}',this)">
@@ -1463,6 +1603,16 @@ async function setProfModel(id,sel){
   }
   await post("/api/engine/config",{profile:{id,model:v||null}});
   toast(v?`${id} pinned to ${v}.`:`${id} follows the default model again.`);
+  loadEngine();
+}
+async function setShowDefaultProfile(on){
+  await post("/api/engine/config",{showDefaultProfile:on});
+  toast(on?"Generalist profile is now selectable in the WebUI picker.":"Generalist profile hidden from the WebUI picker.");
+  loadEngine();
+}
+async function unpinProfile(id){
+  await post("/api/engine/config",{profile:{id,unpin:true}});
+  toast(`${id}: user pin cleared — the engine model is enforced again.`);
   loadEngine();
 }
 async function editWiring(id){

@@ -36,6 +36,7 @@ const DATA = path.join(ROOT, "data");
 const HERMES_DIR = path.join(ROOT, "hermes");
 const PROFILES_DIR = path.join(HERMES_DIR, "profiles");
 const WORK_ORDERS_REL = "03-campaigns/work-orders";
+const MINI_APPS_DIR = "04-content/apps";
 const PORT = Number(process.env.HERMES_PORT || 8321);
 const BIND = process.env.HERMES_BIND || "0.0.0.0";
 const WEBUI_URL = process.env.HERMES_WEBUI_URL || "http://localhost:8787";
@@ -67,6 +68,13 @@ function resyncProfiles(reason) {
   for (const p of changed) console.log(`   Model enforced: ${p.id} ${p.previousModel} → ${p.model}${reason ? ` (${reason})` : ""}`);
   const conflicts = (syncInfo.profiles || []).filter((p) => p.conflict);
   for (const p of conflicts) console.warn(`   ⚠️  ${p.id}: user-authored hooks block found — compliance gate NOT registered there; resolve config.yaml by hand or set the profile unmanaged.`);
+  const pinned = (syncInfo.profiles || []).filter((p) => p.userPinned);
+  for (const p of pinned) console.log(`   Model user-pinned: ${p.id} stays on ${p.model} (engine wants ${p.desiredModel}) — clear the pin from the Engine tab to re-enforce`);
+  const extIssues = (syncInfo.extensions || []).filter((e) => e.status !== "ok");
+  for (const e of extIssues) {
+    if (e.status === "opted-out") console.log(`   WebUI extension ${e.id}: ${e.reason} — leaving it uninstalled`);
+    else console.warn(`   ⚠️  WebUI extension ${e.id} DEGRADED: ${e.reason}`);
+  }
   return syncInfo;
 }
 // Admin-owned engine overrides (Engine tab). Falls back to env vars when unset.
@@ -121,13 +129,16 @@ function bumpStats(mutator) {
 // ── registries ────────────────────────────────────────────────────────────────
 // Reloadable (POST /api/reload, or after a regenerate) so file edits reach the
 // dashboard without a container restart.
-let profilesIndex, routingTable, integrationsDoc, profileById;
+let profilesIndex, routingTable, integrationsDoc, profileById, worldRoomsDoc;
 function loadRegistries() {
   profilesIndex = readJson(path.join(PROFILES_DIR, "index.json"), []);
   routingTable = readJson(path.join(HERMES_DIR, "routing.json"), { routes: [], fallback: "marketing-director" });
   integrationsDoc = readJson(path.join(HERMES_DIR, "integrations.json"), { integrations: [] });
+  // Office map for the WebUI's World module — which profiles sit in which room.
+  worldRoomsDoc = readJson(path.join(HERMES_DIR, "world", "rooms.json"), { rooms: [] });
   profileById = new Map(profilesIndex.map((p) => [p.id, p]));
 }
+const worldRooms = () => worldRoomsDoc;
 loadRegistries();
 
 // Admin routing overrides (Engine tab) merged over the generated table: an
@@ -527,7 +538,14 @@ function safeEqual(candidate, secret) {
 }
 // Endpoints the scoped promote token may call (the WebUI container holds it).
 const PROMOTE_ROUTES = new Set(["POST /api/promote", "POST /api/activity"]);
+// Read-only routes the WebUI's browser page may call cross-origin without any
+// token. The World module (hermes/webui-extensions/valgist-world) runs on :8787
+// and wants headline counts from here; handing its JavaScript the admin token
+// would hand it the ability to rewrite the brain, so it gets this instead: GET
+// only, no secrets in the payload, no writes anywhere behind it.
+const PUBLIC_READ_ROUTES = new Set(["GET /api/world"]);
 function authorized(req, url) {
+  if (PUBLIC_READ_ROUTES.has(`${req.method} ${url.pathname}`)) return true;
   if (!ADMIN_TOKEN) return true;
   if (safeEqual(req.headers["x-admin-token"], ADMIN_TOKEN)) return true;
   if (safeEqual(url.searchParams.get("token"), ADMIN_TOKEN)) return true;
@@ -576,6 +594,12 @@ const server = http.createServer(async (req, res) => {
         try { eff = parseProfileConfig(fs.readFileSync(cfgFile, "utf8")); } catch { /* not provisioned yet */ }
         const o = cfg.profiles[id] || {};
         const desired = o.model || cfg.defaultModel || (meta && meta.model) || envModel;
+        // A model on disk that is neither what the sync last wrote nor what the
+        // engine wants now was set by a person (WebUI Preferences, the onboarding
+        // wizard, a hand edit). The sync defers to it; say so here instead of
+        // showing it as drift the operator is expected to fix.
+        const stamp = (cfg.lastWritten || {})[id];
+        const userPinned = !!(eff.model && stamp && eff.model !== stamp && eff.model !== desired);
         return {
           id,
           name: meta ? `${meta.emoji} ${meta.name}` : "Valgist (default)",
@@ -583,7 +607,8 @@ const server = http.createServer(async (req, res) => {
           desiredModel: desired,
           override: o.model || null,
           managed: o.managed !== false,
-          drift: (eff.model || null) !== desired,
+          userPinned,
+          drift: !userPinned && (eff.model || null) !== desired,
           hooksActive: !!eff.hooksActive,
           conflict: conflicts.has(id),
           delegationEnabled: !!eff.delegationEnabled,
@@ -602,6 +627,7 @@ const server = http.createServer(async (req, res) => {
         envModel,
         complianceHook: hookEnforced,
         complianceHookSource: typeof cfg.complianceHook === "boolean" ? "engine-config" : "env",
+        showDefaultProfile: cfg.showDefaultProfile === true,
         routingOverrides: cfg.routingOverrides || [],
         profiles,
       });
@@ -611,10 +637,18 @@ const server = http.createServer(async (req, res) => {
     if (route === "POST /api/engine/config") {
       const body = await readBody(req);
       writeEngineConfig((cfg) => {
+        if (!cfg.lastWritten || typeof cfg.lastWritten !== "object" || Array.isArray(cfg.lastWritten)) cfg.lastWritten = {};
         if ("defaultModel" in body) cfg.defaultModel = body.defaultModel || null;
         if ("complianceHook" in body) cfg.complianceHook = typeof body.complianceHook === "boolean" ? body.complianceHook : null;
+        if ("showDefaultProfile" in body) cfg.showDefaultProfile = body.showDefaultProfile === true;
         if (body.profile && body.profile.id) {
           const entry = cfg.profiles[body.profile.id] || {};
+          // Pinning one profile's model, or an explicit unpin, is a targeted
+          // operator decision — drop the stamp so the next sync enforces again
+          // instead of deferring to whatever a user set in the WebUI.
+          // Changing the fleet-wide default deliberately does NOT clear pins:
+          // a pinned profile stays pinned and shows as such in the Engine tab.
+          if ("model" in body.profile || body.profile.unpin === true) delete cfg.lastWritten[body.profile.id];
           if ("model" in body.profile) entry.model = body.profile.model || null;
           if ("managed" in body.profile) entry.managed = body.profile.managed !== false;
           if ("context" in body.profile) {
@@ -629,7 +663,9 @@ const server = http.createServer(async (req, res) => {
       resyncProfiles("engine config change");
       const what = "defaultModel" in body ? `default model → ${body.defaultModel || "(env)"}`
         : "complianceHook" in body ? `compliance gate → ${body.complianceHook === true ? "enforced" : body.complianceHook === false ? "off" : "(env)"}`
+        : "showDefaultProfile" in body ? `generalist profile → ${body.showDefaultProfile === true ? "shown in the WebUI picker" : "hidden"}`
         : body.profile ? `${body.profile.id} → ${"model" in body.profile ? (body.profile.model || "default")
+          : body.profile.unpin === true ? "user pin cleared; engine model re-enforced"
           : "context" in body.profile ? `${(body.profile.context || []).length || "no"} extra context doc(s) wired`
           : (body.profile.managed === false ? "unmanaged" : "managed")}`
         : "no change";
@@ -691,6 +727,10 @@ const server = http.createServer(async (req, res) => {
         authEnabled: !!ADMIN_TOKEN,
         promoteTokenSet: !!PROMOTE_TOKEN,
         protectedDirs: PROTECTED_DIRS,
+        // Structural self-check from the last sync. The extension loader fails
+        // SILENTLY — an extension that stops loading produces no error anywhere —
+        // so a Hermes update that breaks one has to be visible here or nowhere.
+        extensions: syncInfo.extensions || [],
         indexedDocuments: indexInfo.documents,
         integrationsWired: integrationsDoc.integrations.filter((i) => i.status !== "not-wired").length,
         integrationsTotal: integrationsDoc.integrations.length,
@@ -794,6 +834,146 @@ const server = http.createServer(async (req, res) => {
       return send(res, 200, recordReview(body));
     }
     if (route === "GET /api/scorecard") return send(res, 200, scorecard());
+    // Everything the WebUI's World module puts on screen that isn't shipped with
+    // the extension: per-room counts, the live task list, campaigns, recent
+    // activity and headline metrics. Read-only and token-free by design (see
+    // PUBLIC_READ_ROUTES) — GET only, no secrets in the payload, no write path
+    // behind it. The map still renders without this; the panels just go quiet.
+    if (route === "GET /api/world") {
+      const score = scorecard();
+      const byProfile = new Map(score.profiles.map((p) => [p.id, p]));
+      const orders = listWorkOrders();
+      const entries = readJson(INDEX_JSON, { entries: [] }).entries || [];
+      const acts = readJson(ACTIVITIES_FILE, []);
+      const nameOf = (id) => (profileById.get(id) ? `${profileById.get(id).emoji} ${profileById.get(id).name}` : id || "—");
+
+      const rooms = {};
+      for (const room of worldRooms().rooms || []) {
+        let openOrders = 0, documents = 0, blocked = 0;
+        for (const id of room.profiles || []) {
+          const s = byProfile.get(id);
+          if (!s) continue;
+          openOrders += s.openOrders || 0;
+          documents += s.documents || 0;
+          blocked += s.blockedOrders || 0;
+        }
+        rooms[room.id] = { openOrders, documents, blocked };
+      }
+
+      // A campaign is a document under 03-campaigns/ that is not a work order and
+      // not the folder's own signpost — a README is scaffolding, not a campaign,
+      // and listing it as one makes an empty engine look busy.
+      const isCampaign = (e) => {
+        const p = String(e.path || "");
+        return p.startsWith("03-campaigns/")
+          && !p.startsWith(WORK_ORDERS_REL + "/")
+          && !/(^|\/)(README|INDEX)\.md$/i.test(p);
+      };
+      const campaigns = entries
+        .filter(isCampaign)
+        .sort((a, b) => String(b.updated || "").localeCompare(String(a.updated || "")))
+        .slice(0, 6)
+        .map((e) => ({ title: e.title || e.path, owner: e.owner ? nameOf(e.owner) : "", updated: e.updated || "" }));
+
+      const live = orders.filter((o) => o.status !== "done" && o.status !== "cancelled");
+      res.writeHead(200, {
+        "Content-Type": "application/json; charset=utf-8",
+        // The WebUI is a different origin (:8787). GET-only, no credentials.
+        "Access-Control-Allow-Origin": "*",
+        "Cache-Control": "no-store",
+      });
+      return res.end(JSON.stringify({
+        rooms,
+        totals: {
+          documents: entries.length,
+          deliverables: score.totals.deliverables,
+          openOrders: live.filter((o) => o.status !== "blocked").length,
+          blockedOrders: live.filter((o) => o.status === "blocked").length,
+          doneOrders: orders.filter((o) => o.status === "done").length,
+          reviewed: score.totals.reviewed,
+          acceptanceRate: score.totals.reviewed
+            ? Math.round((score.totals.accepted / score.totals.reviewed) * 100)
+            : null,
+          campaigns: entries.filter(isCampaign).length,
+        },
+        tasks: live.slice(0, 8).map((o) => ({
+          id: o.id, title: o.title, owner: o.owner, ownerName: o.ownerName,
+          status: o.status, priority: o.priority, due: o.due, blockedOn: o.blockedOn,
+        })),
+        campaigns,
+        // Collapse consecutive identical events. Restarting the container eight
+        // times fills this feed with eight "Valgist Admin started" lines, which
+        // pushes out everything a user would actually want to see.
+        activity: acts
+          .filter((a, i, all) => i === 0 || a.detail !== all[i - 1].detail || a.profileId !== all[i - 1].profileId)
+          .slice(0, 8)
+          .map((a) => ({
+            ts: a.ts, type: a.type, detail: a.detail,
+            who: a.profileId ? nameOf(a.profileId) : "",
+          })),
+      }));
+    }
+
+    // Mini-apps ---------------------------------------------------------------
+    // Reusable single-file HTML apps that agents save to knowledge/04-content/apps
+    // (see hermes/skills/shared/build-mini-app). The dashboard lists them here;
+    // the WebUI has its own gallery (hermes/webui-extensions/valgist-mini-apps).
+    if (route === "GET /api/apps") {
+      const dir = safeKnowledgePath(MINI_APPS_DIR);
+      let apps = [];
+      try {
+        const names = (await fsp.readdir(dir)).filter((n) => /\.html?$/i.test(n) && !n.startsWith("."));
+        apps = await Promise.all(names.map(async (name) => {
+          const file = path.join(dir, name);
+          const st = await fsp.stat(file);
+          // Only the head is needed for the metadata contract (title + metas).
+          const head = (await fsp.readFile(file, "utf8")).slice(0, 4000);
+          const meta = (n) => {
+            const tag = (head.match(new RegExp(`<meta\\s+[^>]*name=["']${n}["'][^>]*>`, "i")) || [])[0] || "";
+            return ((tag.match(/content=["']([^"']*)["']/i) || [])[1] || "").trim();
+          };
+          return {
+            name,
+            path: `${MINI_APPS_DIR}/${name}`,
+            title: ((head.match(/<title[^>]*>([\s\S]*?)<\/title>/i) || [])[1] || "").replace(/\s+/g, " ").trim(),
+            description: meta("description"),
+            profile: meta("valgist-profile"),
+            size: st.size,
+            mtime: st.mtimeMs,
+          };
+        }));
+        apps.sort((a, b) => b.mtime - a.mtime);
+      } catch { /* folder not created yet — empty gallery */ }
+      return send(res, 200, { dir: MINI_APPS_DIR, apps });
+    }
+    // Raw app HTML for the dashboard's preview iframe.
+    //
+    // The sandbox is deliberately wider than the minimum: `allow-forms` and
+    // `allow-same-origin` are granted so a mini-app can actually do its job —
+    // keep state, submit a form, call an API. Without them "mini-app" meant
+    // "static page that cannot fetch", which is not a useful thing to build.
+    //
+    // The cost, stated plainly: `allow-scripts` + `allow-same-origin` together
+    // drop the opaque-origin guarantee, so a mini-app runs with the admin origin
+    // and can call this API as the logged-in operator. That is the same trust
+    // boundary that already lets agents write files into the workspace — these
+    // apps are authored by your own profiles into knowledge/04-content/apps/.
+    // If that ever stops being true (multi-user, RBAC, untrusted authors), serve
+    // mini-apps from a separate origin instead of narrowing this back.
+    if (route === "GET /api/apps/raw") {
+      const name = path.basename(url.searchParams.get("name") || "");
+      if (!/\.html?$/i.test(name)) return send(res, 400, { error: "name must be a .html file" });
+      const file = safeKnowledgePath(path.join(MINI_APPS_DIR, name));
+      if (!fs.existsSync(file)) return send(res, 404, { error: "not found" });
+      res.writeHead(200, {
+        "Content-Type": "text/html; charset=utf-8",
+        "Content-Security-Policy": "sandbox allow-scripts allow-popups allow-forms allow-modals allow-same-origin",
+        "X-Content-Type-Options": "nosniff",
+        "Referrer-Policy": "no-referrer",
+        "Cache-Control": "no-store",
+      });
+      return fs.createReadStream(file).pipe(res);
+    }
 
     // knowledge base ----------------------------------------------------------
     if (route === "GET /api/knowledge/tree") {

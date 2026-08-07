@@ -1,0 +1,148 @@
+/* Valgist Mini-apps extension — all selectors are vgma-/vgMiniApps-prefixed so
+   nothing can collide with vendored WebUI styles. Colors lean on the WebUI's CSS
+   variables where they exist, with dark fallbacks. */
+
+#vgMiniAppsOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(8, 10, 16, 0.6);
+  backdrop-filter: blur(2px);
+}
+#vgMiniAppsOverlay.open { display: flex; }
+
+#vgMiniAppsOverlay .vgma-panel {
+  display: flex;
+  flex-direction: column;
+  width: min(1080px, 94vw);
+  height: min(760px, 92vh);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--bg-primary, var(--bg, #171a21));
+  color: var(--text-primary, var(--fg, #e6e9f0));
+  border: 1px solid var(--border-color, rgba(255, 255, 255, 0.12));
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.5);
+}
+
+#vgMiniAppsOverlay .vgma-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border-color, rgba(255, 255, 255, 0.12));
+  flex: 0 0 auto;
+}
+#vgMiniAppsOverlay .vgma-title {
+  font-weight: 600;
+  flex: 1 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+#vgMiniAppsOverlay .vgma-head button {
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: 15px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  line-height: 1;
+}
+#vgMiniAppsOverlay .vgma-head button:hover { background: rgba(255, 255, 255, 0.08); }
+#vgMiniAppsOverlay .vgma-open-full {
+  color: var(--accent, #6ea8fe);
+  font-size: 12.5px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+#vgMiniAppsOverlay .vgma-open-full:hover { text-decoration: underline; }
+
+#vgMiniAppsOverlay .vgma-body { flex: 1 1 auto; min-height: 0; display: flex; }
+#vgMiniAppsOverlay .vgma-grid {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: 16px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 12px;
+  align-content: start;
+}
+#vgMiniAppsOverlay .vgma-grid[hidden],
+#vgMiniAppsOverlay .vgma-viewer[hidden] { display: none; }
+
+#vgMiniAppsOverlay .vgma-card {
+  text-align: left;
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border-color, rgba(255, 255, 255, 0.12));
+  background: var(--bg-secondary, rgba(255, 255, 255, 0.04));
+  color: inherit;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-height: 92px;
+  font: inherit;
+}
+#vgMiniAppsOverlay .vgma-card:hover {
+  border-color: var(--accent, #6ea8fe);
+  transform: translateY(-1px);
+}
+#vgMiniAppsOverlay .vgma-card-title { font-weight: 600; font-size: 14px; }
+#vgMiniAppsOverlay .vgma-card-desc {
+  font-size: 12.5px;
+  opacity: 0.75;
+  flex: 1 1 auto;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+#vgMiniAppsOverlay .vgma-card-meta { font-size: 11.5px; opacity: 0.5; }
+
+#vgMiniAppsOverlay .vgma-empty {
+  grid-column: 1 / -1;
+  padding: 40px 24px;
+  text-align: center;
+  opacity: 0.8;
+  font-size: 14px;
+  line-height: 1.6;
+  max-width: 560px;
+  margin: 0 auto;
+}
+#vgMiniAppsOverlay .vgma-empty code {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+
+#vgMiniAppsOverlay .vgma-viewer { flex: 1 1 auto; display: flex; }
+#vgMiniAppsOverlay .vgma-viewer iframe {
+  flex: 1 1 auto;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #fff;
+}
+
+/* Floating fallback launcher (used only when the left rail isn't found). */
+.vgma-float {
+  position: fixed;
+  left: 14px;
+  bottom: 14px;
+  z-index: 8999;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: #232735;
+  color: #fff;
+  font-size: 19px;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+.vgma-float:hover { filter: brightness(1.15); }

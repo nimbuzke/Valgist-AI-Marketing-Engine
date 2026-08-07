@@ -88,4 +88,5 @@ All profiles are installed and available — there are no tiers.
 - LLM: managed from the Admin Dashboard's Engine tab — a default for the whole
   engine plus optional per-profile pins, enforced into each profile's
   `config.yaml` on every sync (default: Anthropic `claude-opus-5`; set
-  `ANTHROPIC_API_KEY` in `.env`).
+  `ANTHROPIC_API_KEY` in `.env`). A model chosen in the WebUI's own settings
+  wins and is left alone until an operator clears the pin.

@@ -1,0 +1,8 @@
+{
+  "id": "valgist-mini-apps",
+  "name": "Valgist Mini-apps",
+  "version": "1.0.0",
+  "description": "Gallery and launcher for the reusable single-file HTML mini-apps agents save to 04-content/apps/.",
+  "scripts": ["mini-apps.js"],
+  "stylesheets": ["mini-apps.css"]
+}
