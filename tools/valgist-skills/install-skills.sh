@@ -93,5 +93,39 @@ if [ -d "$SKILLS_SRC/profiles" ]; then
   done
 fi
 
-log "installed $installed Valgist skill links/copies into hermes, opencode, and pi."
-log "Run 'valgist-skills list' (or MCP skills_list) to confirm all 44 skills are reachable."
+# ── Install AdKit skills (ads-mcp repo) ──────────────────────────────────
+# AdKit skills live at $ADKIT_REPO_PATH/skills/<skill>/SKILL.md
+ADKIT_REPO_PATH="${ADKIT_REPO_PATH:-/home/sage/Documents/Automation/marketing/adkit-mcp}"
+ADKIT_SKILLS_SRC="$ADKIT_REPO_PATH/skills"
+
+install_adkit() {
+  local skill="$1" src_dir="$ADKIT_SKILLS_SRC/$skill"
+  [ -d "$src_dir" ] || return 0
+  local linkname="adkit--$skill"
+  for target in "$HERMES_SKILLS_DIR/$linkname" "$HERMES_PROFILE_SKILLS_DIR/$linkname" "$OPENCODE_SKILLS_DIR/$linkname"; do
+    if [ -L "$target" ] || [ -e "$target" ]; then
+      rm -rf "$target"
+    fi
+    ln -s "$src_dir" "$target"
+    installed=$((installed + 1))
+  done
+  # pi: copy the SKILL.md namespaced by adkit
+  if [ -f "$src_dir/SKILL.md" ]; then
+    cp "$src_dir/SKILL.md" "$PI_SKILLS_DIR/adkit-$skill.md"
+    installed=$((installed + 1))
+  fi
+  log "adkit: $skill"
+}
+
+if [ -d "$ADKIT_SKILLS_SRC" ]; then
+  for skill in "$ADKIT_SKILLS_SRC"/*/; do
+    skill="${skill%/}"; skill="${skill##*/}"
+    install_adkit "$skill"
+  done
+  log "adkit skills installed from $ADKIT_REPO_PATH"
+else
+  log "adkit skills source not found at $ADKIT_SKILLS_SRC — skipping adkit skills (MCP server still configured)"
+fi
+
+log "installed $installed skill links/copies into hermes, opencode, and pi (Valgist + AdKit)."
+log "Run 'valgist-skills list' (or MCP skills_list) to confirm all skills are reachable."
