@@ -4,6 +4,840 @@
   "fallback": "marketing-director",
   "routes": [
     {
+      "phrase": "why do users churn after signup",
+      "owner": "onboarding",
+      "ownerName": "🚀 Customer Onboarding",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "04-content/email/",
+        "04-content/onboarding/"
+      ],
+      "outputPath": "knowledge/03-campaigns/automation/onboarding/"
+    },
+    {
+      "phrase": "why leads are not converting",
+      "owner": "revops",
+      "ownerName": "🔄 Revenue Operations",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "03-campaigns/outbound/",
+        "04-content/copy/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/revops/"
+    },
+    {
+      "phrase": "what to publish more or less",
+      "owner": "social-media-analyzer",
+      "ownerName": "📈 Social Media Analyzer",
+      "requires": [
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/social/",
+        "05-analytics-reports/",
+        "05-analytics-reports/social/"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/social/"
+    },
+    {
+      "phrase": "turn this video into shorts",
+      "owner": "video-to-shorts",
+      "ownerName": "✂️ Video to Shorts",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/video/"
+      ],
+      "outputPath": "knowledge/04-content/video/"
+    },
+    {
+      "phrase": "linkedin thought leadership",
+      "owner": "linkedin-strategy",
+      "ownerName": "💼 LinkedIn Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "04-content/social/",
+        "04-content/copy/"
+      ],
+      "outputPath": "knowledge/04-content/social/linkedin/"
+    },
+    {
+      "phrase": "linkedin connection request",
+      "owner": "linkedin-strategy",
+      "ownerName": "💼 LinkedIn Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "04-content/social/",
+        "04-content/copy/"
+      ],
+      "outputPath": "knowledge/04-content/social/linkedin/"
+    },
+    {
+      "phrase": "email verification friction",
+      "owner": "signup",
+      "ownerName": "✍️ Signup Flow Optimization",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "04-content/landing-pages/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/signup/"
+    },
+    {
+      "phrase": "repurpose my youtube video",
+      "owner": "video-to-shorts",
+      "ownerName": "✂️ Video to Shorts",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/video/"
+      ],
+      "outputPath": "knowledge/04-content/video/"
+    },
+    {
+      "phrase": "cross-platform repurposing",
+      "owner": "social-media-strategy",
+      "ownerName": "📢 Social Media Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/social/",
+        "04-content/video/"
+      ],
+      "outputPath": "knowledge/04-content/social/"
+    },
+    {
+      "phrase": "local business description",
+      "owner": "local-seo",
+      "ownerName": "📍 Local SEO",
+      "requires": [
+        "02-market-research/",
+        "01-brand/personas/"
+      ],
+      "outputPath": "knowledge/04-content/seo/local/"
+    },
+    {
+      "phrase": "competitor ad intelligence",
+      "owner": "paid-ads-ops",
+      "ownerName": "📊 Paid Ads Operations",
+      "requires": [
+        "02-market-research/",
+        "03-campaigns/paid-search/",
+        "03-campaigns/paid-social/",
+        "04-content/copy/",
+        "04-content/landing-pages/"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/audits/"
+    },
+    {
+      "phrase": "marketing to sales handoff",
+      "owner": "revops",
+      "ownerName": "🔄 Revenue Operations",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "03-campaigns/outbound/",
+        "04-content/copy/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/revops/"
+    },
+    {
+      "phrase": "why is my site not ranking",
+      "owner": "seo-audit",
+      "ownerName": "🔍 SEO Audit",
+      "requires": [
+        "02-market-research/",
+        "04-content/seo/",
+        "04-content/landing-pages/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/04-content/seo/audits/"
+    },
+    {
+      "phrase": "measuring signup by source",
+      "owner": "signup",
+      "ownerName": "✍️ Signup Flow Optimization",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "04-content/landing-pages/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/signup/"
+    },
+    {
+      "phrase": "conversion tracking google",
+      "owner": "google-ads-strategy",
+      "ownerName": "🔍 Google Ads Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/paid-search/",
+        "04-content/copy/",
+        "04-content/landing-pages/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/strategy/"
+    },
+    {
+      "phrase": "automate tiktok slideshow",
+      "owner": "tiktok-slideshow",
+      "ownerName": "📊 TikTok Slideshow",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/"
+      ],
+      "outputPath": "knowledge/04-content/video/"
+    },
+    {
+      "phrase": "turn this into a carousel",
+      "owner": "instagram-carousel",
+      "ownerName": "📱 Instagram Carousel",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/"
+      ],
+      "outputPath": "knowledge/04-content/social/"
+    },
+    {
+      "phrase": "long video to short clips",
+      "owner": "video-to-shorts",
+      "ownerName": "✂️ Video to Shorts",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/video/"
+      ],
+      "outputPath": "knowledge/04-content/video/"
+    },
+    {
+      "phrase": "linkedin content strategy",
+      "owner": "linkedin-strategy",
+      "ownerName": "💼 LinkedIn Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "04-content/social/",
+        "04-content/copy/"
+      ],
+      "outputPath": "knowledge/04-content/social/linkedin/"
+    },
+    {
+      "phrase": "internal linking analysis",
+      "owner": "seo-audit",
+      "ownerName": "🔍 SEO Audit",
+      "requires": [
+        "02-market-research/",
+        "04-content/seo/",
+        "04-content/landing-pages/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/04-content/seo/audits/"
+    },
+    {
+      "phrase": "statistical significance",
+      "owner": "ab-testing",
+      "ownerName": "🧪 undefined",
+      "requires": [
+        "06-playbooks/experiment-backlog.md",
+        "05-analytics-reports/experiments/"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/experiments/"
+    },
+    {
+      "phrase": "instagram reel to script",
+      "owner": "instagram-reel-to-script",
+      "ownerName": "🎬 Instagram Reel to Script",
+      "requires": [
+        "01-brand/personas/",
+        "03-campaigns/outbound/",
+        "04-content/video/"
+      ],
+      "outputPath": "knowledge/04-content/video/"
+    },
+    {
+      "phrase": "make reels from my video",
+      "owner": "video-to-shorts",
+      "ownerName": "✂️ Video to Shorts",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/video/"
+      ],
+      "outputPath": "knowledge/04-content/video/"
+    },
+    {
+      "phrase": "linkedin lead generation",
+      "owner": "linkedin-strategy",
+      "ownerName": "💼 LinkedIn Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "04-content/social/",
+        "04-content/copy/"
+      ],
+      "outputPath": "knowledge/04-content/social/linkedin/"
+    },
+    {
+      "phrase": "google rich results test",
+      "owner": "schema",
+      "ownerName": "🏗️ Schema Markup & Structured Data",
+      "requires": [
+        "02-market-research/",
+        "04-content/seo/",
+        "04-content/landing-pages/"
+      ],
+      "outputPath": "knowledge/04-content/seo/schema/"
+    },
+    {
+      "phrase": "enhanced search features",
+      "owner": "schema",
+      "ownerName": "🏗️ Schema Markup & Structured Data",
+      "requires": [
+        "02-market-research/",
+        "04-content/seo/",
+        "04-content/landing-pages/"
+      ],
+      "outputPath": "knowledge/04-content/seo/schema/"
+    },
+    {
+      "phrase": "signup form optimization",
+      "owner": "signup",
+      "ownerName": "✍️ Signup Flow Optimization",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "04-content/landing-pages/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/signup/"
+    },
+    {
+      "phrase": "instagram dm automation",
+      "owner": "openreply",
+      "ownerName": "💬 OpenReply — Comment-to-DM",
+      "requires": [
+        "01-brand/personas/",
+        "03-campaigns/lead-gen/",
+        "04-content/copy/"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/"
+    },
+    {
+      "phrase": "critique this messaging",
+      "owner": "copy-editing",
+      "ownerName": "📝 undefined",
+      "requires": [
+        "04-content/copy/"
+      ],
+      "outputPath": "knowledge/04-content/copy/edited/"
+    },
+    {
+      "phrase": "experiment optimization",
+      "owner": "growth-engine",
+      "ownerName": "🚀 undefined",
+      "requires": [
+        "03-campaigns/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/03-campaigns/growth/"
+    },
+    {
+      "phrase": "clean up this recording",
+      "owner": "video-editing",
+      "ownerName": "🎥 Video Editing",
+      "requires": [
+        "01-brand/personas/",
+        "03-campaigns/outbound/",
+        "04-content/video/"
+      ],
+      "outputPath": "knowledge/04-content/video/"
+    },
+    {
+      "phrase": "edit talking head video",
+      "owner": "video-editing",
+      "ownerName": "🎥 Video Editing",
+      "requires": [
+        "01-brand/personas/",
+        "03-campaigns/outbound/",
+        "04-content/video/"
+      ],
+      "outputPath": "knowledge/04-content/video/"
+    },
+    {
+      "phrase": "google business profile",
+      "owner": "local-seo",
+      "ownerName": "📍 Local SEO",
+      "requires": [
+        "02-market-research/",
+        "01-brand/personas/"
+      ],
+      "outputPath": "knowledge/04-content/seo/local/"
+    },
+    {
+      "phrase": "linkedin for executives",
+      "owner": "linkedin-strategy",
+      "ownerName": "💼 LinkedIn Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "04-content/social/",
+        "04-content/copy/"
+      ],
+      "outputPath": "knowledge/04-content/social/linkedin/"
+    },
+    {
+      "phrase": "users aren't activating",
+      "owner": "onboarding",
+      "ownerName": "🚀 Customer Onboarding",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "04-content/email/",
+        "04-content/onboarding/"
+      ],
+      "outputPath": "knowledge/03-campaigns/automation/onboarding/"
+    },
+    {
+      "phrase": "competitor gap analysis",
+      "owner": "seo-audit",
+      "ownerName": "🔍 SEO Audit",
+      "requires": [
+        "02-market-research/",
+        "04-content/seo/",
+        "04-content/landing-pages/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/04-content/seo/audits/"
+    },
+    {
+      "phrase": "content for my business",
+      "owner": "social-content-planner",
+      "ownerName": "📅 Social Content Planner",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/social/",
+        "04-content/social/calendar/"
+      ],
+      "outputPath": "knowledge/04-content/social/planner/"
+    },
+    {
+      "phrase": "one piece many formats",
+      "owner": "content-repurposing",
+      "ownerName": "🔄 undefined",
+      "requires": [
+        "04-content/drafts/",
+        "04-content/social/"
+      ],
+      "outputPath": "knowledge/04-content/repurposed/"
+    },
+    {
+      "phrase": "multi-channel outreach",
+      "owner": "outreach-system",
+      "ownerName": "🌐 undefined",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/messaging/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/outbound/"
+    },
+    {
+      "phrase": "product-led onboarding",
+      "owner": "onboarding",
+      "ownerName": "🚀 Customer Onboarding",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "04-content/email/",
+        "04-content/onboarding/"
+      ],
+      "outputPath": "knowledge/03-campaigns/automation/onboarding/"
+    },
+    {
+      "phrase": "onboarding flow design",
+      "owner": "onboarding",
+      "ownerName": "🚀 Customer Onboarding",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "04-content/email/",
+        "04-content/onboarding/"
+      ],
+      "outputPath": "knowledge/03-campaigns/automation/onboarding/"
+    },
+    {
+      "phrase": "van westendorp pricing",
+      "owner": "pricing",
+      "ownerName": "💰 Pricing Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/launches/",
+        "04-content/landing-pages/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/01-brand/messaging/pricing/"
+    },
+    {
+      "phrase": "why deals are stalling",
+      "owner": "revops",
+      "ownerName": "🔄 Revenue Operations",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "03-campaigns/outbound/",
+        "04-content/copy/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/revops/"
+    },
+    {
+      "phrase": "title tag optimization",
+      "owner": "seo-audit",
+      "ownerName": "🔍 SEO Audit",
+      "requires": [
+        "02-market-research/",
+        "04-content/seo/",
+        "04-content/landing-pages/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/04-content/seo/audits/"
+    },
+    {
+      "phrase": "signup conversion rate",
+      "owner": "signup",
+      "ownerName": "✍️ Signup Flow Optimization",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "04-content/landing-pages/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/signup/"
+    },
+    {
+      "phrase": "google search campaign",
+      "owner": "google-ads-strategy",
+      "ownerName": "🔍 Google Ads Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/paid-search/",
+        "04-content/copy/",
+        "04-content/landing-pages/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/strategy/"
+    },
+    {
+      "phrase": "google ads not working",
+      "owner": "google-ads-strategy",
+      "ownerName": "🔍 Google Ads Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/paid-search/",
+        "04-content/copy/",
+        "04-content/landing-pages/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/strategy/"
+    },
+    {
+      "phrase": "make this sound human",
+      "owner": "content-humanizer",
+      "ownerName": "✨ Content Humanizer",
+      "requires": [
+        "04-content/copy/",
+        "01-brand/voice-and-tone.md"
+      ],
+      "outputPath": "knowledge/04-content/copy/humanized/"
+    },
+    {
+      "phrase": "brand-aligned rewrite",
+      "owner": "content-humanizer",
+      "ownerName": "✨ Content Humanizer",
+      "requires": [
+        "04-content/copy/",
+        "01-brand/voice-and-tone.md"
+      ],
+      "outputPath": "knowledge/04-content/copy/humanized/"
+    },
+    {
+      "phrase": "format recommendation",
+      "owner": "content-repurposing",
+      "ownerName": "🔄 undefined",
+      "requires": [
+        "04-content/drafts/",
+        "04-content/social/"
+      ],
+      "outputPath": "knowledge/04-content/repurposed/"
+    },
+    {
+      "phrase": "punch up this writing",
+      "owner": "copy-editing",
+      "ownerName": "📝 undefined",
+      "requires": [
+        "04-content/copy/"
+      ],
+      "outputPath": "knowledge/04-content/copy/edited/"
+    },
+    {
+      "phrase": "autonomous experiment",
+      "owner": "growth-engine",
+      "ownerName": "🚀 undefined",
+      "requires": [
+        "03-campaigns/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/03-campaigns/growth/"
+    },
+    {
+      "phrase": "measurable initiative",
+      "owner": "content-eval",
+      "ownerName": "📊 undefined",
+      "requires": [
+        "05-analytics-reports/",
+        "04-content/drafts/"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/content-eval/"
+    },
+    {
+      "phrase": "why did this go viral",
+      "owner": "instagram-reel-to-script",
+      "ownerName": "🎬 Instagram Reel to Script",
+      "requires": [
+        "01-brand/personas/",
+        "03-campaigns/outbound/",
+        "04-content/video/"
+      ],
+      "outputPath": "knowledge/04-content/video/"
+    },
+    {
+      "phrase": "make tiktok slideshow",
+      "owner": "tiktok-slideshow",
+      "ownerName": "📊 TikTok Slideshow",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/"
+      ],
+      "outputPath": "knowledge/04-content/video/"
+    },
+    {
+      "phrase": "social media strategy",
+      "owner": "social-media-strategy",
+      "ownerName": "📢 Social Media Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/social/",
+        "04-content/video/"
+      ],
+      "outputPath": "knowledge/04-content/social/"
+    },
+    {
+      "phrase": "local review response",
+      "owner": "local-seo",
+      "ownerName": "📍 Local SEO",
+      "requires": [
+        "02-market-research/",
+        "01-brand/personas/"
+      ],
+      "outputPath": "knowledge/04-content/seo/local/"
+    },
+    {
+      "phrase": "referral landing page",
+      "owner": "referrals",
+      "ownerName": "🤝 Customer Referral Program",
+      "requires": [
+        "02-market-research/",
+        "03-campaigns/partnerships/",
+        "03-campaigns/lead-gen/"
+      ],
+      "outputPath": "knowledge/03-campaigns/partnerships/referrals/"
+    },
+    {
+      "phrase": "double-sided referral",
+      "owner": "referrals",
+      "ownerName": "🤝 Customer Referral Program",
+      "requires": [
+        "02-market-research/",
+        "03-campaigns/partnerships/",
+        "03-campaigns/lead-gen/"
+      ],
+      "outputPath": "knowledge/03-campaigns/partnerships/referrals/"
+    },
+    {
+      "phrase": "single-sided referral",
+      "owner": "referrals",
+      "ownerName": "🤝 Customer Referral Program",
+      "requires": [
+        "02-market-research/",
+        "03-campaigns/partnerships/",
+        "03-campaigns/lead-gen/"
+      ],
+      "outputPath": "knowledge/03-campaigns/partnerships/referrals/"
+    },
+    {
+      "phrase": "linkedin company page",
+      "owner": "linkedin-strategy",
+      "ownerName": "💼 LinkedIn Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "04-content/social/",
+        "04-content/copy/"
+      ],
+      "outputPath": "knowledge/04-content/social/linkedin/"
+    },
+    {
+      "phrase": "linkedin for founders",
+      "owner": "linkedin-strategy",
+      "ownerName": "💼 LinkedIn Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "04-content/social/",
+        "04-content/copy/"
+      ],
+      "outputPath": "knowledge/04-content/social/linkedin/"
+    },
+    {
+      "phrase": "popup conversion rate",
+      "owner": "popups",
+      "ownerName": "🪟 Conversion Popups",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "04-content/landing-pages/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/popups/"
+    },
+    {
+      "phrase": "marketing attribution",
+      "owner": "revops",
+      "ownerName": "🔄 Revenue Operations",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "03-campaigns/outbound/",
+        "04-content/copy/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/revops/"
+    },
+    {
+      "phrase": "breadcrumblist schema",
+      "owner": "schema",
+      "ownerName": "🏗️ Schema Markup & Structured Data",
+      "requires": [
+        "02-market-research/",
+        "04-content/seo/",
+        "04-content/landing-pages/"
+      ],
+      "outputPath": "knowledge/04-content/seo/schema/"
+    },
+    {
+      "phrase": "free trial activation",
+      "owner": "signup",
+      "ownerName": "✍️ Signup Flow Optimization",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "04-content/landing-pages/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/signup/"
+    },
+    {
+      "phrase": "progressive profiling",
+      "owner": "signup",
+      "ownerName": "✍️ Signup Flow Optimization",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "04-content/landing-pages/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/signup/"
+    },
+    {
+      "phrase": "social media analysis",
+      "owner": "social-media-analyzer",
+      "ownerName": "📈 Social Media Analyzer",
+      "requires": [
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/social/",
+        "05-analytics-reports/",
+        "05-analytics-reports/social/"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/social/"
+    },
+    {
+      "phrase": "launch story sequence",
+      "owner": "social-content-planner",
+      "ownerName": "📅 Social Content Planner",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/social/",
+        "04-content/social/calendar/"
+      ],
+      "outputPath": "knowledge/04-content/social/planner/"
+    },
+    {
+      "phrase": "responsive search ads",
+      "owner": "google-ads-strategy",
+      "ownerName": "🔍 Google Ads Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/paid-search/",
+        "04-content/copy/",
+        "04-content/landing-pages/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/strategy/"
+    },
+    {
       "phrase": "competitive research",
       "owner": "market-researcher",
       "ownerName": "🔎 Market Researcher",
@@ -11,6 +845,160 @@
         "02-market-research/"
       ],
       "outputPath": "knowledge/02-market-research/"
+    },
+    {
+      "phrase": "improve this content",
+      "owner": "copy-editing",
+      "ownerName": "📝 undefined",
+      "requires": [
+        "04-content/copy/"
+      ],
+      "outputPath": "knowledge/04-content/copy/edited/"
+    },
+    {
+      "phrase": "revenue intelligence",
+      "owner": "revenue-intelligence",
+      "ownerName": "💰 undefined",
+      "requires": [
+        "05-analytics-reports/",
+        "03-campaigns/"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/revenue/"
+    },
+    {
+      "phrase": "app marketing tiktok",
+      "owner": "tiktok-slideshow",
+      "ownerName": "📊 TikTok Slideshow",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/"
+      ],
+      "outputPath": "knowledge/04-content/video/"
+    },
+    {
+      "phrase": "educational carousel",
+      "owner": "instagram-carousel",
+      "ownerName": "📱 Instagram Carousel",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/"
+      ],
+      "outputPath": "knowledge/04-content/social/"
+    },
+    {
+      "phrase": "first-run experience",
+      "owner": "onboarding",
+      "ownerName": "🚀 Customer Onboarding",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "04-content/email/",
+        "04-content/onboarding/"
+      ],
+      "outputPath": "knowledge/03-campaigns/automation/onboarding/"
+    },
+    {
+      "phrase": "onboarding checklist",
+      "owner": "onboarding",
+      "ownerName": "🚀 Customer Onboarding",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "04-content/email/",
+        "04-content/onboarding/"
+      ],
+      "outputPath": "knowledge/03-campaigns/automation/onboarding/"
+    },
+    {
+      "phrase": "activation milestone",
+      "owner": "onboarding",
+      "ownerName": "🚀 Customer Onboarding",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "04-content/email/",
+        "04-content/onboarding/"
+      ],
+      "outputPath": "knowledge/03-campaigns/automation/onboarding/"
+    },
+    {
+      "phrase": "should i use a popup",
+      "owner": "popups",
+      "ownerName": "🪟 Conversion Popups",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "04-content/landing-pages/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/popups/"
+    },
+    {
+      "phrase": "localbusiness schema",
+      "owner": "schema",
+      "ownerName": "🏗️ Schema Markup & Structured Data",
+      "requires": [
+        "02-market-research/",
+        "04-content/seo/",
+        "04-content/landing-pages/"
+      ],
+      "outputPath": "knowledge/04-content/seo/schema/"
+    },
+    {
+      "phrase": "ai search visibility",
+      "owner": "schema",
+      "ownerName": "🏗️ Schema Markup & Structured Data",
+      "requires": [
+        "02-market-research/",
+        "04-content/seo/",
+        "04-content/landing-pages/"
+      ],
+      "outputPath": "knowledge/04-content/seo/schema/"
+    },
+    {
+      "phrase": "form field reduction",
+      "owner": "signup",
+      "ownerName": "✍️ Signup Flow Optimization",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "04-content/landing-pages/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/signup/"
+    },
+    {
+      "phrase": "funnel stage content",
+      "owner": "social-content-planner",
+      "ownerName": "📅 Social Content Planner",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/social/",
+        "04-content/social/calendar/"
+      ],
+      "outputPath": "knowledge/04-content/social/planner/"
+    },
+    {
+      "phrase": "rewrite this caption",
+      "owner": "social-content-planner",
+      "ownerName": "📅 Social Content Planner",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/social/",
+        "04-content/social/calendar/"
+      ],
+      "outputPath": "knowledge/04-content/social/planner/"
     },
     {
       "phrase": "messaging hierarchy",
@@ -63,6 +1051,327 @@
       "outputPath": "knowledge/04-content/email/"
     },
     {
+      "phrase": "content repurposing",
+      "owner": "content-repurposing",
+      "ownerName": "🔄 undefined",
+      "requires": [
+        "04-content/drafts/",
+        "04-content/social/"
+      ],
+      "outputPath": "knowledge/04-content/repurposed/"
+    },
+    {
+      "phrase": "revenue attribution",
+      "owner": "revenue-intelligence",
+      "ownerName": "💰 undefined",
+      "requires": [
+        "05-analytics-reports/",
+        "03-campaigns/"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/revenue/"
+    },
+    {
+      "phrase": "competitive monitor",
+      "owner": "outbound-engine",
+      "ownerName": "📬 undefined",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/"
+      ],
+      "outputPath": "knowledge/03-campaigns/outbound/"
+    },
+    {
+      "phrase": "cold email outreach",
+      "owner": "outreach-engine",
+      "ownerName": "📬 Outreach Engine",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/copy/"
+      ],
+      "outputPath": "knowledge/03-campaigns/outbound/"
+    },
+    {
+      "phrase": "prospect enrichment",
+      "owner": "signal-prospector",
+      "ownerName": "🎯 undefined",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "03-campaigns/outbound/"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/"
+    },
+    {
+      "phrase": "autonomous outreach",
+      "owner": "outreach-system",
+      "ownerName": "🌐 undefined",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/messaging/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/outbound/"
+    },
+    {
+      "phrase": "response management",
+      "owner": "outreach-system",
+      "ownerName": "🌐 undefined",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/messaging/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/outbound/"
+    },
+    {
+      "phrase": "slideshow marketing",
+      "owner": "tiktok-slideshow",
+      "ownerName": "📊 TikTok Slideshow",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/"
+      ],
+      "outputPath": "knowledge/04-content/video/"
+    },
+    {
+      "phrase": "carousel for my app",
+      "owner": "instagram-carousel",
+      "ownerName": "📱 Instagram Carousel",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/"
+      ],
+      "outputPath": "knowledge/04-content/social/"
+    },
+    {
+      "phrase": "remove filler words",
+      "owner": "video-editing",
+      "ownerName": "🎥 Video Editing",
+      "requires": [
+        "01-brand/personas/",
+        "03-campaigns/outbound/",
+        "04-content/video/"
+      ],
+      "outputPath": "knowledge/04-content/video/"
+    },
+    {
+      "phrase": "competitor analysis",
+      "owner": "social-media-strategy",
+      "ownerName": "📢 Social Media Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/social/",
+        "04-content/video/"
+      ],
+      "outputPath": "knowledge/04-content/social/"
+    },
+    {
+      "phrase": "low activation rate",
+      "owner": "onboarding",
+      "ownerName": "🚀 Customer Onboarding",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "04-content/email/",
+        "04-content/onboarding/"
+      ],
+      "outputPath": "knowledge/03-campaigns/automation/onboarding/"
+    },
+    {
+      "phrase": "campaign operations",
+      "owner": "paid-ads-ops",
+      "ownerName": "📊 Paid Ads Operations",
+      "requires": [
+        "02-market-research/",
+        "03-campaigns/paid-search/",
+        "03-campaigns/paid-social/",
+        "04-content/copy/",
+        "04-content/landing-pages/"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/audits/"
+    },
+    {
+      "phrase": "email capture popup",
+      "owner": "popups",
+      "ownerName": "🪟 Conversion Popups",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "04-content/landing-pages/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/popups/"
+    },
+    {
+      "phrase": "announcement banner",
+      "owner": "popups",
+      "ownerName": "🪟 Conversion Popups",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "04-content/landing-pages/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/popups/"
+    },
+    {
+      "phrase": "usage-based pricing",
+      "owner": "pricing",
+      "ownerName": "💰 Pricing Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/launches/",
+        "04-content/landing-pages/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/01-brand/messaging/pricing/"
+    },
+    {
+      "phrase": "pricing page design",
+      "owner": "pricing",
+      "ownerName": "💰 Pricing Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/launches/",
+        "04-content/landing-pages/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/01-brand/messaging/pricing/"
+    },
+    {
+      "phrase": "organization schema",
+      "owner": "schema",
+      "ownerName": "🏗️ Schema Markup & Structured Data",
+      "requires": [
+        "02-market-research/",
+        "04-content/seo/",
+        "04-content/landing-pages/"
+      ],
+      "outputPath": "knowledge/04-content/seo/schema/"
+    },
+    {
+      "phrase": "instagram analytics",
+      "owner": "social-media-analyzer",
+      "ownerName": "📈 Social Media Analyzer",
+      "requires": [
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/social/",
+        "05-analytics-reports/",
+        "05-analytics-reports/social/"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/social/"
+    },
+    {
+      "phrase": "weekly content plan",
+      "owner": "social-content-planner",
+      "ownerName": "📅 Social Content Planner",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/social/",
+        "04-content/social/calendar/"
+      ],
+      "outputPath": "knowledge/04-content/social/planner/"
+    },
+    {
+      "phrase": "repurpose this post",
+      "owner": "social-content-planner",
+      "ownerName": "📅 Social Content Planner",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/social/",
+        "04-content/social/calendar/"
+      ],
+      "outputPath": "knowledge/04-content/social/planner/"
+    },
+    {
+      "phrase": "facebook group post",
+      "owner": "social-content-planner",
+      "ownerName": "📅 Social Content Planner",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/social/",
+        "04-content/social/calendar/"
+      ],
+      "outputPath": "knowledge/04-content/social/planner/"
+    },
+    {
+      "phrase": "content performance",
+      "owner": "social-content-planner",
+      "ownerName": "📅 Social Content Planner",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/social/",
+        "04-content/social/calendar/"
+      ],
+      "outputPath": "knowledge/04-content/social/planner/"
+    },
+    {
+      "phrase": "optimize for shares",
+      "owner": "social-content-planner",
+      "ownerName": "📅 Social Content Planner",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/social/",
+        "04-content/social/calendar/"
+      ],
+      "outputPath": "knowledge/04-content/social/planner/"
+    },
+    {
+      "phrase": "social content plan",
+      "owner": "social-content-planner",
+      "ownerName": "📅 Social Content Planner",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/social/",
+        "04-content/social/calendar/"
+      ],
+      "outputPath": "knowledge/04-content/social/planner/"
+    },
+    {
+      "phrase": "optimize google ads",
+      "owner": "google-ads-strategy",
+      "ownerName": "🔍 Google Ads Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/paid-search/",
+        "04-content/copy/",
+        "04-content/landing-pages/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/strategy/"
+    },
+    {
       "phrase": "performance digest",
       "owner": "analytics-engine",
       "ownerName": "📊 Analytics Engine",
@@ -91,6 +1400,305 @@
         "05-analytics-reports/experiments/"
       ],
       "outputPath": "knowledge/05-analytics-reports/experiments/"
+    },
+    {
+      "phrase": "Instagram outreach",
+      "owner": "outreach-system",
+      "ownerName": "🌐 undefined",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/messaging/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/outbound/"
+    },
+    {
+      "phrase": "copy trending reel",
+      "owner": "instagram-reel-to-script",
+      "ownerName": "🎬 Instagram Reel to Script",
+      "requires": [
+        "01-brand/personas/",
+        "03-campaigns/outbound/",
+        "04-content/video/"
+      ],
+      "outputPath": "knowledge/04-content/video/"
+    },
+    {
+      "phrase": "instagram carousel",
+      "owner": "instagram-carousel",
+      "ownerName": "📱 Instagram Carousel",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/"
+      ],
+      "outputPath": "knowledge/04-content/social/"
+    },
+    {
+      "phrase": "engagement routine",
+      "owner": "social-media-strategy",
+      "ownerName": "📢 Social Media Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/social/",
+        "04-content/video/"
+      ],
+      "outputPath": "knowledge/04-content/social/"
+    },
+    {
+      "phrase": "batch content plan",
+      "owner": "social-media-strategy",
+      "ownerName": "📢 Social Media Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/social/",
+        "04-content/video/"
+      ],
+      "outputPath": "knowledge/04-content/social/"
+    },
+    {
+      "phrase": "local landing page",
+      "owner": "local-seo",
+      "ownerName": "📍 Local SEO",
+      "requires": [
+        "02-market-research/",
+        "01-brand/personas/"
+      ],
+      "outputPath": "knowledge/04-content/seo/local/"
+    },
+    {
+      "phrase": "multi-location seo",
+      "owner": "local-seo",
+      "ownerName": "📍 Local SEO",
+      "requires": [
+        "02-market-research/",
+        "01-brand/personas/"
+      ],
+      "outputPath": "knowledge/04-content/seo/local/"
+    },
+    {
+      "phrase": "referral incentive",
+      "owner": "referrals",
+      "ownerName": "🤝 Customer Referral Program",
+      "requires": [
+        "02-market-research/",
+        "03-campaigns/partnerships/",
+        "03-campaigns/lead-gen/"
+      ],
+      "outputPath": "knowledge/03-campaigns/partnerships/referrals/"
+    },
+    {
+      "phrase": "ambassador program",
+      "owner": "referrals",
+      "ownerName": "🤝 Customer Referral Program",
+      "requires": [
+        "02-market-research/",
+        "03-campaigns/partnerships/",
+        "03-campaigns/lead-gen/"
+      ],
+      "outputPath": "knowledge/03-campaigns/partnerships/referrals/"
+    },
+    {
+      "phrase": "customer interview",
+      "owner": "customer-story-builder",
+      "ownerName": "📖 Customer Story Builder",
+      "requires": [
+        "02-market-research/",
+        "04-content/copy/",
+        "04-content/case-studies/"
+      ],
+      "outputPath": "knowledge/04-content/case-studies/"
+    },
+    {
+      "phrase": "improve onboarding",
+      "owner": "onboarding",
+      "ownerName": "🚀 Customer Onboarding",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "04-content/email/",
+        "04-content/onboarding/"
+      ],
+      "outputPath": "knowledge/03-campaigns/automation/onboarding/"
+    },
+    {
+      "phrase": "lead capture modal",
+      "owner": "popups",
+      "ownerName": "🪟 Conversion Popups",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "04-content/landing-pages/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/popups/"
+    },
+    {
+      "phrase": "popup alternatives",
+      "owner": "popups",
+      "ownerName": "🪟 Conversion Popups",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "04-content/landing-pages/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/popups/"
+    },
+    {
+      "phrase": "willingness to pay",
+      "owner": "pricing",
+      "ownerName": "💰 Pricing Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/launches/",
+        "04-content/landing-pages/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/01-brand/messaging/pricing/"
+    },
+    {
+      "phrase": "packaging strategy",
+      "owner": "pricing",
+      "ownerName": "💰 Pricing Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/launches/",
+        "04-content/landing-pages/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/01-brand/messaging/pricing/"
+    },
+    {
+      "phrase": "signup abandonment",
+      "owner": "signup",
+      "ownerName": "✍️ Signup Flow Optimization",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "04-content/landing-pages/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/signup/"
+    },
+    {
+      "phrase": "social performance",
+      "owner": "social-media-analyzer",
+      "ownerName": "📈 Social Media Analyzer",
+      "requires": [
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/social/",
+        "05-analytics-reports/",
+        "05-analytics-reports/social/"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/social/"
+    },
+    {
+      "phrase": "social media audit",
+      "owner": "social-media-analyzer",
+      "ownerName": "📈 Social Media Analyzer",
+      "requires": [
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/social/",
+        "05-analytics-reports/",
+        "05-analytics-reports/social/"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/social/"
+    },
+    {
+      "phrase": "linkedin analytics",
+      "owner": "social-media-analyzer",
+      "ownerName": "📈 Social Media Analyzer",
+      "requires": [
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/social/",
+        "05-analytics-reports/",
+        "05-analytics-reports/social/"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/social/"
+    },
+    {
+      "phrase": "facebook analytics",
+      "owner": "social-media-analyzer",
+      "ownerName": "📈 Social Media Analyzer",
+      "requires": [
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/social/",
+        "05-analytics-reports/",
+        "05-analytics-reports/social/"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/social/"
+    },
+    {
+      "phrase": "optimize for saves",
+      "owner": "social-content-planner",
+      "ownerName": "📅 Social Content Planner",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/social/",
+        "04-content/social/calendar/"
+      ],
+      "outputPath": "knowledge/04-content/social/planner/"
+    },
+    {
+      "phrase": "ad group structure",
+      "owner": "google-ads-strategy",
+      "ownerName": "🔍 Google Ads Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/paid-search/",
+        "04-content/copy/",
+        "04-content/landing-pages/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/strategy/"
+    },
+    {
+      "phrase": "search term report",
+      "owner": "google-ads-strategy",
+      "ownerName": "🔍 Google Ads Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/paid-search/",
+        "04-content/copy/",
+        "04-content/landing-pages/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/strategy/"
+    },
+    {
+      "phrase": "campaign structure",
+      "owner": "meta-ads-strategy",
+      "ownerName": "📘 Meta Ads Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/paid-social/",
+        "04-content/copy/",
+        "04-content/landing-pages/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-social/strategy/"
     },
     {
       "phrase": "voice of customer",
@@ -162,6 +1770,458 @@
         "06-playbooks/compliance-checklists.md"
       ],
       "outputPath": "knowledge/04-content/messaging/"
+    },
+    {
+      "phrase": "instagram comment",
+      "owner": "openreply",
+      "ownerName": "💬 OpenReply — Comment-to-DM",
+      "requires": [
+        "01-brand/personas/",
+        "03-campaigns/lead-gen/",
+        "04-content/copy/"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/"
+    },
+    {
+      "phrase": "content humanizer",
+      "owner": "content-humanizer",
+      "ownerName": "✨ Content Humanizer",
+      "requires": [
+        "04-content/copy/",
+        "01-brand/voice-and-tone.md"
+      ],
+      "outputPath": "knowledge/04-content/copy/humanized/"
+    },
+    {
+      "phrase": "growth experiment",
+      "owner": "ab-testing",
+      "ownerName": "🧪 undefined",
+      "requires": [
+        "06-playbooks/experiment-backlog.md",
+        "05-analytics-reports/experiments/"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/experiments/"
+    },
+    {
+      "phrase": "multivariate test",
+      "owner": "ab-testing",
+      "ownerName": "🧪 undefined",
+      "requires": [
+        "06-playbooks/experiment-backlog.md",
+        "05-analytics-reports/experiments/"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/experiments/"
+    },
+    {
+      "phrase": "outbound sequence",
+      "owner": "outbound-engine",
+      "ownerName": "📬 undefined",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/"
+      ],
+      "outputPath": "knowledge/03-campaigns/outbound/"
+    },
+    {
+      "phrase": "content scorecard",
+      "owner": "content-eval",
+      "ownerName": "📊 undefined",
+      "requires": [
+        "05-analytics-reports/",
+        "04-content/drafts/"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/content-eval/"
+    },
+    {
+      "phrase": "contact waterfall",
+      "owner": "outreach-engine",
+      "ownerName": "📬 Outreach Engine",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/copy/"
+      ],
+      "outputPath": "knowledge/03-campaigns/outbound/"
+    },
+    {
+      "phrase": "outbound playbook",
+      "owner": "outreach-engine",
+      "ownerName": "📬 Outreach Engine",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/copy/"
+      ],
+      "outputPath": "knowledge/03-campaigns/outbound/"
+    },
+    {
+      "phrase": "signal prospector",
+      "owner": "signal-prospector",
+      "ownerName": "🎯 undefined",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "03-campaigns/outbound/"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/"
+    },
+    {
+      "phrase": "Google Maps leads",
+      "owner": "outreach-system",
+      "ownerName": "🌐 undefined",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/messaging/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/outbound/"
+    },
+    {
+      "phrase": "WhatsApp outreach",
+      "owner": "outreach-system",
+      "ownerName": "🌐 undefined",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/messaging/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/outbound/"
+    },
+    {
+      "phrase": "carousel template",
+      "owner": "instagram-carousel",
+      "ownerName": "📱 Instagram Carousel",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/"
+      ],
+      "outputPath": "knowledge/04-content/social/"
+    },
+    {
+      "phrase": "jump cut my video",
+      "owner": "video-editing",
+      "ownerName": "🎥 Video Editing",
+      "requires": [
+        "01-brand/personas/",
+        "03-campaigns/outbound/",
+        "04-content/video/"
+      ],
+      "outputPath": "knowledge/04-content/video/"
+    },
+    {
+      "phrase": "audience research",
+      "owner": "social-media-strategy",
+      "ownerName": "📢 Social Media Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/social/",
+        "04-content/video/"
+      ],
+      "outputPath": "knowledge/04-content/social/"
+    },
+    {
+      "phrase": "service area page",
+      "owner": "local-seo",
+      "ownerName": "📍 Local SEO",
+      "requires": [
+        "02-market-research/",
+        "01-brand/personas/"
+      ],
+      "outputPath": "knowledge/04-content/seo/local/"
+    },
+    {
+      "phrase": "affiliate program",
+      "owner": "referrals",
+      "ownerName": "🤝 Customer Referral Program",
+      "requires": [
+        "02-market-research/",
+        "03-campaigns/partnerships/",
+        "03-campaigns/lead-gen/"
+      ],
+      "outputPath": "knowledge/03-campaigns/partnerships/referrals/"
+    },
+    {
+      "phrase": "customer referral",
+      "owner": "referrals",
+      "ownerName": "🤝 Customer Referral Program",
+      "requires": [
+        "02-market-research/",
+        "03-campaigns/partnerships/",
+        "03-campaigns/lead-gen/"
+      ],
+      "outputPath": "knowledge/03-campaigns/partnerships/referrals/"
+    },
+    {
+      "phrase": "customer evidence",
+      "owner": "customer-story-builder",
+      "ownerName": "📖 Customer Story Builder",
+      "requires": [
+        "02-market-research/",
+        "04-content/copy/",
+        "04-content/case-studies/"
+      ],
+      "outputPath": "knowledge/04-content/case-studies/"
+    },
+    {
+      "phrase": "linkedin headline",
+      "owner": "linkedin-strategy",
+      "ownerName": "💼 LinkedIn Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "04-content/social/",
+        "04-content/copy/"
+      ],
+      "outputPath": "knowledge/04-content/social/linkedin/"
+    },
+    {
+      "phrase": "linkedin carousel",
+      "owner": "linkedin-strategy",
+      "ownerName": "💼 LinkedIn Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "04-content/social/",
+        "04-content/copy/"
+      ],
+      "outputPath": "knowledge/04-content/social/linkedin/"
+    },
+    {
+      "phrase": "linkedin outreach",
+      "owner": "linkedin-strategy",
+      "ownerName": "💼 LinkedIn Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "04-content/social/",
+        "04-content/copy/"
+      ],
+      "outputPath": "knowledge/04-content/social/linkedin/"
+    },
+    {
+      "phrase": "onboarding emails",
+      "owner": "onboarding",
+      "ownerName": "🚀 Customer Onboarding",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "04-content/email/",
+        "04-content/onboarding/"
+      ],
+      "outputPath": "knowledge/03-campaigns/automation/onboarding/"
+    },
+    {
+      "phrase": "exit intent popup",
+      "owner": "popups",
+      "ownerName": "🪟 Conversion Popups",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "04-content/landing-pages/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/popups/"
+    },
+    {
+      "phrase": "annual vs monthly",
+      "owner": "pricing",
+      "ownerName": "💰 Pricing Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/launches/",
+        "04-content/landing-pages/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/01-brand/messaging/pricing/"
+    },
+    {
+      "phrase": "how to price saas",
+      "owner": "pricing",
+      "ownerName": "💰 Pricing Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/launches/",
+        "04-content/landing-pages/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/01-brand/messaging/pricing/"
+    },
+    {
+      "phrase": "flat rate pricing",
+      "owner": "pricing",
+      "ownerName": "💰 Pricing Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/launches/",
+        "04-content/landing-pages/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/01-brand/messaging/pricing/"
+    },
+    {
+      "phrase": "schema validation",
+      "owner": "schema",
+      "ownerName": "🏗️ Schema Markup & Structured Data",
+      "requires": [
+        "02-market-research/",
+        "04-content/seo/",
+        "04-content/landing-pages/"
+      ],
+      "outputPath": "knowledge/04-content/seo/schema/"
+    },
+    {
+      "phrase": "heading structure",
+      "owner": "seo-audit",
+      "ownerName": "🔍 SEO Audit",
+      "requires": [
+        "02-market-research/",
+        "04-content/seo/",
+        "04-content/landing-pages/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/04-content/seo/audits/"
+    },
+    {
+      "phrase": "keyword targeting",
+      "owner": "seo-audit",
+      "ownerName": "🔍 SEO Audit",
+      "requires": [
+        "02-market-research/",
+        "04-content/seo/",
+        "04-content/landing-pages/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/04-content/seo/audits/"
+    },
+    {
+      "phrase": "registration form",
+      "owner": "signup",
+      "ownerName": "✍️ Signup Flow Optimization",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "04-content/landing-pages/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/signup/"
+    },
+    {
+      "phrase": "multi-step signup",
+      "owner": "signup",
+      "ownerName": "✍️ Signup Flow Optimization",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "04-content/landing-pages/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/signup/"
+    },
+    {
+      "phrase": "audience response",
+      "owner": "social-media-analyzer",
+      "ownerName": "📈 Social Media Analyzer",
+      "requires": [
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/social/",
+        "05-analytics-reports/",
+        "05-analytics-reports/social/"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/social/"
+    },
+    {
+      "phrase": "instagram stories",
+      "owner": "social-content-planner",
+      "ownerName": "📅 Social Content Planner",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/social/",
+        "04-content/social/calendar/"
+      ],
+      "outputPath": "knowledge/04-content/social/planner/"
+    },
+    {
+      "phrase": "single image post",
+      "owner": "social-content-planner",
+      "ownerName": "📅 Social Content Planner",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/social/",
+        "04-content/social/calendar/"
+      ],
+      "outputPath": "knowledge/04-content/social/planner/"
+    },
+    {
+      "phrase": "behind the scenes",
+      "owner": "social-content-planner",
+      "ownerName": "📅 Social Content Planner",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/social/",
+        "04-content/social/calendar/"
+      ],
+      "outputPath": "knowledge/04-content/social/planner/"
+    },
+    {
+      "phrase": "negative keywords",
+      "owner": "google-ads-strategy",
+      "ownerName": "🔍 Google Ads Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/paid-search/",
+        "04-content/copy/",
+        "04-content/landing-pages/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/strategy/"
+    },
+    {
+      "phrase": "manage google ads",
+      "owner": "adkit",
+      "ownerName": "⚡ AdKit Execution",
+      "requires": [
+        "03-campaigns/paid-search/strategy/",
+        "03-campaigns/paid-social/strategy/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/execution/"
+    },
+    {
+      "phrase": "negative keywords",
+      "owner": "adkit",
+      "ownerName": "⚡ AdKit Execution",
+      "requires": [
+        "03-campaigns/paid-search/strategy/",
+        "03-campaigns/paid-social/strategy/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/execution/"
     },
     {
       "phrase": "content calendar",
@@ -254,6 +2314,386 @@
       "outputPath": "knowledge/04-content/email/"
     },
     {
+      "phrase": "ai pattern audit",
+      "owner": "content-humanizer",
+      "ownerName": "✨ Content Humanizer",
+      "requires": [
+        "04-content/copy/",
+        "01-brand/voice-and-tone.md"
+      ],
+      "outputPath": "knowledge/04-content/copy/humanized/"
+    },
+    {
+      "phrase": "content batching",
+      "owner": "content-repurposing",
+      "ownerName": "🔄 undefined",
+      "requires": [
+        "04-content/drafts/",
+        "04-content/social/"
+      ],
+      "outputPath": "knowledge/04-content/repurposed/"
+    },
+    {
+      "phrase": "content calendar",
+      "owner": "content-repurposing",
+      "ownerName": "🔄 undefined",
+      "requires": [
+        "04-content/drafts/",
+        "04-content/social/"
+      ],
+      "outputPath": "knowledge/04-content/repurposed/"
+    },
+    {
+      "phrase": "review this page",
+      "owner": "copy-editing",
+      "ownerName": "📝 undefined",
+      "requires": [
+        "04-content/copy/"
+      ],
+      "outputPath": "knowledge/04-content/copy/edited/"
+    },
+    {
+      "phrase": "refresh this old",
+      "owner": "copy-editing",
+      "ownerName": "📝 undefined",
+      "requires": [
+        "04-content/copy/"
+      ],
+      "outputPath": "knowledge/04-content/copy/edited/"
+    },
+    {
+      "phrase": "weekly scorecard",
+      "owner": "growth-engine",
+      "ownerName": "🚀 undefined",
+      "requires": [
+        "03-campaigns/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/03-campaigns/growth/"
+    },
+    {
+      "phrase": "dry-run outbound",
+      "owner": "outreach-engine",
+      "ownerName": "📬 Outreach Engine",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/copy/"
+      ],
+      "outputPath": "knowledge/03-campaigns/outbound/"
+    },
+    {
+      "phrase": "signal detection",
+      "owner": "signal-prospector",
+      "ownerName": "🎯 undefined",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "03-campaigns/outbound/"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/"
+    },
+    {
+      "phrase": "tiktok slideshow",
+      "owner": "tiktok-slideshow",
+      "ownerName": "📊 TikTok Slideshow",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/"
+      ],
+      "outputPath": "knowledge/04-content/video/"
+    },
+    {
+      "phrase": "instagram growth",
+      "owner": "social-media-strategy",
+      "ownerName": "📢 Social Media Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/social/",
+        "04-content/video/"
+      ],
+      "outputPath": "knowledge/04-content/social/"
+    },
+    {
+      "phrase": "content calendar",
+      "owner": "social-media-strategy",
+      "ownerName": "📢 Social Media Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/social/",
+        "04-content/video/"
+      ],
+      "outputPath": "knowledge/04-content/social/"
+    },
+    {
+      "phrase": "hashtag strategy",
+      "owner": "social-media-strategy",
+      "ownerName": "📢 Social Media Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/social/",
+        "04-content/video/"
+      ],
+      "outputPath": "knowledge/04-content/social/"
+    },
+    {
+      "phrase": "referral program",
+      "owner": "referrals",
+      "ownerName": "🤝 Customer Referral Program",
+      "requires": [
+        "02-market-research/",
+        "03-campaigns/partnerships/",
+        "03-campaigns/lead-gen/"
+      ],
+      "outputPath": "knowledge/03-campaigns/partnerships/referrals/"
+    },
+    {
+      "phrase": "before and after",
+      "owner": "customer-story-builder",
+      "ownerName": "📖 Customer Story Builder",
+      "requires": [
+        "02-market-research/",
+        "04-content/copy/",
+        "04-content/case-studies/"
+      ],
+      "outputPath": "knowledge/04-content/case-studies/"
+    },
+    {
+      "phrase": "linkedin profile",
+      "owner": "linkedin-strategy",
+      "ownerName": "💼 LinkedIn Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "04-content/social/",
+        "04-content/copy/"
+      ],
+      "outputPath": "knowledge/04-content/social/linkedin/"
+    },
+    {
+      "phrase": "linkedin article",
+      "owner": "linkedin-strategy",
+      "ownerName": "💼 LinkedIn Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "04-content/social/",
+        "04-content/copy/"
+      ],
+      "outputPath": "knowledge/04-content/social/linkedin/"
+    },
+    {
+      "phrase": "google ads audit",
+      "owner": "paid-ads-ops",
+      "ownerName": "📊 Paid Ads Operations",
+      "requires": [
+        "02-market-research/",
+        "03-campaigns/paid-search/",
+        "03-campaigns/paid-social/",
+        "04-content/copy/",
+        "04-content/landing-pages/"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/audits/"
+    },
+    {
+      "phrase": "pricing strategy",
+      "owner": "pricing",
+      "ownerName": "💰 Pricing Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/launches/",
+        "04-content/landing-pages/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/01-brand/messaging/pricing/"
+    },
+    {
+      "phrase": "per seat pricing",
+      "owner": "pricing",
+      "ownerName": "💰 Pricing Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/launches/",
+        "04-content/landing-pages/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/01-brand/messaging/pricing/"
+    },
+    {
+      "phrase": "meta description",
+      "owner": "seo-audit",
+      "ownerName": "🔍 SEO Audit",
+      "requires": [
+        "02-market-research/",
+        "04-content/seo/",
+        "04-content/landing-pages/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/04-content/seo/audits/"
+    },
+    {
+      "phrase": "backlink profile",
+      "owner": "seo-audit",
+      "ownerName": "🔍 SEO Audit",
+      "requires": [
+        "02-market-research/",
+        "04-content/seo/",
+        "04-content/landing-pages/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/04-content/seo/audits/"
+    },
+    {
+      "phrase": "account creation",
+      "owner": "signup",
+      "ownerName": "✍️ Signup Flow Optimization",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "04-content/landing-pages/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/signup/"
+    },
+    {
+      "phrase": "signup page copy",
+      "owner": "signup",
+      "ownerName": "✍️ Signup Flow Optimization",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "04-content/landing-pages/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/signup/"
+    },
+    {
+      "phrase": "content patterns",
+      "owner": "social-media-analyzer",
+      "ownerName": "📈 Social Media Analyzer",
+      "requires": [
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/social/",
+        "05-analytics-reports/",
+        "05-analytics-reports/social/"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/social/"
+    },
+    {
+      "phrase": "social reporting",
+      "owner": "social-media-analyzer",
+      "ownerName": "📈 Social Media Analyzer",
+      "requires": [
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/social/",
+        "05-analytics-reports/",
+        "05-analytics-reports/social/"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/social/"
+    },
+    {
+      "phrase": "tiktok analytics",
+      "owner": "social-media-analyzer",
+      "ownerName": "📈 Social Media Analyzer",
+      "requires": [
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/social/",
+        "05-analytics-reports/",
+        "05-analytics-reports/social/"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/social/"
+    },
+    {
+      "phrase": "content calendar",
+      "owner": "social-content-planner",
+      "ownerName": "📅 Social Content Planner",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/social/",
+        "04-content/social/calendar/"
+      ],
+      "outputPath": "knowledge/04-content/social/planner/"
+    },
+    {
+      "phrase": "keyword research",
+      "owner": "google-ads-strategy",
+      "ownerName": "🔍 Google Ads Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/paid-search/",
+        "04-content/copy/",
+        "04-content/landing-pages/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/strategy/"
+    },
+    {
+      "phrase": "scale google ads",
+      "owner": "google-ads-strategy",
+      "ownerName": "🔍 Google Ads Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/paid-search/",
+        "04-content/copy/",
+        "04-content/landing-pages/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/strategy/"
+    },
+    {
+      "phrase": "facebook ads mcp",
+      "owner": "adkit",
+      "ownerName": "⚡ AdKit Execution",
+      "requires": [
+        "03-campaigns/paid-search/strategy/",
+        "03-campaigns/paid-social/strategy/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/execution/"
+    },
+    {
+      "phrase": "search interests",
+      "owner": "adkit",
+      "ownerName": "⚡ AdKit Execution",
+      "requires": [
+        "03-campaigns/paid-search/strategy/",
+        "03-campaigns/paid-social/strategy/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/execution/"
+    },
+    {
+      "phrase": "keyword research",
+      "owner": "adkit",
+      "ownerName": "⚡ AdKit Execution",
+      "requires": [
+        "03-campaigns/paid-search/strategy/",
+        "03-campaigns/paid-social/strategy/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/execution/"
+    },
+    {
       "phrase": "social calendar",
       "owner": "social-organic",
       "ownerName": "📱 Social Organic",
@@ -343,6 +2783,361 @@
         "03-campaigns/community/"
       ],
       "outputPath": "knowledge/03-campaigns/community/"
+    },
+    {
+      "phrase": "roi attribution",
+      "owner": "revenue-intelligence",
+      "ownerName": "💰 undefined",
+      "requires": [
+        "05-analytics-reports/",
+        "03-campaigns/"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/revenue/"
+    },
+    {
+      "phrase": "outreach engine",
+      "owner": "outreach-engine",
+      "ownerName": "📬 Outreach Engine",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/copy/"
+      ],
+      "outputPath": "knowledge/03-campaigns/outbound/"
+    },
+    {
+      "phrase": "reach investors",
+      "owner": "outreach-engine",
+      "ownerName": "📬 Outreach Engine",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/copy/"
+      ],
+      "outputPath": "knowledge/03-campaigns/outbound/"
+    },
+    {
+      "phrase": "outreach system",
+      "owner": "outreach-system",
+      "ownerName": "🌐 undefined",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/messaging/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/outbound/"
+    },
+    {
+      "phrase": "transcribe reel",
+      "owner": "instagram-reel-to-script",
+      "ownerName": "🎬 Instagram Reel to Script",
+      "requires": [
+        "01-brand/personas/",
+        "03-campaigns/outbound/",
+        "04-content/video/"
+      ],
+      "outputPath": "knowledge/04-content/video/"
+    },
+    {
+      "phrase": "tiktok carousel",
+      "owner": "tiktok-slideshow",
+      "ownerName": "📊 TikTok Slideshow",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/"
+      ],
+      "outputPath": "knowledge/04-content/video/"
+    },
+    {
+      "phrase": "photo mode post",
+      "owner": "tiktok-slideshow",
+      "ownerName": "📊 TikTok Slideshow",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/"
+      ],
+      "outputPath": "knowledge/04-content/video/"
+    },
+    {
+      "phrase": "make a carousel",
+      "owner": "instagram-carousel",
+      "ownerName": "📱 Instagram Carousel",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/"
+      ],
+      "outputPath": "knowledge/04-content/social/"
+    },
+    {
+      "phrase": "video to shorts",
+      "owner": "video-to-shorts",
+      "ownerName": "✂️ Video to Shorts",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/video/"
+      ],
+      "outputPath": "knowledge/04-content/video/"
+    },
+    {
+      "phrase": "clip my podcast",
+      "owner": "video-to-shorts",
+      "ownerName": "✂️ Video to Shorts",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/video/"
+      ],
+      "outputPath": "knowledge/04-content/video/"
+    },
+    {
+      "phrase": "remove silences",
+      "owner": "video-editing",
+      "ownerName": "🎥 Video Editing",
+      "requires": [
+        "01-brand/personas/",
+        "03-campaigns/outbound/",
+        "04-content/video/"
+      ],
+      "outputPath": "knowledge/04-content/video/"
+    },
+    {
+      "phrase": "linkedin growth",
+      "owner": "social-media-strategy",
+      "ownerName": "📢 Social Media Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/social/",
+        "04-content/video/"
+      ],
+      "outputPath": "knowledge/04-content/social/"
+    },
+    {
+      "phrase": "content pillars",
+      "owner": "social-media-strategy",
+      "ownerName": "📢 Social Media Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/social/",
+        "04-content/video/"
+      ],
+      "outputPath": "knowledge/04-content/social/"
+    },
+    {
+      "phrase": "local citations",
+      "owner": "local-seo",
+      "ownerName": "📍 Local SEO",
+      "requires": [
+        "02-market-research/",
+        "01-brand/personas/"
+      ],
+      "outputPath": "knowledge/04-content/seo/local/"
+    },
+    {
+      "phrase": "nap consistency",
+      "owner": "local-seo",
+      "ownerName": "📍 Local SEO",
+      "requires": [
+        "02-market-research/",
+        "01-brand/personas/"
+      ],
+      "outputPath": "knowledge/04-content/seo/local/"
+    },
+    {
+      "phrase": "partner program",
+      "owner": "referrals",
+      "ownerName": "🤝 Customer Referral Program",
+      "requires": [
+        "02-market-research/",
+        "03-campaigns/partnerships/",
+        "03-campaigns/lead-gen/"
+      ],
+      "outputPath": "knowledge/03-campaigns/partnerships/referrals/"
+    },
+    {
+      "phrase": "in-app tooltips",
+      "owner": "onboarding",
+      "ownerName": "🚀 Customer Onboarding",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "04-content/email/",
+        "04-content/onboarding/"
+      ],
+      "outputPath": "knowledge/03-campaigns/automation/onboarding/"
+    },
+    {
+      "phrase": "website overlay",
+      "owner": "popups",
+      "ownerName": "🪟 Conversion Popups",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "04-content/landing-pages/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/popups/"
+    },
+    {
+      "phrase": "funnel analysis",
+      "owner": "revops",
+      "ownerName": "🔄 Revenue Operations",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "03-campaigns/outbound/",
+        "04-content/copy/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/revops/"
+    },
+    {
+      "phrase": "structured data",
+      "owner": "schema",
+      "ownerName": "🏗️ Schema Markup & Structured Data",
+      "requires": [
+        "02-market-research/",
+        "04-content/seo/",
+        "04-content/landing-pages/"
+      ],
+      "outputPath": "knowledge/04-content/seo/schema/"
+    },
+    {
+      "phrase": "core web vitals",
+      "owner": "seo-audit",
+      "ownerName": "🔍 SEO Audit",
+      "requires": [
+        "02-market-research/",
+        "04-content/seo/",
+        "04-content/landing-pages/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/04-content/seo/audits/"
+    },
+    {
+      "phrase": "seo action plan",
+      "owner": "seo-audit",
+      "ownerName": "🔍 SEO Audit",
+      "requires": [
+        "02-market-research/",
+        "04-content/seo/",
+        "04-content/landing-pages/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/04-content/seo/audits/"
+    },
+    {
+      "phrase": "engagement rate",
+      "owner": "social-media-analyzer",
+      "ownerName": "📈 Social Media Analyzer",
+      "requires": [
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/social/",
+        "05-analytics-reports/",
+        "05-analytics-reports/social/"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/social/"
+    },
+    {
+      "phrase": "content pillars",
+      "owner": "social-content-planner",
+      "ownerName": "📅 Social Content Planner",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/social/",
+        "04-content/social/calendar/"
+      ],
+      "outputPath": "knowledge/04-content/social/planner/"
+    },
+    {
+      "phrase": "write a caption",
+      "owner": "social-content-planner",
+      "ownerName": "📅 Social Content Planner",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/social/",
+        "04-content/social/calendar/"
+      ],
+      "outputPath": "knowledge/04-content/social/planner/"
+    },
+    {
+      "phrase": "ads not working",
+      "owner": "meta-ads-strategy",
+      "ownerName": "📘 Meta Ads Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/paid-social/",
+        "04-content/copy/",
+        "04-content/landing-pages/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-social/strategy/"
+    },
+    {
+      "phrase": "create campaign",
+      "owner": "adkit",
+      "ownerName": "⚡ AdKit Execution",
+      "requires": [
+        "03-campaigns/paid-search/strategy/",
+        "03-campaigns/paid-social/strategy/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/execution/"
+    },
+    {
+      "phrase": "create ad group",
+      "owner": "adkit",
+      "ownerName": "⚡ AdKit Execution",
+      "requires": [
+        "03-campaigns/paid-search/strategy/",
+        "03-campaigns/paid-social/strategy/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/execution/"
+    },
+    {
+      "phrase": "launch campaign",
+      "owner": "adkit",
+      "ownerName": "⚡ AdKit Execution",
+      "requires": [
+        "03-campaigns/paid-search/strategy/",
+        "03-campaigns/paid-social/strategy/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/execution/"
+    },
+    {
+      "phrase": "manage meta ads",
+      "owner": "adkit",
+      "ownerName": "⚡ AdKit Execution",
+      "requires": [
+        "03-campaigns/paid-search/strategy/",
+        "03-campaigns/paid-social/strategy/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/execution/"
     },
     {
       "phrase": "voice and tone",
@@ -462,6 +3257,405 @@
         "01-brand/voice-and-tone.md"
       ],
       "outputPath": "knowledge/04-content/email/"
+    },
+    {
+      "phrase": "remove ai slop",
+      "owner": "content-humanizer",
+      "ownerName": "✨ Content Humanizer",
+      "requires": [
+        "04-content/copy/",
+        "01-brand/voice-and-tone.md"
+      ],
+      "outputPath": "knowledge/04-content/copy/humanized/"
+    },
+    {
+      "phrase": "turn this into",
+      "owner": "content-repurposing",
+      "ownerName": "🔄 undefined",
+      "requires": [
+        "04-content/drafts/",
+        "04-content/social/"
+      ],
+      "outputPath": "knowledge/04-content/repurposed/"
+    },
+    {
+      "phrase": "edit this copy",
+      "owner": "copy-editing",
+      "ownerName": "📝 undefined",
+      "requires": [
+        "04-content/copy/"
+      ],
+      "outputPath": "knowledge/04-content/copy/edited/"
+    },
+    {
+      "phrase": "analytics loop",
+      "owner": "closed-loop-analytics",
+      "ownerName": "🔄 undefined",
+      "requires": [
+        "05-analytics-reports/",
+        "03-campaigns/"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/closed-loop/"
+    },
+    {
+      "phrase": "icp definition",
+      "owner": "outbound-engine",
+      "ownerName": "📬 undefined",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/"
+      ],
+      "outputPath": "knowledge/03-campaigns/outbound/"
+    },
+    {
+      "phrase": "find customers",
+      "owner": "outreach-engine",
+      "ownerName": "📬 Outreach Engine",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/copy/"
+      ],
+      "outputPath": "knowledge/03-campaigns/outbound/"
+    },
+    {
+      "phrase": "buying signals",
+      "owner": "signal-prospector",
+      "ownerName": "🎯 undefined",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "03-campaigns/outbound/"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/"
+    },
+    {
+      "phrase": "reel to script",
+      "owner": "instagram-reel-to-script",
+      "ownerName": "🎬 Instagram Reel to Script",
+      "requires": [
+        "01-brand/personas/",
+        "03-campaigns/outbound/",
+        "04-content/video/"
+      ],
+      "outputPath": "knowledge/04-content/video/"
+    },
+    {
+      "phrase": "local map pack",
+      "owner": "local-seo",
+      "ownerName": "📍 Local SEO",
+      "requires": [
+        "02-market-research/",
+        "01-brand/personas/"
+      ],
+      "outputPath": "knowledge/04-content/seo/local/"
+    },
+    {
+      "phrase": "refer a friend",
+      "owner": "referrals",
+      "ownerName": "🤝 Customer Referral Program",
+      "requires": [
+        "02-market-research/",
+        "03-campaigns/partnerships/",
+        "03-campaigns/lead-gen/"
+      ],
+      "outputPath": "knowledge/03-campaigns/partnerships/referrals/"
+    },
+    {
+      "phrase": "referral email",
+      "owner": "referrals",
+      "ownerName": "🤝 Customer Referral Program",
+      "requires": [
+        "02-market-research/",
+        "03-campaigns/partnerships/",
+        "03-campaigns/lead-gen/"
+      ],
+      "outputPath": "knowledge/03-campaigns/partnerships/referrals/"
+    },
+    {
+      "phrase": "referral fraud",
+      "owner": "referrals",
+      "ownerName": "🤝 Customer Referral Program",
+      "requires": [
+        "02-market-research/",
+        "03-campaigns/partnerships/",
+        "03-campaigns/lead-gen/"
+      ],
+      "outputPath": "knowledge/03-campaigns/partnerships/referrals/"
+    },
+    {
+      "phrase": "customer story",
+      "owner": "customer-story-builder",
+      "ownerName": "📖 Customer Story Builder",
+      "requires": [
+        "02-market-research/",
+        "04-content/copy/",
+        "04-content/case-studies/"
+      ],
+      "outputPath": "knowledge/04-content/case-studies/"
+    },
+    {
+      "phrase": "paid ads audit",
+      "owner": "paid-ads-ops",
+      "ownerName": "📊 Paid Ads Operations",
+      "requires": [
+        "02-market-research/",
+        "03-campaigns/paid-search/",
+        "03-campaigns/paid-social/",
+        "04-content/copy/",
+        "04-content/landing-pages/"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/audits/"
+    },
+    {
+      "phrase": "meta ads audit",
+      "owner": "paid-ads-ops",
+      "ownerName": "📊 Paid Ads Operations",
+      "requires": [
+        "02-market-research/",
+        "03-campaigns/paid-search/",
+        "03-campaigns/paid-social/",
+        "04-content/copy/",
+        "04-content/landing-pages/"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/audits/"
+    },
+    {
+      "phrase": "creative brief",
+      "owner": "paid-ads-ops",
+      "ownerName": "📊 Paid Ads Operations",
+      "requires": [
+        "02-market-research/",
+        "03-campaigns/paid-search/",
+        "03-campaigns/paid-social/",
+        "04-content/copy/",
+        "04-content/landing-pages/"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/audits/"
+    },
+    {
+      "phrase": "create a popup",
+      "owner": "popups",
+      "ownerName": "🪟 Conversion Popups",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "04-content/landing-pages/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/popups/"
+    },
+    {
+      "phrase": "popup a/b test",
+      "owner": "popups",
+      "ownerName": "🪟 Conversion Popups",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "04-content/landing-pages/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/popups/"
+    },
+    {
+      "phrase": "freemium model",
+      "owner": "pricing",
+      "ownerName": "💰 Pricing Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/launches/",
+        "04-content/landing-pages/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/01-brand/messaging/pricing/"
+    },
+    {
+      "phrase": "price increase",
+      "owner": "pricing",
+      "ownerName": "💰 Pricing Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/launches/",
+        "04-content/landing-pages/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/01-brand/messaging/pricing/"
+    },
+    {
+      "phrase": "lead lifecycle",
+      "owner": "revops",
+      "ownerName": "🔄 Revenue Operations",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "03-campaigns/outbound/",
+        "04-content/copy/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/revops/"
+    },
+    {
+      "phrase": "pipeline stage",
+      "owner": "revops",
+      "ownerName": "🔄 Revenue Operations",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "03-campaigns/outbound/",
+        "04-content/copy/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/revops/"
+    },
+    {
+      "phrase": "crm automation",
+      "owner": "revops",
+      "ownerName": "🔄 Revenue Operations",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "03-campaigns/outbound/",
+        "04-content/copy/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/revops/"
+    },
+    {
+      "phrase": "product schema",
+      "owner": "schema",
+      "ownerName": "🏗️ Schema Markup & Structured Data",
+      "requires": [
+        "02-market-research/",
+        "04-content/seo/",
+        "04-content/landing-pages/"
+      ],
+      "outputPath": "knowledge/04-content/seo/schema/"
+    },
+    {
+      "phrase": "article schema",
+      "owner": "schema",
+      "ownerName": "🏗️ Schema Markup & Structured Data",
+      "requires": [
+        "02-market-research/",
+        "04-content/seo/",
+        "04-content/landing-pages/"
+      ],
+      "outputPath": "knowledge/04-content/seo/schema/"
+    },
+    {
+      "phrase": "image alt text",
+      "owner": "seo-audit",
+      "ownerName": "🔍 SEO Audit",
+      "requires": [
+        "02-market-research/",
+        "04-content/seo/",
+        "04-content/landing-pages/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/04-content/seo/audits/"
+    },
+    {
+      "phrase": "instagram post",
+      "owner": "social-content-planner",
+      "ownerName": "📅 Social Content Planner",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/social/",
+        "04-content/social/calendar/"
+      ],
+      "outputPath": "knowledge/04-content/social/planner/"
+    },
+    {
+      "phrase": "facebook story",
+      "owner": "social-content-planner",
+      "ownerName": "📅 Social Content Planner",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/social/",
+        "04-content/social/calendar/"
+      ],
+      "outputPath": "knowledge/04-content/social/planner/"
+    },
+    {
+      "phrase": "ad copy google",
+      "owner": "google-ads-strategy",
+      "ownerName": "🔍 Google Ads Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/paid-search/",
+        "04-content/copy/",
+        "04-content/landing-pages/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/strategy/"
+    },
+    {
+      "phrase": "how to run ads",
+      "owner": "meta-ads-strategy",
+      "ownerName": "📘 Meta Ads Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/paid-social/",
+        "04-content/copy/",
+        "04-content/landing-pages/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-social/strategy/"
+    },
+    {
+      "phrase": "ad performance",
+      "owner": "meta-ads-strategy",
+      "ownerName": "📘 Meta Ads Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/paid-social/",
+        "04-content/copy/",
+        "04-content/landing-pages/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-social/strategy/"
+    },
+    {
+      "phrase": "learning phase",
+      "owner": "meta-ads-strategy",
+      "ownerName": "📘 Meta Ads Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/paid-social/",
+        "04-content/copy/",
+        "04-content/landing-pages/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-social/strategy/"
+    },
+    {
+      "phrase": "google ads mcp",
+      "owner": "adkit",
+      "ownerName": "⚡ AdKit Execution",
+      "requires": [
+        "03-campaigns/paid-search/strategy/",
+        "03-campaigns/paid-social/strategy/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/execution/"
     },
     {
       "phrase": "market sizing",
@@ -603,6 +3797,498 @@
         "04-content/copy/"
       ],
       "outputPath": "knowledge/03-campaigns/ecommerce/"
+    },
+    {
+      "phrase": "comment to dm",
+      "owner": "openreply",
+      "ownerName": "💬 OpenReply — Comment-to-DM",
+      "requires": [
+        "01-brand/personas/",
+        "03-campaigns/lead-gen/",
+        "04-content/copy/"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/"
+    },
+    {
+      "phrase": "comment catch",
+      "owner": "openreply",
+      "ownerName": "💬 OpenReply — Comment-to-DM",
+      "requires": [
+        "01-brand/personas/",
+        "03-campaigns/lead-gen/",
+        "04-content/copy/"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/"
+    },
+    {
+      "phrase": "dm automation",
+      "owner": "openreply",
+      "ownerName": "💬 OpenReply — Comment-to-DM",
+      "requires": [
+        "01-brand/personas/",
+        "03-campaigns/lead-gen/",
+        "04-content/copy/"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/"
+    },
+    {
+      "phrase": "catch comment",
+      "owner": "openreply",
+      "ownerName": "💬 OpenReply — Comment-to-DM",
+      "requires": [
+        "01-brand/personas/",
+        "03-campaigns/lead-gen/",
+        "04-content/copy/"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/"
+    },
+    {
+      "phrase": "test velocity",
+      "owner": "ab-testing",
+      "ownerName": "🧪 undefined",
+      "requires": [
+        "06-playbooks/experiment-backlog.md",
+        "05-analytics-reports/experiments/"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/experiments/"
+    },
+    {
+      "phrase": "baseline hash",
+      "owner": "closed-loop-analytics",
+      "ownerName": "🔄 undefined",
+      "requires": [
+        "05-analytics-reports/",
+        "03-campaigns/"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/closed-loop/"
+    },
+    {
+      "phrase": "client report",
+      "owner": "revenue-intelligence",
+      "ownerName": "💰 undefined",
+      "requires": [
+        "05-analytics-reports/",
+        "03-campaigns/"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/revenue/"
+    },
+    {
+      "phrase": "growth engine",
+      "owner": "growth-engine",
+      "ownerName": "🚀 undefined",
+      "requires": [
+        "03-campaigns/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/03-campaigns/growth/"
+    },
+    {
+      "phrase": "cold outbound",
+      "owner": "outbound-engine",
+      "ownerName": "📬 undefined",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/"
+      ],
+      "outputPath": "knowledge/03-campaigns/outbound/"
+    },
+    {
+      "phrase": "lead pipeline",
+      "owner": "outbound-engine",
+      "ownerName": "📬 undefined",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/"
+      ],
+      "outputPath": "knowledge/03-campaigns/outbound/"
+    },
+    {
+      "phrase": "quality score",
+      "owner": "content-eval",
+      "ownerName": "📊 undefined",
+      "requires": [
+        "05-analytics-reports/",
+        "04-content/drafts/"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/content-eval/"
+    },
+    {
+      "phrase": "buying intent",
+      "owner": "signal-prospector",
+      "ownerName": "🎯 undefined",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "03-campaigns/outbound/"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/"
+    },
+    {
+      "phrase": "shorts script",
+      "owner": "instagram-reel-to-script",
+      "ownerName": "🎬 Instagram Reel to Script",
+      "requires": [
+        "01-brand/personas/",
+        "03-campaigns/outbound/",
+        "04-content/video/"
+      ],
+      "outputPath": "knowledge/04-content/video/"
+    },
+    {
+      "phrase": "tiktok script",
+      "owner": "instagram-reel-to-script",
+      "ownerName": "🎬 Instagram Reel to Script",
+      "requires": [
+        "01-brand/personas/",
+        "03-campaigns/outbound/",
+        "04-content/video/"
+      ],
+      "outputPath": "knowledge/04-content/video/"
+    },
+    {
+      "phrase": "carousel post",
+      "owner": "instagram-carousel",
+      "ownerName": "📱 Instagram Carousel",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/"
+      ],
+      "outputPath": "knowledge/04-content/social/"
+    },
+    {
+      "phrase": "podcast clips",
+      "owner": "video-to-shorts",
+      "ownerName": "✂️ Video to Shorts",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/video/"
+      ],
+      "outputPath": "knowledge/04-content/video/"
+    },
+    {
+      "phrase": "edit my video",
+      "owner": "video-editing",
+      "ownerName": "🎥 Video Editing",
+      "requires": [
+        "01-brand/personas/",
+        "03-campaigns/outbound/",
+        "04-content/video/"
+      ],
+      "outputPath": "knowledge/04-content/video/"
+    },
+    {
+      "phrase": "video editing",
+      "owner": "video-editing",
+      "ownerName": "🎥 Video Editing",
+      "requires": [
+        "01-brand/personas/",
+        "03-campaigns/outbound/",
+        "04-content/video/"
+      ],
+      "outputPath": "knowledge/04-content/video/"
+    },
+    {
+      "phrase": "tiktok growth",
+      "owner": "social-media-strategy",
+      "ownerName": "📢 Social Media Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/social/",
+        "04-content/video/"
+      ],
+      "outputPath": "knowledge/04-content/social/"
+    },
+    {
+      "phrase": "yelp response",
+      "owner": "local-seo",
+      "ownerName": "📍 Local SEO",
+      "requires": [
+        "02-market-research/",
+        "01-brand/personas/"
+      ],
+      "outputPath": "knowledge/04-content/seo/local/"
+    },
+    {
+      "phrase": "word of mouth",
+      "owner": "referrals",
+      "ownerName": "🤝 Customer Referral Program",
+      "requires": [
+        "02-market-research/",
+        "03-campaigns/partnerships/",
+        "03-campaigns/lead-gen/"
+      ],
+      "outputPath": "knowledge/03-campaigns/partnerships/referrals/"
+    },
+    {
+      "phrase": "success story",
+      "owner": "customer-story-builder",
+      "ownerName": "📖 Customer Story Builder",
+      "requires": [
+        "02-market-research/",
+        "04-content/copy/",
+        "04-content/case-studies/"
+      ],
+      "outputPath": "knowledge/04-content/case-studies/"
+    },
+    {
+      "phrase": "linkedin post",
+      "owner": "linkedin-strategy",
+      "ownerName": "💼 LinkedIn Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "04-content/social/",
+        "04-content/copy/"
+      ],
+      "outputPath": "knowledge/04-content/social/linkedin/"
+    },
+    {
+      "phrase": "time to value",
+      "owner": "onboarding",
+      "ownerName": "🚀 Customer Onboarding",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "04-content/email/",
+        "04-content/onboarding/"
+      ],
+      "outputPath": "knowledge/03-campaigns/automation/onboarding/"
+    },
+    {
+      "phrase": "account audit",
+      "owner": "paid-ads-ops",
+      "ownerName": "📊 Paid Ads Operations",
+      "requires": [
+        "02-market-research/",
+        "03-campaigns/paid-search/",
+        "03-campaigns/paid-social/",
+        "04-content/copy/",
+        "04-content/landing-pages/"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/audits/"
+    },
+    {
+      "phrase": "budget review",
+      "owner": "paid-ads-ops",
+      "ownerName": "📊 Paid Ads Operations",
+      "requires": [
+        "02-market-research/",
+        "03-campaigns/paid-search/",
+        "03-campaigns/paid-social/",
+        "04-content/copy/",
+        "04-content/landing-pages/"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/audits/"
+    },
+    {
+      "phrase": "message match",
+      "owner": "paid-ads-ops",
+      "ownerName": "📊 Paid Ads Operations",
+      "requires": [
+        "02-market-research/",
+        "03-campaigns/paid-search/",
+        "03-campaigns/paid-social/",
+        "04-content/copy/",
+        "04-content/landing-pages/"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/audits/"
+    },
+    {
+      "phrase": "pricing model",
+      "owner": "pricing",
+      "ownerName": "💰 Pricing Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/launches/",
+        "04-content/landing-pages/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/01-brand/messaging/pricing/"
+    },
+    {
+      "phrase": "pricing tiers",
+      "owner": "pricing",
+      "ownerName": "💰 Pricing Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/launches/",
+        "04-content/landing-pages/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/01-brand/messaging/pricing/"
+    },
+    {
+      "phrase": "rich snippets",
+      "owner": "schema",
+      "ownerName": "🏗️ Schema Markup & Structured Data",
+      "requires": [
+        "02-market-research/",
+        "04-content/seo/",
+        "04-content/landing-pages/"
+      ],
+      "outputPath": "knowledge/04-content/seo/schema/"
+    },
+    {
+      "phrase": "review schema",
+      "owner": "schema",
+      "ownerName": "🏗️ Schema Markup & Structured Data",
+      "requires": [
+        "02-market-research/",
+        "04-content/seo/",
+        "04-content/landing-pages/"
+      ],
+      "outputPath": "knowledge/04-content/seo/schema/"
+    },
+    {
+      "phrase": "technical seo",
+      "owner": "seo-audit",
+      "ownerName": "🔍 SEO Audit",
+      "requires": [
+        "02-market-research/",
+        "04-content/seo/",
+        "04-content/landing-pages/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/04-content/seo/audits/"
+    },
+    {
+      "phrase": "url structure",
+      "owner": "seo-audit",
+      "ownerName": "🔍 SEO Audit",
+      "requires": [
+        "02-market-research/",
+        "04-content/seo/",
+        "04-content/landing-pages/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/04-content/seo/audits/"
+    },
+    {
+      "phrase": "facebook post",
+      "owner": "social-content-planner",
+      "ownerName": "📅 Social Content Planner",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/social/",
+        "04-content/social/calendar/"
+      ],
+      "outputPath": "knowledge/04-content/social/planner/"
+    },
+    {
+      "phrase": "carousel plan",
+      "owner": "social-content-planner",
+      "ownerName": "📅 Social Content Planner",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/social/",
+        "04-content/social/calendar/"
+      ],
+      "outputPath": "knowledge/04-content/social/planner/"
+    },
+    {
+      "phrase": "batch content",
+      "owner": "social-content-planner",
+      "ownerName": "📅 Social Content Planner",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/social/",
+        "04-content/social/calendar/"
+      ],
+      "outputPath": "knowledge/04-content/social/planner/"
+    },
+    {
+      "phrase": "facebook shop",
+      "owner": "social-content-planner",
+      "ownerName": "📅 Social Content Planner",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/social/",
+        "04-content/social/calendar/"
+      ],
+      "outputPath": "knowledge/04-content/social/planner/"
+    },
+    {
+      "phrase": "quality score",
+      "owner": "google-ads-strategy",
+      "ownerName": "🔍 Google Ads Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/paid-search/",
+        "04-content/copy/",
+        "04-content/landing-pages/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/strategy/"
+    },
+    {
+      "phrase": "smart bidding",
+      "owner": "google-ads-strategy",
+      "ownerName": "🔍 Google Ads Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/paid-search/",
+        "04-content/copy/",
+        "04-content/landing-pages/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/strategy/"
+    },
+    {
+      "phrase": "instagram ads",
+      "owner": "meta-ads-strategy",
+      "ownerName": "📘 Meta Ads Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/paid-social/",
+        "04-content/copy/",
+        "04-content/landing-pages/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-social/strategy/"
+    },
+    {
+      "phrase": "create ad set",
+      "owner": "adkit",
+      "ownerName": "⚡ AdKit Execution",
+      "requires": [
+        "03-campaigns/paid-search/strategy/",
+        "03-campaigns/paid-social/strategy/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/execution/"
+    },
+    {
+      "phrase": "publish draft",
+      "owner": "adkit",
+      "ownerName": "⚡ AdKit Execution",
+      "requires": [
+        "03-campaigns/paid-search/strategy/",
+        "03-campaigns/paid-social/strategy/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/execution/"
     },
     {
       "phrase": "trend report",
@@ -793,6 +4479,388 @@
         "06-playbooks/compliance-checklists.md"
       ],
       "outputPath": "knowledge/04-content/messaging/"
+    },
+    {
+      "phrase": "instagram dm",
+      "owner": "openreply",
+      "ownerName": "💬 OpenReply — Comment-to-DM",
+      "requires": [
+        "01-brand/personas/",
+        "03-campaigns/lead-gen/",
+        "04-content/copy/"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/"
+    },
+    {
+      "phrase": "natural tone",
+      "owner": "content-humanizer",
+      "ownerName": "✨ Content Humanizer",
+      "requires": [
+        "04-content/copy/",
+        "01-brand/voice-and-tone.md"
+      ],
+      "outputPath": "knowledge/04-content/copy/humanized/"
+    },
+    {
+      "phrase": "audit reloop",
+      "owner": "closed-loop-analytics",
+      "ownerName": "🔄 undefined",
+      "requires": [
+        "05-analytics-reports/",
+        "03-campaigns/"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/closed-loop/"
+    },
+    {
+      "phrase": "cfo briefing",
+      "owner": "revenue-intelligence",
+      "ownerName": "💰 undefined",
+      "requires": [
+        "05-analytics-reports/",
+        "03-campaigns/"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/revenue/"
+    },
+    {
+      "phrase": "hidden costs",
+      "owner": "revenue-intelligence",
+      "ownerName": "💰 undefined",
+      "requires": [
+        "05-analytics-reports/",
+        "03-campaigns/"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/revenue/"
+    },
+    {
+      "phrase": "pacing alert",
+      "owner": "growth-engine",
+      "ownerName": "🚀 undefined",
+      "requires": [
+        "03-campaigns/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/03-campaigns/growth/"
+    },
+    {
+      "phrase": "content eval",
+      "owner": "content-eval",
+      "ownerName": "📊 undefined",
+      "requires": [
+        "05-analytics-reports/",
+        "04-content/drafts/"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/content-eval/"
+    },
+    {
+      "phrase": "auditor gate",
+      "owner": "auditor-protocol",
+      "ownerName": "⚖️ undefined",
+      "requires": [
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/06-playbooks/auditor-gates/"
+    },
+    {
+      "phrase": "publish gate",
+      "owner": "auditor-protocol",
+      "ownerName": "⚖️ undefined",
+      "requires": [
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/06-playbooks/auditor-gates/"
+    },
+    {
+      "phrase": "lead scoring",
+      "owner": "signal-prospector",
+      "ownerName": "🎯 undefined",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "03-campaigns/outbound/"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/"
+    },
+    {
+      "phrase": "analyze reel",
+      "owner": "instagram-reel-to-script",
+      "ownerName": "🎬 Instagram Reel to Script",
+      "requires": [
+        "01-brand/personas/",
+        "03-campaigns/outbound/",
+        "04-content/video/"
+      ],
+      "outputPath": "knowledge/04-content/video/"
+    },
+    {
+      "phrase": "local schema",
+      "owner": "local-seo",
+      "ownerName": "📍 Local SEO",
+      "requires": [
+        "02-market-research/",
+        "01-brand/personas/"
+      ],
+      "outputPath": "knowledge/04-content/seo/local/"
+    },
+    {
+      "phrase": "referral roi",
+      "owner": "referrals",
+      "ownerName": "🤝 Customer Referral Program",
+      "requires": [
+        "02-market-research/",
+        "03-campaigns/partnerships/",
+        "03-campaigns/lead-gen/"
+      ],
+      "outputPath": "knowledge/03-campaigns/partnerships/referrals/"
+    },
+    {
+      "phrase": "social proof",
+      "owner": "customer-story-builder",
+      "ownerName": "📖 Customer Story Builder",
+      "requires": [
+        "02-market-research/",
+        "04-content/copy/",
+        "04-content/case-studies/"
+      ],
+      "outputPath": "knowledge/04-content/case-studies/"
+    },
+    {
+      "phrase": "scroll popup",
+      "owner": "popups",
+      "ownerName": "🪟 Conversion Popups",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "04-content/landing-pages/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/popups/"
+    },
+    {
+      "phrase": "value metric",
+      "owner": "pricing",
+      "ownerName": "💰 Pricing Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/launches/",
+        "04-content/landing-pages/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/01-brand/messaging/pricing/"
+    },
+    {
+      "phrase": "raise prices",
+      "owner": "pricing",
+      "ownerName": "💰 Pricing Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/launches/",
+        "04-content/landing-pages/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/01-brand/messaging/pricing/"
+    },
+    {
+      "phrase": "lead scoring",
+      "owner": "revops",
+      "ownerName": "🔄 Revenue Operations",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "03-campaigns/outbound/",
+        "04-content/copy/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/revops/"
+    },
+    {
+      "phrase": "lead routing",
+      "owner": "revops",
+      "ownerName": "🔄 Revenue Operations",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "03-campaigns/outbound/",
+        "04-content/copy/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/revops/"
+    },
+    {
+      "phrase": "data hygiene",
+      "owner": "revops",
+      "ownerName": "🔄 Revenue Operations",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "03-campaigns/outbound/",
+        "04-content/copy/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/revops/"
+    },
+    {
+      "phrase": "rich results",
+      "owner": "schema",
+      "ownerName": "🏗️ Schema Markup & Structured Data",
+      "requires": [
+        "02-market-research/",
+        "04-content/seo/",
+        "04-content/landing-pages/"
+      ],
+      "outputPath": "knowledge/04-content/seo/schema/"
+    },
+    {
+      "phrase": "howto schema",
+      "owner": "schema",
+      "ownerName": "🏗️ Schema Markup & Structured Data",
+      "requires": [
+        "02-market-research/",
+        "04-content/seo/",
+        "04-content/landing-pages/"
+      ],
+      "outputPath": "knowledge/04-content/seo/schema/"
+    },
+    {
+      "phrase": "event schema",
+      "owner": "schema",
+      "ownerName": "🏗️ Schema Markup & Structured Data",
+      "requires": [
+        "02-market-research/",
+        "04-content/seo/",
+        "04-content/landing-pages/"
+      ],
+      "outputPath": "knowledge/04-content/seo/schema/"
+    },
+    {
+      "phrase": "crawlability",
+      "owner": "seo-audit",
+      "ownerName": "🔍 SEO Audit",
+      "requires": [
+        "02-market-research/",
+        "04-content/seo/",
+        "04-content/landing-pages/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/04-content/seo/audits/"
+    },
+    {
+      "phrase": "indexability",
+      "owner": "seo-audit",
+      "ownerName": "🔍 SEO Audit",
+      "requires": [
+        "02-market-research/",
+        "04-content/seo/",
+        "04-content/landing-pages/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/04-content/seo/audits/"
+    },
+    {
+      "phrase": "content gaps",
+      "owner": "seo-audit",
+      "ownerName": "🔍 SEO Audit",
+      "requires": [
+        "02-market-research/",
+        "04-content/seo/",
+        "04-content/landing-pages/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/04-content/seo/audits/"
+    },
+    {
+      "phrase": "social login",
+      "owner": "signup",
+      "ownerName": "✍️ Signup Flow Optimization",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "04-content/landing-pages/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/signup/"
+    },
+    {
+      "phrase": "facebook ads",
+      "owner": "meta-ads-strategy",
+      "ownerName": "📘 Meta Ads Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/paid-social/",
+        "04-content/copy/",
+        "04-content/landing-pages/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-social/strategy/"
+    },
+    {
+      "phrase": "ad targeting",
+      "owner": "meta-ads-strategy",
+      "ownerName": "📘 Meta Ads Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/paid-social/",
+        "04-content/copy/",
+        "04-content/landing-pages/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-social/strategy/"
+    },
+    {
+      "phrase": "optimize ads",
+      "owner": "meta-ads-strategy",
+      "ownerName": "📘 Meta Ads Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/paid-social/",
+        "04-content/copy/",
+        "04-content/landing-pages/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-social/strategy/"
+    },
+    {
+      "phrase": "meta ads mcp",
+      "owner": "adkit",
+      "ownerName": "⚡ AdKit Execution",
+      "requires": [
+        "03-campaigns/paid-search/strategy/",
+        "03-campaigns/paid-social/strategy/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/execution/"
+    },
+    {
+      "phrase": "upload media",
+      "owner": "adkit",
+      "ownerName": "⚡ AdKit Execution",
+      "requires": [
+        "03-campaigns/paid-search/strategy/",
+        "03-campaigns/paid-social/strategy/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/execution/"
+    },
+    {
+      "phrase": "add keywords",
+      "owner": "adkit",
+      "ownerName": "⚡ AdKit Execution",
+      "requires": [
+        "03-campaigns/paid-search/strategy/",
+        "03-campaigns/paid-social/strategy/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/execution/"
     },
     {
       "phrase": "positioning",
@@ -991,6 +5059,257 @@
         "02-market-research/competitors/"
       ],
       "outputPath": "knowledge/03-campaigns/launches/"
+    },
+    {
+      "phrase": "ice scoring",
+      "owner": "ab-testing",
+      "ownerName": "🧪 undefined",
+      "requires": [
+        "06-playbooks/experiment-backlog.md",
+        "05-analytics-reports/experiments/"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/experiments/"
+    },
+    {
+      "phrase": "closed loop",
+      "owner": "closed-loop-analytics",
+      "ownerName": "🔄 undefined",
+      "requires": [
+        "05-analytics-reports/",
+        "03-campaigns/"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/closed-loop/"
+    },
+    {
+      "phrase": "content roi",
+      "owner": "revenue-intelligence",
+      "ownerName": "💰 undefined",
+      "requires": [
+        "05-analytics-reports/",
+        "03-campaigns/"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/revenue/"
+    },
+    {
+      "phrase": "intent data",
+      "owner": "signal-prospector",
+      "ownerName": "🎯 undefined",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "03-campaigns/outbound/"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/"
+    },
+    {
+      "phrase": "lead finder",
+      "owner": "outreach-system",
+      "ownerName": "🌐 undefined",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/messaging/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/outbound/"
+    },
+    {
+      "phrase": "remake reel",
+      "owner": "instagram-reel-to-script",
+      "ownerName": "🎬 Instagram Reel to Script",
+      "requires": [
+        "01-brand/personas/",
+        "03-campaigns/outbound/",
+        "04-content/video/"
+      ],
+      "outputPath": "knowledge/04-content/video/"
+    },
+    {
+      "phrase": "reel remake",
+      "owner": "instagram-reel-to-script",
+      "ownerName": "🎬 Instagram Reel to Script",
+      "requires": [
+        "01-brand/personas/",
+        "03-campaigns/outbound/",
+        "04-content/video/"
+      ],
+      "outputPath": "knowledge/04-content/video/"
+    },
+    {
+      "phrase": "cut the ums",
+      "owner": "video-editing",
+      "ownerName": "🎥 Video Editing",
+      "requires": [
+        "01-brand/personas/",
+        "03-campaigns/outbound/",
+        "04-content/video/"
+      ],
+      "outputPath": "knowledge/04-content/video/"
+    },
+    {
+      "phrase": "google post",
+      "owner": "local-seo",
+      "ownerName": "📍 Local SEO",
+      "requires": [
+        "02-market-research/",
+        "01-brand/personas/"
+      ],
+      "outputPath": "knowledge/04-content/seo/local/"
+    },
+    {
+      "phrase": "testimonial",
+      "owner": "customer-story-builder",
+      "ownerName": "📖 Customer Story Builder",
+      "requires": [
+        "02-market-research/",
+        "04-content/copy/",
+        "04-content/case-studies/"
+      ],
+      "outputPath": "knowledge/04-content/case-studies/"
+    },
+    {
+      "phrase": "proof asset",
+      "owner": "customer-story-builder",
+      "ownerName": "📖 Customer Story Builder",
+      "requires": [
+        "02-market-research/",
+        "04-content/copy/",
+        "04-content/case-studies/"
+      ],
+      "outputPath": "knowledge/04-content/case-studies/"
+    },
+    {
+      "phrase": "linkedin dm",
+      "owner": "linkedin-strategy",
+      "ownerName": "💼 LinkedIn Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "04-content/social/",
+        "04-content/copy/"
+      ],
+      "outputPath": "knowledge/04-content/social/linkedin/"
+    },
+    {
+      "phrase": "empty state",
+      "owner": "onboarding",
+      "ownerName": "🚀 Customer Onboarding",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "04-content/email/",
+        "04-content/onboarding/"
+      ],
+      "outputPath": "knowledge/03-campaigns/automation/onboarding/"
+    },
+    {
+      "phrase": "timed popup",
+      "owner": "popups",
+      "ownerName": "🪟 Conversion Popups",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "04-content/landing-pages/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/popups/"
+    },
+    {
+      "phrase": "channel roi",
+      "owner": "social-media-analyzer",
+      "ownerName": "📈 Social Media Analyzer",
+      "requires": [
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/social/",
+        "05-analytics-reports/",
+        "05-analytics-reports/social/"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/social/"
+    },
+    {
+      "phrase": "reel script",
+      "owner": "social-content-planner",
+      "ownerName": "📅 Social Content Planner",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/social/",
+        "04-content/social/calendar/"
+      ],
+      "outputPath": "knowledge/04-content/social/planner/"
+    },
+    {
+      "phrase": "roas google",
+      "owner": "google-ads-strategy",
+      "ownerName": "🔍 Google Ads Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/paid-search/",
+        "04-content/copy/",
+        "04-content/landing-pages/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/strategy/"
+    },
+    {
+      "phrase": "ad strategy",
+      "owner": "meta-ads-strategy",
+      "ownerName": "📘 Meta Ads Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/paid-social/",
+        "04-content/copy/",
+        "04-content/landing-pages/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-social/strategy/"
+    },
+    {
+      "phrase": "ad creative",
+      "owner": "meta-ads-strategy",
+      "ownerName": "📘 Meta Ads Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/paid-social/",
+        "04-content/copy/",
+        "04-content/landing-pages/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-social/strategy/"
+    },
+    {
+      "phrase": "ads manager",
+      "owner": "meta-ads-strategy",
+      "ownerName": "📘 Meta Ads Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/paid-social/",
+        "04-content/copy/",
+        "04-content/landing-pages/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-social/strategy/"
+    },
+    {
+      "phrase": "generate ad",
+      "owner": "adkit",
+      "ownerName": "⚡ AdKit Execution",
+      "requires": [
+        "03-campaigns/paid-search/strategy/",
+        "03-campaigns/paid-social/strategy/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/execution/"
     },
     {
       "phrase": "route work",
@@ -1213,6 +5532,248 @@
       "outputPath": "knowledge/03-campaigns/community/"
     },
     {
+      "phrase": "keyword dm",
+      "owner": "openreply",
+      "ownerName": "💬 OpenReply — Comment-to-DM",
+      "requires": [
+        "01-brand/personas/",
+        "03-campaigns/lead-gen/",
+        "04-content/copy/"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/"
+    },
+    {
+      "phrase": "copy sweep",
+      "owner": "copy-editing",
+      "ownerName": "📝 undefined",
+      "requires": [
+        "04-content/copy/"
+      ],
+      "outputPath": "knowledge/04-content/copy/edited/"
+    },
+    {
+      "phrase": "experiment",
+      "owner": "ab-testing",
+      "ownerName": "🧪 undefined",
+      "requires": [
+        "06-playbooks/experiment-backlog.md",
+        "05-analytics-reports/experiments/"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/experiments/"
+    },
+    {
+      "phrase": "swipe post",
+      "owner": "instagram-carousel",
+      "ownerName": "📱 Instagram Carousel",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/"
+      ],
+      "outputPath": "knowledge/04-content/social/"
+    },
+    {
+      "phrase": "viral loop",
+      "owner": "referrals",
+      "ownerName": "🤝 Customer Referral Program",
+      "requires": [
+        "02-market-research/",
+        "03-campaigns/partnerships/",
+        "03-campaigns/lead-gen/"
+      ],
+      "outputPath": "knowledge/03-campaigns/partnerships/referrals/"
+    },
+    {
+      "phrase": "case study",
+      "owner": "customer-story-builder",
+      "ownerName": "📖 Customer Story Builder",
+      "requires": [
+        "02-market-research/",
+        "04-content/copy/",
+        "04-content/case-studies/"
+      ],
+      "outputPath": "knowledge/04-content/case-studies/"
+    },
+    {
+      "phrase": "aha moment",
+      "owner": "onboarding",
+      "ownerName": "🚀 Customer Onboarding",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "04-content/email/",
+        "04-content/onboarding/"
+      ],
+      "outputPath": "knowledge/03-campaigns/automation/onboarding/"
+    },
+    {
+      "phrase": "bid review",
+      "owner": "paid-ads-ops",
+      "ownerName": "📊 Paid Ads Operations",
+      "requires": [
+        "02-market-research/",
+        "03-campaigns/paid-search/",
+        "03-campaigns/paid-social/",
+        "04-content/copy/",
+        "04-content/landing-pages/"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/audits/"
+    },
+    {
+      "phrase": "roas audit",
+      "owner": "paid-ads-ops",
+      "ownerName": "📊 Paid Ads Operations",
+      "requires": [
+        "02-market-research/",
+        "03-campaigns/paid-search/",
+        "03-campaigns/paid-social/",
+        "04-content/copy/",
+        "04-content/landing-pages/"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/audits/"
+    },
+    {
+      "phrase": "sticky bar",
+      "owner": "popups",
+      "ownerName": "🪟 Conversion Popups",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "04-content/landing-pages/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/popups/"
+    },
+    {
+      "phrase": "popup copy",
+      "owner": "popups",
+      "ownerName": "🪟 Conversion Popups",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "04-content/landing-pages/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/popups/"
+    },
+    {
+      "phrase": "schema.org",
+      "owner": "schema",
+      "ownerName": "🏗️ Schema Markup & Structured Data",
+      "requires": [
+        "02-market-research/",
+        "04-content/seo/",
+        "04-content/landing-pages/"
+      ],
+      "outputPath": "knowledge/04-content/seo/schema/"
+    },
+    {
+      "phrase": "faq schema",
+      "owner": "schema",
+      "ownerName": "🏗️ Schema Markup & Structured Data",
+      "requires": [
+        "02-market-research/",
+        "04-content/seo/",
+        "04-content/landing-pages/"
+      ],
+      "outputPath": "knowledge/04-content/seo/schema/"
+    },
+    {
+      "phrase": "mobile seo",
+      "owner": "seo-audit",
+      "ownerName": "🔍 SEO Audit",
+      "requires": [
+        "02-market-research/",
+        "04-content/seo/",
+        "04-content/landing-pages/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/04-content/seo/audits/"
+    },
+    {
+      "phrase": "quote post",
+      "owner": "social-content-planner",
+      "ownerName": "📅 Social Content Planner",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/social/",
+        "04-content/social/calendar/"
+      ],
+      "outputPath": "knowledge/04-content/social/planner/"
+    },
+    {
+      "phrase": "google ads",
+      "owner": "google-ads-strategy",
+      "ownerName": "🔍 Google Ads Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/paid-search/",
+        "04-content/copy/",
+        "04-content/landing-pages/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/strategy/"
+    },
+    {
+      "phrase": "search ads",
+      "owner": "google-ads-strategy",
+      "ownerName": "🔍 Google Ads Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/paid-search/",
+        "04-content/copy/",
+        "04-content/landing-pages/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/strategy/"
+    },
+    {
+      "phrase": "target cpa",
+      "owner": "google-ads-strategy",
+      "ownerName": "🔍 Google Ads Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/paid-search/",
+        "04-content/copy/",
+        "04-content/landing-pages/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/strategy/"
+    },
+    {
+      "phrase": "meta pixel",
+      "owner": "meta-ads-strategy",
+      "ownerName": "📘 Meta Ads Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/paid-social/",
+        "04-content/copy/",
+        "04-content/landing-pages/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-social/strategy/"
+    },
+    {
+      "phrase": "ad library",
+      "owner": "adkit",
+      "ownerName": "⚡ AdKit Execution",
+      "requires": [
+        "03-campaigns/paid-search/strategy/",
+        "03-campaigns/paid-social/strategy/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/execution/"
+    },
+    {
       "phrase": "brand kit",
       "owner": "brand-strategist",
       "ownerName": "🧭 Brand Strategist",
@@ -1361,6 +5922,255 @@
       "outputPath": "knowledge/03-campaigns/community/"
     },
     {
+      "phrase": "repurpose",
+      "owner": "content-repurposing",
+      "ownerName": "🔄 undefined",
+      "requires": [
+        "04-content/drafts/",
+        "04-content/social/"
+      ],
+      "outputPath": "knowledge/04-content/repurposed/"
+    },
+    {
+      "phrase": "converged",
+      "owner": "closed-loop-analytics",
+      "ownerName": "🔄 undefined",
+      "requires": [
+        "05-analytics-reports/",
+        "03-campaigns/"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/closed-loop/"
+    },
+    {
+      "phrase": "exhausted",
+      "owner": "closed-loop-analytics",
+      "ownerName": "🔄 undefined",
+      "requires": [
+        "05-analytics-reports/",
+        "03-campaigns/"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/closed-loop/"
+    },
+    {
+      "phrase": "eval loop",
+      "owner": "content-eval",
+      "ownerName": "📊 undefined",
+      "requires": [
+        "05-analytics-reports/",
+        "04-content/drafts/"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/content-eval/"
+    },
+    {
+      "phrase": "scorecard",
+      "owner": "content-eval",
+      "ownerName": "📊 undefined",
+      "requires": [
+        "05-analytics-reports/",
+        "04-content/drafts/"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/content-eval/"
+    },
+    {
+      "phrase": "core-eeat",
+      "owner": "auditor-protocol",
+      "ownerName": "⚖️ undefined",
+      "requires": [
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/06-playbooks/auditor-gates/"
+    },
+    {
+      "phrase": "veto item",
+      "owner": "auditor-protocol",
+      "ownerName": "⚖️ undefined",
+      "requires": [
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/06-playbooks/auditor-gates/"
+    },
+    {
+      "phrase": "find jobs",
+      "owner": "outreach-engine",
+      "ownerName": "📬 Outreach Engine",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/copy/"
+      ],
+      "outputPath": "knowledge/03-campaigns/outbound/"
+    },
+    {
+      "phrase": "ICP score",
+      "owner": "signal-prospector",
+      "ownerName": "🎯 undefined",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "03-campaigns/outbound/"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/"
+    },
+    {
+      "phrase": "local seo",
+      "owner": "local-seo",
+      "ownerName": "📍 Local SEO",
+      "requires": [
+        "02-market-research/",
+        "01-brand/personas/"
+      ],
+      "outputPath": "knowledge/04-content/seo/local/"
+    },
+    {
+      "phrase": "city page",
+      "owner": "local-seo",
+      "ownerName": "📍 Local SEO",
+      "requires": [
+        "02-market-research/",
+        "01-brand/personas/"
+      ],
+      "outputPath": "knowledge/04-content/seo/local/"
+    },
+    {
+      "phrase": "ppc audit",
+      "owner": "paid-ads-ops",
+      "ownerName": "📊 Paid Ads Operations",
+      "requires": [
+        "02-market-research/",
+        "03-campaigns/paid-search/",
+        "03-campaigns/paid-social/",
+        "04-content/copy/",
+        "04-content/landing-pages/"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/audits/"
+    },
+    {
+      "phrase": "cpa audit",
+      "owner": "paid-ads-ops",
+      "ownerName": "📊 Paid Ads Operations",
+      "requires": [
+        "02-market-research/",
+        "03-campaigns/paid-search/",
+        "03-campaigns/paid-social/",
+        "04-content/copy/",
+        "04-content/landing-pages/"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/audits/"
+    },
+    {
+      "phrase": "deal desk",
+      "owner": "revops",
+      "ownerName": "🔄 Revenue Operations",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "03-campaigns/outbound/",
+        "04-content/copy/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/revops/"
+    },
+    {
+      "phrase": "seo audit",
+      "owner": "seo-audit",
+      "ownerName": "🔍 SEO Audit",
+      "requires": [
+        "02-market-research/",
+        "04-content/seo/",
+        "04-content/landing-pages/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/04-content/seo/audits/"
+    },
+    {
+      "phrase": "reel idea",
+      "owner": "social-content-planner",
+      "ownerName": "📅 Social Content Planner",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/social/",
+        "04-content/social/calendar/"
+      ],
+      "outputPath": "knowledge/04-content/social/planner/"
+    },
+    {
+      "phrase": "ad budget",
+      "owner": "meta-ads-strategy",
+      "ownerName": "📘 Meta Ads Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/paid-social/",
+        "04-content/copy/",
+        "04-content/landing-pages/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-social/strategy/"
+    },
+    {
+      "phrase": "scale ads",
+      "owner": "meta-ads-strategy",
+      "ownerName": "📘 Meta Ads Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/paid-social/",
+        "04-content/copy/",
+        "04-content/landing-pages/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-social/strategy/"
+    },
+    {
+      "phrase": "ads agent",
+      "owner": "adkit",
+      "ownerName": "⚡ AdKit Execution",
+      "requires": [
+        "03-campaigns/paid-search/strategy/",
+        "03-campaigns/paid-social/strategy/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/execution/"
+    },
+    {
+      "phrase": "create ad",
+      "owner": "adkit",
+      "ownerName": "⚡ AdKit Execution",
+      "requires": [
+        "03-campaigns/paid-search/strategy/",
+        "03-campaigns/paid-social/strategy/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/execution/"
+    },
+    {
+      "phrase": "adkit-cli",
+      "owner": "adkit",
+      "ownerName": "⚡ AdKit Execution",
+      "requires": [
+        "03-campaigns/paid-search/strategy/",
+        "03-campaigns/paid-social/strategy/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/execution/"
+    },
+    {
+      "phrase": "ad studio",
+      "owner": "adkit",
+      "ownerName": "⚡ AdKit Execution",
+      "requires": [
+        "03-campaigns/paid-search/strategy/",
+        "03-campaigns/paid-social/strategy/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/execution/"
+    },
+    {
       "phrase": "personas",
       "owner": "brand-strategist",
       "ownerName": "🧭 Brand Strategist",
@@ -1490,6 +6300,110 @@
         "06-playbooks/compliance-checklists.md"
       ],
       "outputPath": "knowledge/04-content/messaging/"
+    },
+    {
+      "phrase": "humanize",
+      "owner": "content-humanizer",
+      "ownerName": "✨ Content Humanizer",
+      "requires": [
+        "04-content/copy/",
+        "01-brand/voice-and-tone.md"
+      ],
+      "outputPath": "knowledge/04-content/copy/humanized/"
+    },
+    {
+      "phrase": "a/b test",
+      "owner": "ab-testing",
+      "ownerName": "🧪 undefined",
+      "requires": [
+        "06-playbooks/experiment-backlog.md",
+        "05-analytics-reports/experiments/"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/experiments/"
+    },
+    {
+      "phrase": "re-audit",
+      "owner": "closed-loop-analytics",
+      "ownerName": "🔄 undefined",
+      "requires": [
+        "05-analytics-reports/",
+        "03-campaigns/"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/closed-loop/"
+    },
+    {
+      "phrase": "outbound",
+      "owner": "outbound-engine",
+      "ownerName": "📬 undefined",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/"
+      ],
+      "outputPath": "knowledge/03-campaigns/outbound/"
+    },
+    {
+      "phrase": "use case",
+      "owner": "customer-story-builder",
+      "ownerName": "📖 Customer Story Builder",
+      "requires": [
+        "02-market-research/",
+        "04-content/copy/",
+        "04-content/case-studies/"
+      ],
+      "outputPath": "knowledge/04-content/case-studies/"
+    },
+    {
+      "phrase": "linkedin",
+      "owner": "linkedin-strategy",
+      "ownerName": "💼 LinkedIn Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "04-content/social/",
+        "04-content/copy/"
+      ],
+      "outputPath": "knowledge/04-content/social/linkedin/"
+    },
+    {
+      "phrase": "ppc math",
+      "owner": "paid-ads-ops",
+      "ownerName": "📊 Paid Ads Operations",
+      "requires": [
+        "02-market-research/",
+        "03-campaigns/paid-search/",
+        "03-campaigns/paid-social/",
+        "04-content/copy/",
+        "04-content/landing-pages/"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/audits/"
+    },
+    {
+      "phrase": "slide-in",
+      "owner": "popups",
+      "ownerName": "🪟 Conversion Popups",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "04-content/landing-pages/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/popups/"
+    },
+    {
+      "phrase": "meta ads",
+      "owner": "meta-ads-strategy",
+      "ownerName": "📘 Meta Ads Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/paid-social/",
+        "04-content/copy/",
+        "04-content/landing-pages/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-social/strategy/"
     },
     {
       "phrase": "anomaly",
@@ -1631,6 +6545,109 @@
       "outputPath": "knowledge/04-content/messaging/"
     },
     {
+      "phrase": "auto dm",
+      "owner": "openreply",
+      "ownerName": "💬 OpenReply — Comment-to-DM",
+      "requires": [
+        "01-brand/personas/",
+        "03-campaigns/lead-gen/",
+        "04-content/copy/"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/"
+    },
+    {
+      "phrase": "ab test",
+      "owner": "ab-testing",
+      "ownerName": "🧪 undefined",
+      "requires": [
+        "06-playbooks/experiment-backlog.md",
+        "05-analytics-reports/experiments/"
+      ],
+      "outputPath": "knowledge/05-analytics-reports/experiments/"
+    },
+    {
+      "phrase": "dry run",
+      "owner": "outbound-engine",
+      "ownerName": "📬 undefined",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/"
+      ],
+      "outputPath": "knowledge/03-campaigns/outbound/"
+    },
+    {
+      "phrase": "near me",
+      "owner": "local-seo",
+      "ownerName": "📍 Local SEO",
+      "requires": [
+        "02-market-research/",
+        "01-brand/personas/"
+      ],
+      "outputPath": "knowledge/04-content/seo/local/"
+    },
+    {
+      "phrase": "json-ld",
+      "owner": "schema",
+      "ownerName": "🏗️ Schema Markup & Structured Data",
+      "requires": [
+        "02-market-research/",
+        "04-content/seo/",
+        "04-content/landing-pages/"
+      ],
+      "outputPath": "knowledge/04-content/seo/schema/"
+    },
+    {
+      "phrase": "ad copy",
+      "owner": "meta-ads-strategy",
+      "ownerName": "📘 Meta Ads Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/paid-social/",
+        "04-content/copy/",
+        "04-content/landing-pages/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-social/strategy/"
+    },
+    {
+      "phrase": "ad hook",
+      "owner": "meta-ads-strategy",
+      "ownerName": "📘 Meta Ads Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/paid-social/",
+        "04-content/copy/",
+        "04-content/landing-pages/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-social/strategy/"
+    },
+    {
+      "phrase": "ads mcp",
+      "owner": "adkit",
+      "ownerName": "⚡ AdKit Execution",
+      "requires": [
+        "03-campaigns/paid-search/strategy/",
+        "03-campaigns/paid-social/strategy/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/execution/"
+    },
+    {
+      "phrase": "run ads",
+      "owner": "adkit",
+      "ownerName": "⚡ AdKit Execution",
+      "requires": [
+        "03-campaigns/paid-search/strategy/",
+        "03-campaigns/paid-social/strategy/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/execution/"
+    },
+    {
       "phrase": "design",
       "owner": "creative-designer",
       "ownerName": "🎨 Creative Designer",
@@ -1690,6 +6707,30 @@
         "03-campaigns/community/"
       ],
       "outputPath": "knowledge/03-campaigns/community/"
+    },
+    {
+      "phrase": "AI CEO",
+      "owner": "outreach-system",
+      "ownerName": "🌐 undefined",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/outbound/",
+        "04-content/messaging/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/outbound/"
+    },
+    {
+      "phrase": "schema",
+      "owner": "schema",
+      "ownerName": "🏗️ Schema Markup & Structured Data",
+      "requires": [
+        "02-market-research/",
+        "04-content/seo/",
+        "04-content/landing-pages/"
+      ],
+      "outputPath": "knowledge/04-content/seo/schema/"
     },
     {
       "phrase": "image",
@@ -1761,6 +6802,41 @@
       "outputPath": "knowledge/04-content/email/"
     },
     {
+      "phrase": "https",
+      "owner": "seo-audit",
+      "ownerName": "🔍 SEO Audit",
+      "requires": [
+        "02-market-research/",
+        "04-content/seo/",
+        "04-content/landing-pages/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/04-content/seo/audits/"
+    },
+    {
+      "phrase": "e-eat",
+      "owner": "seo-audit",
+      "ownerName": "🔍 SEO Audit",
+      "requires": [
+        "02-market-research/",
+        "04-content/seo/",
+        "04-content/landing-pages/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/04-content/seo/audits/"
+    },
+    {
+      "phrase": "adkit",
+      "owner": "adkit",
+      "ownerName": "⚡ AdKit Execution",
+      "requires": [
+        "03-campaigns/paid-search/strategy/",
+        "03-campaigns/paid-social/strategy/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/execution/"
+    },
+    {
       "phrase": "swot",
       "owner": "market-researcher",
       "ownerName": "🔎 Market Researcher",
@@ -1807,6 +6883,83 @@
         "01-brand/voice-and-tone.md"
       ],
       "outputPath": "knowledge/04-content/email/"
+    },
+    {
+      "phrase": "roas",
+      "owner": "auditor-protocol",
+      "ownerName": "⚖️ undefined",
+      "requires": [
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/06-playbooks/auditor-gates/"
+    },
+    {
+      "phrase": "send",
+      "owner": "auditor-protocol",
+      "ownerName": "⚖️ undefined",
+      "requires": [
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/06-playbooks/auditor-gates/"
+    },
+    {
+      "phrase": "echo",
+      "owner": "auditor-protocol",
+      "ownerName": "⚖️ undefined",
+      "requires": [
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/06-playbooks/auditor-gates/"
+    },
+    {
+      "phrase": "star",
+      "owner": "auditor-protocol",
+      "ownerName": "⚖️ undefined",
+      "requires": [
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/06-playbooks/auditor-gates/"
+    },
+    {
+      "phrase": "ramp",
+      "owner": "auditor-protocol",
+      "ownerName": "⚖️ undefined",
+      "requires": [
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/06-playbooks/auditor-gates/"
+    },
+    {
+      "phrase": "tale",
+      "owner": "auditor-protocol",
+      "ownerName": "⚖️ undefined",
+      "requires": [
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/06-playbooks/auditor-gates/"
+    },
+    {
+      "phrase": "cite",
+      "owner": "auditor-protocol",
+      "ownerName": "⚖️ undefined",
+      "requires": [
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/06-playbooks/auditor-gates/"
+    },
+    {
+      "phrase": "roas",
+      "owner": "meta-ads-strategy",
+      "ownerName": "📘 Meta Ads Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/paid-social/",
+        "04-content/copy/",
+        "04-content/landing-pages/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-social/strategy/"
     },
     {
       "phrase": "kpi",
@@ -1948,6 +7101,114 @@
         "06-playbooks/compliance-checklists.md"
       ],
       "outputPath": "knowledge/04-content/messaging/"
+    },
+    {
+      "phrase": "gbp",
+      "owner": "local-seo",
+      "ownerName": "📍 Local SEO",
+      "requires": [
+        "02-market-research/",
+        "01-brand/personas/"
+      ],
+      "outputPath": "knowledge/04-content/seo/local/"
+    },
+    {
+      "phrase": "mql",
+      "owner": "revops",
+      "ownerName": "🔄 Revenue Operations",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "03-campaigns/outbound/",
+        "04-content/copy/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/revops/"
+    },
+    {
+      "phrase": "sql",
+      "owner": "revops",
+      "ownerName": "🔄 Revenue Operations",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/lead-gen/",
+        "03-campaigns/outbound/",
+        "04-content/copy/",
+        "05-analytics-reports/"
+      ],
+      "outputPath": "knowledge/03-campaigns/lead-gen/revops/"
+    },
+    {
+      "phrase": "ppc",
+      "owner": "google-ads-strategy",
+      "ownerName": "🔍 Google Ads Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/paid-search/",
+        "04-content/copy/",
+        "04-content/landing-pages/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/strategy/"
+    },
+    {
+      "phrase": "cpc",
+      "owner": "google-ads-strategy",
+      "ownerName": "🔍 Google Ads Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/paid-search/",
+        "04-content/copy/",
+        "04-content/landing-pages/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/strategy/"
+    },
+    {
+      "phrase": "rsa",
+      "owner": "google-ads-strategy",
+      "ownerName": "🔍 Google Ads Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/paid-search/",
+        "04-content/copy/",
+        "04-content/landing-pages/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-search/strategy/"
+    },
+    {
+      "phrase": "cpm",
+      "owner": "meta-ads-strategy",
+      "ownerName": "📘 Meta Ads Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/paid-social/",
+        "04-content/copy/",
+        "04-content/landing-pages/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-social/strategy/"
+    },
+    {
+      "phrase": "ctr",
+      "owner": "meta-ads-strategy",
+      "ownerName": "📘 Meta Ads Strategy",
+      "requires": [
+        "01-brand/personas/",
+        "02-market-research/",
+        "03-campaigns/paid-social/",
+        "04-content/copy/",
+        "04-content/landing-pages/",
+        "06-playbooks/compliance-checklists.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/paid-social/strategy/"
     },
     {
       "phrase": "pr",
