@@ -63,6 +63,13 @@ Bytes recorded for re-audit comparison.
 When and how to re-measure.
 ```
 
+## Quality Bar
+
+- Output matches the skill contract and output path convention.
+- Every factual claim traces to a knowledge-base file or cited source; unavailable data marked [AWAITING DATA].
+- Brand voice and banned-word rules from knowledge/01-brand/ are honored.
+- Human approval required before any publish-ready asset ships.
+
 ## Related skills
 
 - `auditor-protocol` — the 8 gate frameworks for scoring

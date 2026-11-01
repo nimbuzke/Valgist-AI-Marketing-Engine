@@ -52,7 +52,7 @@ duplicating it.
 
 Executable procedures available to this profile:
 
-- `instagram-carousel` — >
+- `instagram-carousel` — "Use when Plan, write, design and post Instagram carousels that people save and send, for an app, SaaS, product or personal brand. Picks a proven format (step-by-step, listicle, myth vs fact, framework, case study, tweet-card thread, photo story), writes the cover and a slide 2 that works on its own, renders native-looking 1080x1350 JPEG slides locally (Python + Pillow, bundled open-source fonts, no browser, no paid API), writes alt text and keyword-first caption, then posts through WoopSocial after approval, and reads results back. Trigger phrases: "instagram carousel," "make a carousel," "carousel post," "carousel for my app," "turn this into a carousel," "educational carousel," "swipe post," "carousel template.""
 - `brand-kit-check` — Use before producing ANY outbound or customer-facing deliverable — copy, creative, email, social, ads, landing pages, scripts. Loads the Brand Kit and checks the draft stays on voice, tone, and messaging.
 - `build-mini-app` — Use when a deliverable is better served as an interactive tool than a document — a calculator, checklist, dashboard, briefing deck, quiz or planner the team will reuse — or when asked to build, update or list mini-apps. Covers the single-file HTML contract and where apps live.
 - `capability-check` — Use the moment a task needs live platform data — analytics, ad spend, CRM records, review feeds, send stats. Establishes what you can actually reach before you answer, so you never present invented numbers as measurement.

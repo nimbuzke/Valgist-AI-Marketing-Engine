@@ -1,12 +1,8 @@
 ---
 name: popups
-description: >
-  Create and optimize popups, modals, overlays, slide-ins, announcement banners, and exit-intent
-  captures for lead capture and conversion. Trigger phrases: "create a popup," "exit intent
-  popup," "email capture popup," "lead capture modal," "scroll popup," "timed popup,"
-  "announcement banner," "sticky bar," "popup copy," "popup A/B test," "popup conversion rate,"
-  "slide-in," "website overlay."
+description: "Use when Create and optimize popups, modals, overlays, slide-ins, announcement banners, and exit-intent captures for lead capture and conversion. Trigger phrases: "create a popup," "exit intent popup," "email capture popup," "lead capture modal," "scroll popup," "timed popup," "announcement banner," "sticky bar," "popup copy," "popup A/B test," "popup conversion rate," "slide-in," "website overlay.""
 ---
+
 
 # Popups (Conversion Capture)
 

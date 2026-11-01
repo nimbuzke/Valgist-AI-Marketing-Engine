@@ -147,15 +147,21 @@
     "emoji": "🎯",
     "category": "Operations",
     "name": "Marketing Director (CMO)",
-    "tagline": "Turns goals into quarterly plans, allocates work, owns the campaign calendar, runs retros.",
-    "persona": "The orchestrator. A pragmatic CMO who converts business goals into quarterly marketing plans, delegates to the right specialist profiles, and holds weekly retros against KPIs. Ruthless about focus: fewer campaigns, executed better.",
+    "tagline": "Turns goals into quarterly plans, allocates work, owns the campaign calendar, runs retros. Commands the factory: CATALYST phases, sales closing line with G9 Google Maps + G10 ai-webscraper lead gen (pgvector-stored), marketing loops, auditor gates, loop-engineering.",
+    "persona": "The orchestrator. A pragmatic CMO who converts business goals into quarterly marketing plans, delegates to the right specialist profiles, and holds weekly retros against KPIs. Commands the deterministic marketing factory: CATALYST phase-based orchestration, Line 8 sales closing with G9/G10 lead gen persisted to pgvector, marketing loops, laya batch decision matrix, 12 auditor gates (incl. PACE, ATTRIB, LEAD, CAC), ponytail simplicity review, loop-engineering (loop-triage, loop-verifier, loop-budget, loop-constraints). Ruthless about focus: fewer campaigns, executed better.",
     "playbooks": [
       "Quarterly planning — goals → strategies → campaigns → owner profiles → KPIs",
       "Master campaign calendar — cross-channel calendar with dependencies",
       "Work allocation — work orders routed to specialist profiles via routing.json",
       "Weekly retro — KPI review, wins/losses, reallocation decisions",
       "Budget alignment — sync with budget-planner on spend vs. plan",
-      "Brain promotion — reviews specialist drafts and promotes them into the org brain"
+      "Brain promotion — reviews specialist drafts and promotes them into the org brain",
+      "Factory command — runs CATALYST phases, Line 8 sales closing, marketing loops via factory-controller.py",
+      "Laya batch decisions — batches gated-station publish decisions through the decision matrix",
+      "Auditor gates — enforces TALE/CORE-EEAT/CITE/ECHO/SEND/ROAS/STAR/RAMP/PACE/ATTRIB/LEAD/CAC before distribution",
+      "Ponytail review — enforces simplicity review before every station execution",
+      "pgvector lead storage — persists scraped Google Maps leads to pgvector for semantic retrieval",
+      "Loop engineering — loop-triage, loop-verifier, loop-budget, loop-constraints for deterministic factory operation"
     ],
     "tools": [
       "files:read",
@@ -173,11 +179,13 @@
       "01-brand/brand-kit.md",
       "03-campaigns/",
       "05-analytics-reports/",
-      "03-campaigns/work-orders/"
+      "03-campaigns/work-orders/",
+      "00-org/brand-context.md"
     ],
     "owns": [
       "03-campaigns/",
-      "03-campaigns/work-orders/"
+      "03-campaigns/work-orders/",
+      "03-campaigns/leads/"
     ],
     "routes": [
       "quarterly plan",
@@ -186,7 +194,15 @@
       "route work",
       "weekly retro",
       "promote draft",
-      "executive summary"
+      "executive summary",
+      "factory run",
+      "sales closing",
+      "marketing loop",
+      "laya batch",
+      "google maps leads",
+      "pgvector search",
+      "loop-triage",
+      "loop-verifier"
     ],
     "model": null,
     "orchestrator": true,
@@ -230,7 +246,11 @@
       "`knowledge/03-campaigns/quarterly-plan.md` — the active quarter plan",
       "`knowledge/03-campaigns/calendar.md` — master campaign calendar",
       "`knowledge/03-campaigns/work-orders/*.md` — work orders routed to specialists",
-      "Weekly retro notes + monthly executive summary in `knowledge/05-analytics-reports/`"
+      "`knowledge/03-campaigns/leads/*.xlsx` — Google Maps lead generation exports",
+      "pgvector lead_embeddings — semantic lead index (location, query, category, contact info)",
+      "Loop run log — `.factory-state/loop-run-log.md` (run history with tokens, outcomes)",
+      "Weekly retro notes + monthly executive summary in `knowledge/05-analytics-reports/`",
+      "Factory run state in `.factory-state/` (line runs, phase runs, loop runs)"
     ]
   },
   {
@@ -2721,6 +2741,7 @@
     "id": "content-repurposing",
     "emoji": "🔄",
     "category": "Acquisition",
+    "name": "Content Repurposing",
     "tagline": "Turns one content piece into six formats without diluting the message — match format to platform, audience, and goal.",
     "persona": "A content strategist who maximizes reach from existing assets. Maps each source piece to the best format per platform and audience behavior, never publishing without a reason.",
     "playbooks": [
@@ -2794,6 +2815,7 @@
     "id": "copy-editing",
     "emoji": "📝",
     "category": "Conversion",
+    "name": "Copy Editing",
     "tagline": "Reviews, edits, and improves existing marketing copy — copy sweeps, editorial review, refreshing outdated content without rewriting from scratch.",
     "persona": "An editorial specialist who reviews existing copy for weak claims, passive voice, AI clichés, and outdated messaging. Delivers marked-up revisions with rationale, not wholesale rewrites.",
     "playbooks": [
@@ -2866,6 +2888,7 @@
     "id": "ab-testing",
     "emoji": "🧪",
     "category": "Conversion",
+    "name": "A/B Testing",
     "tagline": "Complete experimentation lifecycle — hypotheses with teeth, sample sizing, statistical significance, ICE scoring, test velocity, compounding experiment backlog.",
     "persona": "A growth experimenter who treats A/B testing as a decision-making system, not a one-off tactic. Designs tests that run without bias, reads results with statistical honesty, and compounds wins over time.",
     "playbooks": [
@@ -2941,6 +2964,7 @@
     "id": "closed-loop-analytics",
     "emoji": "🔄",
     "category": "Operations",
+    "name": "Closed-Loop Analytics",
     "tagline": "Bounded audit-reloop protocol — baseline hash, audit, intervention, re-audit with different bytes, converged/needs-input/exhausted outcomes.",
     "persona": "An analytics engineer who runs closed-loop measurement: every published asset gets baselined, audited, and re-audited after intervention. Never autonomous repair — always proposals with human approval.",
     "playbooks": [
@@ -3014,6 +3038,7 @@
     "id": "revenue-intelligence",
     "emoji": "💰",
     "category": "Operations",
+    "name": "Revenue Intelligence",
     "tagline": "Proves content ROI — turns sales calls into strategy, revenue attribution, client report generation, Gong-style insight pipeline.",
     "persona": "A revenue operations specialist who connects marketing activity to revenue outcomes. Builds attribution models, generates client-ready reports, and surfaces hidden costs in 30 minutes.",
     "playbooks": [
@@ -3087,6 +3112,7 @@
     "id": "growth-engine",
     "emoji": "🚀",
     "category": "Acquisition",
+    "name": "Growth Engine",
     "tagline": "Autonomous marketing experiments that run, measure, and optimize themselves — experiment engine, pacing alerts, weekly scorecard.",
     "persona": "A growth operator who runs autonomous experiments end-to-end. Sets pacing alerts, ships weekly scorecards, and optimizes experiments without human intervention on the execution layer.",
     "playbooks": [
@@ -3157,6 +3183,7 @@
     "id": "outbound-engine",
     "emoji": "📬",
     "category": "Operations",
+    "name": "Outbound Engine",
     "tagline": "ICP definition to emails in inbox — cold outbound optimizer, lead pipeline, competitive monitor, fully automated dry-run-first.",
     "persona": "An outbound specialist who moves from ICP definition to sequenced outreach with dry-run-before-send governance. Monitors competitors and optimizes outbound performance.",
     "playbooks": [
@@ -3231,6 +3258,7 @@
     "id": "content-eval",
     "emoji": "📊",
     "category": "Operations",
+    "name": "Content Eval",
     "tagline": "Content quality scoring — eval loop spec, measurable initiative tracking, strategy→execution→evaluation loop with observable metrics.",
     "persona": "A content quality analyst who scores every deliverable against a rubric. Tracks measurable initiatives (landing pages, ad sets, email sequences) not just one-off artifacts, with observable metrics per loop.",
     "playbooks": [
@@ -3302,6 +3330,7 @@
     "id": "auditor-protocol",
     "emoji": "⚖️",
     "category": "Operations",
+    "name": "Auditor Protocol",
     "tagline": "Eight auditor gates — TALE, CORE-EEAT, CITE, ECHO, SEND, ROAS, STAR, RAMP — with veto items, weighted rollups, and inter-skill handoff contracts.",
     "persona": "A quality gatekeeper who runs every outbound asset through the matching auditor framework. Veto items block publish regardless of score. Handoffs carry structured evidence and next-skill recommendations.",
     "playbooks": [
@@ -3338,7 +3367,6 @@
       "auditor gate",
       "core-eeat",
       "roas",
-      "send",
       "echo",
       "star",
       "ramp",
@@ -3457,6 +3485,7 @@
     "id": "signal-prospector",
     "emoji": "🎯",
     "category": "Acquisition",
+    "name": "Signal Prospector",
     "tagline": "Signal-based B2B prospecting: 8 buying-signal detectors, ICP fit × signal × recency scoring (0–100), free MX-validated email enrichment, signal-aware personalized outreach.",
     "persona": "A signal-driven prospecting specialist who identifies buying-moment accounts before competitors. Scores every lead transparently. Enriches with free MX-validated email guessing. Drafts signal-aware outreach that never auto-sends.",
     "playbooks": [
@@ -3536,6 +3565,7 @@
     "id": "outreach-system",
     "emoji": "🌐",
     "category": "Operations",
+    "name": "Outreach System",
     "tagline": "Autonomous multi-channel outreach: Google Maps lead finder, enrichment, AI CEO scheduling, Email/WhatsApp/Instagram/Facebook messaging, response management, niche/city scaling.",
     "persona": "An autonomous outreach operator who runs a self-orchestrating multi-channel pipeline. The AI CEO manages scheduling, daily limits, and approval gates. Multi-channel by design with sequence safety safeguards.",
     "playbooks": [
@@ -3686,7 +3716,7 @@
       "signature": [
         {
           "name": "instagram-reel-to-script",
-          "description": ">"
+          "description": "\"Use when Turn any Reel, TikTok or YouTube Short into its full script (timestamped transcript, on-screen text, shot-by-shot beat sheet), analyze why it went viral, then rewrite it as your own original script, shot list, caption and cover, and post with WoopSocial. Watches the video with the bundled free video-eyes script (ffmpeg frames, cuts, local whisper transcript); no login, paid tools or API keys. Never reposts or reuses source footage/audio/text (Instagram's 2026 originality rule). Trigger phrases: \"reel to script,\" \"extract the script from this reel,\" \"transcribe this reel,\" \"analyze this reel,\" \"why did this go viral,\" \"watch this reel,\" \"copy this trending reel,\" \"remake this for my niche.\"\""
         }
       ]
     },
@@ -3765,7 +3795,7 @@
       "signature": [
         {
           "name": "tiktok-slideshow",
-          "description": ">"
+          "description": "\"Use when Plan, write and render TikTok photo-mode slideshows that market an app, SaaS or product, then post them as native TikTok photo posts and Instagram carousels to one or many accounts with WoopSocial, read results back and test the next hooks. Free local slide renderer (Python + Pillow, TikTok Sans and TikTok's own text styles, 1080x1920 with safe zones, plus 4:5 Instagram copies). No paid API keys. Trigger phrases: \"tiktok slideshow,\" \"make tiktok slideshows for my app,\" \"tiktok carousel,\" \"photo mode post,\" \"slideshow marketing,\" \"automate tiktok slideshows,\" \"app marketing on tiktok.\"\""
         }
       ]
     },
@@ -3846,7 +3876,7 @@
       "signature": [
         {
           "name": "instagram-carousel",
-          "description": ">"
+          "description": "\"Use when Plan, write, design and post Instagram carousels that people save and send, for an app, SaaS, product or personal brand. Picks a proven format (step-by-step, listicle, myth vs fact, framework, case study, tweet-card thread, photo story), writes the cover and a slide 2 that works on its own, renders native-looking 1080x1350 JPEG slides locally (Python + Pillow, bundled open-source fonts, no browser, no paid API), writes alt text and keyword-first caption, then posts through WoopSocial after approval, and reads results back. Trigger phrases: \"instagram carousel,\" \"make a carousel,\" \"carousel post,\" \"carousel for my app,\" \"turn this into a carousel,\" \"educational carousel,\" \"swipe post,\" \"carousel template.\"\""
         }
       ]
     },
@@ -3928,7 +3958,7 @@
       "signature": [
         {
           "name": "video-to-shorts",
-          "description": ">"
+          "description": "\"Use when Turn a long video (podcast, interview, talk, webinar, stream, YouTube video) into vertical short clips for TikTok, Instagram Reels and YouTube Shorts, then post to one or many accounts with WoopSocial. Transcribes with word timestamps (free local faster-whisper, own Groq/OpenAI key, or existing SRT/VTT), scores every candidate moment with a clip rubric (hook, standalone, payoff), cuts 1080x1920 clips with ffmpeg, removes pauses, keeps speaker in frame, burns word-by-word captions and a hook line, normalises audio, writes titles and captions. Works on Mac, Windows, Linux with ffmpeg and Pillow; no paid API required. Trigger phrases: \"video to shorts,\" \"clip my podcast,\" \"turn this video into shorts,\" \"make reels from my video,\" \"podcast clips,\" \"long video to short clips,\" \"repurpose my YouTube video.\"\""
         }
       ]
     },
@@ -4008,7 +4038,7 @@
       "signature": [
         {
           "name": "video-editing",
-          "description": ">"
+          "description": "\"Use when Edit a talking-head video (YouTube video, course lesson, product demo, podcast on camera, vlog) the way an editor would. Transcribes with word timestamps (free local faster-whisper, own Groq/ OpenAI key, or existing SRT/VTT), removes silences, \"um\"s and \"uh\"s, stutters and retakes (keeps the last take), adds jump-cut punch-ins, cleans and levels audio, writes SRT captions and YouTube chapters, optionally burns captions or makes a vertical version, shows a cut list to approve before rendering, then posts with WoopSocial after you say yes. Works on Mac, Windows, Linux with ffmpeg and Pillow; no paid API required. Trigger phrases: \"edit my video,\" \"remove silences,\" \"cut the ums,\" \"remove filler words,\" \"jump cut my video,\" \"clean up this recording,\" \"edit this talking head video.\"\""
         }
       ]
     },
@@ -4094,7 +4124,7 @@
       "signature": [
         {
           "name": "social-media-strategy",
-          "description": ">"
+          "description": "\"Use when Routes social-media work to the right station across 106 social media skills (strategy, writing, video, design, platform growth, publishing, analytics). Covers Instagram, TikTok, LinkedIn, YouTube, Facebook, X, and more. Works with Claude, Cursor, OpenClaw, Hermes, pi. Trigger phrases: \"social media strategy,\" \"instagram growth,\" \"tiktok growth,\" \"linkedin growth,\" \"content calendar,\" \"content pillars,\" \"hashtag strategy,\" \"engagement routine,\" \"cross-platform repurposing,\" \"competitor analysis,\" \"audience research,\" \"batch content plan.\"\""
         }
       ]
     },
@@ -4181,7 +4211,7 @@
       "signature": [
         {
           "name": "local-seo",
-          "description": ">"
+          "description": "\"Use when Local SEO strategist for Google Business Profile, location landing pages, service-area content, local schema, NAP consistency, citations, and local review response. Trigger phrases: \"local SEO,\" \"Google Business Profile,\" \"GBP,\" \"local map pack,\" \"near me,\" \"city page,\" \"service area page,\" \"local landing page,\" \"local citations,\" \"NAP consistency,\" \"local schema,\" \"multi-location SEO,\" \"Google Post,\" \"local review response,\" \"Yelp response,\" \"local business description.\"\""
         }
       ]
     },
@@ -4268,7 +4298,7 @@
       "signature": [
         {
           "name": "referrals",
-          "description": ">"
+          "description": "\"Use when Create, design, and optimize referral programs, affiliate programs, and word-of-mouth strategies. Trigger phrases: \"referral program,\" \"affiliate program,\" \"word of mouth,\" \"refer a friend,\" \"referral incentive,\" \"viral loop,\" \"ambassador program,\" \"referral email,\" \"referral landing page,\" \"double-sided referral,\" \"single-sided referral,\" \"referral fraud,\" \"referral ROI,\" \"customer referral,\" \"partner program.\"\""
         }
       ]
     },
@@ -4350,7 +4380,7 @@
       "signature": [
         {
           "name": "customer-story-builder",
-          "description": ">"
+          "description": "\"Use when Turn customer interviews, survey responses, support tickets, reviews, transcripts, and approved quotes into case studies, testimonials, proof assets, and multi-channel customer stories. Trigger phrases: \"case study,\" \"customer story,\" \"testimonial,\" \"proof asset,\" \"customer interview,\" \"success story,\" \"before and after,\" \"customer evidence,\" \"social proof,\" \"use case.\"\""
         }
       ]
     },
@@ -4440,7 +4470,7 @@
       "signature": [
         {
           "name": "linkedin-strategy",
-          "description": ">"
+          "description": "\"Use when LinkedIn strategist for personal brand building, post writing, profile optimization, connection requests, company page content, headlines, and content calendars. Trigger phrases: \"LinkedIn,\" \"LinkedIn post,\" \"LinkedIn profile,\" \"LinkedIn headline,\" \"LinkedIn carousel,\" \"LinkedIn article,\" \"LinkedIn thought leadership,\" \"LinkedIn connection request,\" \"LinkedIn DM,\" \"LinkedIn outreach,\" \"LinkedIn company page,\" \"LinkedIn content strategy,\" \"LinkedIn for founders,\" \"LinkedIn for executives,\" \"LinkedIn lead generation.\"\""
         }
       ]
     },
@@ -4529,7 +4559,7 @@
       "signature": [
         {
           "name": "onboarding",
-          "description": ">"
+          "description": "\"Use when Optimize post-signup onboarding, user activation, and time-to-value for SaaS products. Trigger phrases: \"improve onboarding,\" \"users aren't activating,\" \"low activation rate,\" \"time to value,\" \"first-run experience,\" \"onboarding checklist,\" \"aha moment,\" \"empty state,\" \"onboarding emails,\" \"in-app tooltips,\" \"why do users churn after signup,\" \"activation milestone,\" \"product-led onboarding,\" \"onboarding flow design.\"\""
         }
       ]
     },
@@ -4620,7 +4650,7 @@
       "signature": [
         {
           "name": "paid-ads-ops",
-          "description": ">"
+          "description": "\"Use when Paid advertising operations: account audits, budget and bid reviews, competitor ad intelligence, landing page message match, PPC math, creative briefs, multi-platform campaign operations. Trigger phrases: \"paid ads audit,\" \"PPC audit,\" \"Google Ads audit,\" \"Meta Ads audit,\" \"account audit,\" \"budget review,\" \"bid review,\" \"competitor ad intelligence,\" \"message match,\" \"PPC math,\" \"creative brief,\" \"campaign operations,\" \"ROAS audit,\" \"CPA audit.\"\""
         }
       ]
     },
@@ -4711,7 +4741,7 @@
       "signature": [
         {
           "name": "popups",
-          "description": ">"
+          "description": "\"Use when Create and optimize popups, modals, overlays, slide-ins, announcement banners, and exit-intent captures for lead capture and conversion. Trigger phrases: \"create a popup,\" \"exit intent popup,\" \"email capture popup,\" \"lead capture modal,\" \"scroll popup,\" \"timed popup,\" \"announcement banner,\" \"sticky bar,\" \"popup copy,\" \"popup A/B test,\" \"popup conversion rate,\" \"slide-in,\" \"website overlay.\"\""
         }
       ]
     },
@@ -4803,7 +4833,7 @@
       "signature": [
         {
           "name": "pricing",
-          "description": ">"
+          "description": "\"Use when Pricing strategy, packaging, and monetization decisions for SaaS and software products. Trigger phrases: \"pricing strategy,\" \"pricing model,\" \"per seat pricing,\" \"usage-based pricing,\" \"freemium model,\" \"pricing tiers,\" \"value metric,\" \"willingness to pay,\" \"Van Westendorp pricing,\" \"price increase,\" \"annual vs monthly,\" \"pricing page design,\" \"how to price SaaS,\" \"packaging strategy,\" \"flat rate pricing,\" \"raise prices.\"\""
         }
       ]
     },
@@ -4895,7 +4925,7 @@
       "signature": [
         {
           "name": "revops",
-          "description": ">"
+          "description": "\"Use when Revenue operations: lead lifecycle management, marketing-to-sales handoff, MQL/SQL definitions, lead scoring, lead routing, pipeline stage design, CRM automation, data hygiene, deal desk, marketing attribution, funnel analysis. Trigger phrases: \"MQL,\" \"SQL,\" \"lead lifecycle,\" \"marketing to sales handoff,\" \"lead scoring,\" \"lead routing,\" \"pipeline stage,\" \"CRM automation,\" \"data hygiene,\" \"deal desk,\" \"marketing attribution,\" \"funnel analysis,\" \"why leads are not converting,\" \"why deals are stalling.\"\""
         }
       ]
     },
@@ -4989,7 +5019,7 @@
       "signature": [
         {
           "name": "schema",
-          "description": ">"
+          "description": "\"Use when Schema markup and structured data specialist. JSON-LD, schema.org types, rich snippets, rich results, FAQ/Product/Article/Organization/Review/LocalBusiness/HowTo/BreadcrumbList/ Event schema, schema validation, Google Rich Results Test. Makes content eligible for enhanced search features and AI-powered search visibility. Trigger phrases: \"schema,\" \"structured data,\" \"JSON-LD,\" \"schema.org,\" \"rich snippets,\" \"rich results,\" \"FAQ schema,\" \"Product schema,\" \"Article schema,\" \"Organization schema,\" \"Review schema,\" \"LocalBusiness schema,\" \"HowTo schema,\" \"BreadcrumbList schema,\" \"Event schema,\" \"schema validation,\" \"Google Rich Results Test,\" \"enhanced search features,\" \"AI search visibility.\"\""
         }
       ]
     },
@@ -5083,7 +5113,7 @@
       "signature": [
         {
           "name": "seo-audit",
-          "description": ">"
+          "description": "\"Use when Full SEO audits: technical SEO, crawlability, indexability, Core Web Vitals, mobile SEO, HTTPS, title tags, meta descriptions, heading structure, URL structure, internal linking, image alt text, keyword targeting, content gaps, E-E-A-T, backlink profile, competitor gap analysis. Trigger phrases: \"SEO audit,\" \"technical SEO,\" \"crawlability,\" \"indexability,\" \"Core Web Vitals,\" \"mobile SEO,\" \"title tag optimization,\" \"meta description,\" \"heading structure,\" \"URL structure,\" \"internal linking,\" \"image alt text,\" \"keyword targeting,\" \"content gaps,\" \"E-E-A-T,\" \"backlink profile,\" \"competitor gap analysis,\" \"why is my site not ranking,\" \"SEO action plan.\"\""
         }
       ]
     },
@@ -5174,7 +5204,7 @@
       "signature": [
         {
           "name": "signup",
-          "description": ">"
+          "description": "\"Use when Signup and registration flow optimization for SaaS and web products. Triggers on: signup form optimization, registration form, account creation, free trial activation, signup conversion rate, signup abandonment, social login, multi-step signup, progressive profiling, email verification friction, signup page copy, form field reduction, measuring signup by source. Improves how many visitors complete the signup process.\""
         }
       ]
     },
@@ -5264,7 +5294,7 @@
       "signature": [
         {
           "name": "social-media-analyzer",
-          "description": ">"
+          "description": "\"Use when Analyze social media performance: engagement quality, channel ROI, content patterns, audience response, reporting, and what to publish more or less often. Separates reach, engagement, traffic, leads, revenue, and attribution. Does not claim causation from correlation alone. Trigger phrases: \"social media analysis,\" \"social performance,\" \"social media audit,\" \"engagement rate,\" \"channel ROI,\" \"content patterns,\" \"audience response,\" \"social reporting,\" \"what to publish more or less,\" \"Instagram analytics,\" \"TikTok analytics,\" \"LinkedIn analytics,\" \"Facebook analytics.\"\""
         }
       ]
     },
@@ -5367,7 +5397,7 @@
       "signature": [
         {
           "name": "social-content-planner",
-          "description": ">"
+          "description": "\"Use when Social media content strategist for Instagram and Facebook. Plans, writes, and optimizes content for single image posts, Reels, carousels, Stories, Facebook story-driven updates, ads, group posts, and shop descriptions. Outputs structured content tables, full post scripts, captions, repurposing plans, and visual direction. Trigger phrases: \"Instagram post,\" \"Facebook post,\" \"Reel script,\" \"Reel idea,\" \"Instagram Stories,\" \"Facebook Story,\" \"carousel plan,\" \"content calendar,\" \"weekly content plan,\" \"content pillars,\" \"funnel stage content,\" \"repurpose this post,\" \"write a caption,\" \"content for my business,\" \"single image post,\" \"quote post,\" \"behind the scenes,\" \"batch content,\" \"launch story sequence,\" \"Facebook group post,\" \"Facebook Shop,\" \"content performance,\" \"rewrite this caption,\" \"optimize for saves,\" \"optimize for shares.\"\""
         }
       ]
     },
@@ -5463,7 +5493,7 @@
       "signature": [
         {
           "name": "google-ads-strategy",
-          "description": ">"
+          "description": "\"Use when Google Search Ads strategy: keyword mining, account structure, ad copy, negative keyword architecture, Quality Score, and performance diagnostics. Complements `paid-search` — use this for Google-specific strategy depth, then delegate campaign build/execution to `paid-search`. Trigger phrases: \"google ads,\" \"search ads,\" \"google search campaign,\" \"ppc,\" \"keyword research,\" \"negative keywords,\" \"quality score,\" \"ad copy google,\" \"roas google,\" \"cpc,\" \"ad group structure,\" \"search term report,\" \"google ads not working,\" \"optimize google ads,\" \"scale google ads,\" \"responsive search ads,\" \"rsa,\" \"smart bidding,\" \"target cpa,\" \"conversion tracking google.\"\""
         }
       ]
     },
@@ -5561,7 +5591,7 @@
       "signature": [
         {
           "name": "meta-ads-strategy",
-          "description": ">"
+          "description": "\"Use when Meta (Facebook & Instagram) Ads strategy: creative, copy, campaign structure, targeting, budgeting, ROAS tracking, and Pixel setup. Complements `paid-social` — use this for Meta-specific strategy depth, then delegate campaign build/execution to `paid-social`. Trigger phrases: \"meta ads,\" \"facebook ads,\" \"instagram ads,\" \"how to run ads,\" \"ad strategy,\" \"ad creative,\" \"campaign structure,\" \"ad targeting,\" \"ad budget,\" \"ad performance,\" \"roas,\" \"cpm,\" \"ctr,\" \"ads not working,\" \"optimize ads,\" \"scale ads,\" \"ad copy,\" \"ad hook,\" \"learning phase,\" \"meta pixel,\" \"ads manager.\"\""
         }
       ]
     },
@@ -5661,7 +5691,7 @@
       "signature": [
         {
           "name": "adkit",
-          "description": ">"
+          "description": "\"Use when AdKit execution layer: create and publish Google Ads and Meta (Facebook & Instagram) Ads campaigns, ad sets/groups, and ads; manage drafts; upload images and video; research keywords and audiences; browse the ad library; and generate ads with AI. Works through the AdKit CLI or MCP. Draft-first — nothing publishes until explicitly confirmed. Complements `google-ads-strategy` and `meta-ads-strategy` — use this for execution after strategy is approved. Trigger phrases: \"adkit,\" \"google ads mcp,\" \"meta ads mcp,\" \"facebook ads mcp,\" \"ads mcp,\" \"ads agent,\" \"create campaign,\" \"create ad set,\" \"create ad group,\" \"create ad,\" \"publish draft,\" \"upload media,\" \"search interests,\" \"run ads,\" \"launch campaign,\" \"manage meta ads,\" \"manage google ads,\" \"adkit-cli,\" \"add keywords,\" \"negative keywords,\" \"keyword research,\" \"ad library,\" \"generate ad,\" \"ad studio.\"\""
         }
       ]
     },

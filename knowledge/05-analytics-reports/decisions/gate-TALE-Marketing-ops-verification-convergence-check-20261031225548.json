@@ -1,0 +1,16 @@
+{
+  "gate": "TALE",
+  "draft": "/home/sage/Documents/Automation/marketing/valgist-marketing-engine/knowledge/07-agent-outputs/Marketing-ops-verification-convergence-check.md",
+  "draft_hash": "97650ff8b59ce0a06a083da047c8a338e2cb33d1933e29e6a7069e13b672ef67",
+  "checked_at": "2026-10-31T22:55:48.704748+00:00",
+  "passed": false,
+  "score": 40,
+  "max_score": 80,
+  "pct": 50.0,
+  "notes": [
+    "T: found ['claim']",
+    "A: no keywords found",
+    "L: no keywords found",
+    "E: found ['data', 'observed', 'result']"
+  ]
+}

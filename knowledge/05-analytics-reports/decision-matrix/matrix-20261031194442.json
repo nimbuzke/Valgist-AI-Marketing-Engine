@@ -1,0 +1,57 @@
+{
+  "id": "matrix-20261031194442",
+  "created_at": "2026-10-31T19:44:42.111121+00:00",
+  "items": [
+    {
+      "id": "deal-close-001",
+      "station": "E9",
+      "draft_path": "knowledge/07-agent-outputs/test-adkit-draft.md",
+      "question": "Should this paid ad campaign be published? Draft-first: requires human approval. Check ROAS, CPA, CTR thresholds and compliance.",
+      "context": {
+        "station": "E9",
+        "channel": "paid-ads",
+        "platforms": [
+          "google",
+          "meta",
+          "tiktok"
+        ]
+      },
+      "content_hash": "8b70b6f4808ca96bd23c1ddfe0f9cfde668e5b3106867c01e4477e047fb22bde",
+      "decision": "block",
+      "confidence": 0.5,
+      "vetoes": [
+        "no_human_approval_for_publish",
+        "compliance_not_passed"
+      ],
+      "created_at": "2026-10-31T19:44:42.110961+00:00",
+      "updated_at": "2026-10-31T19:44:45.839495+00:00"
+    },
+    {
+      "id": "post-publish-001",
+      "station": "E1",
+      "draft_path": "knowledge/07-agent-outputs/test-social-post.md",
+      "question": "Should this organic social distribution be published to 28+ channels? Consider brand alignment, compliance, and audience fit.",
+      "context": {
+        "station": "E1",
+        "channel": "organic-social",
+        "channels": 28
+      },
+      "content_hash": "e654ba853097e4ea4ee6642c574553cff20ca54e1109d9f82d332adf039e9bca",
+      "decision": "block",
+      "confidence": 0.5,
+      "vetoes": [
+        "no_human_approval_for_publish",
+        "compliance_not_passed"
+      ],
+      "created_at": "2026-10-31T19:44:42.111046+00:00",
+      "updated_at": "2026-10-31T19:44:45.839521+00:00"
+    }
+  ],
+  "batch_results": {
+    "total": 2,
+    "decided": 2,
+    "batch_size": 8,
+    "completed_at": "2026-10-31T19:44:45.839543+00:00"
+  },
+  "status": "completed"
+}

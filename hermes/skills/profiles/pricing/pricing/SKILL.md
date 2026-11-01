@@ -1,12 +1,8 @@
 ---
 name: pricing
-description: >
-  Pricing strategy, packaging, and monetization decisions for SaaS and software products.
-  Trigger phrases: "pricing strategy," "pricing model," "per seat pricing," "usage-based
-  pricing," "freemium model," "pricing tiers," "value metric," "willingness to pay,"
-  "Van Westendorp pricing," "price increase," "annual vs monthly," "pricing page design,"
-  "how to price SaaS," "packaging strategy," "flat rate pricing," "raise prices."
+description: "Use when Pricing strategy, packaging, and monetization decisions for SaaS and software products. Trigger phrases: "pricing strategy," "pricing model," "per seat pricing," "usage-based pricing," "freemium model," "pricing tiers," "value metric," "willingness to pay," "Van Westendorp pricing," "price increase," "annual vs monthly," "pricing page design," "how to price SaaS," "packaging strategy," "flat rate pricing," "raise prices.""
 ---
+
 
 # Pricing Strategy
 
@@ -98,6 +94,13 @@ A/B test outcomes, conversion and churn impact.
 | ESP | ⚪ not wired | mcp | `ESP_API_KEY` |
 
 > Source: `nimbuzke/marketing-skills` (scayver). Pricing skill.
+
+## Quality Bar
+
+- Output matches the skill contract and output path convention.
+- Every factual claim traces to a knowledge-base file or cited source; unavailable data marked [AWAITING DATA].
+- Brand voice and banned-word rules from knowledge/01-brand/ are honored.
+- Human approval required before any publish-ready asset ships.
 
 ## Related skills
 

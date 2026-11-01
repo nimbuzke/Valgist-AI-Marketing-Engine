@@ -1,0 +1,16 @@
+{
+  "gate": "TALE",
+  "draft": "/home/sage/Documents/Automation/marketing/valgist-marketing-engine/knowledge/07-agent-outputs/Final-verification-adkit-draft.md",
+  "draft_hash": "03f0b7afeafb18cb6cacd7df4ecfcc0428baad62930062db2a1efddbdc018420",
+  "checked_at": "2026-10-31T22:45:52.635866+00:00",
+  "passed": false,
+  "score": 20,
+  "max_score": 80,
+  "pct": 25.0,
+  "notes": [
+    "T: found ['claim']",
+    "A: no keywords found",
+    "L: no keywords found",
+    "E: no keywords found"
+  ]
+}

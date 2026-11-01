@@ -1,12 +1,8 @@
 ---
 name: referrals
-description: >
-  Create, design, and optimize referral programs, affiliate programs, and word-of-mouth strategies.
-  Trigger phrases: "referral program," "affiliate program," "word of mouth," "refer a friend,"
-  "referral incentive," "viral loop," "ambassador program," "referral email," "referral landing
-  page," "double-sided referral," "single-sided referral," "referral fraud," "referral ROI,"
-  "customer referral," "partner program."
+description: "Use when Create, design, and optimize referral programs, affiliate programs, and word-of-mouth strategies. Trigger phrases: "referral program," "affiliate program," "word of mouth," "refer a friend," "referral incentive," "viral loop," "ambassador program," "referral email," "referral landing page," "double-sided referral," "single-sided referral," "referral fraud," "referral ROI," "customer referral," "partner program.""
 ---
+
 
 # Referrals (Customer Referral Program)
 
@@ -91,6 +87,13 @@ Referred LTV, program cost, payback, CPA.
 | CRM | ⚪ not wired | mcp | `CRM_API_KEY` |
 
 > Source: `nimbuzke/marketing-skills` (scayver). Referrals skill.
+
+## Quality Bar
+
+- Output matches the skill contract and output path convention.
+- Every factual claim traces to a knowledge-base file or cited source; unavailable data marked [AWAITING DATA].
+- Brand voice and banned-word rules from knowledge/01-brand/ are honored.
+- Human approval required before any publish-ready asset ships.
 
 ## Related skills
 

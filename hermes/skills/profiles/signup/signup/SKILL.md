@@ -1,12 +1,8 @@
 ---
 name: signup
-description: >
-  Signup and registration flow optimization for SaaS and web products. Triggers on: signup form
-  optimization, registration form, account creation, free trial activation, signup conversion
-  rate, signup abandonment, social login, multi-step signup, progressive profiling, email
-  verification friction, signup page copy, form field reduction, measuring signup by source.
-  Improves how many visitors complete the signup process.
+description: "Use when Signup and registration flow optimization for SaaS and web products. Triggers on: signup form optimization, registration form, account creation, free trial activation, signup conversion rate, signup abandonment, social login, multi-step signup, progressive profiling, email verification friction, signup page copy, form field reduction, measuring signup by source. Improves how many visitors complete the signup process."
 ---
+
 
 # Signup Flow Optimization
 
@@ -113,6 +109,13 @@ Signup conversion rate, abandonment by step, time-to-signup.
 | A/B testing | ⚪ not wired | mcp | `AB_TESTING_TOOL_API_KEY` |
 
 > Source: `nimbuzke/marketing-skills` (scayver). Signup skill.
+
+## Quality Bar
+
+- Output matches the skill contract and output path convention.
+- Every factual claim traces to a knowledge-base file or cited source; unavailable data marked [AWAITING DATA].
+- Brand voice and banned-word rules from knowledge/01-brand/ are honored.
+- Human approval required before any publish-ready asset ships.
 
 ## Related skills
 

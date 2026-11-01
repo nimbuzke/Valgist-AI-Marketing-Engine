@@ -87,6 +87,13 @@ Signal-aware personalized messages, A/B variants.
 
 > Source: `nimbuzke/signal-prospector` — Python + SQLite + Flask + MCP server. CLI at `cli.py`, MCP at `prospector/mcp_server.py`. Free-first: SearXNG/httpx before paid; PDF/Firecrawl last.
 
+## Quality Bar
+
+- Output matches the skill contract and output path convention.
+- Every factual claim traces to a knowledge-base file or cited source; unavailable data marked [AWAITING DATA].
+- Brand voice and banned-word rules from knowledge/01-brand/ are honored.
+- Human approval required before any publish-ready asset ships.
+
 ## Related skills
 
 - `outreach-engine` — send drafted outreach (playbook-based)

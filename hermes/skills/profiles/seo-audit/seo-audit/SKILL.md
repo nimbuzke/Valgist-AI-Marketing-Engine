@@ -1,15 +1,8 @@
 ---
 name: seo-audit
-description: >
-  Full SEO audits: technical SEO, crawlability, indexability, Core Web Vitals, mobile SEO,
-  HTTPS, title tags, meta descriptions, heading structure, URL structure, internal linking,
-  image alt text, keyword targeting, content gaps, E-E-A-T, backlink profile, competitor gap
-  analysis. Trigger phrases: "SEO audit," "technical SEO," "crawlability," "indexability,"
-  "Core Web Vitals," "mobile SEO," "title tag optimization," "meta description," "heading
-  structure," "URL structure," "internal linking," "image alt text," "keyword targeting,"
-  "content gaps," "E-E-A-T," "backlink profile," "competitor gap analysis," "why is my site
-  not ranking," "SEO action plan."
+description: "Use when Full SEO audits: technical SEO, crawlability, indexability, Core Web Vitals, mobile SEO, HTTPS, title tags, meta descriptions, heading structure, URL structure, internal linking, image alt text, keyword targeting, content gaps, E-E-A-T, backlink profile, competitor gap analysis. Trigger phrases: "SEO audit," "technical SEO," "crawlability," "indexability," "Core Web Vitals," "mobile SEO," "title tag optimization," "meta description," "heading structure," "URL structure," "internal linking," "image alt text," "keyword targeting," "content gaps," "E-E-A-T," "backlink profile," "competitor gap analysis," "why is my site not ranking," "SEO action plan.""
 ---
+
 
 # SEO Audit
 
@@ -102,6 +95,13 @@ URL redirects, canonical issues, site move impact.
 | GSC | ⚪ not wired | mcp | `GSC_API_KEY` |
 
 > Source: `nimbuzke/marketing-skills` (scayver). SEO Audit skill.
+
+## Quality Bar
+
+- Output matches the skill contract and output path convention.
+- Every factual claim traces to a knowledge-base file or cited source; unavailable data marked [AWAITING DATA].
+- Brand voice and banned-word rules from knowledge/01-brand/ are honored.
+- Human approval required before any publish-ready asset ships.
 
 ## Related skills
 

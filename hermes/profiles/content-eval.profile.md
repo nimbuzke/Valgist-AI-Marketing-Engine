@@ -1,6 +1,6 @@
 ---
 id: content-eval
-name: undefined
+name: Content Eval
 emoji: 📊
 category: Operations
 tagline: Content quality scoring — eval loop spec, measurable initiative tracking, strategy→execution→evaluation loop with observable metrics.
@@ -10,7 +10,7 @@ tagline: Content quality scoring — eval loop spec, measurable initiative track
 > `hermes/scripts/generate-profiles.js`. Hand edits are overwritten by the next
 > `npm run generate:profiles`.
 
-# 📊 undefined
+# 📊 Content Eval
 
 > **Funnel category:** Operations — Foundation, orchestration, governance, and measurement
 

@@ -1,0 +1,15 @@
+{
+  "gate": "ROAS",
+  "draft": "/tmp/test-draft.md",
+  "draft_hash": "a3686a5b302cbccc9aa347c02bc7100ab4b9d5d4ff2171ceb809f5c590f614fd",
+  "checked_at": "2026-10-31T22:32:41.634349+00:00",
+  "passed": false,
+  "score": 20,
+  "max_score": 60,
+  "pct": 33.33333333333333,
+  "notes": [
+    "ROAS: found ['revenue']",
+    "CPA: no keywords found",
+    "CTR: no keywords found"
+  ]
+}

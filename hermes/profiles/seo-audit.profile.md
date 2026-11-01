@@ -54,7 +54,7 @@ duplicating it.
 
 Executable procedures available to this profile:
 
-- `seo-audit` — >
+- `seo-audit` — "Use when Full SEO audits: technical SEO, crawlability, indexability, Core Web Vitals, mobile SEO, HTTPS, title tags, meta descriptions, heading structure, URL structure, internal linking, image alt text, keyword targeting, content gaps, E-E-A-T, backlink profile, competitor gap analysis. Trigger phrases: "SEO audit," "technical SEO," "crawlability," "indexability," "Core Web Vitals," "mobile SEO," "title tag optimization," "meta description," "heading structure," "URL structure," "internal linking," "image alt text," "keyword targeting," "content gaps," "E-E-A-T," "backlink profile," "competitor gap analysis," "why is my site not ranking," "SEO action plan.""
 - `brand-kit-check` — Use before producing ANY outbound or customer-facing deliverable — copy, creative, email, social, ads, landing pages, scripts. Loads the Brand Kit and checks the draft stays on voice, tone, and messaging.
 - `build-mini-app` — Use when a deliverable is better served as an interactive tool than a document — a calculator, checklist, dashboard, briefing deck, quiz or planner the team will reuse — or when asked to build, update or list mini-apps. Covers the single-file HTML contract and where apps live.
 - `capability-check` — Use the moment a task needs live platform data — analytics, ad spend, CRM records, review feeds, send stats. Establishes what you can actually reach before you answer, so you never present invented numbers as measurement.

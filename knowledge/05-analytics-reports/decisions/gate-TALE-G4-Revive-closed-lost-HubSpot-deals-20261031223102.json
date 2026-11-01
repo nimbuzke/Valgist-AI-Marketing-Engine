@@ -1,0 +1,16 @@
+{
+  "gate": "TALE",
+  "draft": "/home/sage/Documents/Automation/marketing/valgist-marketing-engine/.factory-state/sales-closing/G4-Revive-closed-lost-HubSpot-deals.json",
+  "draft_hash": "ae165053e6a75f02ef8b3d29ab3521bd9437c7812ddc64a96b74f5213d5ebf7d",
+  "checked_at": "2026-10-31T22:31:02.272247+00:00",
+  "passed": false,
+  "score": 0,
+  "max_score": 80,
+  "pct": 0.0,
+  "notes": [
+    "T: no keywords found",
+    "A: no keywords found",
+    "L: no keywords found",
+    "E: no keywords found"
+  ]
+}

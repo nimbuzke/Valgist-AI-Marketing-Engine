@@ -1,11 +1,8 @@
 ---
 name: customer-story-builder
-description: >
-  Turn customer interviews, survey responses, support tickets, reviews, transcripts, and approved
-  quotes into case studies, testimonials, proof assets, and multi-channel customer stories.
-  Trigger phrases: "case study," "customer story," "testimonial," "proof asset," "customer
-  interview," "success story," "before and after," "customer evidence," "social proof," "use case."
+description: "Use when Turn customer interviews, survey responses, support tickets, reviews, transcripts, and approved quotes into case studies, testimonials, proof assets, and multi-channel customer stories. Trigger phrases: "case study," "customer story," "testimonial," "proof asset," "customer interview," "success story," "before and after," "customer evidence," "social proof," "use case.""
 ---
+
 
 # Customer Story Builder
 
@@ -88,6 +85,13 @@ Each claim linked to source: interview/review/ticket/transcript.
 | CRM | ⚪ not wired | mcp | `CRM_API_KEY` |
 
 > Source: `nimbuzke/marketing-skills` (scayver). Customer Story Builder skill.
+
+## Quality Bar
+
+- Output matches the skill contract and output path convention.
+- Every factual claim traces to a knowledge-base file or cited source; unavailable data marked [AWAITING DATA].
+- Brand voice and banned-word rules from knowledge/01-brand/ are honored.
+- Human approval required before any publish-ready asset ships.
 
 ## Related skills
 

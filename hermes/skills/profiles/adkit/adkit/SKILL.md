@@ -1,18 +1,8 @@
 ---
 name: adkit
-description: >
-  AdKit execution layer: create and publish Google Ads and Meta (Facebook & Instagram)
-  Ads campaigns, ad sets/groups, and ads; manage drafts; upload images and video;
-  research keywords and audiences; browse the ad library; and generate ads with AI.
-  Works through the AdKit CLI or MCP. Draft-first — nothing publishes until explicitly
-  confirmed. Complements `google-ads-strategy` and `meta-ads-strategy` — use this for
-  execution after strategy is approved. Trigger phrases: "adkit," "google ads mcp,"
-  "meta ads mcp," "facebook ads mcp," "ads mcp," "ads agent," "create campaign,"
-  "create ad set," "create ad group," "create ad," "publish draft," "upload media,"
-  "search interests," "run ads," "launch campaign," "manage meta ads," "manage google
-  ads," "adkit-cli," "add keywords," "negative keywords," "keyword research," "ad
-  library," "generate ad," "ad studio."
+description: "Use when AdKit execution layer: create and publish Google Ads and Meta (Facebook & Instagram) Ads campaigns, ad sets/groups, and ads; manage drafts; upload images and video; research keywords and audiences; browse the ad library; and generate ads with AI. Works through the AdKit CLI or MCP. Draft-first — nothing publishes until explicitly confirmed. Complements `google-ads-strategy` and `meta-ads-strategy` — use this for execution after strategy is approved. Trigger phrases: "adkit," "google ads mcp," "meta ads mcp," "facebook ads mcp," "ads mcp," "ads agent," "create campaign," "create ad set," "create ad group," "create ad," "publish draft," "upload media," "search interests," "run ads," "launch campaign," "manage meta ads," "manage google ads," "adkit-cli," "add keywords," "negative keywords," "keyword research," "ad library," "generate ad," "ad studio.""
 ---
+
 
 # AdKit — Ad Execution Layer
 

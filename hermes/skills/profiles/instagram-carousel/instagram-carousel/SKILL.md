@@ -1,15 +1,8 @@
 ---
 name: instagram-carousel
-description: >
-  Plan, write, design and post Instagram carousels that people save and send, for an app, SaaS,
-  product or personal brand. Picks a proven format (step-by-step, listicle, myth vs fact,
-  framework, case study, tweet-card thread, photo story), writes the cover and a slide 2 that
-  works on its own, renders native-looking 1080x1350 JPEG slides locally (Python + Pillow,
-  bundled open-source fonts, no browser, no paid API), writes alt text and keyword-first caption,
-  then posts through WoopSocial after approval, and reads results back. Trigger phrases:
-  "instagram carousel," "make a carousel," "carousel post," "carousel for my app," "turn this
-  into a carousel," "educational carousel," "swipe post," "carousel template."
+description: "Use when Plan, write, design and post Instagram carousels that people save and send, for an app, SaaS, product or personal brand. Picks a proven format (step-by-step, listicle, myth vs fact, framework, case study, tweet-card thread, photo story), writes the cover and a slide 2 that works on its own, renders native-looking 1080x1350 JPEG slides locally (Python + Pillow, bundled open-source fonts, no browser, no paid API), writes alt text and keyword-first caption, then posts through WoopSocial after approval, and reads results back. Trigger phrases: "instagram carousel," "make a carousel," "carousel post," "carousel for my app," "turn this into a carousel," "educational carousel," "swipe post," "carousel template.""
 ---
+
 
 # Instagram Carousel
 
@@ -90,6 +83,13 @@ Saves, sends, reach — real numbers with dates.
 | WoopSocial | ⚪ not wired | mcp | `WOOPSOCIAL_API_KEY` |
 
 > Source: `nimbuzke/instagram-carousel-skill`. Local renderer, no paid API keys.
+
+## Quality Bar
+
+- Output matches the skill contract and output path convention.
+- Every factual claim traces to a knowledge-base file or cited source; unavailable data marked [AWAITING DATA].
+- Brand voice and banned-word rules from knowledge/01-brand/ are honored.
+- Human approval required before any publish-ready asset ships.
 
 ## Related skills
 

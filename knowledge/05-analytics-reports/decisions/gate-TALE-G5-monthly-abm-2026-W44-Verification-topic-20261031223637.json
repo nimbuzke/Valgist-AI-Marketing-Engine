@@ -1,0 +1,16 @@
+{
+  "gate": "TALE",
+  "draft": "/home/sage/Documents/Automation/marketing/valgist-marketing-engine/.factory-state/sales-closing/G5-monthly-abm-2026-W44-Verification-topic.json",
+  "draft_hash": "5deb1e092248a813a9ef73a733cc77bf45bcfbe7e3ef729ab5ad08e2b9f74845",
+  "checked_at": "2026-10-31T22:36:37.062200+00:00",
+  "passed": false,
+  "score": 0,
+  "max_score": 80,
+  "pct": 0.0,
+  "notes": [
+    "T: no keywords found",
+    "A: no keywords found",
+    "L: no keywords found",
+    "E: no keywords found"
+  ]
+}

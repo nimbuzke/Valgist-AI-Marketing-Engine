@@ -1,0 +1,16 @@
+{
+  "gate": "TALE",
+  "draft": "/home/sage/Documents/Automation/marketing/valgist-marketing-engine/knowledge/07-agent-outputs/weekly-budget-pacing-2026-W44-Verificati-pacing-check.md",
+  "draft_hash": "ee4f649c5edd67f94a2f335810cd846e0d3b863ed6e2252e2cb37828a336b7c0",
+  "checked_at": "2026-10-31T22:56:08.165090+00:00",
+  "passed": false,
+  "score": 20,
+  "max_score": 80,
+  "pct": 25.0,
+  "notes": [
+    "T: no keywords found",
+    "A: no keywords found",
+    "L: no keywords found",
+    "E: found ['data']"
+  ]
+}

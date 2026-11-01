@@ -54,7 +54,7 @@ duplicating it.
 
 Executable procedures available to this profile:
 
-- `video-to-shorts` — >
+- `video-to-shorts` — "Use when Turn a long video (podcast, interview, talk, webinar, stream, YouTube video) into vertical short clips for TikTok, Instagram Reels and YouTube Shorts, then post to one or many accounts with WoopSocial. Transcribes with word timestamps (free local faster-whisper, own Groq/OpenAI key, or existing SRT/VTT), scores every candidate moment with a clip rubric (hook, standalone, payoff), cuts 1080x1920 clips with ffmpeg, removes pauses, keeps speaker in frame, burns word-by-word captions and a hook line, normalises audio, writes titles and captions. Works on Mac, Windows, Linux with ffmpeg and Pillow; no paid API required. Trigger phrases: "video to shorts," "clip my podcast," "turn this video into shorts," "make reels from my video," "podcast clips," "long video to short clips," "repurpose my YouTube video.""
 - `brand-kit-check` — Use before producing ANY outbound or customer-facing deliverable — copy, creative, email, social, ads, landing pages, scripts. Loads the Brand Kit and checks the draft stays on voice, tone, and messaging.
 - `build-mini-app` — Use when a deliverable is better served as an interactive tool than a document — a calculator, checklist, dashboard, briefing deck, quiz or planner the team will reuse — or when asked to build, update or list mini-apps. Covers the single-file HTML contract and where apps live.
 - `capability-check` — Use the moment a task needs live platform data — analytics, ad spend, CRM records, review feeds, send stats. Establishes what you can actually reach before you answer, so you never present invented numbers as measurement.

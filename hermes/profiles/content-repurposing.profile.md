@@ -1,6 +1,6 @@
 ---
 id: content-repurposing
-name: undefined
+name: Content Repurposing
 emoji: 🔄
 category: Acquisition
 tagline: Turns one content piece into six formats without diluting the message — match format to platform, audience, and goal.
@@ -10,7 +10,7 @@ tagline: Turns one content piece into six formats without diluting the message �
 > `hermes/scripts/generate-profiles.js`. Hand edits are overwritten by the next
 > `npm run generate:profiles`.
 
-# 🔄 undefined
+# 🔄 Content Repurposing
 
 > **Funnel category:** Acquisition — Attracting and reaching new audiences
 

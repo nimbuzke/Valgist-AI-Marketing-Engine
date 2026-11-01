@@ -1,0 +1,16 @@
+{
+  "gate": "TALE",
+  "draft": "/home/sage/Documents/Automation/marketing/valgist-marketing-engine/.factory-state/sales-closing/G4-location-Toronto-query-dentists-pages-1.json",
+  "draft_hash": "11ad186739aa2e8547869e1a41199b63e7bfe72c73486852210339841a2cb181",
+  "checked_at": "2026-10-31T23:28:19.653854+00:00",
+  "passed": false,
+  "score": 0,
+  "max_score": 80,
+  "pct": 0.0,
+  "notes": [
+    "T: no keywords found",
+    "A: no keywords found",
+    "L: no keywords found",
+    "E: no keywords found"
+  ]
+}

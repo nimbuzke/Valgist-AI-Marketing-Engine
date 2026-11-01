@@ -84,6 +84,13 @@ Replies sent, clicks, CTR, follows gained, opt-outs.
 
 > The OpenReply web + worker processes run on the exposed tailnet endpoint (`http://100.100.122.109:3000`). The Meta app/webhook must point at that public HTTPS URL to receive events.
 
+## Quality Bar
+
+- Output matches the skill contract and output path convention.
+- Every factual claim traces to a knowledge-base file or cited source; unavailable data marked [AWAITING DATA].
+- Brand voice and banned-word rules from knowledge/01-brand/ are honored.
+- Human approval required before any publish-ready asset ships.
+
 ## Related skills
 
 - `conversion-copy-set` — DM message variants with testable hypotheses

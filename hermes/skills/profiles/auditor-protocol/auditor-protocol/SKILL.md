@@ -72,6 +72,13 @@ Objective, key findings, evidence, assumptions, open loops, recommended next ski
 PASS / BLOCK with reason.
 ```
 
+## Quality Bar
+
+- Output matches the skill contract and output path convention.
+- Every factual claim traces to a knowledge-base file or cited source; unavailable data marked [AWAITING DATA].
+- Brand voice and banned-word rules from knowledge/01-brand/ are honored.
+- Human approval required before any publish-ready asset ships.
+
 ## Related skills
 
 - `brand-kit-check` — voice/tone pre-check

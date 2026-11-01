@@ -1,0 +1,16 @@
+{
+  "gate": "CORE-EEAT",
+  "draft": "/tmp/test-draft.md",
+  "draft_hash": "a3686a5b302cbccc9aa347c02bc7100ab4b9d5d4ff2171ceb809f5c590f614fd",
+  "checked_at": "2026-10-31T22:32:41.706643+00:00",
+  "passed": false,
+  "score": 0,
+  "max_score": 80,
+  "pct": 0.0,
+  "notes": [
+    "Experience: no keywords found",
+    "Expertise: no keywords found",
+    "Authoritativeness: no keywords found",
+    "Trustworthiness: no keywords found"
+  ]
+}

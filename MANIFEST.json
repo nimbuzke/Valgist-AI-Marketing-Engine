@@ -1,0 +1,372 @@
+{
+  "lines": {},
+  "stations": {
+    "S1": {
+      "line": 1,
+      "last_run": "03f0b7afeafb18cb6cacd7df4ecfcc0428baad62930062db2a1efddbdc018420",
+      "status": "ok",
+      "owner": "marketing-director",
+      "skill": "find-in-knowledge"
+    },
+    "A2": {
+      "line": 1,
+      "last_run": "03f0b7afeafb18cb6cacd7df4ecfcc0428baad62930062db2a1efddbdc018420",
+      "status": "ok",
+      "owner": "marketing-director",
+      "skill": "find-in-knowledge"
+    },
+    "B1": {
+      "line": 1,
+      "last_run": "ee4f649c5edd67f94a2f335810cd846e0d3b863ed6e2252e2cb37828a336b7c0",
+      "status": "ok",
+      "owner": "marketing-director",
+      "skill": "budget-model"
+    },
+    "F1": {
+      "line": 1,
+      "last_run": "10baa774843bb51db75128e34eb13bab0056a107336cbf4481e40deb92524fcc",
+      "status": "ok",
+      "owner": "marketing-director",
+      "skill": "creative-set"
+    },
+    "F2": {
+      "line": 1,
+      "last_run": "f720d237a19ea9af986a234dcfdae51ef55b31ba0bf49e440318bb14e4059fde",
+      "status": "ok",
+      "owner": "marketing-director",
+      "skill": "brand-kit-authoring"
+    },
+    "F3": {
+      "line": 1,
+      "last_run": "10baa774843bb51db75128e34eb13bab0056a107336cbf4481e40deb92524fcc",
+      "status": "ok",
+      "owner": "marketing-director",
+      "skill": "creative-set"
+    },
+    "F4": {
+      "line": 1,
+      "last_run": "10baa774843bb51db75128e34eb13bab0056a107336cbf4481e40deb92524fcc",
+      "status": "ok",
+      "owner": "marketing-director",
+      "skill": "creative-set"
+    },
+    "S3": {
+      "line": 1,
+      "last_run": "79158243603c6b0590fa6efdc0101ac97aad2e09817632b752fb1824ee3da47e",
+      "status": "ok",
+      "owner": "marketing-director",
+      "skill": "brand-kit-check"
+    },
+    "S4": {
+      "line": 1,
+      "last_run": "be34668d96d6741f5d1d6e3737ced8522877f79af1aeb54cff787f63a06f03c5",
+      "status": "ok",
+      "owner": "marketing-director",
+      "skill": "compliance-gate"
+    },
+    "S5": {
+      "line": 1,
+      "last_run": "1baa6f4279fabfc68155951fc48e774b6c19f9b52126f4fb08412e5191010ff1",
+      "status": "ok",
+      "owner": "marketing-director",
+      "skill": "save-to-knowledge"
+    },
+    "E5": {
+      "line": 1,
+      "last_run": "ae80338e892f8eae81645c1307264288c9cd33e6ee73614c992309513c65956e",
+      "status": "ok",
+      "owner": "marketing-director",
+      "skill": "promote-to-brain"
+    },
+    "F5": {
+      "line": 2,
+      "last_run": "10baa774843bb51db75128e34eb13bab0056a107336cbf4481e40deb92524fcc",
+      "status": "ok",
+      "owner": "marketing-director",
+      "skill": "creative-set"
+    },
+    "C1": {
+      "line": 2,
+      "last_run": "97650ff8b59ce0a06a083da047c8a338e2cb33d1933e29e6a7069e13b672ef67",
+      "status": "ok",
+      "owner": "marketing-director",
+      "skill": "closed-loop-analytics"
+    },
+    "D5": {
+      "line": 2,
+      "last_run": "10baa774843bb51db75128e34eb13bab0056a107336cbf4481e40deb92524fcc",
+      "status": "ok",
+      "owner": "marketing-director",
+      "skill": "creative-set"
+    },
+    "D9": {
+      "line": 4,
+      "last_run": "03f0b7afeafb18cb6cacd7df4ecfcc0428baad62930062db2a1efddbdc018420",
+      "status": "ok",
+      "owner": "marketing-director",
+      "skill": "find-in-knowledge"
+    },
+    "E1": {
+      "line": 6,
+      "last_run": "83d66d0e51cd6f93fe3bef7e61fcbfcc505bf16d967553a7674f96b9af2f44bf",
+      "status": "ok",
+      "owner": "marketing-director",
+      "skill": "social-batch"
+    },
+    "F11": {
+      "line": 4,
+      "last_run": "80f23a98609a140c4103d1cd2c22b965d9959b7b07089b06a32397163a81f128",
+      "status": "ok",
+      "owner": "marketing-director",
+      "skill": "video-to-shorts"
+    },
+    "F12": {
+      "line": 4,
+      "last_run": "80f23a98609a140c4103d1cd2c22b965d9959b7b07089b06a32397163a81f128",
+      "status": "ok",
+      "owner": "marketing-director",
+      "skill": "video-to-shorts"
+    },
+    "F13": {
+      "line": 4,
+      "last_run": "42be5e9a4937aac803762aa48a71343f0a8476dbc11f0e798b80375520c553d4",
+      "status": "ok",
+      "owner": "marketing-director",
+      "skill": "instagram-carousel"
+    },
+    "F14": {
+      "line": 4,
+      "last_run": "10baa774843bb51db75128e34eb13bab0056a107336cbf4481e40deb92524fcc",
+      "status": "ok",
+      "owner": "marketing-director",
+      "skill": "creative-set"
+    },
+    "A4": {
+      "line": 4,
+      "last_run": "8772046558fc770242f0db89aa1dbf711772685282ce7e9034360f924126cdff",
+      "status": "ok",
+      "owner": "marketing-director",
+      "skill": "social-content-planner"
+    },
+    "E2": {
+      "line": 4,
+      "last_run": "03f0b7afeafb18cb6cacd7df4ecfcc0428baad62930062db2a1efddbdc018420",
+      "status": "ok",
+      "owner": "marketing-director",
+      "skill": "find-in-knowledge"
+    },
+    "F7": {
+      "line": 5,
+      "last_run": "f7373ae89554b8c916d1f534e6038f75ebcb9d5570582e94aa9935523b771cb8",
+      "status": "ok",
+      "owner": "marketing-director",
+      "skill": "video-script"
+    },
+    "D7": {
+      "line": 3,
+      "last_run": "43d9c7db3ac7acfc5dfba0b41732f063e088ed6b6d45b3ab9967429f7feed65d",
+      "status": "ok",
+      "owner": "marketing-director",
+      "skill": "video-editing"
+    },
+    "A1": {
+      "line": 6,
+      "last_run": "0574eda272234fededc3b50d4a54df76a219a632afa68ed13157a992cf878a6e",
+      "status": "ok",
+      "owner": "marketing-director",
+      "skill": "competitor-teardown"
+    },
+    "A3": {
+      "line": 6,
+      "last_run": "03f0b7afeafb18cb6cacd7df4ecfcc0428baad62930062db2a1efddbdc018420",
+      "status": "ok",
+      "owner": "marketing-director",
+      "skill": "find-in-knowledge"
+    },
+    "F8": {
+      "line": 3,
+      "last_run": "f7373ae89554b8c916d1f534e6038f75ebcb9d5570582e94aa9935523b771cb8",
+      "status": "ok",
+      "owner": "marketing-director",
+      "skill": "video-script"
+    },
+    "F6/F7": {
+      "line": 3,
+      "last_run": "f7373ae89554b8c916d1f534e6038f75ebcb9d5570582e94aa9935523b771cb8",
+      "status": "ok",
+      "owner": "marketing-director",
+      "skill": "video-script"
+    },
+    "F9": {
+      "line": 3,
+      "last_run": "f7373ae89554b8c916d1f534e6038f75ebcb9d5570582e94aa9935523b771cb8",
+      "status": "ok",
+      "owner": "marketing-director",
+      "skill": "video-script"
+    },
+    "D8": {
+      "line": 3,
+      "last_run": "43d9c7db3ac7acfc5dfba0b41732f063e088ed6b6d45b3ab9967429f7feed65d",
+      "status": "ok",
+      "owner": "marketing-director",
+      "skill": "video-editing"
+    },
+    "D4": {
+      "line": 3,
+      "last_run": "43d9c7db3ac7acfc5dfba0b41732f063e088ed6b6d45b3ab9967429f7feed65d",
+      "status": "ok",
+      "owner": "marketing-director",
+      "skill": "video-editing"
+    },
+    "B5": {
+      "line": 6,
+      "last_run": "ee4f649c5edd67f94a2f335810cd846e0d3b863ed6e2252e2cb37828a336b7c0",
+      "status": "ok",
+      "owner": "marketing-director",
+      "skill": "budget-model"
+    },
+    "B2": {
+      "line": 6,
+      "last_run": "ee4f649c5edd67f94a2f335810cd846e0d3b863ed6e2252e2cb37828a336b7c0",
+      "status": "ok",
+      "owner": "marketing-director",
+      "skill": "budget-model"
+    },
+    "C2": {
+      "line": 6,
+      "last_run": "97650ff8b59ce0a06a083da047c8a338e2cb33d1933e29e6a7069e13b672ef67",
+      "status": "ok",
+      "owner": "marketing-director",
+      "skill": "closed-loop-analytics"
+    },
+    "C3": {
+      "line": 6,
+      "last_run": "97650ff8b59ce0a06a083da047c8a338e2cb33d1933e29e6a7069e13b672ef67",
+      "status": "ok",
+      "owner": "marketing-director",
+      "skill": "closed-loop-analytics"
+    },
+    "D6": {
+      "line": 6,
+      "last_run": "ee4f649c5edd67f94a2f335810cd846e0d3b863ed6e2252e2cb37828a336b7c0",
+      "status": "ok",
+      "owner": "marketing-director",
+      "skill": "budget-model"
+    },
+    "E7": {
+      "line": 6,
+      "last_run": "03f0b7afeafb18cb6cacd7df4ecfcc0428baad62930062db2a1efddbdc018420",
+      "status": "ok",
+      "owner": "marketing-director",
+      "skill": "find-in-knowledge"
+    },
+    "E8": {
+      "line": 6,
+      "last_run": "03f0b7afeafb18cb6cacd7df4ecfcc0428baad62930062db2a1efddbdc018420",
+      "status": "ok",
+      "owner": "marketing-director",
+      "skill": "find-in-knowledge"
+    },
+    "E3": {
+      "line": 6,
+      "last_run": "03f0b7afeafb18cb6cacd7df4ecfcc0428baad62930062db2a1efddbdc018420",
+      "status": "ok",
+      "owner": "marketing-director",
+      "skill": "find-in-knowledge"
+    },
+    "E4": {
+      "line": 6,
+      "last_run": "03f0b7afeafb18cb6cacd7df4ecfcc0428baad62930062db2a1efddbdc018420",
+      "status": "ok",
+      "owner": "marketing-director",
+      "skill": "find-in-knowledge"
+    },
+    "S8": {
+      "line": 6,
+      "last_run": "37c338a57ddc6250f291d16270c53d05ac9ec0a49249680be903728342f8caa0",
+      "status": "ok",
+      "owner": "marketing-director",
+      "skill": "remember-this"
+    },
+    "A13": {
+      "line": 3,
+      "last_run": "f7373ae89554b8c916d1f534e6038f75ebcb9d5570582e94aa9935523b771cb8",
+      "status": "ok",
+      "owner": "marketing-director",
+      "skill": "video-script"
+    },
+    "R1": {
+      "line": 9,
+      "last_run": "7624ca35332aa85fb1c6a230e1ff679c62260981233a294777cd994b6cfed510",
+      "status": "ok",
+      "owner": "marketing-director",
+      "skill": "lead-scoring-model"
+    },
+    "R2": {
+      "line": 9,
+      "last_run": "c8a93b3cd907d6bcd61080388ab2dcf5f1aa9ef2653244037383adb2ca2aedfc",
+      "status": "ok",
+      "owner": "marketing-director",
+      "skill": "revops"
+    },
+    "R3": {
+      "line": 9,
+      "last_run": "c8a93b3cd907d6bcd61080388ab2dcf5f1aa9ef2653244037383adb2ca2aedfc",
+      "status": "ok",
+      "owner": "marketing-director",
+      "skill": "revops"
+    },
+    "R4": {
+      "line": 9,
+      "last_run": "c8a93b3cd907d6bcd61080388ab2dcf5f1aa9ef2653244037383adb2ca2aedfc",
+      "status": "ok",
+      "owner": "marketing-director",
+      "skill": "revops"
+    },
+    "P1": {
+      "line": 11,
+      "last_run": "16b11a6bf2fe204932a60f47eb2927587e893b24f0d575b2fb08dfb291440235",
+      "status": "ok",
+      "owner": "marketing-director",
+      "skill": "paid-ads-ops"
+    },
+    "P2": {
+      "line": 11,
+      "last_run": "16b11a6bf2fe204932a60f47eb2927587e893b24f0d575b2fb08dfb291440235",
+      "status": "ok",
+      "owner": "marketing-director",
+      "skill": "paid-ads-ops"
+    },
+    "P3": {
+      "line": 11,
+      "last_run": "16b11a6bf2fe204932a60f47eb2927587e893b24f0d575b2fb08dfb291440235",
+      "status": "ok",
+      "owner": "marketing-director",
+      "skill": "paid-ads-ops"
+    },
+    "X1": {
+      "line": 12,
+      "last_run": "4eb56f39a29001acdf60903ca786e1a2203fdc7f3843a117e172026f117192e7",
+      "status": "ok",
+      "owner": "marketing-director",
+      "skill": "ab-testing"
+    },
+    "X2": {
+      "line": 12,
+      "last_run": "4eb56f39a29001acdf60903ca786e1a2203fdc7f3843a117e172026f117192e7",
+      "status": "ok",
+      "owner": "marketing-director",
+      "skill": "ab-testing"
+    },
+    "C4": {
+      "line": 13,
+      "last_run": "97650ff8b59ce0a06a083da047c8a338e2cb33d1933e29e6a7069e13b672ef67",
+      "status": "ok",
+      "owner": "marketing-director",
+      "skill": "closed-loop-analytics"
+    }
+  },
+  "version": 1,
+  "phases": {},
+  "loops": {}
+}

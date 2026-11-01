@@ -1,0 +1,16 @@
+{
+  "gate": "TALE",
+  "draft": "/home/sage/Documents/Automation/marketing/valgist-marketing-engine/.factory-state/sales-closing/G5-G9-leads-location-Berlin-query-Dentists-.json",
+  "draft_hash": "de7d41710bdea339c98c16159621c35d9c07f372d745a62454d39bd6a9b46010",
+  "checked_at": "2026-10-31T22:45:53.540333+00:00",
+  "passed": false,
+  "score": 0,
+  "max_score": 80,
+  "pct": 0.0,
+  "notes": [
+    "T: no keywords found",
+    "A: no keywords found",
+    "L: no keywords found",
+    "E: no keywords found"
+  ]
+}

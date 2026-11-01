@@ -1,6 +1,6 @@
 ---
 id: copy-editing
-name: undefined
+name: Copy Editing
 emoji: 📝
 category: Conversion
 tagline: Reviews, edits, and improves existing marketing copy — copy sweeps, editorial review, refreshing outdated content without rewriting from scratch.
@@ -10,7 +10,7 @@ tagline: Reviews, edits, and improves existing marketing copy — copy sweeps, e
 > `hermes/scripts/generate-profiles.js`. Hand edits are overwritten by the next
 > `npm run generate:profiles`.
 
-# 📝 undefined
+# 📝 Copy Editing
 
 > **Funnel category:** Conversion — Turning attention into pipeline and revenue
 

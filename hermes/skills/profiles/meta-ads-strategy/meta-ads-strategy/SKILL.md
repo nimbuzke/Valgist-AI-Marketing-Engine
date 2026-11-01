@@ -1,15 +1,8 @@
 ---
 name: meta-ads-strategy
-description: >
-  Meta (Facebook & Instagram) Ads strategy: creative, copy, campaign structure,
-  targeting, budgeting, ROAS tracking, and Pixel setup. Complements `paid-social`
-  — use this for Meta-specific strategy depth, then delegate campaign
-  build/execution to `paid-social`. Trigger phrases: "meta ads," "facebook ads,"
-  "instagram ads," "how to run ads," "ad strategy," "ad creative," "campaign
-  structure," "ad targeting," "ad budget," "ad performance," "roas," "cpm," "ctr,"
-  "ads not working," "optimize ads," "scale ads," "ad copy," "ad hook," "learning
-  phase," "meta pixel," "ads manager."
+description: "Use when Meta (Facebook & Instagram) Ads strategy: creative, copy, campaign structure, targeting, budgeting, ROAS tracking, and Pixel setup. Complements `paid-social` — use this for Meta-specific strategy depth, then delegate campaign build/execution to `paid-social`. Trigger phrases: "meta ads," "facebook ads," "instagram ads," "how to run ads," "ad strategy," "ad creative," "campaign structure," "ad targeting," "ad budget," "ad performance," "roas," "cpm," "ctr," "ads not working," "optimize ads," "scale ads," "ad copy," "ad hook," "learning phase," "meta pixel," "ads manager.""
 ---
+
 
 # Meta Ads Strategy
 

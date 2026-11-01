@@ -27,11 +27,21 @@ services:
       # in every profile (see hermes/hooks/README.md). Off by default. Can also
       # be toggled live from the dashboard's Engine tab.
       - HERMES_ENFORCE_COMPLIANCE_HOOK=${HERMES_ENFORCE_COMPLIANCE_HOOK:-}
+      # ── pgvector connection (existing postiz-postgres container) ──────────
+      # Connects to the pgvector-enabled postiz-postgres container (host port 5433).
+      # valgist database + user created in that container.
+      - HERMES_PGVECTOR_HOST=${HERMES_PGVECTOR_HOST:-host.docker.internal}
+      - HERMES_PGVECTOR_PORT=${HERMES_PGVECTOR_PORT:-5433}
+      - HERMES_PGVECTOR_DB=${HERMES_PGVECTOR_DB:-valgist}
+      - HERMES_PGVECTOR_USER=${HERMES_PGVECTOR_USER:-valgist}
+      - HERMES_PGVECTOR_PASSWORD=${HERMES_PGVECTOR_PASSWORD:-valgist}
     volumes:
       # Long-term organization memory + engine data persist on the host
       - ./knowledge:/app/knowledge
       - ./data:/app/data
     restart: unless-stopped
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
   # ── Hermes WebUI (github.com/nesquena/hermes-webui) ─────────────────────
   # The engine's actual front end: chat with any of the 31 marketing
@@ -117,6 +127,12 @@ services:
       - INTENT_DATA_API_KEY=${INTENT_DATA_API_KEY:-}
       - HOSTING_DEPLOY_TOKEN=${HOSTING_DEPLOY_TOKEN:-}
       - IMAGE_API_KEY=${IMAGE_API_KEY:-}
+      # ── pgvector connection (existing postiz-postgres container) ──────────
+      - HERMES_PGVECTOR_HOST=${HERMES_PGVECTOR_HOST:-host.docker.internal}
+      - HERMES_PGVECTOR_PORT=${HERMES_PGVECTOR_PORT:-5433}
+      - HERMES_PGVECTOR_DB=${HERMES_PGVECTOR_DB:-valgist}
+      - HERMES_PGVECTOR_USER=${HERMES_PGVECTOR_USER:-valgist}
+      - HERMES_PGVECTOR_PASSWORD=${HERMES_PGVECTOR_PASSWORD:-valgist}
     volumes:
       - ./data/hermes-home:/home/hermeswebui/.hermes
       - ./knowledge:/workspace
@@ -149,3 +165,5 @@ services:
       retries: 1
       start_period: 30s
     restart: unless-stopped
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

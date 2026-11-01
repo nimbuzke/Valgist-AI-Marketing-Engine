@@ -1,16 +1,8 @@
 ---
 name: video-to-shorts
-description: >
-  Turn a long video (podcast, interview, talk, webinar, stream, YouTube video) into vertical
-  short clips for TikTok, Instagram Reels and YouTube Shorts, then post to one or many accounts
-  with WoopSocial. Transcribes with word timestamps (free local faster-whisper, own Groq/OpenAI
-  key, or existing SRT/VTT), scores every candidate moment with a clip rubric (hook, standalone,
-  payoff), cuts 1080x1920 clips with ffmpeg, removes pauses, keeps speaker in frame, burns
-  word-by-word captions and a hook line, normalises audio, writes titles and captions. Works on
-  Mac, Windows, Linux with ffmpeg and Pillow; no paid API required. Trigger phrases: "video to
-  shorts," "clip my podcast," "turn this video into shorts," "make reels from my video," "podcast
-  clips," "long video to short clips," "repurpose my YouTube video."
+description: "Use when Turn a long video (podcast, interview, talk, webinar, stream, YouTube video) into vertical short clips for TikTok, Instagram Reels and YouTube Shorts, then post to one or many accounts with WoopSocial. Transcribes with word timestamps (free local faster-whisper, own Groq/OpenAI key, or existing SRT/VTT), scores every candidate moment with a clip rubric (hook, standalone, payoff), cuts 1080x1920 clips with ffmpeg, removes pauses, keeps speaker in frame, burns word-by-word captions and a hook line, normalises audio, writes titles and captions. Works on Mac, Windows, Linux with ffmpeg and Pillow; no paid API required. Trigger phrases: "video to shorts," "clip my podcast," "turn this video into shorts," "make reels from my video," "podcast clips," "long video to short clips," "repurpose my YouTube video.""
 ---
+
 
 # Video to Shorts
 
@@ -100,6 +92,13 @@ Real metrics with dates.
 | WoopSocial | ⚪ not wired | mcp | `WOOPSOCIAL_API_KEY` |
 
 > Source: `nimbuzke/video-to-shorts-skill`. `python3 scripts/check_setup.py` first.
+
+## Quality Bar
+
+- Output matches the skill contract and output path convention.
+- Every factual claim traces to a knowledge-base file or cited source; unavailable data marked [AWAITING DATA].
+- Brand voice and banned-word rules from knowledge/01-brand/ are honored.
+- Human approval required before any publish-ready asset ships.
 
 ## Related skills
 

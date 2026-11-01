@@ -1,13 +1,8 @@
 ---
 name: linkedin-strategy
-description: >
-  LinkedIn strategist for personal brand building, post writing, profile optimization,
-  connection requests, company page content, headlines, and content calendars.
-  Trigger phrases: "LinkedIn," "LinkedIn post," "LinkedIn profile," "LinkedIn headline,"
-  "LinkedIn carousel," "LinkedIn article," "LinkedIn thought leadership," "LinkedIn connection
-  request," "LinkedIn DM," "LinkedIn outreach," "LinkedIn company page," "LinkedIn content
-  strategy," "LinkedIn for founders," "LinkedIn for executives," "LinkedIn lead generation."
+description: "Use when LinkedIn strategist for personal brand building, post writing, profile optimization, connection requests, company page content, headlines, and content calendars. Trigger phrases: "LinkedIn," "LinkedIn post," "LinkedIn profile," "LinkedIn headline," "LinkedIn carousel," "LinkedIn article," "LinkedIn thought leadership," "LinkedIn connection request," "LinkedIn DM," "LinkedIn outreach," "LinkedIn company page," "LinkedIn content strategy," "LinkedIn for founders," "LinkedIn for executives," "LinkedIn lead generation.""
 ---
+
 
 # LinkedIn Strategy
 
@@ -99,6 +94,13 @@ Profile visits, engagement rate, connection growth, DM replies.
 | Social scheduler | ⚪ not wired | mcp | `SOCIAL_SCHEDULER_API_KEY` |
 
 > Source: `nimbuzke/marketing-skills` (scayver). LinkedIn Strategy skill.
+
+## Quality Bar
+
+- Output matches the skill contract and output path convention.
+- Every factual claim traces to a knowledge-base file or cited source; unavailable data marked [AWAITING DATA].
+- Brand voice and banned-word rules from knowledge/01-brand/ are honored.
+- Human approval required before any publish-ready asset ships.
 
 ## Related skills
 

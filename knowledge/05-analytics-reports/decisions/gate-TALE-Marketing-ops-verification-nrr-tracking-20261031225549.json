@@ -1,0 +1,16 @@
+{
+  "gate": "TALE",
+  "draft": "/home/sage/Documents/Automation/marketing/valgist-marketing-engine/knowledge/07-agent-outputs/Marketing-ops-verification-nrr-tracking.md",
+  "draft_hash": "c96136192836d9e468bada1351b0bfb4f413e4edf9d517dcb4142b9464c4d18f",
+  "checked_at": "2026-10-31T22:55:49.589209+00:00",
+  "passed": false,
+  "score": 40,
+  "max_score": 80,
+  "pct": 50.0,
+  "notes": [
+    "T: found ['claim']",
+    "A: no keywords found",
+    "L: no keywords found",
+    "E: found ['evidence', 'data']"
+  ]
+}

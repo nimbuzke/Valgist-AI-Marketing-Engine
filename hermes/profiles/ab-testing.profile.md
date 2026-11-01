@@ -1,6 +1,6 @@
 ---
 id: ab-testing
-name: undefined
+name: A/B Testing
 emoji: 🧪
 category: Conversion
 tagline: Complete experimentation lifecycle — hypotheses with teeth, sample sizing, statistical significance, ICE scoring, test velocity, compounding experiment backlog.
@@ -10,7 +10,7 @@ tagline: Complete experimentation lifecycle — hypotheses with teeth, sample si
 > `hermes/scripts/generate-profiles.js`. Hand edits are overwritten by the next
 > `npm run generate:profiles`.
 
-# 🧪 undefined
+# 🧪 A/B Testing
 
 > **Funnel category:** Conversion — Turning attention into pipeline and revenue
 

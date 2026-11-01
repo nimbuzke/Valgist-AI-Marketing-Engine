@@ -1,0 +1,19 @@
+{
+  "deal_id": "test-deal-001",
+  "decided_at": "2026-10-31T19:43:49.207001+00:00",
+  "action": "block",
+  "reason": "Blocked: no_human_approval_for_publish, compliance_not_passed",
+  "confidence": 0.8,
+  "kpi_passed": true,
+  "vetoes": [
+    "no_human_approval_for_publish",
+    "compliance_not_passed"
+  ],
+  "kpi_data": {
+    "roas": 3.2,
+    "cpa": 25,
+    "ctr": 0.03,
+    "cvr": 0.05
+  },
+  "deal_stage": "prospect"
+}

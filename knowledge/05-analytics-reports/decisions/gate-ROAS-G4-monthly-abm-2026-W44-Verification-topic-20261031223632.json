@@ -1,0 +1,15 @@
+{
+  "gate": "ROAS",
+  "draft": "/home/sage/Documents/Automation/marketing/valgist-marketing-engine/.factory-state/sales-closing/G4-monthly-abm-2026-W44-Verification-topic.json",
+  "draft_hash": "4717c8542a3e9d2129c206873eb3dbfd4be7e19a192340ba825c6b8d77919fb3",
+  "checked_at": "2026-10-31T22:36:32.235980+00:00",
+  "passed": false,
+  "score": 0,
+  "max_score": 60,
+  "pct": 0.0,
+  "notes": [
+    "ROAS: no keywords found",
+    "CPA: no keywords found",
+    "CTR: no keywords found"
+  ]
+}

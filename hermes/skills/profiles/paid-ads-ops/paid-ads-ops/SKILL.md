@@ -1,13 +1,8 @@
 ---
 name: paid-ads-ops
-description: >
-  Paid advertising operations: account audits, budget and bid reviews, competitor ad
-  intelligence, landing page message match, PPC math, creative briefs, multi-platform
-  campaign operations. Trigger phrases: "paid ads audit," "PPC audit," "Google Ads audit,"
-  "Meta Ads audit," "account audit," "budget review," "bid review," "competitor ad
-  intelligence," "message match," "PPC math," "creative brief," "campaign operations," "ROAS
-  audit," "CPA audit."
+description: "Use when Paid advertising operations: account audits, budget and bid reviews, competitor ad intelligence, landing page message match, PPC math, creative briefs, multi-platform campaign operations. Trigger phrases: "paid ads audit," "PPC audit," "Google Ads audit," "Meta Ads audit," "account audit," "budget review," "bid review," "competitor ad intelligence," "message match," "PPC math," "creative brief," "campaign operations," "ROAS audit," "CPA audit.""
 ---
+
 
 # Paid Ads Operations
 
@@ -102,6 +97,13 @@ Budget changes, new campaigns, creative launches — all require human sign-off.
 | TikTok Ads | ⚪ not wired | mcp | `TIKTOK_ADS_TOKEN` |
 
 > Source: `nimbuzke/marketing-skills` (scayver). Paid Ads Operations skill.
+
+## Quality Bar
+
+- Output matches the skill contract and output path convention.
+- Every factual claim traces to a knowledge-base file or cited source; unavailable data marked [AWAITING DATA].
+- Brand voice and banned-word rules from knowledge/01-brand/ are honored.
+- Human approval required before any publish-ready asset ships.
 
 ## Related skills
 

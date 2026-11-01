@@ -53,7 +53,7 @@ duplicating it.
 
 Executable procedures available to this profile:
 
-- `adkit` — >
+- `adkit` — "Use when AdKit execution layer: create and publish Google Ads and Meta (Facebook & Instagram) Ads campaigns, ad sets/groups, and ads; manage drafts; upload images and video; research keywords and audiences; browse the ad library; and generate ads with AI. Works through the AdKit CLI or MCP. Draft-first — nothing publishes until explicitly confirmed. Complements `google-ads-strategy` and `meta-ads-strategy` — use this for execution after strategy is approved. Trigger phrases: "adkit," "google ads mcp," "meta ads mcp," "facebook ads mcp," "ads mcp," "ads agent," "create campaign," "create ad set," "create ad group," "create ad," "publish draft," "upload media," "search interests," "run ads," "launch campaign," "manage meta ads," "manage google ads," "adkit-cli," "add keywords," "negative keywords," "keyword research," "ad library," "generate ad," "ad studio.""
 - `brand-kit-check` — Use before producing ANY outbound or customer-facing deliverable — copy, creative, email, social, ads, landing pages, scripts. Loads the Brand Kit and checks the draft stays on voice, tone, and messaging.
 - `build-mini-app` — Use when a deliverable is better served as an interactive tool than a document — a calculator, checklist, dashboard, briefing deck, quiz or planner the team will reuse — or when asked to build, update or list mini-apps. Covers the single-file HTML contract and where apps live.
 - `capability-check` — Use the moment a task needs live platform data — analytics, ad spend, CRM records, review feeds, send stats. Establishes what you can actually reach before you answer, so you never present invented numbers as measurement.

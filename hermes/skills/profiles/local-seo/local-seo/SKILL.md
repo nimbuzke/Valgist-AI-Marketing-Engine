@@ -1,12 +1,8 @@
 ---
 name: local-seo
-description: >
-  Local SEO strategist for Google Business Profile, location landing pages, service-area content,
-  local schema, NAP consistency, citations, and local review response. Trigger phrases: "local SEO,"
-  "Google Business Profile," "GBP," "local map pack," "near me," "city page," "service area page,"
-  "local landing page," "local citations," "NAP consistency," "local schema," "multi-location SEO,"
-  "Google Post," "local review response," "Yelp response," "local business description."
+description: "Use when Local SEO strategist for Google Business Profile, location landing pages, service-area content, local schema, NAP consistency, citations, and local review response. Trigger phrases: "local SEO," "Google Business Profile," "GBP," "local map pack," "near me," "city page," "service area page," "local landing page," "local citations," "NAP consistency," "local schema," "multi-location SEO," "Google Post," "local review response," "Yelp response," "local business description.""
 ---
+
 
 # Local SEO
 
@@ -89,6 +85,13 @@ Target keywords, current positions, tracking method.
 | GBP API | ⚪ not wired | mcp | `GBP_API_KEY` |
 
 > Source: `nimbuzke/marketing-skills` (scayver). Local SEO skill.
+
+## Quality Bar
+
+- Output matches the skill contract and output path convention.
+- Every factual claim traces to a knowledge-base file or cited source; unavailable data marked [AWAITING DATA].
+- Brand voice and banned-word rules from knowledge/01-brand/ are honored.
+- Human approval required before any publish-ready asset ships.
 
 ## Related skills
 

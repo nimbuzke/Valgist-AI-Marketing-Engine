@@ -60,6 +60,13 @@ Results aggregated for the retro.
 Promote / retire / iterate with rationale.
 ```
 
+## Quality Bar
+
+- Output matches the skill contract and output path convention.
+- Every factual claim traces to a knowledge-base file or cited source; unavailable data marked [AWAITING DATA].
+- Brand voice and banned-word rules from knowledge/01-brand/ are honored.
+- Human approval required before any publish-ready asset ships.
+
 ## Related skills
 
 - `ab-testing` — experiment design and statistical rigor

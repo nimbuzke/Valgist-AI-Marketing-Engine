@@ -1,0 +1,15 @@
+{
+  "gate": "ROAS",
+  "draft": "/home/sage/Documents/Automation/marketing/valgist-marketing-engine/.factory-state/sales-closing/G5-FACTORY-BRIEF--monthly-abm-2026-W44-Q4-p.json",
+  "draft_hash": "2d0a7aed587d4c48aa8a58bc1ae6a6bce9416aeb644a91ff0986a3f2c49158dc",
+  "checked_at": "2026-10-31T23:52:53.731077+00:00",
+  "passed": true,
+  "score": 60,
+  "max_score": 60,
+  "pct": 100.0,
+  "notes": [
+    "ROAS: found ['roas', 'revenue']",
+    "CPA: found ['cpa']",
+    "CTR: found ['ctr']"
+  ]
+}

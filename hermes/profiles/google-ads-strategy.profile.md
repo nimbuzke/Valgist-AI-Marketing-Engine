@@ -55,7 +55,7 @@ duplicating it.
 
 Executable procedures available to this profile:
 
-- `google-ads-strategy` — >
+- `google-ads-strategy` — "Use when Google Search Ads strategy: keyword mining, account structure, ad copy, negative keyword architecture, Quality Score, and performance diagnostics. Complements `paid-search` — use this for Google-specific strategy depth, then delegate campaign build/execution to `paid-search`. Trigger phrases: "google ads," "search ads," "google search campaign," "ppc," "keyword research," "negative keywords," "quality score," "ad copy google," "roas google," "cpc," "ad group structure," "search term report," "google ads not working," "optimize google ads," "scale google ads," "responsive search ads," "rsa," "smart bidding," "target cpa," "conversion tracking google.""
 - `brand-kit-check` — Use before producing ANY outbound or customer-facing deliverable — copy, creative, email, social, ads, landing pages, scripts. Loads the Brand Kit and checks the draft stays on voice, tone, and messaging.
 - `build-mini-app` — Use when a deliverable is better served as an interactive tool than a document — a calculator, checklist, dashboard, briefing deck, quiz or planner the team will reuse — or when asked to build, update or list mini-apps. Covers the single-file HTML contract and where apps live.
 - `capability-check` — Use the moment a task needs live platform data — analytics, ad spend, CRM records, review feeds, send stats. Establishes what you can actually reach before you answer, so you never present invented numbers as measurement.

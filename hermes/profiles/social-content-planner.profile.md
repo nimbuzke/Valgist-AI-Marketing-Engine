@@ -57,7 +57,7 @@ duplicating it.
 
 Executable procedures available to this profile:
 
-- `social-content-planner` — >
+- `social-content-planner` — "Use when Social media content strategist for Instagram and Facebook. Plans, writes, and optimizes content for single image posts, Reels, carousels, Stories, Facebook story-driven updates, ads, group posts, and shop descriptions. Outputs structured content tables, full post scripts, captions, repurposing plans, and visual direction. Trigger phrases: "Instagram post," "Facebook post," "Reel script," "Reel idea," "Instagram Stories," "Facebook Story," "carousel plan," "content calendar," "weekly content plan," "content pillars," "funnel stage content," "repurpose this post," "write a caption," "content for my business," "single image post," "quote post," "behind the scenes," "batch content," "launch story sequence," "Facebook group post," "Facebook Shop," "content performance," "rewrite this caption," "optimize for saves," "optimize for shares.""
 - `brand-kit-check` — Use before producing ANY outbound or customer-facing deliverable — copy, creative, email, social, ads, landing pages, scripts. Loads the Brand Kit and checks the draft stays on voice, tone, and messaging.
 - `build-mini-app` — Use when a deliverable is better served as an interactive tool than a document — a calculator, checklist, dashboard, briefing deck, quiz or planner the team will reuse — or when asked to build, update or list mini-apps. Covers the single-file HTML contract and where apps live.
 - `capability-check` — Use the moment a task needs live platform data — analytics, ad spend, CRM records, review feeds, send stats. Establishes what you can actually reach before you answer, so you never present invented numbers as measurement.

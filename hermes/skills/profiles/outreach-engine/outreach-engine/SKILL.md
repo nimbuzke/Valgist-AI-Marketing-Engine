@@ -86,6 +86,13 @@ Jobs, failures, suppressions, rough spend. Dry-run count: N.
 
 > Source: `nimbuzke/ai-outreach-engine` — Bun + React + SQLite. Server runs on port 8787, web UI on 5273. `SENDER_PROVIDER=dry_run` until approved.
 
+## Quality Bar
+
+- Output matches the skill contract and output path convention.
+- Every factual claim traces to a knowledge-base file or cited source; unavailable data marked [AWAITING DATA].
+- Brand voice and banned-word rules from knowledge/01-brand/ are honored.
+- Human approval required before any publish-ready asset ships.
+
 ## Related skills
 
 - `outbound-engine` — ICP → inbox outbound (companion, different stack)

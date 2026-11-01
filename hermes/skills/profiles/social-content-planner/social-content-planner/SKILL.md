@@ -1,17 +1,8 @@
 ---
 name: social-content-planner
-description: >
-  Social media content strategist for Instagram and Facebook. Plans, writes, and optimizes
-  content for single image posts, Reels, carousels, Stories, Facebook story-driven updates,
-  ads, group posts, and shop descriptions. Outputs structured content tables, full post
-  scripts, captions, repurposing plans, and visual direction. Trigger phrases: "Instagram
-  post," "Facebook post," "Reel script," "Reel idea," "Instagram Stories," "Facebook Story,"
-  "carousel plan," "content calendar," "weekly content plan," "content pillars," "funnel stage
-  content," "repurpose this post," "write a caption," "content for my business," "single image
-  post," "quote post," "behind the scenes," "batch content," "launch story sequence,"
-  "Facebook group post," "Facebook Shop," "content performance," "rewrite this caption," "optimize
-  for saves," "optimize for shares."
+description: "Use when Social media content strategist for Instagram and Facebook. Plans, writes, and optimizes content for single image posts, Reels, carousels, Stories, Facebook story-driven updates, ads, group posts, and shop descriptions. Outputs structured content tables, full post scripts, captions, repurposing plans, and visual direction. Trigger phrases: "Instagram post," "Facebook post," "Reel script," "Reel idea," "Instagram Stories," "Facebook Story," "carousel plan," "content calendar," "weekly content plan," "content pillars," "funnel stage content," "repurpose this post," "write a caption," "content for my business," "single image post," "quote post," "behind the scenes," "batch content," "launch story sequence," "Facebook group post," "Facebook Shop," "content performance," "rewrite this caption," "optimize for saves," "optimize for shares.""
 ---
+
 
 # Social Content Planner (Instagram & Facebook)
 
@@ -110,6 +101,13 @@ Production cycle, evergreen vs timely split.
 | WoopSocial | ⚪ not wired | mcp | `WOOPSOCIAL_API_KEY` |
 
 > Source: `nimbuzke/marketing-skills` (scayver). Social Content Planner skill.
+
+## Quality Bar
+
+- Output matches the skill contract and output path convention.
+- Every factual claim traces to a knowledge-base file or cited source; unavailable data marked [AWAITING DATA].
+- Brand voice and banned-word rules from knowledge/01-brand/ are honored.
+- Human approval required before any publish-ready asset ships.
 
 ## Related skills
 

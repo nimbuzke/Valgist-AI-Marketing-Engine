@@ -1,14 +1,8 @@
 ---
 name: tiktok-slideshow
-description: >
-  Plan, write and render TikTok photo-mode slideshows that market an app, SaaS or product, then
-  post them as native TikTok photo posts and Instagram carousels to one or many accounts with
-  WoopSocial, read results back and test the next hooks. Free local slide renderer (Python + Pillow,
-  TikTok Sans and TikTok's own text styles, 1080x1920 with safe zones, plus 4:5 Instagram copies).
-  No paid API keys. Trigger phrases: "tiktok slideshow," "make tiktok slideshows for my app,"
-  "tiktok carousel," "photo mode post," "slideshow marketing," "automate tiktok slideshows,"
-  "app marketing on tiktok."
+description: "Use when Plan, write and render TikTok photo-mode slideshows that market an app, SaaS or product, then post them as native TikTok photo posts and Instagram carousels to one or many accounts with WoopSocial, read results back and test the next hooks. Free local slide renderer (Python + Pillow, TikTok Sans and TikTok's own text styles, 1080x1920 with safe zones, plus 4:5 Instagram copies). No paid API keys. Trigger phrases: "tiktok slideshow," "make tiktok slideshows for my app," "tiktok carousel," "photo mode post," "slideshow marketing," "automate tiktok slideshows," "app marketing on tiktok.""
 ---
+
 
 # TikTok Slideshow
 
@@ -84,6 +78,13 @@ Real metrics with dates, hook log, next test decision.
 | WoopSocial | ⚪ not wired | mcp | `WOOPSOCIAL_API_KEY` |
 
 > Source: `nimbuzke/tiktok-slideshow-skill`. Local renderer, no paid API keys.
+
+## Quality Bar
+
+- Output matches the skill contract and output path convention.
+- Every factual claim traces to a knowledge-base file or cited source; unavailable data marked [AWAITING DATA].
+- Brand voice and banned-word rules from knowledge/01-brand/ are honored.
+- Human approval required before any publish-ready asset ships.
 
 ## Related skills
 

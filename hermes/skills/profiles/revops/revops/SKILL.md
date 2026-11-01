@@ -1,13 +1,8 @@
 ---
 name: revops
-description: >
-  Revenue operations: lead lifecycle management, marketing-to-sales handoff, MQL/SQL
-  definitions, lead scoring, lead routing, pipeline stage design, CRM automation, data
-  hygiene, deal desk, marketing attribution, funnel analysis. Trigger phrases: "MQL,"
-  "SQL," "lead lifecycle," "marketing to sales handoff," "lead scoring," "lead routing,"
-  "pipeline stage," "CRM automation," "data hygiene," "deal desk," "marketing attribution,"
-  "funnel analysis," "why leads are not converting," "why deals are stalling."
+description: "Use when Revenue operations: lead lifecycle management, marketing-to-sales handoff, MQL/SQL definitions, lead scoring, lead routing, pipeline stage design, CRM automation, data hygiene, deal desk, marketing attribution, funnel analysis. Trigger phrases: "MQL," "SQL," "lead lifecycle," "marketing to sales handoff," "lead scoring," "lead routing," "pipeline stage," "CRM automation," "data hygiene," "deal desk," "marketing attribution," "funnel analysis," "why leads are not converting," "why deals are stalling.""
 ---
+
 
 # Revenue Operations (RevOps)
 
@@ -104,6 +99,13 @@ Exception approvals, contract reviews, renewal process.
 | ESP | ⚪ not wired | mcp | `ESP_API_KEY` |
 
 > Source: `nimbuzke/marketing-skills` (scayver). Revenue Operations skill.
+
+## Quality Bar
+
+- Output matches the skill contract and output path convention.
+- Every factual claim traces to a knowledge-base file or cited source; unavailable data marked [AWAITING DATA].
+- Brand voice and banned-word rules from knowledge/01-brand/ are honored.
+- Human approval required before any publish-ready asset ships.
 
 ## Related skills
 

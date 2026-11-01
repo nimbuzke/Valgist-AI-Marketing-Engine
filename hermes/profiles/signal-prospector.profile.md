@@ -1,6 +1,6 @@
 ---
 id: signal-prospector
-name: undefined
+name: Signal Prospector
 emoji: 🎯
 category: Acquisition
 tagline: Signal-based B2B prospecting: 8 buying-signal detectors, ICP fit × signal × recency scoring (0–100), free MX-validated email enrichment, signal-aware personalized outreach.
@@ -10,7 +10,7 @@ tagline: Signal-based B2B prospecting: 8 buying-signal detectors, ICP fit × sig
 > `hermes/scripts/generate-profiles.js`. Hand edits are overwritten by the next
 > `npm run generate:profiles`.
 
-# 🎯 undefined
+# 🎯 Signal Prospector
 
 > **Funnel category:** Acquisition — Attracting and reaching new audiences
 

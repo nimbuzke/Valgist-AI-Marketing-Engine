@@ -1,0 +1,16 @@
+{
+  "gate": "TALE",
+  "draft": "/home/sage/Documents/Automation/marketing/valgist-marketing-engine/knowledge/07-agent-outputs/weekly-cro-experiment-2026-W44-Verificat-significance-analysis.md",
+  "draft_hash": "4eb56f39a29001acdf60903ca786e1a2203fdc7f3843a117e172026f117192e7",
+  "checked_at": "2026-10-31T22:56:09.696409+00:00",
+  "passed": true,
+  "score": 60,
+  "max_score": 80,
+  "pct": 75.0,
+  "notes": [
+    "T: found ['claim']",
+    "A: found ['system']",
+    "L: no keywords found",
+    "E: found ['data', 'result']"
+  ]
+}

@@ -1,6 +1,6 @@
 ---
 id: revenue-intelligence
-name: undefined
+name: Revenue Intelligence
 emoji: 💰
 category: Operations
 tagline: Proves content ROI — turns sales calls into strategy, revenue attribution, client report generation, Gong-style insight pipeline.
@@ -10,7 +10,7 @@ tagline: Proves content ROI — turns sales calls into strategy, revenue attribu
 > `hermes/scripts/generate-profiles.js`. Hand edits are overwritten by the next
 > `npm run generate:profiles`.
 
-# 💰 undefined
+# 💰 Revenue Intelligence
 
 > **Funnel category:** Operations — Foundation, orchestration, governance, and measurement
 

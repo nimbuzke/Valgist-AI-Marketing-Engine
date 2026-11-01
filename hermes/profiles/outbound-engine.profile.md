@@ -1,6 +1,6 @@
 ---
 id: outbound-engine
-name: undefined
+name: Outbound Engine
 emoji: 📬
 category: Operations
 tagline: ICP definition to emails in inbox — cold outbound optimizer, lead pipeline, competitive monitor, fully automated dry-run-first.
@@ -10,7 +10,7 @@ tagline: ICP definition to emails in inbox — cold outbound optimizer, lead pip
 > `hermes/scripts/generate-profiles.js`. Hand edits are overwritten by the next
 > `npm run generate:profiles`.
 
-# 📬 undefined
+# 📬 Outbound Engine
 
 > **Funnel category:** Operations — Foundation, orchestration, governance, and measurement
 

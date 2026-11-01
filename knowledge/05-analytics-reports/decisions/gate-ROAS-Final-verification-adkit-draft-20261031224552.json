@@ -1,0 +1,15 @@
+{
+  "gate": "ROAS",
+  "draft": "/home/sage/Documents/Automation/marketing/valgist-marketing-engine/knowledge/07-agent-outputs/Final-verification-adkit-draft.md",
+  "draft_hash": "03f0b7afeafb18cb6cacd7df4ecfcc0428baad62930062db2a1efddbdc018420",
+  "checked_at": "2026-10-31T22:45:52.711018+00:00",
+  "passed": false,
+  "score": 0,
+  "max_score": 60,
+  "pct": 0.0,
+  "notes": [
+    "ROAS: no keywords found",
+    "CPA: no keywords found",
+    "CTR: no keywords found"
+  ]
+}

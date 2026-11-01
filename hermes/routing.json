@@ -254,7 +254,7 @@
     {
       "phrase": "statistical significance",
       "owner": "ab-testing",
-      "ownerName": "🧪 undefined",
+      "ownerName": "🧪 A/B Testing",
       "requires": [
         "06-playbooks/experiment-backlog.md",
         "05-analytics-reports/experiments/"
@@ -345,7 +345,7 @@
     {
       "phrase": "critique this messaging",
       "owner": "copy-editing",
-      "ownerName": "📝 undefined",
+      "ownerName": "📝 Copy Editing",
       "requires": [
         "04-content/copy/"
       ],
@@ -354,7 +354,7 @@
     {
       "phrase": "experiment optimization",
       "owner": "growth-engine",
-      "ownerName": "🚀 undefined",
+      "ownerName": "🚀 Growth Engine",
       "requires": [
         "03-campaigns/",
         "05-analytics-reports/"
@@ -446,7 +446,7 @@
     {
       "phrase": "one piece many formats",
       "owner": "content-repurposing",
-      "ownerName": "🔄 undefined",
+      "ownerName": "🔄 Content Repurposing",
       "requires": [
         "04-content/drafts/",
         "04-content/social/"
@@ -456,7 +456,7 @@
     {
       "phrase": "multi-channel outreach",
       "owner": "outreach-system",
-      "ownerName": "🌐 undefined",
+      "ownerName": "🌐 Outreach System",
       "requires": [
         "01-brand/personas/",
         "02-market-research/",
@@ -595,7 +595,7 @@
     {
       "phrase": "format recommendation",
       "owner": "content-repurposing",
-      "ownerName": "🔄 undefined",
+      "ownerName": "🔄 Content Repurposing",
       "requires": [
         "04-content/drafts/",
         "04-content/social/"
@@ -605,7 +605,7 @@
     {
       "phrase": "punch up this writing",
       "owner": "copy-editing",
-      "ownerName": "📝 undefined",
+      "ownerName": "📝 Copy Editing",
       "requires": [
         "04-content/copy/"
       ],
@@ -614,7 +614,7 @@
     {
       "phrase": "autonomous experiment",
       "owner": "growth-engine",
-      "ownerName": "🚀 undefined",
+      "ownerName": "🚀 Growth Engine",
       "requires": [
         "03-campaigns/",
         "05-analytics-reports/"
@@ -624,7 +624,7 @@
     {
       "phrase": "measurable initiative",
       "owner": "content-eval",
-      "ownerName": "📊 undefined",
+      "ownerName": "📊 Content Eval",
       "requires": [
         "05-analytics-reports/",
         "04-content/drafts/"
@@ -849,7 +849,7 @@
     {
       "phrase": "improve this content",
       "owner": "copy-editing",
-      "ownerName": "📝 undefined",
+      "ownerName": "📝 Copy Editing",
       "requires": [
         "04-content/copy/"
       ],
@@ -858,7 +858,7 @@
     {
       "phrase": "revenue intelligence",
       "owner": "revenue-intelligence",
-      "ownerName": "💰 undefined",
+      "ownerName": "💰 Revenue Intelligence",
       "requires": [
         "05-analytics-reports/",
         "03-campaigns/"
@@ -1053,7 +1053,7 @@
     {
       "phrase": "content repurposing",
       "owner": "content-repurposing",
-      "ownerName": "🔄 undefined",
+      "ownerName": "🔄 Content Repurposing",
       "requires": [
         "04-content/drafts/",
         "04-content/social/"
@@ -1063,7 +1063,7 @@
     {
       "phrase": "revenue attribution",
       "owner": "revenue-intelligence",
-      "ownerName": "💰 undefined",
+      "ownerName": "💰 Revenue Intelligence",
       "requires": [
         "05-analytics-reports/",
         "03-campaigns/"
@@ -1073,7 +1073,7 @@
     {
       "phrase": "competitive monitor",
       "owner": "outbound-engine",
-      "ownerName": "📬 undefined",
+      "ownerName": "📬 Outbound Engine",
       "requires": [
         "01-brand/personas/",
         "02-market-research/",
@@ -1096,7 +1096,7 @@
     {
       "phrase": "prospect enrichment",
       "owner": "signal-prospector",
-      "ownerName": "🎯 undefined",
+      "ownerName": "🎯 Signal Prospector",
       "requires": [
         "01-brand/personas/",
         "02-market-research/",
@@ -1108,7 +1108,7 @@
     {
       "phrase": "autonomous outreach",
       "owner": "outreach-system",
-      "ownerName": "🌐 undefined",
+      "ownerName": "🌐 Outreach System",
       "requires": [
         "01-brand/personas/",
         "02-market-research/",
@@ -1121,7 +1121,7 @@
     {
       "phrase": "response management",
       "owner": "outreach-system",
-      "ownerName": "🌐 undefined",
+      "ownerName": "🌐 Outreach System",
       "requires": [
         "01-brand/personas/",
         "02-market-research/",
@@ -1404,7 +1404,7 @@
     {
       "phrase": "Instagram outreach",
       "owner": "outreach-system",
-      "ownerName": "🌐 undefined",
+      "ownerName": "🌐 Outreach System",
       "requires": [
         "01-brand/personas/",
         "02-market-research/",
@@ -1716,7 +1716,8 @@
       "requires": [
         "03-campaigns/",
         "05-analytics-reports/",
-        "03-campaigns/work-orders/"
+        "03-campaigns/work-orders/",
+        "00-org/brand-context.md"
       ],
       "outputPath": "knowledge/03-campaigns/"
     },
@@ -1727,7 +1728,20 @@
       "requires": [
         "03-campaigns/",
         "05-analytics-reports/",
-        "03-campaigns/work-orders/"
+        "03-campaigns/work-orders/",
+        "00-org/brand-context.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/"
+    },
+    {
+      "phrase": "google maps leads",
+      "owner": "marketing-director",
+      "ownerName": "🎯 Marketing Director (CMO)",
+      "requires": [
+        "03-campaigns/",
+        "05-analytics-reports/",
+        "03-campaigns/work-orders/",
+        "00-org/brand-context.md"
       ],
       "outputPath": "knowledge/03-campaigns/"
     },
@@ -1795,7 +1809,7 @@
     {
       "phrase": "growth experiment",
       "owner": "ab-testing",
-      "ownerName": "🧪 undefined",
+      "ownerName": "🧪 A/B Testing",
       "requires": [
         "06-playbooks/experiment-backlog.md",
         "05-analytics-reports/experiments/"
@@ -1805,7 +1819,7 @@
     {
       "phrase": "multivariate test",
       "owner": "ab-testing",
-      "ownerName": "🧪 undefined",
+      "ownerName": "🧪 A/B Testing",
       "requires": [
         "06-playbooks/experiment-backlog.md",
         "05-analytics-reports/experiments/"
@@ -1815,7 +1829,7 @@
     {
       "phrase": "outbound sequence",
       "owner": "outbound-engine",
-      "ownerName": "📬 undefined",
+      "ownerName": "📬 Outbound Engine",
       "requires": [
         "01-brand/personas/",
         "02-market-research/",
@@ -1826,7 +1840,7 @@
     {
       "phrase": "content scorecard",
       "owner": "content-eval",
-      "ownerName": "📊 undefined",
+      "ownerName": "📊 Content Eval",
       "requires": [
         "05-analytics-reports/",
         "04-content/drafts/"
@@ -1860,7 +1874,7 @@
     {
       "phrase": "signal prospector",
       "owner": "signal-prospector",
-      "ownerName": "🎯 undefined",
+      "ownerName": "🎯 Signal Prospector",
       "requires": [
         "01-brand/personas/",
         "02-market-research/",
@@ -1872,7 +1886,7 @@
     {
       "phrase": "Google Maps leads",
       "owner": "outreach-system",
-      "ownerName": "🌐 undefined",
+      "ownerName": "🌐 Outreach System",
       "requires": [
         "01-brand/personas/",
         "02-market-research/",
@@ -1885,7 +1899,7 @@
     {
       "phrase": "WhatsApp outreach",
       "owner": "outreach-system",
-      "ownerName": "🌐 undefined",
+      "ownerName": "🌐 Outreach System",
       "requires": [
         "01-brand/personas/",
         "02-market-research/",
@@ -2188,32 +2202,7 @@
       "outputPath": "knowledge/04-content/social/planner/"
     },
     {
-      "phrase": "negative keywords",
-      "owner": "google-ads-strategy",
-      "ownerName": "🔍 Google Ads Strategy",
-      "requires": [
-        "01-brand/personas/",
-        "02-market-research/",
-        "03-campaigns/paid-search/",
-        "04-content/copy/",
-        "04-content/landing-pages/",
-        "06-playbooks/compliance-checklists.md"
-      ],
-      "outputPath": "knowledge/03-campaigns/paid-search/strategy/"
-    },
-    {
       "phrase": "manage google ads",
-      "owner": "adkit",
-      "ownerName": "⚡ AdKit Execution",
-      "requires": [
-        "03-campaigns/paid-search/strategy/",
-        "03-campaigns/paid-social/strategy/",
-        "06-playbooks/compliance-checklists.md"
-      ],
-      "outputPath": "knowledge/03-campaigns/paid-search/execution/"
-    },
-    {
-      "phrase": "negative keywords",
       "owner": "adkit",
       "ownerName": "⚡ AdKit Execution",
       "requires": [
@@ -2326,17 +2315,7 @@
     {
       "phrase": "content batching",
       "owner": "content-repurposing",
-      "ownerName": "🔄 undefined",
-      "requires": [
-        "04-content/drafts/",
-        "04-content/social/"
-      ],
-      "outputPath": "knowledge/04-content/repurposed/"
-    },
-    {
-      "phrase": "content calendar",
-      "owner": "content-repurposing",
-      "ownerName": "🔄 undefined",
+      "ownerName": "🔄 Content Repurposing",
       "requires": [
         "04-content/drafts/",
         "04-content/social/"
@@ -2346,7 +2325,7 @@
     {
       "phrase": "review this page",
       "owner": "copy-editing",
-      "ownerName": "📝 undefined",
+      "ownerName": "📝 Copy Editing",
       "requires": [
         "04-content/copy/"
       ],
@@ -2355,7 +2334,7 @@
     {
       "phrase": "refresh this old",
       "owner": "copy-editing",
-      "ownerName": "📝 undefined",
+      "ownerName": "📝 Copy Editing",
       "requires": [
         "04-content/copy/"
       ],
@@ -2364,7 +2343,7 @@
     {
       "phrase": "weekly scorecard",
       "owner": "growth-engine",
-      "ownerName": "🚀 undefined",
+      "ownerName": "🚀 Growth Engine",
       "requires": [
         "03-campaigns/",
         "05-analytics-reports/"
@@ -2386,7 +2365,7 @@
     {
       "phrase": "signal detection",
       "owner": "signal-prospector",
-      "ownerName": "🎯 undefined",
+      "ownerName": "🎯 Signal Prospector",
       "requires": [
         "01-brand/personas/",
         "02-market-research/",
@@ -2420,19 +2399,6 @@
       "outputPath": "knowledge/04-content/social/"
     },
     {
-      "phrase": "content calendar",
-      "owner": "social-media-strategy",
-      "ownerName": "📢 Social Media Strategy",
-      "requires": [
-        "01-brand/personas/",
-        "02-market-research/",
-        "03-campaigns/outbound/",
-        "04-content/social/",
-        "04-content/video/"
-      ],
-      "outputPath": "knowledge/04-content/social/"
-    },
-    {
       "phrase": "hashtag strategy",
       "owner": "social-media-strategy",
       "ownerName": "📢 Social Media Strategy",
@@ -2444,17 +2410,6 @@
         "04-content/video/"
       ],
       "outputPath": "knowledge/04-content/social/"
-    },
-    {
-      "phrase": "referral program",
-      "owner": "referrals",
-      "ownerName": "🤝 Customer Referral Program",
-      "requires": [
-        "02-market-research/",
-        "03-campaigns/partnerships/",
-        "03-campaigns/lead-gen/"
-      ],
-      "outputPath": "knowledge/03-campaigns/partnerships/referrals/"
     },
     {
       "phrase": "before and after",
@@ -2620,33 +2575,6 @@
       "outputPath": "knowledge/05-analytics-reports/social/"
     },
     {
-      "phrase": "content calendar",
-      "owner": "social-content-planner",
-      "ownerName": "📅 Social Content Planner",
-      "requires": [
-        "01-brand/personas/",
-        "02-market-research/",
-        "03-campaigns/outbound/",
-        "04-content/social/",
-        "04-content/social/calendar/"
-      ],
-      "outputPath": "knowledge/04-content/social/planner/"
-    },
-    {
-      "phrase": "keyword research",
-      "owner": "google-ads-strategy",
-      "ownerName": "🔍 Google Ads Strategy",
-      "requires": [
-        "01-brand/personas/",
-        "02-market-research/",
-        "03-campaigns/paid-search/",
-        "04-content/copy/",
-        "04-content/landing-pages/",
-        "06-playbooks/compliance-checklists.md"
-      ],
-      "outputPath": "knowledge/03-campaigns/paid-search/strategy/"
-    },
-    {
       "phrase": "scale google ads",
       "owner": "google-ads-strategy",
       "ownerName": "🔍 Google Ads Strategy",
@@ -2683,15 +2611,16 @@
       "outputPath": "knowledge/03-campaigns/paid-search/execution/"
     },
     {
-      "phrase": "keyword research",
-      "owner": "adkit",
-      "ownerName": "⚡ AdKit Execution",
+      "phrase": "pgvector search",
+      "owner": "marketing-director",
+      "ownerName": "🎯 Marketing Director (CMO)",
       "requires": [
-        "03-campaigns/paid-search/strategy/",
-        "03-campaigns/paid-social/strategy/",
-        "06-playbooks/compliance-checklists.md"
+        "03-campaigns/",
+        "05-analytics-reports/",
+        "03-campaigns/work-orders/",
+        "00-org/brand-context.md"
       ],
-      "outputPath": "knowledge/03-campaigns/paid-search/execution/"
+      "outputPath": "knowledge/03-campaigns/"
     },
     {
       "phrase": "social calendar",
@@ -2787,7 +2716,7 @@
     {
       "phrase": "roi attribution",
       "owner": "revenue-intelligence",
-      "ownerName": "💰 undefined",
+      "ownerName": "💰 Revenue Intelligence",
       "requires": [
         "05-analytics-reports/",
         "03-campaigns/"
@@ -2821,7 +2750,7 @@
     {
       "phrase": "outreach system",
       "owner": "outreach-system",
-      "ownerName": "🌐 undefined",
+      "ownerName": "🌐 Outreach System",
       "requires": [
         "01-brand/personas/",
         "02-market-research/",
@@ -2994,20 +2923,6 @@
       "outputPath": "knowledge/03-campaigns/lead-gen/popups/"
     },
     {
-      "phrase": "funnel analysis",
-      "owner": "revops",
-      "ownerName": "🔄 Revenue Operations",
-      "requires": [
-        "01-brand/personas/",
-        "02-market-research/",
-        "03-campaigns/lead-gen/",
-        "03-campaigns/outbound/",
-        "04-content/copy/",
-        "05-analytics-reports/"
-      ],
-      "outputPath": "knowledge/03-campaigns/lead-gen/revops/"
-    },
-    {
       "phrase": "structured data",
       "owner": "schema",
       "ownerName": "🏗️ Schema Markup & Structured Data",
@@ -3054,19 +2969,6 @@
         "05-analytics-reports/social/"
       ],
       "outputPath": "knowledge/05-analytics-reports/social/"
-    },
-    {
-      "phrase": "content pillars",
-      "owner": "social-content-planner",
-      "ownerName": "📅 Social Content Planner",
-      "requires": [
-        "01-brand/personas/",
-        "02-market-research/",
-        "03-campaigns/outbound/",
-        "04-content/social/",
-        "04-content/social/calendar/"
-      ],
-      "outputPath": "knowledge/04-content/social/planner/"
     },
     {
       "phrase": "write a caption",
@@ -3156,7 +3058,20 @@
       "requires": [
         "03-campaigns/",
         "05-analytics-reports/",
-        "03-campaigns/work-orders/"
+        "03-campaigns/work-orders/",
+        "00-org/brand-context.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/"
+    },
+    {
+      "phrase": "marketing loop",
+      "owner": "marketing-director",
+      "ownerName": "🎯 Marketing Director (CMO)",
+      "requires": [
+        "03-campaigns/",
+        "05-analytics-reports/",
+        "03-campaigns/work-orders/",
+        "00-org/brand-context.md"
       ],
       "outputPath": "knowledge/03-campaigns/"
     },
@@ -3271,7 +3186,7 @@
     {
       "phrase": "turn this into",
       "owner": "content-repurposing",
-      "ownerName": "🔄 undefined",
+      "ownerName": "🔄 Content Repurposing",
       "requires": [
         "04-content/drafts/",
         "04-content/social/"
@@ -3281,7 +3196,7 @@
     {
       "phrase": "edit this copy",
       "owner": "copy-editing",
-      "ownerName": "📝 undefined",
+      "ownerName": "📝 Copy Editing",
       "requires": [
         "04-content/copy/"
       ],
@@ -3290,7 +3205,7 @@
     {
       "phrase": "analytics loop",
       "owner": "closed-loop-analytics",
-      "ownerName": "🔄 undefined",
+      "ownerName": "🔄 Closed-Loop Analytics",
       "requires": [
         "05-analytics-reports/",
         "03-campaigns/"
@@ -3300,7 +3215,7 @@
     {
       "phrase": "icp definition",
       "owner": "outbound-engine",
-      "ownerName": "📬 undefined",
+      "ownerName": "📬 Outbound Engine",
       "requires": [
         "01-brand/personas/",
         "02-market-research/",
@@ -3323,7 +3238,7 @@
     {
       "phrase": "buying signals",
       "owner": "signal-prospector",
-      "ownerName": "🎯 undefined",
+      "ownerName": "🎯 Signal Prospector",
       "requires": [
         "01-brand/personas/",
         "02-market-research/",
@@ -3682,7 +3597,8 @@
       "requires": [
         "03-campaigns/",
         "05-analytics-reports/",
-        "03-campaigns/work-orders/"
+        "03-campaigns/work-orders/",
+        "00-org/brand-context.md"
       ],
       "outputPath": "knowledge/03-campaigns/"
     },
@@ -3693,7 +3609,32 @@
       "requires": [
         "03-campaigns/",
         "05-analytics-reports/",
-        "03-campaigns/work-orders/"
+        "03-campaigns/work-orders/",
+        "00-org/brand-context.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/"
+    },
+    {
+      "phrase": "sales closing",
+      "owner": "marketing-director",
+      "ownerName": "🎯 Marketing Director (CMO)",
+      "requires": [
+        "03-campaigns/",
+        "05-analytics-reports/",
+        "03-campaigns/work-orders/",
+        "00-org/brand-context.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/"
+    },
+    {
+      "phrase": "loop-verifier",
+      "owner": "marketing-director",
+      "ownerName": "🎯 Marketing Director (CMO)",
+      "requires": [
+        "03-campaigns/",
+        "05-analytics-reports/",
+        "03-campaigns/work-orders/",
+        "00-org/brand-context.md"
       ],
       "outputPath": "knowledge/03-campaigns/"
     },
@@ -3845,7 +3786,7 @@
     {
       "phrase": "test velocity",
       "owner": "ab-testing",
-      "ownerName": "🧪 undefined",
+      "ownerName": "🧪 A/B Testing",
       "requires": [
         "06-playbooks/experiment-backlog.md",
         "05-analytics-reports/experiments/"
@@ -3855,7 +3796,7 @@
     {
       "phrase": "baseline hash",
       "owner": "closed-loop-analytics",
-      "ownerName": "🔄 undefined",
+      "ownerName": "🔄 Closed-Loop Analytics",
       "requires": [
         "05-analytics-reports/",
         "03-campaigns/"
@@ -3865,7 +3806,7 @@
     {
       "phrase": "client report",
       "owner": "revenue-intelligence",
-      "ownerName": "💰 undefined",
+      "ownerName": "💰 Revenue Intelligence",
       "requires": [
         "05-analytics-reports/",
         "03-campaigns/"
@@ -3875,7 +3816,7 @@
     {
       "phrase": "growth engine",
       "owner": "growth-engine",
-      "ownerName": "🚀 undefined",
+      "ownerName": "🚀 Growth Engine",
       "requires": [
         "03-campaigns/",
         "05-analytics-reports/"
@@ -3885,7 +3826,7 @@
     {
       "phrase": "cold outbound",
       "owner": "outbound-engine",
-      "ownerName": "📬 undefined",
+      "ownerName": "📬 Outbound Engine",
       "requires": [
         "01-brand/personas/",
         "02-market-research/",
@@ -3896,7 +3837,7 @@
     {
       "phrase": "lead pipeline",
       "owner": "outbound-engine",
-      "ownerName": "📬 undefined",
+      "ownerName": "📬 Outbound Engine",
       "requires": [
         "01-brand/personas/",
         "02-market-research/",
@@ -3907,7 +3848,7 @@
     {
       "phrase": "quality score",
       "owner": "content-eval",
-      "ownerName": "📊 undefined",
+      "ownerName": "📊 Content Eval",
       "requires": [
         "05-analytics-reports/",
         "04-content/drafts/"
@@ -3917,7 +3858,7 @@
     {
       "phrase": "buying intent",
       "owner": "signal-prospector",
-      "ownerName": "🎯 undefined",
+      "ownerName": "🎯 Signal Prospector",
       "requires": [
         "01-brand/personas/",
         "02-market-research/",
@@ -4151,18 +4092,6 @@
       "outputPath": "knowledge/04-content/seo/schema/"
     },
     {
-      "phrase": "technical seo",
-      "owner": "seo-audit",
-      "ownerName": "🔍 SEO Audit",
-      "requires": [
-        "02-market-research/",
-        "04-content/seo/",
-        "04-content/landing-pages/",
-        "05-analytics-reports/"
-      ],
-      "outputPath": "knowledge/04-content/seo/audits/"
-    },
-    {
       "phrase": "url structure",
       "owner": "seo-audit",
       "ownerName": "🔍 SEO Audit",
@@ -4225,20 +4154,6 @@
         "04-content/social/calendar/"
       ],
       "outputPath": "knowledge/04-content/social/planner/"
-    },
-    {
-      "phrase": "quality score",
-      "owner": "google-ads-strategy",
-      "ownerName": "🔍 Google Ads Strategy",
-      "requires": [
-        "01-brand/personas/",
-        "02-market-research/",
-        "03-campaigns/paid-search/",
-        "04-content/copy/",
-        "04-content/landing-pages/",
-        "06-playbooks/compliance-checklists.md"
-      ],
-      "outputPath": "knowledge/03-campaigns/paid-search/strategy/"
     },
     {
       "phrase": "smart bidding",
@@ -4306,7 +4221,8 @@
       "requires": [
         "03-campaigns/",
         "05-analytics-reports/",
-        "03-campaigns/work-orders/"
+        "03-campaigns/work-orders/",
+        "00-org/brand-context.md"
       ],
       "outputPath": "knowledge/03-campaigns/"
     },
@@ -4504,7 +4420,7 @@
     {
       "phrase": "audit reloop",
       "owner": "closed-loop-analytics",
-      "ownerName": "🔄 undefined",
+      "ownerName": "🔄 Closed-Loop Analytics",
       "requires": [
         "05-analytics-reports/",
         "03-campaigns/"
@@ -4514,7 +4430,7 @@
     {
       "phrase": "cfo briefing",
       "owner": "revenue-intelligence",
-      "ownerName": "💰 undefined",
+      "ownerName": "💰 Revenue Intelligence",
       "requires": [
         "05-analytics-reports/",
         "03-campaigns/"
@@ -4524,7 +4440,7 @@
     {
       "phrase": "hidden costs",
       "owner": "revenue-intelligence",
-      "ownerName": "💰 undefined",
+      "ownerName": "💰 Revenue Intelligence",
       "requires": [
         "05-analytics-reports/",
         "03-campaigns/"
@@ -4534,7 +4450,7 @@
     {
       "phrase": "pacing alert",
       "owner": "growth-engine",
-      "ownerName": "🚀 undefined",
+      "ownerName": "🚀 Growth Engine",
       "requires": [
         "03-campaigns/",
         "05-analytics-reports/"
@@ -4544,7 +4460,7 @@
     {
       "phrase": "content eval",
       "owner": "content-eval",
-      "ownerName": "📊 undefined",
+      "ownerName": "📊 Content Eval",
       "requires": [
         "05-analytics-reports/",
         "04-content/drafts/"
@@ -4554,7 +4470,7 @@
     {
       "phrase": "auditor gate",
       "owner": "auditor-protocol",
-      "ownerName": "⚖️ undefined",
+      "ownerName": "⚖️ Auditor Protocol",
       "requires": [
         "06-playbooks/compliance-checklists.md"
       ],
@@ -4563,23 +4479,11 @@
     {
       "phrase": "publish gate",
       "owner": "auditor-protocol",
-      "ownerName": "⚖️ undefined",
+      "ownerName": "⚖️ Auditor Protocol",
       "requires": [
         "06-playbooks/compliance-checklists.md"
       ],
       "outputPath": "knowledge/06-playbooks/auditor-gates/"
-    },
-    {
-      "phrase": "lead scoring",
-      "owner": "signal-prospector",
-      "ownerName": "🎯 undefined",
-      "requires": [
-        "01-brand/personas/",
-        "02-market-research/",
-        "03-campaigns/lead-gen/",
-        "03-campaigns/outbound/"
-      ],
-      "outputPath": "knowledge/03-campaigns/lead-gen/"
     },
     {
       "phrase": "analyze reel",
@@ -4662,34 +4566,6 @@
         "05-analytics-reports/"
       ],
       "outputPath": "knowledge/01-brand/messaging/pricing/"
-    },
-    {
-      "phrase": "lead scoring",
-      "owner": "revops",
-      "ownerName": "🔄 Revenue Operations",
-      "requires": [
-        "01-brand/personas/",
-        "02-market-research/",
-        "03-campaigns/lead-gen/",
-        "03-campaigns/outbound/",
-        "04-content/copy/",
-        "05-analytics-reports/"
-      ],
-      "outputPath": "knowledge/03-campaigns/lead-gen/revops/"
-    },
-    {
-      "phrase": "lead routing",
-      "owner": "revops",
-      "ownerName": "🔄 Revenue Operations",
-      "requires": [
-        "01-brand/personas/",
-        "02-market-research/",
-        "03-campaigns/lead-gen/",
-        "03-campaigns/outbound/",
-        "04-content/copy/",
-        "05-analytics-reports/"
-      ],
-      "outputPath": "knowledge/03-campaigns/lead-gen/revops/"
     },
     {
       "phrase": "data hygiene",
@@ -4788,20 +4664,6 @@
       "outputPath": "knowledge/03-campaigns/lead-gen/signup/"
     },
     {
-      "phrase": "facebook ads",
-      "owner": "meta-ads-strategy",
-      "ownerName": "📘 Meta Ads Strategy",
-      "requires": [
-        "01-brand/personas/",
-        "02-market-research/",
-        "03-campaigns/paid-social/",
-        "04-content/copy/",
-        "04-content/landing-pages/",
-        "06-playbooks/compliance-checklists.md"
-      ],
-      "outputPath": "knowledge/03-campaigns/paid-social/strategy/"
-    },
-    {
       "phrase": "ad targeting",
       "owner": "meta-ads-strategy",
       "ownerName": "📘 Meta Ads Strategy",
@@ -4881,6 +4743,30 @@
         "01-brand/"
       ],
       "outputPath": "knowledge/01-brand/"
+    },
+    {
+      "phrase": "factory run",
+      "owner": "marketing-director",
+      "ownerName": "🎯 Marketing Director (CMO)",
+      "requires": [
+        "03-campaigns/",
+        "05-analytics-reports/",
+        "03-campaigns/work-orders/",
+        "00-org/brand-context.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/"
+    },
+    {
+      "phrase": "loop-triage",
+      "owner": "marketing-director",
+      "ownerName": "🎯 Marketing Director (CMO)",
+      "requires": [
+        "03-campaigns/",
+        "05-analytics-reports/",
+        "03-campaigns/work-orders/",
+        "00-org/brand-context.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/"
     },
     {
       "phrase": "attribution",
@@ -5063,7 +4949,7 @@
     {
       "phrase": "ice scoring",
       "owner": "ab-testing",
-      "ownerName": "🧪 undefined",
+      "ownerName": "🧪 A/B Testing",
       "requires": [
         "06-playbooks/experiment-backlog.md",
         "05-analytics-reports/experiments/"
@@ -5073,7 +4959,7 @@
     {
       "phrase": "closed loop",
       "owner": "closed-loop-analytics",
-      "ownerName": "🔄 undefined",
+      "ownerName": "🔄 Closed-Loop Analytics",
       "requires": [
         "05-analytics-reports/",
         "03-campaigns/"
@@ -5083,7 +4969,7 @@
     {
       "phrase": "content roi",
       "owner": "revenue-intelligence",
-      "ownerName": "💰 undefined",
+      "ownerName": "💰 Revenue Intelligence",
       "requires": [
         "05-analytics-reports/",
         "03-campaigns/"
@@ -5091,21 +4977,9 @@
       "outputPath": "knowledge/05-analytics-reports/revenue/"
     },
     {
-      "phrase": "intent data",
-      "owner": "signal-prospector",
-      "ownerName": "🎯 undefined",
-      "requires": [
-        "01-brand/personas/",
-        "02-market-research/",
-        "03-campaigns/lead-gen/",
-        "03-campaigns/outbound/"
-      ],
-      "outputPath": "knowledge/03-campaigns/lead-gen/"
-    },
-    {
       "phrase": "lead finder",
       "owner": "outreach-system",
-      "ownerName": "🌐 undefined",
+      "ownerName": "🌐 Outreach System",
       "requires": [
         "01-brand/personas/",
         "02-market-research/",
@@ -5273,20 +5147,6 @@
       "outputPath": "knowledge/03-campaigns/paid-social/strategy/"
     },
     {
-      "phrase": "ad creative",
-      "owner": "meta-ads-strategy",
-      "ownerName": "📘 Meta Ads Strategy",
-      "requires": [
-        "01-brand/personas/",
-        "02-market-research/",
-        "03-campaigns/paid-social/",
-        "04-content/copy/",
-        "04-content/landing-pages/",
-        "06-playbooks/compliance-checklists.md"
-      ],
-      "outputPath": "knowledge/03-campaigns/paid-social/strategy/"
-    },
-    {
       "phrase": "ads manager",
       "owner": "meta-ads-strategy",
       "ownerName": "📘 Meta Ads Strategy",
@@ -5318,7 +5178,20 @@
       "requires": [
         "03-campaigns/",
         "05-analytics-reports/",
-        "03-campaigns/work-orders/"
+        "03-campaigns/work-orders/",
+        "00-org/brand-context.md"
+      ],
+      "outputPath": "knowledge/03-campaigns/"
+    },
+    {
+      "phrase": "laya batch",
+      "owner": "marketing-director",
+      "ownerName": "🎯 Marketing Director (CMO)",
+      "requires": [
+        "03-campaigns/",
+        "05-analytics-reports/",
+        "03-campaigns/work-orders/",
+        "00-org/brand-context.md"
       ],
       "outputPath": "knowledge/03-campaigns/"
     },
@@ -5545,21 +5418,11 @@
     {
       "phrase": "copy sweep",
       "owner": "copy-editing",
-      "ownerName": "📝 undefined",
+      "ownerName": "📝 Copy Editing",
       "requires": [
         "04-content/copy/"
       ],
       "outputPath": "knowledge/04-content/copy/edited/"
-    },
-    {
-      "phrase": "experiment",
-      "owner": "ab-testing",
-      "ownerName": "🧪 undefined",
-      "requires": [
-        "06-playbooks/experiment-backlog.md",
-        "05-analytics-reports/experiments/"
-      ],
-      "outputPath": "knowledge/05-analytics-reports/experiments/"
     },
     {
       "phrase": "swipe post",
@@ -5582,17 +5445,6 @@
         "03-campaigns/lead-gen/"
       ],
       "outputPath": "knowledge/03-campaigns/partnerships/referrals/"
-    },
-    {
-      "phrase": "case study",
-      "owner": "customer-story-builder",
-      "ownerName": "📖 Customer Story Builder",
-      "requires": [
-        "02-market-research/",
-        "04-content/copy/",
-        "04-content/case-studies/"
-      ],
-      "outputPath": "knowledge/04-content/case-studies/"
     },
     {
       "phrase": "aha moment",
@@ -5705,20 +5557,6 @@
         "04-content/social/calendar/"
       ],
       "outputPath": "knowledge/04-content/social/planner/"
-    },
-    {
-      "phrase": "google ads",
-      "owner": "google-ads-strategy",
-      "ownerName": "🔍 Google Ads Strategy",
-      "requires": [
-        "01-brand/personas/",
-        "02-market-research/",
-        "03-campaigns/paid-search/",
-        "04-content/copy/",
-        "04-content/landing-pages/",
-        "06-playbooks/compliance-checklists.md"
-      ],
-      "outputPath": "knowledge/03-campaigns/paid-search/strategy/"
     },
     {
       "phrase": "search ads",
@@ -5922,19 +5760,9 @@
       "outputPath": "knowledge/03-campaigns/community/"
     },
     {
-      "phrase": "repurpose",
-      "owner": "content-repurposing",
-      "ownerName": "🔄 undefined",
-      "requires": [
-        "04-content/drafts/",
-        "04-content/social/"
-      ],
-      "outputPath": "knowledge/04-content/repurposed/"
-    },
-    {
       "phrase": "converged",
       "owner": "closed-loop-analytics",
-      "ownerName": "🔄 undefined",
+      "ownerName": "🔄 Closed-Loop Analytics",
       "requires": [
         "05-analytics-reports/",
         "03-campaigns/"
@@ -5944,7 +5772,7 @@
     {
       "phrase": "exhausted",
       "owner": "closed-loop-analytics",
-      "ownerName": "🔄 undefined",
+      "ownerName": "🔄 Closed-Loop Analytics",
       "requires": [
         "05-analytics-reports/",
         "03-campaigns/"
@@ -5954,7 +5782,7 @@
     {
       "phrase": "eval loop",
       "owner": "content-eval",
-      "ownerName": "📊 undefined",
+      "ownerName": "📊 Content Eval",
       "requires": [
         "05-analytics-reports/",
         "04-content/drafts/"
@@ -5964,7 +5792,7 @@
     {
       "phrase": "scorecard",
       "owner": "content-eval",
-      "ownerName": "📊 undefined",
+      "ownerName": "📊 Content Eval",
       "requires": [
         "05-analytics-reports/",
         "04-content/drafts/"
@@ -5974,7 +5802,7 @@
     {
       "phrase": "core-eeat",
       "owner": "auditor-protocol",
-      "ownerName": "⚖️ undefined",
+      "ownerName": "⚖️ Auditor Protocol",
       "requires": [
         "06-playbooks/compliance-checklists.md"
       ],
@@ -5983,7 +5811,7 @@
     {
       "phrase": "veto item",
       "owner": "auditor-protocol",
-      "ownerName": "⚖️ undefined",
+      "ownerName": "⚖️ Auditor Protocol",
       "requires": [
         "06-playbooks/compliance-checklists.md"
       ],
@@ -6004,7 +5832,7 @@
     {
       "phrase": "ICP score",
       "owner": "signal-prospector",
-      "ownerName": "🎯 undefined",
+      "ownerName": "🎯 Signal Prospector",
       "requires": [
         "01-brand/personas/",
         "02-market-research/",
@@ -6312,19 +6140,9 @@
       "outputPath": "knowledge/04-content/copy/humanized/"
     },
     {
-      "phrase": "a/b test",
-      "owner": "ab-testing",
-      "ownerName": "🧪 undefined",
-      "requires": [
-        "06-playbooks/experiment-backlog.md",
-        "05-analytics-reports/experiments/"
-      ],
-      "outputPath": "knowledge/05-analytics-reports/experiments/"
-    },
-    {
       "phrase": "re-audit",
       "owner": "closed-loop-analytics",
-      "ownerName": "🔄 undefined",
+      "ownerName": "🔄 Closed-Loop Analytics",
       "requires": [
         "05-analytics-reports/",
         "03-campaigns/"
@@ -6334,7 +6152,7 @@
     {
       "phrase": "outbound",
       "owner": "outbound-engine",
-      "ownerName": "📬 undefined",
+      "ownerName": "📬 Outbound Engine",
       "requires": [
         "01-brand/personas/",
         "02-market-research/",
@@ -6352,18 +6170,6 @@
         "04-content/case-studies/"
       ],
       "outputPath": "knowledge/04-content/case-studies/"
-    },
-    {
-      "phrase": "linkedin",
-      "owner": "linkedin-strategy",
-      "ownerName": "💼 LinkedIn Strategy",
-      "requires": [
-        "01-brand/personas/",
-        "02-market-research/",
-        "04-content/social/",
-        "04-content/copy/"
-      ],
-      "outputPath": "knowledge/04-content/social/linkedin/"
     },
     {
       "phrase": "ppc math",
@@ -6390,20 +6196,6 @@
         "06-playbooks/compliance-checklists.md"
       ],
       "outputPath": "knowledge/03-campaigns/lead-gen/popups/"
-    },
-    {
-      "phrase": "meta ads",
-      "owner": "meta-ads-strategy",
-      "ownerName": "📘 Meta Ads Strategy",
-      "requires": [
-        "01-brand/personas/",
-        "02-market-research/",
-        "03-campaigns/paid-social/",
-        "04-content/copy/",
-        "04-content/landing-pages/",
-        "06-playbooks/compliance-checklists.md"
-      ],
-      "outputPath": "knowledge/03-campaigns/paid-social/strategy/"
     },
     {
       "phrase": "anomaly",
@@ -6558,7 +6350,7 @@
     {
       "phrase": "ab test",
       "owner": "ab-testing",
-      "ownerName": "🧪 undefined",
+      "ownerName": "🧪 A/B Testing",
       "requires": [
         "06-playbooks/experiment-backlog.md",
         "05-analytics-reports/experiments/"
@@ -6568,7 +6360,7 @@
     {
       "phrase": "dry run",
       "owner": "outbound-engine",
-      "ownerName": "📬 undefined",
+      "ownerName": "📬 Outbound Engine",
       "requires": [
         "01-brand/personas/",
         "02-market-research/",
@@ -6596,20 +6388,6 @@
         "04-content/landing-pages/"
       ],
       "outputPath": "knowledge/04-content/seo/schema/"
-    },
-    {
-      "phrase": "ad copy",
-      "owner": "meta-ads-strategy",
-      "ownerName": "📘 Meta Ads Strategy",
-      "requires": [
-        "01-brand/personas/",
-        "02-market-research/",
-        "03-campaigns/paid-social/",
-        "04-content/copy/",
-        "04-content/landing-pages/",
-        "06-playbooks/compliance-checklists.md"
-      ],
-      "outputPath": "knowledge/03-campaigns/paid-social/strategy/"
     },
     {
       "phrase": "ad hook",
@@ -6711,7 +6489,7 @@
     {
       "phrase": "AI CEO",
       "owner": "outreach-system",
-      "ownerName": "🌐 undefined",
+      "ownerName": "🌐 Outreach System",
       "requires": [
         "01-brand/personas/",
         "02-market-research/",
@@ -6885,27 +6663,9 @@
       "outputPath": "knowledge/04-content/email/"
     },
     {
-      "phrase": "roas",
-      "owner": "auditor-protocol",
-      "ownerName": "⚖️ undefined",
-      "requires": [
-        "06-playbooks/compliance-checklists.md"
-      ],
-      "outputPath": "knowledge/06-playbooks/auditor-gates/"
-    },
-    {
-      "phrase": "send",
-      "owner": "auditor-protocol",
-      "ownerName": "⚖️ undefined",
-      "requires": [
-        "06-playbooks/compliance-checklists.md"
-      ],
-      "outputPath": "knowledge/06-playbooks/auditor-gates/"
-    },
-    {
       "phrase": "echo",
       "owner": "auditor-protocol",
-      "ownerName": "⚖️ undefined",
+      "ownerName": "⚖️ Auditor Protocol",
       "requires": [
         "06-playbooks/compliance-checklists.md"
       ],
@@ -6914,7 +6674,7 @@
     {
       "phrase": "star",
       "owner": "auditor-protocol",
-      "ownerName": "⚖️ undefined",
+      "ownerName": "⚖️ Auditor Protocol",
       "requires": [
         "06-playbooks/compliance-checklists.md"
       ],
@@ -6923,7 +6683,7 @@
     {
       "phrase": "ramp",
       "owner": "auditor-protocol",
-      "ownerName": "⚖️ undefined",
+      "ownerName": "⚖️ Auditor Protocol",
       "requires": [
         "06-playbooks/compliance-checklists.md"
       ],
@@ -6932,7 +6692,7 @@
     {
       "phrase": "tale",
       "owner": "auditor-protocol",
-      "ownerName": "⚖️ undefined",
+      "ownerName": "⚖️ Auditor Protocol",
       "requires": [
         "06-playbooks/compliance-checklists.md"
       ],
@@ -6941,25 +6701,11 @@
     {
       "phrase": "cite",
       "owner": "auditor-protocol",
-      "ownerName": "⚖️ undefined",
+      "ownerName": "⚖️ Auditor Protocol",
       "requires": [
         "06-playbooks/compliance-checklists.md"
       ],
       "outputPath": "knowledge/06-playbooks/auditor-gates/"
-    },
-    {
-      "phrase": "roas",
-      "owner": "meta-ads-strategy",
-      "ownerName": "📘 Meta Ads Strategy",
-      "requires": [
-        "01-brand/personas/",
-        "02-market-research/",
-        "03-campaigns/paid-social/",
-        "04-content/copy/",
-        "04-content/landing-pages/",
-        "06-playbooks/compliance-checklists.md"
-      ],
-      "outputPath": "knowledge/03-campaigns/paid-social/strategy/"
     },
     {
       "phrase": "kpi",
@@ -7113,20 +6859,6 @@
       "outputPath": "knowledge/04-content/seo/local/"
     },
     {
-      "phrase": "mql",
-      "owner": "revops",
-      "ownerName": "🔄 Revenue Operations",
-      "requires": [
-        "01-brand/personas/",
-        "02-market-research/",
-        "03-campaigns/lead-gen/",
-        "03-campaigns/outbound/",
-        "04-content/copy/",
-        "05-analytics-reports/"
-      ],
-      "outputPath": "knowledge/03-campaigns/lead-gen/revops/"
-    },
-    {
       "phrase": "sql",
       "owner": "revops",
       "ownerName": "🔄 Revenue Operations",
@@ -7141,35 +6873,7 @@
       "outputPath": "knowledge/03-campaigns/lead-gen/revops/"
     },
     {
-      "phrase": "ppc",
-      "owner": "google-ads-strategy",
-      "ownerName": "🔍 Google Ads Strategy",
-      "requires": [
-        "01-brand/personas/",
-        "02-market-research/",
-        "03-campaigns/paid-search/",
-        "04-content/copy/",
-        "04-content/landing-pages/",
-        "06-playbooks/compliance-checklists.md"
-      ],
-      "outputPath": "knowledge/03-campaigns/paid-search/strategy/"
-    },
-    {
       "phrase": "cpc",
-      "owner": "google-ads-strategy",
-      "ownerName": "🔍 Google Ads Strategy",
-      "requires": [
-        "01-brand/personas/",
-        "02-market-research/",
-        "03-campaigns/paid-search/",
-        "04-content/copy/",
-        "04-content/landing-pages/",
-        "06-playbooks/compliance-checklists.md"
-      ],
-      "outputPath": "knowledge/03-campaigns/paid-search/strategy/"
-    },
-    {
-      "phrase": "rsa",
       "owner": "google-ads-strategy",
       "ownerName": "🔍 Google Ads Strategy",
       "requires": [

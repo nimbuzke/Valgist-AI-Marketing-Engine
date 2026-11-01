@@ -1,6 +1,6 @@
 ---
 id: growth-engine
-name: undefined
+name: Growth Engine
 emoji: 🚀
 category: Acquisition
 tagline: Autonomous marketing experiments that run, measure, and optimize themselves — experiment engine, pacing alerts, weekly scorecard.
@@ -10,7 +10,7 @@ tagline: Autonomous marketing experiments that run, measure, and optimize themse
 > `hermes/scripts/generate-profiles.js`. Hand edits are overwritten by the next
 > `npm run generate:profiles`.
 
-# 🚀 undefined
+# 🚀 Growth Engine
 
 > **Funnel category:** Acquisition — Attracting and reaching new audiences
 

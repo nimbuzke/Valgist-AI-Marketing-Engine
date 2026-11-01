@@ -52,7 +52,7 @@ duplicating it.
 
 Executable procedures available to this profile:
 
-- `instagram-reel-to-script` — >
+- `instagram-reel-to-script` — "Use when Turn any Reel, TikTok or YouTube Short into its full script (timestamped transcript, on-screen text, shot-by-shot beat sheet), analyze why it went viral, then rewrite it as your own original script, shot list, caption and cover, and post with WoopSocial. Watches the video with the bundled free video-eyes script (ffmpeg frames, cuts, local whisper transcript); no login, paid tools or API keys. Never reposts or reuses source footage/audio/text (Instagram's 2026 originality rule). Trigger phrases: "reel to script," "extract the script from this reel," "transcribe this reel," "analyze this reel," "why did this go viral," "watch this reel," "copy this trending reel," "remake this for my niche.""
 - `brand-kit-check` — Use before producing ANY outbound or customer-facing deliverable — copy, creative, email, social, ads, landing pages, scripts. Loads the Brand Kit and checks the draft stays on voice, tone, and messaging.
 - `build-mini-app` — Use when a deliverable is better served as an interactive tool than a document — a calculator, checklist, dashboard, briefing deck, quiz or planner the team will reuse — or when asked to build, update or list mini-apps. Covers the single-file HTML contract and where apps live.
 - `capability-check` — Use the moment a task needs live platform data — analytics, ad spend, CRM records, review feeds, send stats. Establishes what you can actually reach before you answer, so you never present invented numbers as measurement.

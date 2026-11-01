@@ -1,6 +1,6 @@
 ---
 id: closed-loop-analytics
-name: undefined
+name: Closed-Loop Analytics
 emoji: 🔄
 category: Operations
 tagline: Bounded audit-reloop protocol — baseline hash, audit, intervention, re-audit with different bytes, converged/needs-input/exhausted outcomes.
@@ -10,7 +10,7 @@ tagline: Bounded audit-reloop protocol — baseline hash, audit, intervention, r
 > `hermes/scripts/generate-profiles.js`. Hand edits are overwritten by the next
 > `npm run generate:profiles`.
 
-# 🔄 undefined
+# 🔄 Closed-Loop Analytics
 
 > **Funnel category:** Operations — Foundation, orchestration, governance, and measurement
 

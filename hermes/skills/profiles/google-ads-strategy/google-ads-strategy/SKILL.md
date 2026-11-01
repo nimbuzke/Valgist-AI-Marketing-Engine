@@ -1,16 +1,8 @@
 ---
 name: google-ads-strategy
-description: >
-  Google Search Ads strategy: keyword mining, account structure, ad copy, negative
-  keyword architecture, Quality Score, and performance diagnostics. Complements
-  `paid-search` — use this for Google-specific strategy depth, then delegate
-  campaign build/execution to `paid-search`. Trigger phrases: "google ads,"
-  "search ads," "google search campaign," "ppc," "keyword research," "negative
-  keywords," "quality score," "ad copy google," "roas google," "cpc," "ad group
-  structure," "search term report," "google ads not working," "optimize google
-  ads," "scale google ads," "responsive search ads," "rsa," "smart bidding,"
-  "target cpa," "conversion tracking google."
+description: "Use when Google Search Ads strategy: keyword mining, account structure, ad copy, negative keyword architecture, Quality Score, and performance diagnostics. Complements `paid-search` — use this for Google-specific strategy depth, then delegate campaign build/execution to `paid-search`. Trigger phrases: "google ads," "search ads," "google search campaign," "ppc," "keyword research," "negative keywords," "quality score," "ad copy google," "roas google," "cpc," "ad group structure," "search term report," "google ads not working," "optimize google ads," "scale google ads," "responsive search ads," "rsa," "smart bidding," "target cpa," "conversion tracking google.""
 ---
+
 
 # Google Ads Strategy
 

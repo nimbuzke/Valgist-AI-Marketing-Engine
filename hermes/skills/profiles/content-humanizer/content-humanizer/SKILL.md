@@ -66,6 +66,13 @@ Matches brand-kit.md: yes/no. Notes.
 One specific action.
 ```
 
+## Quality Bar
+
+- Output matches the skill contract and output path convention.
+- Every factual claim traces to a knowledge-base file or cited source; unavailable data marked [AWAITING DATA].
+- Brand voice and banned-word rules from knowledge/01-brand/ are honored.
+- Human approval required before any publish-ready asset ships.
+
 ## Related skills
 
 - `copy-editing` — broad editorial improvements after humanization

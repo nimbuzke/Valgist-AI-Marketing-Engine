@@ -51,7 +51,7 @@ duplicating it.
 
 Executable procedures available to this profile:
 
-- `video-editing` — >
+- `video-editing` — "Use when Edit a talking-head video (YouTube video, course lesson, product demo, podcast on camera, vlog) the way an editor would. Transcribes with word timestamps (free local faster-whisper, own Groq/ OpenAI key, or existing SRT/VTT), removes silences, "um"s and "uh"s, stutters and retakes (keeps the last take), adds jump-cut punch-ins, cleans and levels audio, writes SRT captions and YouTube chapters, optionally burns captions or makes a vertical version, shows a cut list to approve before rendering, then posts with WoopSocial after you say yes. Works on Mac, Windows, Linux with ffmpeg and Pillow; no paid API required. Trigger phrases: "edit my video," "remove silences," "cut the ums," "remove filler words," "jump cut my video," "clean up this recording," "edit this talking head video.""
 - `brand-kit-check` — Use before producing ANY outbound or customer-facing deliverable — copy, creative, email, social, ads, landing pages, scripts. Loads the Brand Kit and checks the draft stays on voice, tone, and messaging.
 - `build-mini-app` — Use when a deliverable is better served as an interactive tool than a document — a calculator, checklist, dashboard, briefing deck, quiz or planner the team will reuse — or when asked to build, update or list mini-apps. Covers the single-file HTML contract and where apps live.
 - `capability-check` — Use the moment a task needs live platform data — analytics, ad spend, CRM records, review feeds, send stats. Establishes what you can actually reach before you answer, so you never present invented numbers as measurement.

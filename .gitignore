@@ -48,6 +48,12 @@ venv/
 .pytest_cache/
 .ruff_cache/
 
+# === Factory runtime state ================================================
+# .factory-state/ contains runtime state: run logs, lock files, laya batches,
+# loop state, manifest, and factory state. This is machine state, not source.
+# Regenerate with `npm run generate:profiles` and factory runs.
+/.factory-state/
+
 # === Databases & local stores =============================================
 *.db
 *.db-shm

@@ -9,7 +9,7 @@
     "no code changes needed.",
     "",
     "Every profile in hermes/profiles/index.json must appear in exactly one room.",
-    "`npm run eval` enforces that, so adding a 32nd profile is a data change here."
+    "`npm run eval` enforces that, so adding a profile is a data change here."
   ],
   "art": "world.webp",
   "artFallback": null,
@@ -26,7 +26,7 @@
       "color": "#b8332f",
       "rect": [6.8, 4.4, 20.5, 27.5],
       "charter": "Sets direction, holds the budget, and says no. Work is routed, prioritised and signed off here.",
-      "profiles": ["marketing-director", "budget-planner", "compliance-guard"]
+      "profiles": ["marketing-director", "budget-planner", "compliance-guard", "growth-engine", "outbound-engine", "revops", "pricing"]
     },
     {
       "id": "strategy",
@@ -34,7 +34,7 @@
       "color": "#d4711f",
       "rect": [28.0, 4.4, 21.5, 26.5],
       "charter": "Decides what the market is, who we are in it, and what we are selling before anyone writes a word.",
-      "profiles": ["brand-strategist", "market-researcher", "product-marketer"]
+      "profiles": ["brand-strategist", "market-researcher", "product-marketer", "signal-prospector", "auditor-protocol", "closed-loop-analytics", "content-eval"]
     },
     {
       "id": "writers",
@@ -42,7 +42,7 @@
       "color": "#d8b41e",
       "rect": [50.5, 5.0, 14.5, 26.0],
       "charter": "Turns strategy into sentences — long form, short form, and every language we ship in.",
-      "profiles": ["content-writer", "copywriter", "localization-engine"]
+      "profiles": ["content-writer", "copywriter", "localization-engine", "copy-editing", "content-repurposing", "customer-story-builder", "content-humanizer"]
     },
     {
       "id": "growth-engineering",
@@ -50,7 +50,7 @@
       "color": "#6aa832",
       "rect": [74.0, 4.8, 21.0, 29.0],
       "charter": "Builds the machinery: journeys, pages and the CRM plumbing that carries a lead from click to record.",
-      "profiles": ["marketing-automation", "landing-page-builder", "lead-gen-crm"]
+      "profiles": ["marketing-automation", "landing-page-builder", "lead-gen-crm", "signup", "onboarding"]
     },
     {
       "id": "insights",
@@ -58,7 +58,7 @@
       "color": "#1e9e7a",
       "rect": [5.8, 34.5, 17.0, 24.5],
       "charter": "Measures what happened and designs the experiment that tells us why.",
-      "profiles": ["analytics-engine", "cro-optimizer"]
+      "profiles": ["analytics-engine", "cro-optimizer", "ab-testing", "seo-audit", "social-media-analyzer"]
     },
     {
       "id": "acquisition",
@@ -66,7 +66,7 @@
       "color": "#1f74c4",
       "rect": [70.0, 34.0, 25.0, 25.5],
       "charter": "Buys and earns the attention — search, paid social, and named-account demand.",
-      "profiles": ["seo-engine", "paid-search", "paid-social", "abm-engine"]
+      "profiles": ["seo-engine", "paid-search", "paid-social", "abm-engine", "google-ads-strategy", "meta-ads-strategy", "paid-ads-ops", "adkit"]
     },
     {
       "id": "lifecycle",
@@ -74,7 +74,7 @@
       "color": "#3a4a9e",
       "rect": [4.5, 60.0, 18.5, 25.5],
       "charter": "Owns the relationship after the first click: inbox, handset and storefront.",
-      "profiles": ["email-lifecycle", "sms-messaging", "ecommerce-marketer"]
+      "profiles": ["email-lifecycle", "sms-messaging", "ecommerce-marketer", "local-seo", "referrals"]
     },
     {
       "id": "creative",
@@ -82,7 +82,7 @@
       "color": "#7b4bc0",
       "rect": [25.5, 59.5, 18.5, 25.5],
       "charter": "Everything that is looked at or listened to rather than read.",
-      "profiles": ["creative-designer", "video-marketer", "podcast-audio"]
+      "profiles": ["creative-designer", "video-marketer", "podcast-audio", "instagram-carousel", "instagram-reel-to-script", "tiktok-slideshow", "video-editing", "video-to-shorts"]
     },
     {
       "id": "comms",
@@ -90,7 +90,7 @@
       "color": "#b8306a",
       "rect": [45.5, 59.5, 23.0, 25.5],
       "charter": "Speaks for the company to everyone who is not a customer yet — press, creators, partners, reviewers.",
-      "profiles": ["pr-communications", "reputation-manager", "influencer-manager", "affiliate-partnerships"]
+      "profiles": ["pr-communications", "reputation-manager", "influencer-manager", "affiliate-partnerships", "linkedin-strategy", "social-media-strategy", "openreply"]
     },
     {
       "id": "community",
@@ -98,7 +98,7 @@
       "color": "#2196c9",
       "rect": [70.0, 59.5, 25.5, 26.0],
       "charter": "Where the audience actually hangs out — the feed, the forum, and the room the webinar happens in.",
-      "profiles": ["community-manager", "social-organic", "event-webinar"]
+      "profiles": ["community-manager", "social-organic", "event-webinar", "social-content-planner", "popups", "schema", "outreach-engine", "outreach-system", "revenue-intelligence"]
     }
   ]
 }

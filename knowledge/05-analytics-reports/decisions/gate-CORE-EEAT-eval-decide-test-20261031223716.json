@@ -1,0 +1,16 @@
+{
+  "gate": "CORE-EEAT",
+  "draft": "/home/sage/Documents/Automation/marketing/valgist-marketing-engine/.factory-state/eval-decide-test.md",
+  "draft_hash": "b8018b6815515e2d7a679b8bc7e8e0f241936f212e29b129b5c89a740f6c219b",
+  "checked_at": "2026-10-31T22:37:16.254872+00:00",
+  "passed": false,
+  "score": 0,
+  "max_score": 80,
+  "pct": 0.0,
+  "notes": [
+    "Experience: no keywords found",
+    "Expertise: no keywords found",
+    "Authoritativeness: no keywords found",
+    "Trustworthiness: no keywords found"
+  ]
+}

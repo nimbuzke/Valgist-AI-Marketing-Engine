@@ -1,0 +1,16 @@
+{
+  "gate": "TALE",
+  "draft": "/home/sage/Documents/Automation/marketing/valgist-marketing-engine/.factory-state/sales-closing/G4-G9-leads-location-Barcelona-query-Solar-.json",
+  "draft_hash": "b789d9e0eb1a348f11d8b1539cd384c5d1c4bf73cabee61c11000f165d533727",
+  "checked_at": "2026-10-31T22:43:12.555734+00:00",
+  "passed": false,
+  "score": 0,
+  "max_score": 80,
+  "pct": 0.0,
+  "notes": [
+    "T: no keywords found",
+    "A: no keywords found",
+    "L: no keywords found",
+    "E: no keywords found"
+  ]
+}

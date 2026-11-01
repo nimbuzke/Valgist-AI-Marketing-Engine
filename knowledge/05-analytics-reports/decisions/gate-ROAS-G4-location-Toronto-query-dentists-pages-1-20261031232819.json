@@ -1,0 +1,15 @@
+{
+  "gate": "ROAS",
+  "draft": "/home/sage/Documents/Automation/marketing/valgist-marketing-engine/.factory-state/sales-closing/G4-location-Toronto-query-dentists-pages-1.json",
+  "draft_hash": "11ad186739aa2e8547869e1a41199b63e7bfe72c73486852210339841a2cb181",
+  "checked_at": "2026-10-31T23:28:19.720014+00:00",
+  "passed": false,
+  "score": 0,
+  "max_score": 60,
+  "pct": 0.0,
+  "notes": [
+    "ROAS: no keywords found",
+    "CPA: no keywords found",
+    "CTR: no keywords found"
+  ]
+}

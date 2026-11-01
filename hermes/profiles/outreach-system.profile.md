@@ -1,6 +1,6 @@
 ---
 id: outreach-system
-name: undefined
+name: Outreach System
 emoji: 🌐
 category: Operations
 tagline: Autonomous multi-channel outreach: Google Maps lead finder, enrichment, AI CEO scheduling, Email/WhatsApp/Instagram/Facebook messaging, response management, niche/city scaling.
@@ -10,7 +10,7 @@ tagline: Autonomous multi-channel outreach: Google Maps lead finder, enrichment,
 > `hermes/scripts/generate-profiles.js`. Hand edits are overwritten by the next
 > `npm run generate:profiles`.
 
-# 🌐 undefined
+# 🌐 Outreach System
 
 > **Funnel category:** Operations — Foundation, orchestration, governance, and measurement
 

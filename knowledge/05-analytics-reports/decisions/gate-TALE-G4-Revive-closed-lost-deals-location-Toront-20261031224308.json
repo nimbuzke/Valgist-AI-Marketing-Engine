@@ -1,0 +1,16 @@
+{
+  "gate": "TALE",
+  "draft": "/home/sage/Documents/Automation/marketing/valgist-marketing-engine/.factory-state/sales-closing/G4-Revive-closed-lost-deals-location-Toront.json",
+  "draft_hash": "c63bf29758d84916011e8b0628b106c30d58a6d1c84b045624faffa82b0f9980",
+  "checked_at": "2026-10-31T22:43:08.116551+00:00",
+  "passed": false,
+  "score": 0,
+  "max_score": 80,
+  "pct": 0.0,
+  "notes": [
+    "T: no keywords found",
+    "A: no keywords found",
+    "L: no keywords found",
+    "E: no keywords found"
+  ]
+}

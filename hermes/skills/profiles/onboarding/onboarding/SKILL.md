@@ -1,12 +1,8 @@
 ---
 name: onboarding
-description: >
-  Optimize post-signup onboarding, user activation, and time-to-value for SaaS products.
-  Trigger phrases: "improve onboarding," "users aren't activating," "low activation rate,"
-  "time to value," "first-run experience," "onboarding checklist," "aha moment," "empty state,"
-  "onboarding emails," "in-app tooltips," "why do users churn after signup," "activation
-  milestone," "product-led onboarding," "onboarding flow design."
+description: "Use when Optimize post-signup onboarding, user activation, and time-to-value for SaaS products. Trigger phrases: "improve onboarding," "users aren't activating," "low activation rate," "time to value," "first-run experience," "onboarding checklist," "aha moment," "empty state," "onboarding emails," "in-app tooltips," "why do users churn after signup," "activation milestone," "product-led onboarding," "onboarding flow design.""
 ---
+
 
 # Onboarding (Customer Activation)
 

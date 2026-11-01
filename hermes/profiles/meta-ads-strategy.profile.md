@@ -56,7 +56,7 @@ duplicating it.
 
 Executable procedures available to this profile:
 
-- `meta-ads-strategy` — >
+- `meta-ads-strategy` — "Use when Meta (Facebook & Instagram) Ads strategy: creative, copy, campaign structure, targeting, budgeting, ROAS tracking, and Pixel setup. Complements `paid-social` — use this for Meta-specific strategy depth, then delegate campaign build/execution to `paid-social`. Trigger phrases: "meta ads," "facebook ads," "instagram ads," "how to run ads," "ad strategy," "ad creative," "campaign structure," "ad targeting," "ad budget," "ad performance," "roas," "cpm," "ctr," "ads not working," "optimize ads," "scale ads," "ad copy," "ad hook," "learning phase," "meta pixel," "ads manager.""
 - `brand-kit-check` — Use before producing ANY outbound or customer-facing deliverable — copy, creative, email, social, ads, landing pages, scripts. Loads the Brand Kit and checks the draft stays on voice, tone, and messaging.
 - `build-mini-app` — Use when a deliverable is better served as an interactive tool than a document — a calculator, checklist, dashboard, briefing deck, quiz or planner the team will reuse — or when asked to build, update or list mini-apps. Covers the single-file HTML contract and where apps live.
 - `capability-check` — Use the moment a task needs live platform data — analytics, ad spend, CRM records, review feeds, send stats. Establishes what you can actually reach before you answer, so you never present invented numbers as measurement.

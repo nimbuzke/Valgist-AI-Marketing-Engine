@@ -1,15 +1,8 @@
 ---
 name: instagram-reel-to-script
-description: >
-  Turn any Reel, TikTok or YouTube Short into its full script (timestamped transcript, on-screen
-  text, shot-by-shot beat sheet), analyze why it went viral, then rewrite it as your own original
-  script, shot list, caption and cover, and post with WoopSocial. Watches the video with the bundled
-  free video-eyes script (ffmpeg frames, cuts, local whisper transcript); no login, paid tools or API
-  keys. Never reposts or reuses source footage/audio/text (Instagram's 2026 originality rule).
-  Trigger phrases: "reel to script," "extract the script from this reel," "transcribe this reel,"
-  "analyze this reel," "why did this go viral," "watch this reel," "copy this trending reel,"
-  "remake this for my niche."
+description: "Use when Turn any Reel, TikTok or YouTube Short into its full script (timestamped transcript, on-screen text, shot-by-shot beat sheet), analyze why it went viral, then rewrite it as your own original script, shot list, caption and cover, and post with WoopSocial. Watches the video with the bundled free video-eyes script (ffmpeg frames, cuts, local whisper transcript); no login, paid tools or API keys. Never reposts or reuses source footage/audio/text (Instagram's 2026 originality rule). Trigger phrases: "reel to script," "extract the script from this reel," "transcribe this reel," "analyze this reel," "why did this go viral," "watch this reel," "copy this trending reel," "remake this for my niche.""
 ---
+
 
 # Instagram Reel to Script
 
@@ -95,6 +88,13 @@ WoopSocial post confirmation, platform, date, metrics readback plan.
 | WoopSocial | ⚪ not wired | mcp | `WOOPSOCIAL_API_KEY` |
 
 > Source: `nimbuzke/instagram-reel-to-script`. Run `python3 scripts/video-eyes.py path/to/reel.mp4 --out remake/` at level 3.
+
+## Quality Bar
+
+- Output matches the skill contract and output path convention.
+- Every factual claim traces to a knowledge-base file or cited source; unavailable data marked [AWAITING DATA].
+- Brand voice and banned-word rules from knowledge/01-brand/ are honored.
+- Human approval required before any publish-ready asset ships.
 
 ## Related skills
 

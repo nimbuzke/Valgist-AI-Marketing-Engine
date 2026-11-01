@@ -1,0 +1,16 @@
+{
+  "gate": "TALE",
+  "draft": "/home/sage/Documents/Automation/marketing/valgist-marketing-engine/.factory-state/sales-closing/G4-Factory-verification-test.json",
+  "draft_hash": "9c0be6aa561e2eb11a2e0d88b61b053b02a998a73306fdd4484aff4b4092ed35",
+  "checked_at": "2026-10-31T22:35:26.793885+00:00",
+  "passed": false,
+  "score": 0,
+  "max_score": 80,
+  "pct": 0.0,
+  "notes": [
+    "T: no keywords found",
+    "A: no keywords found",
+    "L: no keywords found",
+    "E: no keywords found"
+  ]
+}

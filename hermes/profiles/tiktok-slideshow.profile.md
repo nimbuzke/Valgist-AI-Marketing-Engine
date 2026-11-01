@@ -51,7 +51,7 @@ duplicating it.
 
 Executable procedures available to this profile:
 
-- `tiktok-slideshow` — >
+- `tiktok-slideshow` — "Use when Plan, write and render TikTok photo-mode slideshows that market an app, SaaS or product, then post them as native TikTok photo posts and Instagram carousels to one or many accounts with WoopSocial, read results back and test the next hooks. Free local slide renderer (Python + Pillow, TikTok Sans and TikTok's own text styles, 1080x1920 with safe zones, plus 4:5 Instagram copies). No paid API keys. Trigger phrases: "tiktok slideshow," "make tiktok slideshows for my app," "tiktok carousel," "photo mode post," "slideshow marketing," "automate tiktok slideshows," "app marketing on tiktok.""
 - `brand-kit-check` — Use before producing ANY outbound or customer-facing deliverable — copy, creative, email, social, ads, landing pages, scripts. Loads the Brand Kit and checks the draft stays on voice, tone, and messaging.
 - `build-mini-app` — Use when a deliverable is better served as an interactive tool than a document — a calculator, checklist, dashboard, briefing deck, quiz or planner the team will reuse — or when asked to build, update or list mini-apps. Covers the single-file HTML contract and where apps live.
 - `capability-check` — Use the moment a task needs live platform data — analytics, ad spend, CRM records, review feeds, send stats. Establishes what you can actually reach before you answer, so you never present invented numbers as measurement.

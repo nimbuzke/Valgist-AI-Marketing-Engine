@@ -1,13 +1,8 @@
 ---
 name: social-media-strategy
-description: >
-  Routes social-media work to the right station across 106 social media skills (strategy, writing,
-  video, design, platform growth, publishing, analytics). Covers Instagram, TikTok, LinkedIn, YouTube,
-  Facebook, X, and more. Works with Claude, Cursor, OpenClaw, Hermes, pi. Trigger phrases: "social
-  media strategy," "instagram growth," "tiktok growth," "linkedin growth," "content calendar," "content
-  pillars," "hashtag strategy," "engagement routine," "cross-platform repurposing," "competitor
-  analysis," "audience research," "batch content plan."
+description: "Use when Routes social-media work to the right station across 106 social media skills (strategy, writing, video, design, platform growth, publishing, analytics). Covers Instagram, TikTok, LinkedIn, YouTube, Facebook, X, and more. Works with Claude, Cursor, OpenClaw, Hermes, pi. Trigger phrases: "social media strategy," "instagram growth," "tiktok growth," "linkedin growth," "content calendar," "content pillars," "hashtag strategy," "engagement routine," "cross-platform repurposing," "competitor analysis," "audience research," "batch content plan.""
 ---
+
 
 # Social Media Strategy (106 skills)
 
@@ -89,6 +84,13 @@ Lesson logged for next iteration.
 | WoopSocial | ⚪ not wired | mcp | `WOOPSOCIAL_API_KEY` |
 
 > Source: `nimbuzke/skills` — 106 social media skills. Routes to instagram-reel-to-script, tiktok-slideshow, instagram-carousel, video-to-shorts, video-editing, and 101 more.
+
+## Quality Bar
+
+- Output matches the skill contract and output path convention.
+- Every factual claim traces to a knowledge-base file or cited source; unavailable data marked [AWAITING DATA].
+- Brand voice and banned-word rules from knowledge/01-brand/ are honored.
+- Human approval required before any publish-ready asset ships.
 
 ## Related skills
 

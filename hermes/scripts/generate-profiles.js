@@ -133,8 +133,8 @@ const P = [
   {
     id: "marketing-director", emoji: "🎯", category: "Operations",
     title: "Marketing Director (CMO)",
-    tagline: "Turns goals into quarterly plans, allocates work, owns the campaign calendar, runs retros.",
-    persona: "The orchestrator. A pragmatic CMO who converts business goals into quarterly marketing plans, delegates to the right specialist profiles, and holds weekly retros against KPIs. Ruthless about focus: fewer campaigns, executed better.",
+    tagline: "Turns goals into quarterly plans, allocates work, owns the campaign calendar, runs retros. Commands the factory: CATALYST phases, sales closing line with G9 Google Maps + G10 ai-webscraper lead gen (pgvector-stored), marketing loops, auditor gates, loop-engineering.",
+    persona: "The orchestrator. A pragmatic CMO who converts business goals into quarterly marketing plans, delegates to the right specialist profiles, and holds weekly retros against KPIs. Commands the deterministic marketing factory: CATALYST phase-based orchestration, Line 8 sales closing with G9/G10 lead gen persisted to pgvector, marketing loops, laya batch decision matrix, 12 auditor gates (incl. PACE, ATTRIB, LEAD, CAC), ponytail simplicity review, loop-engineering (loop-triage, loop-verifier, loop-budget, loop-constraints). Ruthless about focus: fewer campaigns, executed better.",
     playbooks: [
       "Quarterly planning — goals → strategies → campaigns → owner profiles → KPIs",
       "Master campaign calendar — cross-channel calendar with dependencies",
@@ -142,18 +142,28 @@ const P = [
       "Weekly retro — KPI review, wins/losses, reallocation decisions",
       "Budget alignment — sync with budget-planner on spend vs. plan",
       "Brain promotion — reviews specialist drafts and promotes them into the org brain",
+      "Factory command — runs CATALYST phases, Line 8 sales closing, marketing loops via factory-controller.py",
+      "Laya batch decisions — batches gated-station publish decisions through the decision matrix",
+      "Auditor gates — enforces TALE/CORE-EEAT/CITE/ECHO/SEND/ROAS/STAR/RAMP/PACE/ATTRIB/LEAD/CAC before distribution",
+      "Ponytail review — enforces simplicity review before every station execution",
+      "pgvector lead storage — persists scraped Google Maps leads to pgvector for semantic retrieval",
+      "Loop engineering — loop-triage, loop-verifier, loop-budget, loop-constraints for deterministic factory operation",
     ],
     tools: ["delegate", "web-search", "code-execution"],
     integrations: [],
-    context: ["03-campaigns/", "05-analytics-reports/", "03-campaigns/work-orders/"],
-    owns: ["03-campaigns/", "03-campaigns/work-orders/"],
-    routes: ["quarterly plan", "campaign calendar", "allocate work", "route work", "weekly retro", "promote draft", "executive summary"],
+    context: ["03-campaigns/", "05-analytics-reports/", "03-campaigns/work-orders/", "00-org/brand-context.md"],
+    owns: ["03-campaigns/", "03-campaigns/work-orders/", "03-campaigns/leads/"],
+    routes: ["quarterly plan", "campaign calendar", "allocate work", "route work", "weekly retro", "promote draft", "executive summary", "factory run", "sales closing", "marketing loop", "laya batch", "google maps leads", "pgvector search", "loop-triage", "loop-verifier"],
     orchestrator: true,
     outputs: [
       "`knowledge/03-campaigns/quarterly-plan.md` — the active quarter plan",
       "`knowledge/03-campaigns/calendar.md` — master campaign calendar",
       "`knowledge/03-campaigns/work-orders/*.md` — work orders routed to specialists",
+      "`knowledge/03-campaigns/leads/*.xlsx` — Google Maps lead generation exports",
+      "pgvector lead_embeddings — semantic lead index (location, query, category, contact info)",
+      "Loop run log — `.factory-state/loop-run-log.md` (run history with tokens, outcomes)",
       "Weekly retro notes + monthly executive summary in `knowledge/05-analytics-reports/`",
+      "Factory run state in `.factory-state/` (line runs, phase runs, loop runs)",
     ],
   },
   {
@@ -884,6 +894,7 @@ const P = [
   },
   {
     id: "content-repurposing", emoji: "🔄", category: "Acquisition",
+    title: "Content Repurposing",
     tagline: "Turns one content piece into six formats without diluting the message — match format to platform, audience, and goal.",
     persona: "A content strategist who maximizes reach from existing assets. Maps each source piece to the best format per platform and audience behavior, never publishing without a reason.",
     playbooks: [
@@ -908,6 +919,7 @@ const P = [
   },
   {
     id: "copy-editing", emoji: "📝", category: "Conversion",
+    title: "Copy Editing",
     tagline: "Reviews, edits, and improves existing marketing copy — copy sweeps, editorial review, refreshing outdated content without rewriting from scratch.",
     persona: "An editorial specialist who reviews existing copy for weak claims, passive voice, AI clichés, and outdated messaging. Delivers marked-up revisions with rationale, not wholesale rewrites.",
     playbooks: [
@@ -932,6 +944,7 @@ const P = [
   },
   {
     id: "ab-testing", emoji: "🧪", category: "Conversion",
+    title: "A/B Testing",
     tagline: "Complete experimentation lifecycle — hypotheses with teeth, sample sizing, statistical significance, ICE scoring, test velocity, compounding experiment backlog.",
     persona: "A growth experimenter who treats A/B testing as a decision-making system, not a one-off tactic. Designs tests that run without bias, reads results with statistical honesty, and compounds wins over time.",
     playbooks: [
@@ -957,6 +970,7 @@ const P = [
   },
   {
     id: "closed-loop-analytics", emoji: "🔄", category: "Operations",
+    title: "Closed-Loop Analytics",
     tagline: "Bounded audit-reloop protocol — baseline hash, audit, intervention, re-audit with different bytes, converged/needs-input/exhausted outcomes.",
     persona: "An analytics engineer who runs closed-loop measurement: every published asset gets baselined, audited, and re-audited after intervention. Never autonomous repair — always proposals with human approval.",
     playbooks: [
@@ -982,6 +996,7 @@ const P = [
   },
   {
     id: "revenue-intelligence", emoji: "💰", category: "Operations",
+    title: "Revenue Intelligence",
     tagline: "Proves content ROI — turns sales calls into strategy, revenue attribution, client report generation, Gong-style insight pipeline.",
     persona: "A revenue operations specialist who connects marketing activity to revenue outcomes. Builds attribution models, generates client-ready reports, and surfaces hidden costs in 30 minutes.",
     playbooks: [
@@ -1006,6 +1021,7 @@ const P = [
   },
   {
     id: "growth-engine", emoji: "🚀", category: "Acquisition",
+    title: "Growth Engine",
     tagline: "Autonomous marketing experiments that run, measure, and optimize themselves — experiment engine, pacing alerts, weekly scorecard.",
     persona: "A growth operator who runs autonomous experiments end-to-end. Sets pacing alerts, ships weekly scorecards, and optimizes experiments without human intervention on the execution layer.",
     playbooks: [
@@ -1030,6 +1046,7 @@ const P = [
   },
   {
     id: "outbound-engine", emoji: "📬", category: "Operations",
+    title: "Outbound Engine",
     tagline: "ICP definition to emails in inbox — cold outbound optimizer, lead pipeline, competitive monitor, fully automated dry-run-first.",
     persona: "An outbound specialist who moves from ICP definition to sequenced outreach with dry-run-before-send governance. Monitors competitors and optimizes outbound performance.",
     playbooks: [
@@ -1055,6 +1072,7 @@ const P = [
   },
   {
     id: "content-eval", emoji: "📊", category: "Operations",
+    title: "Content Eval",
     tagline: "Content quality scoring — eval loop spec, measurable initiative tracking, strategy→execution→evaluation loop with observable metrics.",
     persona: "A content quality analyst who scores every deliverable against a rubric. Tracks measurable initiatives (landing pages, ad sets, email sequences) not just one-off artifacts, with observable metrics per loop.",
     playbooks: [
@@ -1079,6 +1097,7 @@ const P = [
   },
   {
     id: "auditor-protocol", emoji: "⚖️", category: "Operations",
+    title: "Auditor Protocol",
     tagline: "Eight auditor gates — TALE, CORE-EEAT, CITE, ECHO, SEND, ROAS, STAR, RAMP — with veto items, weighted rollups, and inter-skill handoff contracts.",
     persona: "A quality gatekeeper who runs every outbound asset through the matching auditor framework. Veto items block publish regardless of score. Handoffs carry structured evidence and next-skill recommendations.",
     playbooks: [
@@ -1092,7 +1111,7 @@ const P = [
     integrations: [],
     context: ["INDEX.md", "00-org/ORG.md", "06-playbooks/compliance-checklists.md", "01-brand/brand-kit.md"],
     owns: ["06-playbooks/auditor-gates/"],
-    routes: ["auditor gate", "core-eeat", "roas", "send", "echo", "star", "ramp", "tale", "cite", "veto item", "publish gate"],
+    routes: ["auditor gate", "core-eeat", "roas", "echo", "star", "ramp", "tale", "cite", "veto item", "publish gate"],
     model: null,
     orchestrator: false,
     requiredKeys: [],
@@ -1130,6 +1149,7 @@ const P = [
   },
   {
     id: "signal-prospector", emoji: "🎯", category: "Acquisition",
+    title: "Signal Prospector",
     tagline: "Signal-based B2B prospecting: 8 buying-signal detectors, ICP fit × signal × recency scoring (0–100), free MX-validated email enrichment, signal-aware personalized outreach.",
     persona: "A signal-driven prospecting specialist who identifies buying-moment accounts before competitors. Scores every lead transparently. Enriches with free MX-validated email guessing. Drafts signal-aware outreach that never auto-sends.",
     playbooks: [
@@ -1156,6 +1176,7 @@ const P = [
   },
   {
     id: "outreach-system", emoji: "🌐", category: "Operations",
+    title: "Outreach System",
     tagline: "Autonomous multi-channel outreach: Google Maps lead finder, enrichment, AI CEO scheduling, Email/WhatsApp/Instagram/Facebook messaging, response management, niche/city scaling.",
     persona: "An autonomous outreach operator who runs a self-orchestrating multi-channel pipeline. The AI CEO manages scheduling, daily limits, and approval gates. Multi-channel by design with sequence safety safeguards.",
     playbooks: [
@@ -2033,15 +2054,25 @@ const routing = {
   note: "Task routing table. The Marketing Director resolves an incoming request to an owner profile here, then writes a work order.",
   matching: "Case-insensitive, on whole words only — a phrase matches when it appears in the request bounded by non-alphanumeric characters, so \"ice\" never matches \"service\". Longest matching phrase wins; no match falls back to `fallback`.",
   fallback: "marketing-director",
-  routes: registry.flatMap((p) =>
-    p.routes.map((phrase) => ({
-      phrase,
-      owner: p.id,
-      ownerName: `${p.emoji} ${p.name}`,
-      requires: p.context.filter((c) => !BASE_CONTEXT.includes(c)),
-      outputPath: p.owns[0] ? `knowledge/${p.owns[0].replace(/ \(via promotion\)$/, "")}` : "knowledge/07-agent-outputs/",
-    }))
-  ).sort((a, b) => b.phrase.length - a.phrase.length),
+  routes: (() => {
+    const seen = new Map();
+    const deduped = [];
+    for (const p of registry) {
+      for (const phrase of p.routes) {
+        if (!seen.has(phrase)) {
+          seen.set(phrase, p.id);
+          deduped.push({
+            phrase,
+            owner: p.id,
+            ownerName: `${p.emoji} ${p.name}`,
+            requires: p.context.filter((c) => !BASE_CONTEXT.includes(c)),
+            outputPath: p.owns[0] ? `knowledge/${p.owns[0].replace(/ \(via promotion\)$/, "")}` : "knowledge/07-agent-outputs/",
+          });
+        }
+      }
+    }
+    return deduped.sort((a, b) => b.phrase.length - a.phrase.length);
+  })(),
 };
 fs.writeFileSync(path.join(ROOT, "hermes", "routing.json"), JSON.stringify(routing, null, 2), "utf8");
 

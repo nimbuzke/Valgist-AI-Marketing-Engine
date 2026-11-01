@@ -1,16 +1,8 @@
 ---
 name: schema
-description: >
-  Schema markup and structured data specialist. JSON-LD, schema.org types, rich snippets,
-  rich results, FAQ/Product/Article/Organization/Review/LocalBusiness/HowTo/BreadcrumbList/
-  Event schema, schema validation, Google Rich Results Test. Makes content eligible for
-  enhanced search features and AI-powered search visibility.
-  Trigger phrases: "schema," "structured data," "JSON-LD," "schema.org," "rich snippets,"
-  "rich results," "FAQ schema," "Product schema," "Article schema," "Organization schema,"
-  "Review schema," "LocalBusiness schema," "HowTo schema," "BreadcrumbList schema," "Event
-  schema," "schema validation," "Google Rich Results Test," "enhanced search features," "AI
-  search visibility."
+description: "Use when Schema markup and structured data specialist. JSON-LD, schema.org types, rich snippets, rich results, FAQ/Product/Article/Organization/Review/LocalBusiness/HowTo/BreadcrumbList/ Event schema, schema validation, Google Rich Results Test. Makes content eligible for enhanced search features and AI-powered search visibility. Trigger phrases: "schema," "structured data," "JSON-LD," "schema.org," "rich snippets," "rich results," "FAQ schema," "Product schema," "Article schema," "Organization schema," "Review schema," "LocalBusiness schema," "HowTo schema," "BreadcrumbList schema," "Event schema," "schema validation," "Google Rich Results Test," "enhanced search features," "AI search visibility.""
 ---
+
 
 # Schema Markup & Structured Data
 
@@ -107,6 +99,13 @@ Entity schema, sameAs, topic authority signals.
 | GA4 | ⚪ not wired | mcp | `GA4_PROPERTY_ID` |
 
 > Source: `nimbuzke/marketing-skills` (scayver). Schema skill.
+
+## Quality Bar
+
+- Output matches the skill contract and output path convention.
+- Every factual claim traces to a knowledge-base file or cited source; unavailable data marked [AWAITING DATA].
+- Brand voice and banned-word rules from knowledge/01-brand/ are honored.
+- Human approval required before any publish-ready asset ships.
 
 ## Related skills
 

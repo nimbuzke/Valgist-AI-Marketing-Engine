@@ -1,0 +1,15 @@
+{
+  "gate": "ROAS",
+  "draft": "/home/sage/Documents/Automation/marketing/valgist-marketing-engine/.factory-state/sales-closing/G4-Revive-closed-lost-HubSpot-deals.json",
+  "draft_hash": "ae165053e6a75f02ef8b3d29ab3521bd9437c7812ddc64a96b74f5213d5ebf7d",
+  "checked_at": "2026-10-31T22:31:02.379719+00:00",
+  "passed": false,
+  "score": 0,
+  "max_score": 60,
+  "pct": 0.0,
+  "notes": [
+    "ROAS: no keywords found",
+    "CPA: no keywords found",
+    "CTR: no keywords found"
+  ]
+}

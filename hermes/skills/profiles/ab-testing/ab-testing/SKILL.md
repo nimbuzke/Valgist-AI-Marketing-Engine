@@ -66,6 +66,13 @@ Statistical significance, segment breakdown, decision (win/lose/inconclusive).
 Promote winner, retire loser, or iterate.
 ```
 
+## Quality Bar
+
+- Output matches the skill contract and output path convention.
+- Every factual claim traces to a knowledge-base file or cited source; unavailable data marked [AWAITING DATA].
+- Brand voice and banned-word rules from knowledge/01-brand/ are honored.
+- Human approval required before any publish-ready asset ships.
+
 ## Related skills
 
 - `cro-optimizer` — funnel analysis and page audits

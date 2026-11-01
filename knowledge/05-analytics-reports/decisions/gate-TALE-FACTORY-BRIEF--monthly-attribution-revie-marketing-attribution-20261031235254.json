@@ -1,0 +1,16 @@
+{
+  "gate": "TALE",
+  "draft": "/home/sage/Documents/Automation/marketing/valgist-marketing-engine/knowledge/07-agent-outputs/FACTORY-BRIEF--monthly-attribution-revie-marketing-attribution.md",
+  "draft_hash": "c8a93b3cd907d6bcd61080388ab2dcf5f1aa9ef2653244037383adb2ca2aedfc",
+  "checked_at": "2026-10-31T23:52:54.341783+00:00",
+  "passed": true,
+  "score": 60,
+  "max_score": 80,
+  "pct": 75.0,
+  "notes": [
+    "T: found ['claim']",
+    "A: found ['system']",
+    "L: no keywords found",
+    "E: found ['data']"
+  ]
+}

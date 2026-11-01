@@ -1,16 +1,8 @@
 ---
 name: video-editing
-description: >
-  Edit a talking-head video (YouTube video, course lesson, product demo, podcast on camera, vlog)
-  the way an editor would. Transcribes with word timestamps (free local faster-whisper, own Groq/
-  OpenAI key, or existing SRT/VTT), removes silences, "um"s and "uh"s, stutters and retakes (keeps
-  the last take), adds jump-cut punch-ins, cleans and levels audio, writes SRT captions and YouTube
-  chapters, optionally burns captions or makes a vertical version, shows a cut list to approve
-  before rendering, then posts with WoopSocial after you say yes. Works on Mac, Windows, Linux with
-  ffmpeg and Pillow; no paid API required. Trigger phrases: "edit my video," "remove silences,"
-  "cut the ums," "remove filler words," "jump cut my video," "clean up this recording," "edit this
-  talking head video."
+description: "Use when Edit a talking-head video (YouTube video, course lesson, product demo, podcast on camera, vlog) the way an editor would. Transcribes with word timestamps (free local faster-whisper, own Groq/ OpenAI key, or existing SRT/VTT), removes silences, "um"s and "uh"s, stutters and retakes (keeps the last take), adds jump-cut punch-ins, cleans and levels audio, writes SRT captions and YouTube chapters, optionally burns captions or makes a vertical version, shows a cut list to approve before rendering, then posts with WoopSocial after you say yes. Works on Mac, Windows, Linux with ffmpeg and Pillow; no paid API required. Trigger phrases: "edit my video," "remove silences," "cut the ums," "remove filler words," "jump cut my video," "clean up this recording," "edit this talking head video.""
 ---
+
 
 # Video Editing
 
@@ -90,6 +82,13 @@ WoopSocial confirmation, user yes, date.
 | WoopSocial | ⚪ not wired | mcp | `WOOPSOCIAL_API_KEY` |
 
 > Source: `nimbuzke/video-editing-skill`. `python3 scripts/check_setup.py` first.
+
+## Quality Bar
+
+- Output matches the skill contract and output path convention.
+- Every factual claim traces to a knowledge-base file or cited source; unavailable data marked [AWAITING DATA].
+- Brand voice and banned-word rules from knowledge/01-brand/ are honored.
+- Human approval required before any publish-ready asset ships.
 
 ## Related skills
 

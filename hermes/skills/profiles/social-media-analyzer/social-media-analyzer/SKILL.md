@@ -1,14 +1,8 @@
 ---
 name: social-media-analyzer
-description: >
-  Analyze social media performance: engagement quality, channel ROI, content patterns,
-  audience response, reporting, and what to publish more or less often. Separates reach,
-  engagement, traffic, leads, revenue, and attribution. Does not claim causation from
-  correlation alone. Trigger phrases: "social media analysis," "social performance," "social
-  media audit," "engagement rate," "channel ROI," "content patterns," "audience response,"
-  "social reporting," "what to publish more or less," "Instagram analytics," "TikTok
-  analytics," "LinkedIn analytics," "Facebook analytics."
+description: "Use when Analyze social media performance: engagement quality, channel ROI, content patterns, audience response, reporting, and what to publish more or less often. Separates reach, engagement, traffic, leads, revenue, and attribution. Does not claim causation from correlation alone. Trigger phrases: "social media analysis," "social performance," "social media audit," "engagement rate," "channel ROI," "content patterns," "audience response," "social reporting," "what to publish more or less," "Instagram analytics," "TikTok analytics," "LinkedIn analytics," "Facebook analytics.""
 ---
+
 
 # Social Media Analyzer
 
@@ -106,6 +100,13 @@ Specific, measurable next step with owner and due date.
 | GA4 | ⚪ not wired | mcp | `GA4_PROPERTY_ID` |
 
 > Source: `nimbuzke/marketing-skills` (scayver). Social Media Analyzer skill.
+
+## Quality Bar
+
+- Output matches the skill contract and output path convention.
+- Every factual claim traces to a knowledge-base file or cited source; unavailable data marked [AWAITING DATA].
+- Brand voice and banned-word rules from knowledge/01-brand/ are honored.
+- Human approval required before any publish-ready asset ships.
 
 ## Related skills
 

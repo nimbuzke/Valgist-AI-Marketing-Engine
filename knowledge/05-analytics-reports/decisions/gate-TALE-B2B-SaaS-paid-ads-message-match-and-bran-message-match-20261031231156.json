@@ -1,0 +1,16 @@
+{
+  "gate": "TALE",
+  "draft": "/home/sage/Documents/Automation/marketing/valgist-marketing-engine/knowledge/07-agent-outputs/B2B-SaaS-paid-ads-message-match-and-bran-message-match.md",
+  "draft_hash": "16b11a6bf2fe204932a60f47eb2927587e893b24f0d575b2fb08dfb291440235",
+  "checked_at": "2026-10-31T23:11:56.350534+00:00",
+  "passed": true,
+  "score": 80,
+  "max_score": 80,
+  "pct": 100.0,
+  "notes": [
+    "T: found ['claim']",
+    "A: found ['system']",
+    "L: found ['landing', 'hook']",
+    "E: found ['data']"
+  ]
+}

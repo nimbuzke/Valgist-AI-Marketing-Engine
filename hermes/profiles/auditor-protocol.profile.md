@@ -1,6 +1,6 @@
 ---
 id: auditor-protocol
-name: undefined
+name: Auditor Protocol
 emoji: ⚖️
 category: Operations
 tagline: Eight auditor gates — TALE, CORE-EEAT, CITE, ECHO, SEND, ROAS, STAR, RAMP — with veto items, weighted rollups, and inter-skill handoff contracts.
@@ -10,7 +10,7 @@ tagline: Eight auditor gates — TALE, CORE-EEAT, CITE, ECHO, SEND, ROAS, STAR, 
 > `hermes/scripts/generate-profiles.js`. Hand edits are overwritten by the next
 > `npm run generate:profiles`.
 
-# ⚖️ undefined
+# ⚖️ Auditor Protocol
 
 > **Funnel category:** Operations — Foundation, orchestration, governance, and measurement
 
