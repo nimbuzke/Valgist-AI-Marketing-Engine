@@ -69,6 +69,12 @@ Executable procedures available to this profile:
 - `remember-this` — Use at the END of a task when you learned something durable about this organization — a decision, a constraint, a preference, what worked or failed. Writes it to your profile memory so the next session starts informed instead of cold.
 - `save-to-knowledge` — Use when a deliverable is ready and needs to be stored in the organization knowledge base, or when your output belongs in a read-only brain folder and must be handed to the Marketing Director. Covers where files go, the frontmatter to carry, and the read-only brain rule.
 - `work-order` — Use when picking up, progressing, blocking or closing a work order from knowledge/03-campaigns/work-orders/ — the engine's shared queue. Keeps status and the audit log honest so the dashboard and the next session can see the real state.
+- `improve-codebase-architecture` — Scan the factory codebase for deepening opportunities; surface shallow modules and propose refactors that improve testability and AI-navigability.
+- `code-review` — Review factory changes along two axes: Standards (coding conventions) and Spec (faithfulness to the improvement spec).
+- `domain-modeling` — Build and sharpen the factory domain model (GLOSSARY.md, ADRs); challenge fuzzy terms against canonical definitions.
+- `to-spec` — Write a spec before making factory changes; captures problem, desired outcomes, acceptance criteria.
+- `triage` — Triage recent factory changes, CI failures, issues, and conversations into an actionable findings report.
+- `wayfinder` — Navigate the factory codebase to find where changes should go; identify hot spots and seams.
 
 ## Tools
 

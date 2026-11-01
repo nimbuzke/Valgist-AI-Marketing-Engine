@@ -5,7 +5,7 @@
       "line": 1,
       "last_run": "03f0b7afeafb18cb6cacd7df4ecfcc0428baad62930062db2a1efddbdc018420",
       "status": "ok",
-      "owner": "marketing-director",
+      "owner": "market-researcher",
       "skill": "find-in-knowledge"
     },
     "A2": {
@@ -26,49 +26,49 @@
       "line": 1,
       "last_run": "10baa774843bb51db75128e34eb13bab0056a107336cbf4481e40deb92524fcc",
       "status": "ok",
-      "owner": "marketing-director",
+      "owner": "creative-designer",
       "skill": "creative-set"
     },
     "F2": {
       "line": 1,
       "last_run": "f720d237a19ea9af986a234dcfdae51ef55b31ba0bf49e440318bb14e4059fde",
       "status": "ok",
-      "owner": "marketing-director",
+      "owner": "brand-strategist",
       "skill": "brand-kit-authoring"
     },
     "F3": {
       "line": 1,
       "last_run": "10baa774843bb51db75128e34eb13bab0056a107336cbf4481e40deb92524fcc",
       "status": "ok",
-      "owner": "marketing-director",
+      "owner": "creative-designer",
       "skill": "creative-set"
     },
     "F4": {
       "line": 1,
       "last_run": "10baa774843bb51db75128e34eb13bab0056a107336cbf4481e40deb92524fcc",
       "status": "ok",
-      "owner": "marketing-director",
+      "owner": "creative-designer",
       "skill": "creative-set"
     },
     "S3": {
       "line": 1,
       "last_run": "79158243603c6b0590fa6efdc0101ac97aad2e09817632b752fb1824ee3da47e",
       "status": "ok",
-      "owner": "marketing-director",
+      "owner": "brand-strategist",
       "skill": "brand-kit-check"
     },
     "S4": {
       "line": 1,
       "last_run": "be34668d96d6741f5d1d6e3737ced8522877f79af1aeb54cff787f63a06f03c5",
       "status": "ok",
-      "owner": "marketing-director",
+      "owner": "compliance-guard",
       "skill": "compliance-gate"
     },
     "S5": {
       "line": 1,
       "last_run": "1baa6f4279fabfc68155951fc48e774b6c19f9b52126f4fb08412e5191010ff1",
       "status": "ok",
-      "owner": "marketing-director",
+      "owner": "market-researcher",
       "skill": "save-to-knowledge"
     },
     "E5": {

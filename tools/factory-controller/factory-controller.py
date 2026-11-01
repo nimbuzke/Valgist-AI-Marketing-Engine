@@ -39,6 +39,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import logging
 import os
 import subprocess
 import sys
@@ -49,6 +50,33 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Set, Tuple
 
+# ────────────────────────── Logging ──────────────────────────
+logging.basicConfig(
+    level=os.environ.get('VALGIST_LOG_LEVEL', 'INFO').upper(),
+    format='%(asctime)s %(levelname)s %(name)s: %(message)s',
+    datefmt='%H:%M:%S',
+)
+log = logging.getLogger('factory')
+
+# ────────────────────────── Error types ──────────────────────────
+
+
+class FactoryError(Exception):
+    """Base factory exception."""
+
+
+class DependencyError(FactoryError):
+    """A required dependency (CLI, sibling repo, pgvector) is missing."""
+
+
+class StationError(FactoryError):
+    """A station failed and cannot be recovered."""
+
+
+class SkillError(FactoryError):
+    """A skill execution failed."""
+
+
 # ────────────────────────── Vector service import (same directory) ──────────────
 _VS_PATH = Path(__file__).parent / "vector-service.py"
 _VS_SPEC = importlib.util.spec_from_file_location("vector_service", _VS_PATH)
@@ -57,6 +85,31 @@ sys.modules["vector_service"] = _VS_MODULE
 _VS_SPEC.loader.exec_module(_VS_MODULE)
 VectorService = _VS_MODULE.VectorService
 embed = _VS_MODULE.embed
+
+# ────────────────────────── Health check ──────────────────────────
+
+
+def health_check() -> List[str]:
+    """Validate all factory dependencies. Returns list of missing dep descriptions."""
+    missing: List[str] = []
+
+    if not Path(SKILLS_CLI).exists():
+        missing.append(f"valgist-skills CLI not found at {SKILLS_CLI}")
+
+    if not GEN_SCRIPT.exists():
+        missing.append(f"google-maps-lead-generator not found at {GEN_SCRIPT}")
+
+    if not WEB_SCRAPER_SCRIPT.exists():
+        missing.append(f"ai-webscraper not found at {WEB_SCRAPER_SCRIPT}")
+
+    if not DECISION_ENGINE.exists():
+        missing.append(f"decision engine not found at {DECISION_ENGINE}")
+
+    if not PONYTAIL_INTEGRATION.exists():
+        missing.append(f"ponytail integration not found at {PONYTAIL_INTEGRATION}")
+
+    return missing
+
 
 # ────────────────────────── Paths & env ──────────────────────────
 REPO_PATH = Path(
@@ -107,6 +160,26 @@ WEB_SCRAPER_RETRIES = 3
 # Sibling-repo virtualenvs (each lead-generator repo has its own venv)
 GEN_VENV_PYTHON = GEN_DIR / ".venv" / "bin" / "python"
 WEB_SCRAPER_VENV_PYTHON = WEB_SCRAPER_DIR / ".venv" / "bin" / "python"
+
+# ────────────────────────── Circuit breaker ──────────────────────────
+
+
+class CircuitBreaker:
+    """Tracks consecutive failures per station; opens after threshold."""
+
+    def __init__(self, threshold: int = 3):
+        self.threshold = threshold
+        self.failures: Dict[str, int] = {}
+
+    def record_failure(self, station: str) -> None:
+        self.failures[station] = self.failures.get(station, 0) + 1
+
+    def record_success(self, station: str) -> None:
+        self.failures.pop(station, None)
+
+    def is_open(self, station: str) -> bool:
+        return self.failures.get(station, 0) >= self.threshold
+
 
 # ────────────────────────── Unified Station Registry ──────────────────────────
 # Each station maps to:
@@ -881,9 +954,12 @@ LOOP_DEFS: Dict[str, Dict[str, Any]] = {
 
 # ────────────────────────── Factory controller ──────────────────────────
 class FactoryController:
-    def __init__(self, repo_path: Path = REPO_PATH):
+    def __init__(self, repo_path: Path = REPO_PATH, dry_run: bool = False):
         self.repo_path = repo_path
+        self.dry_run = dry_run
+        self.circuit_breaker = CircuitBreaker()
         self.manifest = load_manifest()
+        self._validate_startup()
         FACTORY_STATE_DIR.mkdir(parents=True, exist_ok=True)
         LOCK_DIR.mkdir(parents=True, exist_ok=True)
         OUTPUTS_DIR.mkdir(parents=True, exist_ok=True)
@@ -894,6 +970,46 @@ class FactoryController:
         DEALS_DIR.mkdir(parents=True, exist_ok=True)
         REGISTRIES_DIR.mkdir(parents=True, exist_ok=True)
         LEADS_DIR.mkdir(parents=True, exist_ok=True)
+
+    def _validate_startup(self) -> None:
+        """Run health check and validate STATION_REGISTRY skills. Fail fast."""
+        missing = health_check()
+        if missing:
+            log.error("Factory dependencies missing:")
+            for dep in missing:
+                log.error("  - %s", dep)
+            raise DependencyError(
+                "Factory cannot start: missing dependencies. "
+                "Install valgist-skills CLI and ensure sibling repos are present."
+            )
+
+        # Validate that every skill referenced in STATION_REGISTRY exists
+        # (skills may be None for non-skill handlers like google_maps/web_scraper)
+        try:
+            proc = subprocess.run(
+                [SKILLS_CLI, 'list'],
+                capture_output=True, text=True, timeout=30,
+                env={'VALGIST_REPO_PATH': str(REPO_PATH)},
+            )
+            installed = proc.stdout.lower()
+            unknown: List[str] = []
+            for station_id, cfg in STATION_REGISTRY.items():
+                skill = cfg.get('skill')
+                if skill is None:
+                    continue  # non-skill handler (google_maps, web_scraper, stub)
+                skill_lower = skill.lower()
+                if skill_lower not in installed:
+                    unknown.append(f"{station_id}: {skill}")
+            if unknown:
+                log.warning("Skills not found in valgist-skills (stubs will be used):")
+                for u in unknown:
+                    log.warning("  - %s", u)
+        except Exception as e:
+            log.warning("Could not validate skills via valgist-skills CLI: %s", e)
+
+    def _log(self, level: str, station: str, message: str) -> None:
+        """Structured log line with station context."""
+        getattr(log, level, log.info)("[%s] %s", station, message)
 
     def _acquire_lock(self, name: str):
         lockfile = LOCK_DIR / f"{name}.lock"
@@ -1096,28 +1212,56 @@ class FactoryController:
         handler = station_config.get("handler", "skill")
         skill_name = station_config.get("skill") or "find-in-knowledge"
 
-        if handler == "skill":
-            return self._run_skill_station(station_id, station_input, line, brief,
-                                           output_path, skill_name, station_config,
-                                           ponytail_decision, ponytail_reasoning)
-        elif handler == "sales_closing":
-            return self._run_sales_station(station_id, station_input, line, brief,
-                                           output_path, station_config,
-                                           ponytail_decision, ponytail_reasoning)
-        elif handler == "google_maps":
-            return self._run_google_maps_station(station_id, station_input, line, brief,
-                                                 output_path, station_config,
-                                                 ponytail_decision, ponytail_reasoning)
-        elif handler == "web_scraper":
-            return self._run_web_scraper_station(station_id, station_input, line, brief,
-                                                 output_path, station_config,
-                                                 ponytail_decision, ponytail_reasoning)
-        elif handler == "stub":
-            return self._run_stub_station(station_id, station_input, line, brief,
-                                          output_path, ponytail_decision, ponytail_reasoning)
-        else:
-            return StationResult(station=station_id, line=line, status="failed",
-                                 reason=f"Unknown handler: {handler}")
+        # Circuit breaker: skip if this station is failing repeatedly
+        if self.circuit_breaker.is_open(station_id):
+            self._log("warning", station_id, f"circuit breaker open ({self.circuit_breaker.failures.get(station_id, 0)} consecutive failures); skipping")
+            return StationResult(station=station_id, line=line, status="blocked",
+                                 reason=f"circuit breaker open after {self.circuit_breaker.failures.get(station_id, 0)} failures")
+
+        # Execute handler with retry
+        last_error = None
+        for attempt in range(3):
+            try:
+                if handler == "skill":
+                    result = self._run_skill_station(station_id, station_input, line, brief,
+                                                     output_path, skill_name, station_config,
+                                                     ponytail_decision, ponytail_reasoning)
+                elif handler == "sales_closing":
+                    result = self._run_sales_station(station_id, station_input, line, brief,
+                                                     output_path, station_config,
+                                                     ponytail_decision, ponytail_reasoning)
+                elif handler == "google_maps":
+                    result = self._run_google_maps_station(station_id, station_input, line, brief,
+                                                           output_path, station_config,
+                                                           ponytail_decision, ponytail_reasoning)
+                elif handler == "web_scraper":
+                    result = self._run_web_scraper_station(station_id, station_input, line, brief,
+                                                           output_path, station_config,
+                                                           ponytail_decision, ponytail_reasoning)
+                elif handler == "stub":
+                    result = self._run_stub_station(station_id, station_input, line, brief,
+                                                     output_path, ponytail_decision, ponytail_reasoning)
+                else:
+                    return StationResult(station=station_id, line=line, status="failed",
+                                         reason=f"Unknown handler: {handler}")
+
+                if result.status in ("ok", "skipped"):
+                    self.circuit_breaker.record_success(station_id)
+                    return result
+                # blocked/failed: record and retry
+                self.circuit_breaker.record_failure(station_id)
+                last_error = result.reason or f"{result.status}"
+                if attempt < 2:
+                    time.sleep(2 ** attempt)
+            except Exception as e:
+                self.circuit_breaker.record_failure(station_id)
+                last_error = str(e)
+                if attempt < 2:
+                    time.sleep(2 ** attempt)
+
+        self._log("error", station_id, f"failed after 3 attempts: {last_error}")
+        return StationResult(station=station_id, line=line, status="failed",
+                             reason=f"failed after 3 attempts: {last_error}")
 
     def _run_skill_station(self, station_id: str, station_input: str, line: int,
                            brief: str, output_path: Optional[Path],
@@ -1125,18 +1269,27 @@ class FactoryController:
                            ponytail_decision: Optional[str],
                            ponytail_reasoning: str) -> StationResult:
         rc, stdout, stderr = run_skill(skill_name, [station_input])
-        if rc != 0:
+
+        # rc 127 = CLI not found → deterministic stub (skill not wired yet)
+        # rc 124 = timeout → hard failure
+        # other non-zero → skill execution failure
+        if rc == 127:
             stub = _stub_output_for_station(station_id, brief)
             if output_path:
                 atomic_write(output_path, stub)
                 content_hash = sha256_file(output_path)
             else:
                 content_hash = sha256_text(stub)
-            print(f"[factory]    stub: {station_id} skill {skill_name} not available; deterministic stub written")
+            self._log("warning", station_id, f"skill {skill_name} CLI not found; deterministic stub written")
             return StationResult(station=station_id, line=line, status="ok",
                                  output_path=str(output_path) if output_path else None,
                                  content_hash=content_hash,
                                  reason=f"stub: skill {skill_name} not available")
+
+        if rc != 0:
+            self._log("error", station_id, f"skill {skill_name} failed (rc={rc}): {stderr[:200]}")
+            return StationResult(station=station_id, line=line, status="failed",
+                                 reason=f"skill {skill_name} failed (rc={rc}): {stderr[:200]}")
 
         if output_path:
             atomic_write(output_path, stdout)
@@ -1227,7 +1380,7 @@ class FactoryController:
                     pages = 1
 
         if not GEN_SCRIPT.exists():
-            return StationResult(station="G9", line=line, status="failed",
+            return StationResult(station=station_id, line=line, status="failed",
                                  reason=f"google-maps-lead-generator not found at {GEN_SCRIPT}")
 
         dry_run = os.environ.get("VALGIST_GEN_DRY_RUN", "1") != "0"
@@ -1243,10 +1396,10 @@ class FactoryController:
                                   cwd=str(GEN_DIR), env=env)
             result = _parse_leadgen_output(proc.stdout)
         except subprocess.TimeoutExpired:
-            return StationResult(station="G9", line=line, status="failed",
+            return StationResult(station=station_id, line=line, status="failed",
                                  reason=f"google-maps-lead-gen timed out after {GEN_SCRIPT_TIMEOUT}s")
         except Exception as e:
-            return StationResult(station="G9", line=line, status="failed",
+            return StationResult(station=station_id, line=line, status="failed",
                                  reason=f"google-maps-lead-gen error: {e}")
 
         status = result.get("status", "error")
@@ -1261,7 +1414,7 @@ class FactoryController:
                 if not gate_passed:
                     veto = [f"gate_fail:{g['gate']}" for g in gate_results if not g["passed"]]
                     kpi_passed = False
-                    return StationResult(station="G9", line=line, status="blocked",
+                    return StationResult(station=station_id, line=line, status="blocked",
                                          output_path=str(output_path), content_hash=gen_hash,
                                          reason=f"auditor gate veto: {', '.join(veto)}",
                                          veto_hit=veto, gate_results=gate_results)
@@ -1274,14 +1427,14 @@ class FactoryController:
                 content_hash = sha256_file(output_path)
             else:
                 content_hash = gen_hash
-            return StationResult(station="G9", line=line, status="ok",
+            return StationResult(station=station_id, line=line, status="ok",
                                  output_path=str(output_path) if output_path else None,
                                  content_hash=content_hash,
                                  kpi_passed=kpi_passed, veto_hit=veto,
                                  gate_results=gate_results,
                                  ponytail_decision=ponytail_decision)
         else:
-            return StationResult(station="G9", line=line, status="failed",
+            return StationResult(station=station_id, line=line, status="failed",
                                  reason=f"google-maps-lead-gen failed: {result.get('errors', [])}")
 
     def _run_web_scraper_station(self, station_id: str, station_input: str, line: int,
@@ -1304,7 +1457,7 @@ class FactoryController:
                     pages = 1
 
         if not WEB_SCRAPER_SCRIPT.exists():
-            return StationResult(station="G10", line=line, status="failed",
+            return StationResult(station=station_id, line=line, status="failed",
                                  reason=f"ai-webscraper not found at {WEB_SCRAPER_SCRIPT}")
 
         dry_run = os.environ.get("VALGIST_WEB_DRY_RUN", "1") != "0"
@@ -1321,10 +1474,10 @@ class FactoryController:
                                   cwd=str(WEB_SCRAPER_DIR), env=env)
             result = _parse_leadgen_output(proc.stdout)
         except subprocess.TimeoutExpired:
-            return StationResult(station="G10", line=line, status="failed",
+            return StationResult(station=station_id, line=line, status="failed",
                                  reason=f"ai-webscraper timed out after {WEB_SCRAPER_TIMEOUT}s")
         except Exception as e:
-            return StationResult(station="G10", line=line, status="failed",
+            return StationResult(station=station_id, line=line, status="failed",
                                  reason=f"ai-webscraper error: {e}")
 
         status = result.get("status", "error")
@@ -1339,7 +1492,7 @@ class FactoryController:
                 if not gate_passed:
                     veto = [f"gate_fail:{g['gate']}" for g in gate_results if not g["passed"]]
                     kpi_passed = False
-                    return StationResult(station="G10", line=line, status="blocked",
+                    return StationResult(station=station_id, line=line, status="blocked",
                                          output_path=str(output_path), content_hash=gen_hash,
                                          reason=f"auditor gate veto: {', '.join(veto)}",
                                          veto_hit=veto, gate_results=gate_results)
@@ -1352,14 +1505,14 @@ class FactoryController:
                 content_hash = sha256_file(output_path)
             else:
                 content_hash = gen_hash
-            return StationResult(station="G10", line=line, status="ok",
+            return StationResult(station=station_id, line=line, status="ok",
                                  output_path=str(output_path) if output_path else None,
                                  content_hash=content_hash,
                                  kpi_passed=kpi_passed, veto_hit=veto,
                                  gate_results=gate_results,
                                  ponytail_decision=ponytail_decision)
         else:
-            return StationResult(station="G10", line=line, status="failed",
+            return StationResult(station=station_id, line=line, status="failed",
                                  reason=f"ai-webscraper failed: {result.get('errors', [])}")
 
     def _run_stub_station(self, station_id: str, station_input: str, line: int,
@@ -1394,7 +1547,7 @@ class FactoryController:
             gate_passed = all(g["passed"] for g in final_gate_results) if final_gate_results else True
             if not approved or not gate_passed:
                 veto_reasons = veto + [f"gate_fail:{g['gate']}" for g in final_gate_results if not g["passed"]]
-                return StationResult(station=station_id, line=0,
+                return StationResult(station=station_id, line=line,
                                      output_path=str(output_path), content_hash=content_hash,
                                      reason=f"publish gate veto: {', '.join(veto_reasons)}",
                                      veto_hit=veto, gate_results=final_gate_results,
@@ -1586,6 +1739,8 @@ def main() -> None:
                        help="do not skip already-published stations")
     p_run.add_argument("--no-ponytail", action="store_true",
                        help="skip ponytail review")
+    p_run.add_argument("--dry-run", action="store_true",
+                       help="preview execution without running stations")
 
     p_phase = sub.add_parser("phase")
     p_phase.add_argument("--phase", type=int, required=True)
@@ -1595,6 +1750,8 @@ def main() -> None:
                          help="CATALYST operating mode")
     p_phase.add_argument("--no-skip", action="store_true")
     p_phase.add_argument("--no-ponytail", action="store_true")
+    p_phase.add_argument("--dry-run", action="store_true",
+                         help="preview execution without running stations")
 
     p_loop = sub.add_parser("loop")
     p_loop.add_argument("--loop", type=str, required=True,
@@ -1603,8 +1760,12 @@ def main() -> None:
     p_loop.add_argument("--week", type=str, required=True)
     p_loop.add_argument("--no-skip", action="store_true")
     p_loop.add_argument("--no-ponytail", action="store_true")
+    p_loop.add_argument("--dry-run", action="store_true",
+                         help="preview execution without running stations")
 
-    sub.add_parser("status")
+    p_status = sub.add_parser("status")
+    p_status.add_argument("--dry-run", action="store_true",
+                          help="preview execution without running stations")
 
     p_decide = sub.add_parser("decide")
     p_decide.add_argument("--station", type=str, required=True)
@@ -1619,15 +1780,32 @@ def main() -> None:
                             help="Input file path (for content hash)")
 
     args = parser.parse_args()
-    fc = FactoryController()
+    fc = FactoryController(dry_run=getattr(args, 'dry_run', False))
 
     if args.cmd == "run":
+        if args.dry_run:
+            line_def = LINE_DEFS.get(args.line, {})
+            print(f"[factory] DRY-RUN Line {args.line}: {line_def.get('name', 'unknown')}")
+            print(f"[factory] Brief: {args.brief}")
+            for station_ref in line_def.get("stations", []):
+                print(f"[factory]  would run: {station_ref}")
+            print(f"[factory] DRY-RUN complete (no stations executed)")
+            sys.exit(0)
         run = fc.run_line(args.line, args.brief,
                           skip_published=not args.no_skip,
                           enforce_ponytail=not args.no_ponytail)
         print(f"\n[factory] Line {args.line} overall: {run.overall_status}")
         sys.exit(0 if run.overall_status == "completed" else 1)
     elif args.cmd == "phase":
+        if args.dry_run:
+            phase_def = PHASE_DEFS.get(args.phase, {})
+            print(f"[factory] DRY-RUN Phase {args.phase}: {phase_def.get('name', 'unknown')} (mode={args.mode})")
+            print(f"[factory] Brief: {args.brief}")
+            print(f"[factory] Quality gate: {phase_def.get('quality_gate', 'none')}")
+            for station_ref in phase_def.get("stations", []):
+                print(f"[factory]  would run: {station_ref}")
+            print(f"[factory] DRY-RUN complete (no stations executed)")
+            sys.exit(0)
         run = fc.run_phase(args.phase, args.brief, mode=args.mode,
                            skip_published=not args.no_skip,
                            enforce_ponytail=not args.no_ponytail)
@@ -1635,6 +1813,14 @@ def main() -> None:
               f"(quality_gate_passed={run.quality_gate_passed})")
         sys.exit(0 if run.overall_status == "completed" else 1)
     elif args.cmd == "loop":
+        if args.dry_run:
+            loop_def = LOOP_DEFS.get(args.loop, {})
+            print(f"[factory] DRY-RUN Loop {args.loop}: {loop_def.get('name', 'unknown')} ({loop_def.get('cadence', 'unknown')})")
+            print(f"[factory] Topic: {args.topic} | Week: {args.week}")
+            for station_ref in loop_def.get("stations", []):
+                print(f"[factory]  would run: {station_ref}")
+            print(f"[factory] DRY-RUN complete (no stations executed)")
+            sys.exit(0)
         run = fc.run_loop(args.loop, args.topic, args.week,
                           skip_published=not args.no_skip,
                           enforce_ponytail=not args.no_ponytail)
